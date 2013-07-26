@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: linux | Michel P. Macedo]]></title>
+  <link href="http://michelpm.com/blog/categories/linux/atom.xml" rel="self"/>
+  <link href="http://michelpm.com/"/>
+  <updated>2013-07-26T11:09:17-03:00</updated>
+  <id>http://michelpm.com/</id>
+  <author>
+    <name><![CDATA[Michel Pavan Macedo]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[I spun off Linux from my dev machine]]></title>
+    <link href="http://michelpm.com/blog/2011/11/14/i-spun-off-linux-from-my-dev-machine/"/>
+    <updated>2011-11-14T01:41:00-02:00</updated>
+    <id>http://michelpm.com/blog/2011/11/14/i-spun-off-linux-from-my-dev-machine</id>
+    <content type="html"><![CDATA[<p>Some weeks ago I started to learn <a href="http://rubyonrails.org/">Rails</a> and I decided to make my dev machine the right way. By that I mean I had to make myself proficient with <a href="http://git-scm.com/">Git</a>, <a href="http://www.vim.org/">Vim</a>, Shell, <a href="http://en.wikipedia.org/wiki/Test-driven_development">TDD</a> and every other skill I thought a smart programmer would master. At first I didn&rsquo;t want to get rid of my state of art Windows 7 installation with awesome Microsoft Word 2010, Microsoft Visual Studio 2010 full of useful plugins and all that browsers installed to test web pages. I think I had everything a .NET developer would hope for, even had msysgit to play once in a while and pretend my OS was POSIX compliant.</p>
+
+<!--more-->
+
+
+<p>I started to install everything inside and outside <a href="http://code.google.com/p/msysgit/">msysgit</a> and <a href="http://www.cygwin.com/">Cygwin</a>, attempted to setup a gvim with everything a Rails developer need for an text editor. But it was just too hard, I tried for a long time, but couldn&rsquo;t stand anymore. It wasn&rsquo;t worth trying to convince Windows to be something it is not: a Linux. Don&rsquo;t get me wrong, I loved my Windows 7, I wouldn&rsquo;t want anything else to code .NET apps, but it wasn&rsquo;t the first time it disappointed me for things that are not rich GUI&rsquo;s like Visual Studio and I always tend to think that most of the good things aren&rsquo;t. <del>Just try <a href="http://nodejs.org">Node</a> on Windows and see what I am talking about.</del> (Looks like now it works just fine in Windows)</p>
+
+<p>At first I attempted to get a little bit of Linux love in my Windows, now I am trying to get some windows and network connection in a simplistic Linux distro that comes with none. My struggle now doubled, but I never hoped it would be easier, at least now I can be sure it will work as long as I get it right. Several installations and even more reboots to Windows, to seek help in the awesome Arch wiki pages and forums. I did it, I am using Linux and this time I don&rsquo;t feel displaced.</p>
+
+<p><del>Later I will post some thoughts and instructions very specific for my choice of softwares in the case you want to spare yourself from learning more than you actually need and much slower than you hope for.</del> (I will not)</p>
+]]></content>
+  </entry>
+  
+</feed>

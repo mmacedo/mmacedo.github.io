@@ -1,0 +1,319 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>F# Coding Dojo - Michel P. Macedo</title>
+  <meta name="author" content="Michel Pavan Macedo">
+
+  
+  <meta name="description" content="I am an active member of a .NET user group in the city I live. We have monthly meetings that usually combine a lecture followed by an one hour coding &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://michelpm.com/blog/2011/12/21/fsharp-coding-dojo">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Michel P. Macedo" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-26194428-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Michel P. Macedo</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:michelpm.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">F# Coding Dojo</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-12-21T01:23:00-02:00" pubdate data-updated="true">2011-12-21</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I am an active member of a <a href="http://bludotnet.com.br">.NET user group</a> in <a href="http://en.wikipedia.org/wiki/Blumenau">the city I live</a>. We have monthly meetings that usually combine a lecture followed by an one hour <a href="http://code.joejag.com/2009/the-coding-dojo/">coding dojo</a>. August this year we had our monthly meeting and I spoke for an hour or so about F# and then challenged the other participants to translate to F# a small problem already codified with C#.</p>
+
+<!--more-->
+
+
+<h2>Presentation</h2>
+
+<p>My presentation was mostly based on the book <a href="http://www.shelfari.com/books/4472689/Real-World-Functional-Programming-With-Examples-in-F-and-C-">Real-World Functional Programming with Examples in F# And C#</a> and <a href="http://www.infoq.com/search.action?queryString=F%23&amp;searchOrder=relevance&amp;search=F%23">presentations and slides</a> from Don Syme &ndash; the creator, and Tomas Petricek &ndash; the author of the book aforementioned. I prepared a handful of tiny code samples to demonstrate from the basic syntax to web development. The presentation was optimized not to sell, but to teach as much as possible of F# in less than a hour for C# developers. I thought &ldquo;Does it have lots of awesome features worth talking about? Sure, but let&rsquo;s concentrate on what the audience will need to know to start coding when I am finished.&rdquo;</p>
+
+<h3>Results</h3>
+
+<p>People don&rsquo;t like what they don&rsquo;t know, and functional programming suffer from not being the mainstream paradigm for enterprise solutions. When I started my presentation, functional programming had already been on the spotlight for decades, and developers had acquired all kinds of assumptions. Discussion went free and when it finally stopped, the tempo of a crash course had become slide skimming.</p>
+
+<h2>Coding Dojo</h2>
+
+<p>The idea was to take a small problem in C# and try to translate it to F# during a <a href="http://code.joejag.com/2009/the-coding-dojo/">Randori Dojo</a>. The group consisted of mostly C# developers with almost no background in functional programming. The problem required special thought on how to design the problem and make available the tools in some way that could countermeasure the lack of experience.</p>
+
+<h3>Preparation</h3>
+
+<p>Regardless of how much I like Poker there are programmers that never played or are not sure of the rules. The first handout was a printed list with nice visual hints and descriptions of the Poker hands. The second handout was a concise and specially made cheat sheet of the F# syntax commented in the natural language of the members (Brazilian Portuguese). The third handout was not printed, it was the C# code I clean coded and commented, even though it sounds contradictory. I navigated and explained every class and method.
+The fourth asset the team had was myself. Devoided of eidetic memories, it would be impossible to get work done fluently in a foreign language you just learned. My work as self appointed specialist was to help people express their intents in a way the compiler understands.</p>
+
+<h3>Results</h3>
+
+<p>One hour was just too little for this sort of experiment, we couldn&rsquo;t get past two data structures. The reason is that writing proficiency is usually associated with a specific tool and programming proficiency is very tightly coupled to the style or paradigm. The best intents couldn&rsquo;t speed us much more than that. I had the task to empathize to the F# compiler for my group while I hadn&rsquo;t used some features we needed. The result was myself being demoted to a dark corner hiding full of shame and the search engine taking over as specialist.</p>
+
+<h2>Conclusions</h2>
+
+<p>Learning and teaching are always fun, as is coding dojos. However next time I organize a lecture plus coding dojo in a programming language the audience doesn&rsquo;t feel at home, I might reevaluate some assumptions and choices I made for a even better new language coding dojo experience:</p>
+
+<ul>
+<li>It is absolutely necessary at least one guy practiced a lot that language before the coding dojo.</li>
+<li>There must be enough time for people to get used to the syntax and tools before they are productive.</li>
+<li>There is no room for the paradigmatic or marketing discussion, it must be replaced for a full pragmatic experience of the language that will be used for the coding dojo.</li>
+</ul>
+
+
+<h2>Output</h2>
+
+<ul>
+<li><strong>Poker handout</strong>: I got the more visually pleasant I found through the search engine and that didn&rsquo;t have written descriptions.</li>
+<li><strong>F# Cheat Sheet</strong>: It was optimized for Potuguese and the problem at hand, so not so awesome for general consumption.</li>
+<li><strong>Slides</strong>: It was a rewrite of existing English language slides and optimized for the problem at hand, also not great for general consumption. Yet, by the group request it is available in portuguese on the <a href="http://www.bludotnet.com.br/2011/08/ata-da-reuniao-introducao-ao-f-e-coding-dojo/">group site</a>.</li>
+<li><strong>Dojo output</strong>: We didn&rsquo;t produce quite enough output to be useful.</li>
+<li><strong>Post-dojo output</strong>: I promised the group to send the problem solved. It is available with identifiers in Portuguese on the <a href="http://www.bludotnet.com.br/2011/08/ata-da-reuniao-introducao-ao-f-e-coding-dojo/">group site</a> and also published in English on <a href="https://github.com/mmacedo/dojo-2011-08-poker">GitHub</a>.</li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Michel Pavan Macedo</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-12-21T01:23:00-02:00" pubdate data-updated="true">2011-12-21</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/dot-net/'>.NET</a>, <a class='category' href='/blog/categories/coding-dojo/'>Coding Dojo</a>, <a class='category' href='/blog/categories/f-number/'>F#</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://michelpm.com/blog/2011/12/21/fsharp-coding-dojo/" data-via="" data-counturl="http://michelpm.com/blog/2011/12/21/fsharp-coding-dojo/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/11/14/i-spun-off-linux-from-my-dev-machine/" title="Previous Post: I spun off Linux from my dev machine">&laquo; I spun off Linux from my dev machine</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/01/23/formatting-strings-in-dotnet/" title="Next Post: Formatting strings in .NET">Formatting strings in .NET &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>About Me</h1>
+  <p>I code awesome software for fun and work. These are the articles that haven't overthought to abandonment.</p>
+  <p>Enough <a href="http://about.me/michelpm">about me</a>.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/05/15/i18n-of-css-generated-content/">I18n of CSS Generated Content</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/23/twitter-bootstrap-and-jruby-on-rails/">Twitter Bootstrap and JRuby on Rails</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/11/functional-javascript/">Functional JavaScript</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/10/iterating-collections-in-javascript/">Iterating Collections in JavaScript</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/03/javascript-not-minus-one-operator/">Javascript Not Minus One Operator</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Books I'm Reading</h1>
+  <div id="ShelfariWidget242960">
+    <a href='http://www.shelfari.com/'>Shelfari: Book reviews on your book blog</a>
+    <script src="http://www.shelfari.com/ws/242960/widget.js?r=29470" type="text/javascript" language="javascript"></script>
+  </div>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Michel Pavan Macedo -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'halfsw';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://michelpm.com/blog/2011/12/21/fsharp-coding-dojo/';
+        var disqus_url = 'http://michelpm.com/blog/2011/12/21/fsharp-coding-dojo/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

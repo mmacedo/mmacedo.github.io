@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: JavaScript | Michel P. Macedo]]></title>
+  <link href="http://michelpm.com/blog/categories/javascript/atom.xml" rel="self"/>
+  <link href="http://michelpm.com/"/>
+  <updated>2013-07-26T11:09:17-03:00</updated>
+  <id>http://michelpm.com/</id>
+  <author>
+    <name><![CDATA[Michel Pavan Macedo]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Functional JavaScript]]></title>
+    <link href="http://michelpm.com/blog/2012/09/11/functional-javascript/"/>
+    <updated>2012-09-11T04:36:00-03:00</updated>
+    <id>http://michelpm.com/blog/2012/09/11/functional-javascript</id>
+    <content type="html"><![CDATA[<p>In <a href="http://en.wikipedia.org/wiki/Functional_programming">functional languages</a>, code consists mainly of processing lists in a recursive manner. A limited list of patterns in processing lists emerge so often that all functional languages provide at least some <a href="http://en.wikipedia.org/wiki/Higher-order_function">high-order functions</a>, that are very well written and optimized. The most common and useful high-order functions, the primitives, are (may vary) <a href="http://en.wikipedia.org/wiki/Foreach">each</a> (only for imperative programming), <a href="http://en.wikipedia.org/wiki/Filter_(higher-order_function)">filter</a>, <a href="http://en.wikipedia.org/wiki/Map_(higher-order_function)">map</a> and <a href="http://en.wikipedia.org/wiki/Fold_(higher-order_function)">reduce</a>.</p>
+
+<!--more-->
+
+
+<h2>Functional implementations</h2>
+
+<p>Some notes about the available implementations of high-order functions.</p>
+
+<h3>About Recursion</h3>
+
+<p>Even though programming functional style may be awesome, don&rsquo;t write <a href="http://en.wikipedia.org/wiki/Recursion_(computer_science)">recursive functions</a> in JavaScript, because:</p>
+
+<ul>
+<li>JavaScript engines usually have limit on the stack size, so your code will break easily;</li>
+<li>JavaScript <a href="http://en.wikipedia.org/wiki/ECMAScript">standard</a> doesn&rsquo;t mention <a href="http://en.wikipedia.org/wiki/Tail_call">Tail Call Optimization</a> and most engines don&rsquo;t implement it;</li>
+<li>Function calls add a lot of overhead, even high-order functions aren&rsquo;t ideal.</li>
+<li><a href="http://en.wikipedia.org/wiki/Continuation-passing_style">Continuation-Passing Style</a> would be prohibitive because of the stack size limit and the overhead of functions;</li>
+</ul>
+
+
+<p>High-order functions are usually very optimized because they are not recursive. They still need to call at least one function per iteration, but the difference is almost always negligible. Most JavaScript code do not need to be real time, so it is a good thing to use high-order functions to make beatiful, clean code.</p>
+
+<h3>Native in JavaScript</h3>
+
+<p>There are native functions for all primitives, but they are only for arrays. Another consideration is that they are mostly from ES5 standard and even the older of them was not implemented in IE 8. You should use them directly only if you are not programming for browsers, like in Node.js.</p>
+
+<h3>Underscore.js / Lo-Dash</h3>
+
+<p>There is a library in JavaScript that has become famous because it provides an extensive support for high-order functions in JavaScript for both collections and object hashes. The name of the library is <a href="http://underscorejs.org/">Underscore.js</a>. Then there is <a href="http://lodash.com/">Lo-Dash</a>, that claims to be a drop-in replacement for Underscore.js. Even though they claim to be faster and better, I haven&rsquo;t tested it and I am yet to find why the fork.</p>
+
+<h3>List Comprehensions</h3>
+
+<p>List comprehensions are a syntactic equivalent for high-order functions. JavaScript doesn&rsquo;t have any, but <a href="http://en.wikipedia.org/wiki/CoffeeScript">CoffeeScript</a> does. Since I write most JavaScript examples in CoffeeScript, I will provide those too.</p>
+
+<h2>Each</h2>
+
+<p>The idea of each is to iterate over a list and execute something without producing a new list. It is a imperative construct and it is very often available in imperative languages as <a href="http://michelpm.com/blog/2012/09/10/iterating-collections-in-javascript/">for/foreach constructs</a>. The native function is <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/forEach">forEach</a>.</p>
+
+<p>``` coffeescript each
+arr = [1..3]
+foo = (value, key) &ndash;> alert &ldquo;arr[#{key}] = #{value}&rdquo;</p>
+
+<h3>Native</h3>
+
+<p>arr.forEach foo</p>
+
+<h3>Underscore.js / Lo-Dash</h3>
+
+<p><em>.each arr, foo
+</em>.forEach arr, foo</p>
+
+<h3>Comprehension</h3>
+
+<p>foo value, index for value, index in arr
+```</p>
+
+<h2>Filter</h2>
+
+<p>Also known as select, the filter primitive returns a list with the items that pass a test function. The native function is <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/filter">filter</a>. It is the <a href="http://en.wikipedia.org/wiki/Selection_(relational_algebra)">selection</a> operator (<a href="http://en.wikipedia.org/wiki/Where_(SQL)">WHERE</a> in SQL).</p>
+
+<p>``` coffeescript filter
+arr = [1..3]
+isOdd = (value) &ndash;> value % 2 is 1</p>
+
+<h3>Native</h3>
+
+<p>alert arr.filter(isOdd)</p>
+
+<h3>Underscore.js / Lo-Dash</h3>
+
+<p>alert <em>.filter(arr, isOdd)
+alert </em>.select(arr, isOdd)
+alert _.reject(arr, isOdd) # Opposite</p>
+
+<h3>Comprehension</h3>
+
+<p>alert (value for value in arr when isOdd(value))
+alert (value for value in arr when value % 2 is 1)
+```</p>
+
+<h2>Map</h2>
+
+<p>Also known as collect, the map primitive returns a list with the items returned from the map function. The native function is <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/map">map</a>. It is the <a href="http://en.wikipedia.org/wiki/Projection_(relational_algebra)">projection</a> operator (<a href="http://en.wikipedia.org/wiki/Select_(SQL)">SELECT</a> in SQL).</p>
+
+<p>``` coffeescript map
+arr = [1..3]
+format = (value) &ndash;> value.toFixed(2)</p>
+
+<h3>Native</h3>
+
+<p>alert arr.map(format)</p>
+
+<h3>Underscore.js / Lo-Dash</h3>
+
+<p>alert <em>.map(arr, format)
+alert </em>.collect(arr, format)</p>
+
+<h3>Comprehension</h3>
+
+<p>alert (format(value) for value in arr)
+alert (value.toFixed(2) for value in arr)
+```</p>
+
+<h2>Reduce</h2>
+
+<p>Also known as fold or inject, the reduce primitive returns a single value accumulated by calling an <a href="http://en.wikipedia.org/wiki/Aggregate_function">aggregate function</a> on each item, always passing as the first parameter the value accumulated as returned from the last iteration call. This is the most often non-understood from the primitives, but it is not complicated at all. The native method is <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/reduce">reduce</a>.</p>
+
+<p><code>coffeescript Aggregate functions: sum, mult
+sum = (sum, value) -&gt; sum + value
+mult = (product, value) -&gt; product * value
+</code></p>
+
+<p>Our first aggregate functions are pretty straightforward.</p>
+
+<p><code>coffeescript Aggregate function: max
+max = (max, value) -&gt; Math.max(max, value)
+</code></p>
+
+<p>Since the aggregate function accepts four parameters (previousValue, currentValue, index and parameter), you can not pass <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Math/max">Math.max</a> directly to reduce, because it tries to get the maximum value for all parameters passed.</p>
+
+<p>`&ldquo; coffeescript Aggregate function: join
+join = (str, value) &ndash;>
+  if str is &rdquo;</p>
+
+<pre><code>value.toString()
+</code></pre>
+
+<p>  else</p>
+
+<pre><code>"#{str}, #{value.toString()}"
+</code></pre>
+
+<p>```</p>
+
+<p>This is also straightforward, to show what you can do. Note that the accumulated value is from a different type than the values being iterated.</p>
+
+<p>``` coffeescript Aggregate function: avg
+avg = (sum, value, index, arr) &ndash;>
+  if index is arr.length &ndash; 1</p>
+
+<pre><code>(sum + value) / arr.length
+</code></pre>
+
+<p>  else</p>
+
+<pre><code>sum + value
+</code></pre>
+
+<p>```</p>
+
+<p>Several implementations of reduce would accept a second function that returns the result based on the value returned from the last iteration, while simpler implementations just return the value from the last iteration. The reason from that second function is to implement aggregate functions like avg. Our implementation assumes that the list is being iterated from left to right (can not be called with reduceRight) and from the beginning to the end in the same interation (can not be merged with other iterations, therefore can not be <a href="http://en.wikipedia.org/wiki/Automatic_parallelization">parallelized</a>). <a href="https://gist.github.com/3696508">This</a> is a good solution in a bad technology.</p>
+
+<p>``` coffeescript reduce
+arr = [1..3]</p>
+
+<h3>Native</h3>
+
+<p>alert &ldquo;The sum is #{arr.reduce(sum, 0)}, and the product is #{arr.reduce(mult, 1)}.&rdquo;</p>
+
+<h3>Underscore.js / Lo-Dash</h3>
+
+<p>alert &ldquo;The sum is #{<em>.reduce(arr, sum, 0)}, and the product is #{</em>.reduce(arr, mult, 1)}.&rdquo;
+```</p>
+
+<p>Something worth noting: there is no reduce syntax for CoffeeScript. You can always use the other solutions (the code above already is in CoffeeScript) or even a loop, since it is always pleasant to write good JavaScript in CoffeeScript.</p>
+
+<p><code>coffeescript reduce by hand
+sum = 0
+sum += value for value in arr
+</code></p>
+
+<h3>Reduce right</h3>
+
+<p>Usually where is reduce, there is also a reduceRight. It iterates from the last to the first item. It seldom makes a differece, even less if parallelized (doesn&rsquo;t happen. But it may, and if it does, it may be an issue instead of benefit. As a rule of thumb, use reduce unless you know why you are not. The native method is <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/ReduceRight">reduceRight</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Iterating Collections In JavaScript]]></title>
+    <link href="http://michelpm.com/blog/2012/09/10/iterating-collections-in-javascript/"/>
+    <updated>2012-09-10T18:30:00-03:00</updated>
+    <id>http://michelpm.com/blog/2012/09/10/iterating-collections-in-javascript</id>
+    <content type="html"><![CDATA[<p>When I iterate in any language, I like to have a list of somethings to iterate because I can use more idiomatic code and have more explicit initial state, state changes and exit conditions. Most languages have a slightly different for/foreach that iterates over things that are considered enumerable by the language. In JavaScript we have two types of enumerable objects: array-like objects, also known as collections or simply arrays; and objects, also known as object hashes or associative arrays, even though they are just any JavaScript object that is used for that purpose.</p>
+
+<!--more-->
+
+
+<h2>Control Structures</h2>
+
+<h3>Arrays</h3>
+
+<p>In Javascript (ES6) there is a <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Statements/for...of">for..of</a> structure to iterate over arrays, but it is not safe to use it in browsers just yet.</p>
+
+<p><code>javascript
+var arr = [1, 2, 3];
+// for
+for (var i = 0; i &lt; arr.length; ++i) {
+  foo(arr[i]);
+}
+// for..of
+for (var i of arr) {
+  foo(i);
+}
+</code></p>
+
+<p>In CoffeeScript you can use the for..in for that. It will generate a regular <code>for</code>, so unlike it is JavaScript counterpart, it is safe.</p>
+
+<p>``` coffeescript for..in
+arr = [1..3]</p>
+
+<h3>for</h3>
+
+<p>for i in [0&hellip;arr.length]
+  foo arr[i]</p>
+
+<h3>for..in</h3>
+
+<p>for i in arr
+  foo i
+```</p>
+
+<h3>Objects</h3>
+
+<p>In JavaScript there is a well supported structure to iterate on the properties of a object. It is called <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Statements/for...in">for..in</a>.</p>
+
+<p><code>javascript
+var obj = { a: 'a', b: 'b' };
+for (var key in obj) {
+  foo(obj[key]);
+}
+</code></p>
+
+<p>In CoffeeScript you use the for..of for that. Yes, that is right, CoffeeScript uses &ldquo;for..in&rdquo; for arrays and &ldquo;for..of&rdquo; for objects, exactly the opposite of JavaScript. If you think about it, the CoffeeScript way sounds better.</p>
+
+<p><code>coffeescript for..of
+obj = a: 'a', b: 'b'
+for key, val of obj
+  foo val
+</code></p>
+
+<p>The problem is that it returns also inherited properties, to solve that you can either use <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/hasOwnProperty">hasOwnProperty</a> if in a browser or <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/getOwnPropertyNames">getOwnPropertyNames</a>/<a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/keys">Object.keys</a> (both ES5).</p>
+
+<p>``` javascript
+var obj = { a: &lsquo;a&rsquo;, b: &lsquo;b&rsquo; };
+// for..in
+for (var key in obj) {
+  if ({}.hasOwnProperty.apply(obj, [key])) {</p>
+
+<pre><code>foo(obj[key]);
+</code></pre>
+
+<p>  }
+}
+// Object.keys
+var keys = Object.keys(obj);
+for (var i = 0; i &lt; keys.length; ++i) {
+  foo(obj[keys[i]]);
+}
+```</p>
+
+<p>But CoffeeScript has its own syntax that calls this function (the <code>own</code> keyword).</p>
+
+<p><code>coffeescript for..own..of
+obj = a: 'a', b: 'b'
+for own key, val of obj
+  foo val
+</code></p>
+
+<h2>Functional Style</h2>
+
+<h3>JavaScript</h3>
+
+<p>ES5 added the <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/forEach">forEach</a> function for arrays only.</p>
+
+<p><code>coffeescript forEach
+[1..3].forEach (value, index, array) -&gt;
+  foo value
+</code></p>
+
+<h3>Libraries</h3>
+
+<p>``` coffeescript Several libraries
+arr = [1..3]
+obj = a: &lsquo;a&rsquo;, b: &lsquo;b&rsquo;</p>
+
+<h3>jQuery</h3>
+
+<p>$.each arr, (index, value) &ndash;>
+  foo value
+$.each obj, (key, value) &ndash;>
+  foo value
+$(arr).each (index, value) &ndash;>
+  foo value
+$(obj).each (key, value) &ndash;>
+  foo value</p>
+
+<h3>Underscore.js or Lo-Dash (alias: forEach)</h3>
+
+<p><em>.each arr, (value, index, arr) &ndash;>
+  foo value
+</em>.each obj, (value, key, obj) &ndash;>
+  foo value
+<em>(arr).each (value, index, arr) &ndash;>
+  foo value
+</em>(obj).each (value, key, obj) &ndash;>
+  foo value
+```</p>
+
+<h3>CoffeeScript Comprehensions</h3>
+
+<p>Some people may care that function calls add a lot of overhead, others may argue that functions are always worse than a more idiomatic approach, if available. The more idiomatic approach that CoffeeScript offers is comprehensions, that is basically the traditional control structures in a postfixed notation.</p>
+
+<p>``` coffeescript Comprehensions
+arr = [1..3]</p>
+
+<h1>for</h1>
+
+<p>foo arr[i] for i in [0&hellip;arr.length]</p>
+
+<h1>for..in</h1>
+
+<p>foo i for i in arr</p>
+
+<p>obj = a: &lsquo;a&rsquo;, b: &lsquo;b&rsquo;</p>
+
+<h1>for..of</h1>
+
+<p>foo val for own key, val of obj</p>
+
+<h1>Bonus tracks: while/until</h1>
+
+<p>doSomething() while somethingIsTrue()
+doSomething() until somethingIsTrue()
+```</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Javascript Not Minus One Operator]]></title>
+    <link href="http://michelpm.com/blog/2012/09/03/javascript-not-minus-one-operator/"/>
+    <updated>2012-09-03T12:10:00-03:00</updated>
+    <id>http://michelpm.com/blog/2012/09/03/javascript-not-minus-one-operator</id>
+    <content type="html"><![CDATA[<p>In most languages if you want to check if something is in a array or string, you use functions named indexOf or any variant thereof. The signature and contract don&rsquo;t usually deviate much, specially in languages with zero-based indexes.</p>
+
+<p>In Javascript, both <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/indexOf" title="Array indexOf method">Array&rsquo;s</a> and <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/String/indexOf" title="String indexOf method">String&rsquo;s</a> indexOf return minus one (-1) for not found. Minus one isn&rsquo;t particularly semantic, and checking for it tends to produce the most verbose and technical bits of otherwise <a href="http://www.shelfari.com/books/4017020/Clean-Code" title="Clean Code (2008) by Robert C. Martin">cleanly written code</a>.</p>
+
+<!--more-->
+
+
+<p><code>coffeescript Comparison operators
+hello = 'Hello World!'
+if hello.indexOf('World') isnt -1 and hello.indexOf('Hello') is -1
+  console.log 'Has World, but not Hello'
+</code></p>
+
+<p>It turns out there is operator that will return 0 (a falsy value in Javascript) if, and only if it gets a -1. Isn&rsquo;t that convenient?</p>
+
+<p>Tip seen in <a href="http://arcturo.github.com/library/coffeescript/">The Little Book on CoffeeScript</a>, because CofeeScript has a <a href="http://arcturo.github.com/library/coffeescript/04_idioms.html">special idiom</a> for arrays, but not for strings.</p>
+
+<p><code>coffeescript Complement Operator (or Not Minus One Operator)
+hello = 'Hello World!'
+if ~hello.indexOf('World') &amp;&amp; !~hello.indexOf('Hello')
+  console.log 'Has World, but not Hello'
+</code></p>
+
+<p>It is also <a href="http://stackoverflow.com/questions/791328/how-does-the-bitwise-complement-operator-work" title="How does the bitwise complement (~) operator work?">not very semantic</a>, and if I had seen this code yesterday I wouldn&rsquo;t understand it. I would probably use <a href="http://underscorejs.org/#include" title="Underscore.js include method">an &ldquo;include&rdquo; implementation</a> for arrays/collections or <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/RegExp/test" title="RegExp test method">regular expressions</a> for strings, but it doesn&rsquo;t hurt to have other options. This syntax is almost universal (as long as 0 is evaluted as false, so no Ruby) and it works with CofeeScript too, it is just a matter of knowing the operator.</p>
+]]></content>
+  </entry>
+  
+</feed>

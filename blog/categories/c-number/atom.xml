@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: C# | Michel P. Macedo]]></title>
+  <link href="http://michelpm.com/blog/categories/c-number/atom.xml" rel="self"/>
+  <link href="http://michelpm.com/"/>
+  <updated>2013-07-26T11:09:17-03:00</updated>
+  <id>http://michelpm.com/</id>
+  <author>
+    <name><![CDATA[Michel Pavan Macedo]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Formatting strings in .NET]]></title>
+    <link href="http://michelpm.com/blog/2012/01/23/formatting-strings-in-dotnet/"/>
+    <updated>2012-01-23T21:05:00-02:00</updated>
+    <id>http://michelpm.com/blog/2012/01/23/formatting-strings-in-dotnet</id>
+    <content type="html"><![CDATA[<p>You may want to format some scalar value as a string, since default ToString functionality is possibly not what you want the user to see. You may want to do some occasional tool or toy console app. Not only these but perhaps any other reason may inspire you to code some string art. With C# there is no string interpolation, but there is a string formatting framework with a reasonable power. Let&rsquo;s see about that.</p>
+
+<!--more-->
+
+
+<h2>String.Format</h2>
+
+<p>Most popular languages have something to format strings. In the .NET framework, this functionality is implemented by the String&rsquo;s static method Format. It has a few important properties that are definitely worth noting:</p>
+
+<ul>
+<li><strong>Indexed</strong>:  Unlike most format functions, parameters are indexed and therefore need not to be ordered.</li>
+<li><strong>Untyped</strong>: Unlike C&rsquo;s <a href="http://en.wikipedia.org/wiki/Printf_format_string">printf</a>, it doesn&rsquo;t need to know the parameters types, and instead relies on <a href="http://en.wikipedia.org/wiki/Subtype_polymorphism">subtype polymorphism</a>.</li>
+<li><strong>Flexible</strong>: It can format the parameters, but the function itself doesn&rsquo;t need to know how to do it, again it relies on polymorphism to do that.</li>
+</ul>
+
+
+<h2>How it does it?</h2>
+
+<p>You might wonder how it prints things if it is not typed. Most basic functionality in converting to String is taken from the ToString instance method of Object, which is the root type for all .NET types. If the object must support custom formatting functionality, it implements the IFormattable interface with a ToString method signature that is both format-aware and locale-aware.</p>
+
+<h2>How would I do it?</h2>
+
+<p>No one wants to duplicate this functionality, so everywhere you expose this option to your string inputs you follow some conventions and just delegate String.Format the hard work. The convention signature for a method that exposes String.Format functionality is a string parameter followed by one to three object parameters or a object array in the <a href="http://en.wikipedia.org/wiki/Variadic_function">variadic</a> form and a return of String, of course. Classic .NET methods that support this convention are:</p>
+
+<ul>
+<li><a href="http://msdn.microsoft.com/en-us/library/system.string.format.aspx">String.Format (static)</a></li>
+<li><a href="http://msdn.microsoft.com/en-us/library/system.console.write.aspx">Console.Write (static)</a>, <a href="http://msdn.microsoft.com/en-us/library/system.console.writeline.aspx">Console.WriteLine (static)</a></li>
+<li><a href="http://msdn.microsoft.com/en-us/library/system.io.textwriter.write.aspx">TextWriter.Write</a>, <a href="http://msdn.microsoft.com/en-us/library/fcs6ys85.aspx">TextWriter.WriteLine</a></li>
+<li><a href="http://msdn.microsoft.com/en-us/library/system.text.stringbuilder.appendformat.aspx">StringBuilder.AppendFormat</a></li>
+</ul>
+
+
+<p>A last advice, use it wisely, don&rsquo;t ever duplicate framework functionality. Also don&rsquo;t break the convention, it must work exactly like String.Format, don&rsquo;t add any logic at all and your user will be at home consuming your API.</p>
+
+<h2>How do I use it?</h2>
+
+<p>The basic format is with brackets and a zero-based parameter index like the following C# code:</p>
+
+<p><code>csharp
+var name = "World";
+Console.Write("Hello, {0}!", name);
+// Hello, World!
+</code></p>
+
+<p>To show why indexed is better than ordered:</p>
+
+<p><code>csharp
+var name = "World";
+var greeting = "Hello,";
+Console.Write("&lt;span title='{0}'&gt;{1} {0}!&lt;/span&gt; ", name, greeting);
+// &lt;span title='World'&gt;Hello, World!&lt;/span&gt;
+</code></p>
+
+<p>What if I need curly brackets in my string?</p>
+
+<p>`&ldquo; csharp
+var statement1 = &ldquo;var greeting = &lsquo;Hello World!&rsquo;;&rdquo;;
+var statement2 = &ldquo;alert(greeting, name);&rdquo;;
+var function = @&ldquo;
+function hello(name) &#x7b;&#x7b;
+  {0}
+  if (name != null &amp;&amp; name != &rdquo;) &#x7b;&#x7b;</p>
+
+<pre><code>{1}
+</code></pre>
+
+<p>  }}
+}}&ldquo;;
+Console.Write(function, statement1, statement2);
+// function hello(name) {
+//   (&hellip;)
+// }
+```</p>
+
+<h2>What do I need IFormattable for?</h2>
+
+<p>As stated before, IFormattable is both locale-aware and format-aware, but the basic formatting we&rsquo;ve seen so far is not. Let&rsquo;s see a example on how to use format parameter.</p>
+
+<p><code>csharp
+var someNumber = 320320.51d;
+Console.WriteLine("Some number: {0}", someNumber);
+// Some number: 320320.51
+Console.WriteLine("Someone's salary: {0:C} or perhaps {0:0,0.00 USD}", someNumber);
+// Someone's salary: $320,320.51 or perhaps 320,320.51 USD
+Console.WriteLine("Four decimal places: {0:N4} or {0:0,0.0000}", someNumber);
+// Four decimal places: 320,320.5100 or 320,320.5100
+Console.WriteLine("Not less than 3, not more than 5: {0:0,0.000##}", someNumber);
+// Not less than 3, not more than 5: 320,320.510
+Console.WriteLine("Just one decimal place: {0:N1} or {0:0,0.0}", someNumber);
+// Just one decimal place: 320,320.5 or 320,320.5
+Console.WriteLine("No decimal place or thousand separator: {0:0}", someNumber);
+// No decimal place or thousand separator: 320321
+Console.WriteLine("Fancy stuff: {0:0.# is &gt;= zero;-0.# is &lt; zero}", -1d);
+// Fancy stuff: -1 is &lt; zero
+Console.WriteLine("Fancy stuff: {0:0.# is &gt; zero; -0.# is &lt; zero;0.# is zero}", 0d);
+// Fancy stuff: 0 is zero
+</code></p>
+
+<p>You can find everything about <a href="http://msdn.microsoft.com/en-us/library/dwhawy9k.aspx">number formatting</a> on MSDN.</p>
+
+<p>Of all methods I listed before, only String.Format exposes one extra overload starting with a locale parameter. If you don&rsquo;t feel that you should expose a parameter, you may use a culture configured in your library or just use the current culture (for that, just use String.Format without that parameter).</p>
+
+<h2>Just that?</h2>
+
+<p>I haven&rsquo;t told you the coolest thing about formatting strings yet. As everything else, it comes for free in your custom API if you don&rsquo;t do anything fancy with the string before handing to String.Format. Let&rsquo;s suppose you are in fixed-width font environment like a dummy console app you created to test something or gather some data that isn&rsquo;t worth making a library for. You are probably spending a lot of effort to get it visually pleasant, but you don&rsquo;t need that. You could do just this:</p>
+
+<p>``` csharp
+var columns = new[] { &ldquo;Name&rdquo;, &ldquo;Memory&rdquo; };
+// get top 3 running processes by memory usage
+var data = Process.GetProcesses()</p>
+
+<pre><code>.Select(p =&gt; new object[] { p.ProcessName, p.WorkingSet64 / 1024d / 1024d })
+.OrderByDescending(p=&gt; p[1]).Take(3).ToArray();
+</code></pre>
+
+<p>// print rows
+Console.WriteLine(&ldquo;{0,-20} {1,10}&rdquo;, columns[0], columns[1]);
+foreach (var cell in data)
+{</p>
+
+<pre><code>Console.WriteLine("{0,-20} {1,10:0,0.# MB}", cell[0], cell[1]);
+</code></pre>
+
+<p>}</p>
+
+<p>//Output:
+//Name                     Memory
+//devenv                 364.6 MB
+//opera                  229.4 MB
+//svchost                103.3 MB
+```</p>
+
+<h2>Further reading</h2>
+
+<p>I pointed everything you should know to rock with string formatting. Any doubt on this, consult the <a href="http://msdn.microsoft.com/en-us/library/26etazsy.aspx">MSDN articles on the subject</a> for more details.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Initializing things in C#]]></title>
+    <link href="http://michelpm.com/blog/2011/10/07/initializing-things-in-csharp/"/>
+    <updated>2011-10-07T18:11:00-03:00</updated>
+    <id>http://michelpm.com/blog/2011/10/07/initializing-things-in-csharp</id>
+    <content type="html"><![CDATA[<p>The C# team have introduced some nifty syntax sugars since C# 1.0. Among these new features are some to declare anonymous methods and delegates and initializers for objects and collections. They are are there for a while now and still are relatively unknown or misunderstood by the majority of C# programmers.</p>
+
+<p>I will try and clarify them a bit.</p>
+
+<!--more-->
+
+
+<h3>Introduction</h3>
+
+<p>Some features that are added to the C# language are there to take advantage of enhancements made to the .NET. The best example I could think is <a href="http://en.wikipedia.org/wiki/Generic_programming">.NET Generics</a>: the .NET team made the runtime more awesome for us and the C# team adapted the language for us to enjoy the awesomeness of type-safety in .NET Generics. However the .NET runtime hasn’t been modified with such a big change since .NET 2.0 and yet the C# language changed a lot. Most of the changes in the C# language are just <a href="http://en.wikipedia.org/wiki/Syntactic_sugar">syntax sugar</a>. This means that the C# team identify common operations coded in C# and create a nicer and more succint syntax to do the same thing, therefore reducing greatly the amount of <a href="http://en.wikipedia.org/wiki/Boilerplate_code">boilerplate code</a>.</p>
+
+<h3>Anonymous functions and Lambdas</h3>
+
+<p>With C#, as in Java, there was no such things as inline functions and every callable block of code should be member of a class. As for VS2005 (C# 2.0, .NET 2.0), this is still true for .NET, but not for the C# language that provided a syntax sugar to abstract that notion: anonymous methods.</p>
+
+<p>For the examples below we will use a dummy calculator that will be posted only once, since it won’t change in my experiments:</p>
+
+<p>``` csharp
+public delegate double BinaryOperation(double x, double y);</p>
+
+<p>public static class Calculator
+{</p>
+
+<pre><code>public static double Calculate(double x, double y, BinaryOperation op)
+{
+    return op(x, y);
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>Now let’s do something with delegates and events. To demonstrate delegates we are using the delegate BinaryOperation we just defined that accepts two doubles and returns a double. To demonstrate events we are using AppDomain’s UnhandledException event.</p>
+
+<p>``` csharp C# 1
+public void DoStuff()
+{</p>
+
+<pre><code>var d = AppDomain.CurrentDomain;
+d.UnhandledException +=
+    new UnhandledExceptionEventHandler(d_UnhandledException);
+
+var addOperation = new BinaryOperation(Add);
+var result = Calculator.Calculate(5.0d, 4.0d, addOperation);
+Console.WriteLine(result);
+</code></pre>
+
+<p>}</p>
+
+<p>void d_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+{</p>
+
+<pre><code>Console.WriteLine("Ouch!");
+</code></pre>
+
+<p>}</p>
+
+<p>double Add(double x, double y)
+{</p>
+
+<pre><code>return x + y;
+</code></pre>
+
+<p>}
+```</p>
+
+<p>``` csharp C# 2 (using method group conversion)
+public void DoStuff()
+{</p>
+
+<pre><code>var d = AppDomain.CurrentDomain;
+d.UnhandledException += d_UnhandledException;
+
+var result = Calculator.Calculate(5.0d, 4.0d, Add);
+Console.WriteLine(result);
+</code></pre>
+
+<p>}</p>
+
+<p>void d_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+{</p>
+
+<pre><code>Console.WriteLine("Ouch!");
+</code></pre>
+
+<p>}</p>
+
+<p>double Add(double x, double y)
+{</p>
+
+<pre><code>return x + y;
+</code></pre>
+
+<p>}
+```</p>
+
+<p>``` csharp C# 2 (using anonymous methods)
+public void DoStuff()
+{</p>
+
+<pre><code>var d = AppDomain.CurrentDomain;
+d.UnhandledException += delegate(object sender,
+                                 UnhandledExceptionEventArgs e)
+{
+    Console.WriteLine("Ouch!");
+};
+
+var result = Calculator.Calculate(5.0d, 4.0d, delegate(double x,
+                                                       double y)
+{
+    return x + y;
+});
+Console.WriteLine(result);
+</code></pre>
+
+<p>}
+```</p>
+
+<p>They felt they were done selling VS2005 and then they launched VS2008 (C# 3.0). C# 3.0 was the sweetest of all versions, a lot of boilerplate code was removed with more than a handful of useful syntax sugars. The coolest of them is lambda, but the unusual mathematical name and awful big amount of noise in the internet about expression trees made a lot of people think lambda wasn’t just a syntax sugar, but a fancy super-complex super-dynamic .NET feature.</p>
+
+<p>First, let’s clarify what lambda is really about: a more succint syntax to declare functions inline. This is very close to the original definition in mathematics and it is the definition of how it make your daily C# routine much more sweet.</p>
+
+<p>``` csharp C# 3 (using lambda)
+public void DoStuff()
+{</p>
+
+<pre><code>var d = AppDomain.CurrentDomain;
+d.UnhandledException += (object sender,
+                         UnhandledExceptionEventArgs e) =&gt;
+{
+    Console.WriteLine("Ouch!");
+};
+
+var result = Calculator.Calculate(5.0d, 4.0d, (double x,
+                                               double y) =&gt;
+{
+    return x + y;
+});
+Console.WriteLine(result);
+</code></pre>
+
+<p>}
+```</p>
+
+<p>``` csharp C# 3 (using lambda and type inference)
+public void DoStuff()
+{</p>
+
+<pre><code>var d = AppDomain.CurrentDomain;
+d.UnhandledException += (sender, e) =&gt;
+{
+    Console.WriteLine("Ouch!");
+};
+
+var result = Calculator.Calculate(5.0d, 4.0d, (x, y) =&gt;
+{
+    return x + y;
+});
+Console.WriteLine(result);
+</code></pre>
+
+<p>}
+```</p>
+
+<p>``` csharp C# 3 (using lambda inlined and type inference)
+public void DoStuff()
+{</p>
+
+<pre><code>var d = AppDomain.CurrentDomain;
+d.UnhandledException += (sender, e) =&gt; Console.WriteLine("Ouch!");
+
+var result = Calculator.Calculate(5.0d, 4.0d, (x, y) =&gt; x + y);
+Console.WriteLine(result);
+</code></pre>
+
+<p>}
+```</p>
+
+<p>Every one of the examples compile and are IL-equivalent. Code very similar that do the same thing will be generated for each one by the C# compiler. If you are not using the last one, I ask you: why not?</p>
+
+<p>Before we move to the next topic, it’s worth noting that this very same syntax may be used for another purpose that is scary and overrated: expression tree. Expression trees looks like inline functions, but they are not checked at compile time. Linq To Objects expects inline functions (either of Action or Func delegate types) as it will execute code on collections, while Linq To Sql expect expression trees (of Expression delegate type) that it won’t execute, but instead it will try to generate code (SQL) by parsing yours (C#).</p>
+
+<h3>Anonymous types and Object Initializers</h3>
+
+<p>This is something in C# that is as misunderstood as it is useful. It was not there in first versions of C# and both features came in the same batch to ease coding with LINQ. The key part that not everyone get is that they are actually two different things, for different purposes. Yet we will use the same code and transition from regular code to object initializers and to anonymous types explaining how and why you would use each one.</p>
+
+<p>For the examples below we will have declared two classes (please excuse the meaningless names):</p>
+
+<p>``` csharp
+class C1
+{</p>
+
+<pre><code>public int P1 { get; set; }
+</code></pre>
+
+<p>}</p>
+
+<p>class C2
+{</p>
+
+<pre><code>public int P1 { get; set; }
+public C1 P2 { get; set; }
+</code></pre>
+
+<p>}
+```</p>
+
+<p>We want initialize a instance of C2 class, so we write the following code:</p>
+
+<p>``` csharp C# 1
+var a = new C1();
+a.P1 = 5;</p>
+
+<p>var b = new C2();
+b.P1 = 4;
+b.P2 = a;</p>
+
+<p>Console.WriteLine(&ldquo;&#x7b;&#x7b; P1:{0}, P2:&#x7b;&#x7b; P1:{1} }} }}&rdquo;, b.P1, b.P2.P1);
+```</p>
+
+<p><code>csharp C# 3 (using object initializer)
+var a = new C1() { P1 = 5 };
+var b = new C2() { P1 = 4, P2 = a };
+Console.WriteLine("&amp;#x7b;&amp;#x7b; P1:{0}, P2:&amp;#x7b;&amp;#x7b; P1:{1} }} }}", b.P1, b.P2.P1);
+</code></p>
+
+<p><code>csharp C# 3 (using object initializer)
+var a = new C1 { P1 = 5 };
+var b = new C2 { P1 = 4, P2 = a };
+Console.WriteLine("&amp;#x7b;&amp;#x7b; P1:{0}, P2:&amp;#x7b;&amp;#x7b; P1:{1} }} }}", b.P1, b.P2.P1);
+</code></p>
+
+<p><code>csharp C# 3 (using object initializer)
+var b = new C2 { P1 = 4, P2 = new C1 { P1 = 5 } };
+Console.WriteLine("&amp;#x7b;&amp;#x7b; P1:{0}, P2:&amp;#x7b;&amp;#x7b; P1:{1} }} }}", b.P1, b.P2.P1);
+</code></p>
+
+<p><code>csharp C# 3 (using object initializer)
+var b = new C2 { P1 = 4, P2 = { P1 = 5 } };
+Console.WriteLine("&amp;#x7b;&amp;#x7b; P1:{0}, P2:&amp;#x7b;&amp;#x7b; P1:{1} }} }}", b.P1, b.P2.P1);
+</code></p>
+
+<p>It is amazing how much boilerplate code we got rid of. Up to this point every version I presented do exactly the same thing. So again, if you are not using the last one: why not?</p>
+
+<p>It is such a common misconception that we are creating anonymous types in that code, but I can assure you that we are not. We did define those classes back then, remember? So let’s undo that and use anonymous types instead.</p>
+
+<p>First thing you remove the code where you declared C1 and C2 classes. Now your initialization code doesn’t work because you specified a name for the class. The version for C# 1 cannot be converted to anonymous types because you need to specify a property upon initialization. Let’s start fixing our code to compile with anonymous types.</p>
+
+<p><code>csharp C# 3 (using anonymous types)
+var a = new { P1 = 5 };
+var b = new { P1 = 4, P2 = a };
+Console.WriteLine("&amp;#x7b;&amp;#x7b; P1:{0}, P2:&amp;#x7b;&amp;#x7b; P1:{1} }} }}", b.P1, b.P2.P1);
+</code></p>
+
+<p><code>csharp C# 3 (using anonymous types)
+var b = new { P1 = 4, P2 = new { P1 = 5 } };
+Console.WriteLine("&amp;#x7b;&amp;#x7b; P1:{0}, P2:&amp;#x7b;&amp;#x7b; P1:{1} }} }}", b.P1, b.P2.P1);
+</code></p>
+
+<p>The code above does not instantiate any specific class, but the one it will generate and that you won’t have access. The only thing you can do with those objects is use its properties and discard it after the method ends. It is sometimes more practical not to declare types for something that you will use just once in a method, for example in a LINQ query. Any other use of the anonymous objects is not advisable, please consider it wisely and do not overuse it.</p>
+
+<p>Now for the sake of knowledge let’s try a slightly different different:</p>
+
+<p><code>csharp C# 3 (using anonymous types and property name inference)
+var n = 5;
+var a = new { P1 = n };
+var b = new { P1 = 4, a };
+Console.WriteLine("&amp;#x7b;&amp;#x7b; P1:{0}, a:&amp;#x7b;&amp;#x7b; P1:{1} }} }}", b.P1, b.a.P1);
+</code></p>
+
+<p>In the above code I did not specify the name of the property to assign the variable therefore the variable name was assigned as the name of the property. This may reduces a bunch of code when using anonymous types as well as the readability. This alternative syntax does not work for object initializers.</p>
+
+<h3>Collection Initializers</h3>
+
+<p>It is not unusual to declare collections adding itens one by one. If you are doing it then you probably could replace that with a more object oriented approach. You could do that with if’s and enum’s, but you probably won’t do for every one of them. In C# 1 e 2 they probably didn’t realize the pain it would be to initialize collections item by item. Older C# versions already had initializers for arrays only. Let’s see how you would split a string by low case vowels removing empty entries:</p>
+
+<p><code>csharp C# 1
+const string s = "This is a string with vowels!";
+char[] separators = new char[5];
+separators[0] = 'a';
+separators[1] = 'e';
+separators[2] = 'i';
+separators[3] = 'o';
+separators[4] = 'u';
+var newString = s.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+Console.WriteLine(string.Join(", ", newString));
+</code></p>
+
+<p><code>csharp C# 1 (using array initializer)
+const string s = "This is a string with vowels!";
+char[] separators = new char[5] { 'a', 'e', 'i', 'o', 'u' };
+var newString = s.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+Console.WriteLine(string.Join(", ", newString));
+</code></p>
+
+<p><code>csharp C# 1 (using array initializer)
+const string s = "This is a string with vowels!";
+char[] separators = { 'a', 'e', 'i', 'o', 'u' };
+var newString = s.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+Console.WriteLine(string.Join(", ", newString));
+</code></p>
+
+<p>``` csharp C# 1 (using array initializer)
+const string s = &ldquo;This is a string with vowels!&rdquo;;
+var newString = s.Split(new char[] { &lsquo;a&rsquo;, &lsquo;e&rsquo;, &lsquo;i&rsquo;, &lsquo;o&rsquo;, &lsquo;u&rsquo; },</p>
+
+<pre><code>                    StringSplitOptions.RemoveEmptyEntries);
+</code></pre>
+
+<p>Console.WriteLine(string.Join(&ldquo;, &rdquo;, newString));
+```</p>
+
+<p>``` csharp C# 3 (using array initializer and type inference)
+const string s = &ldquo;This is a string with vowels!&rdquo;;
+var newString = s.Split(new[] { &lsquo;a&rsquo;, &lsquo;e&rsquo;, &lsquo;i&rsquo;, &lsquo;o&rsquo;, &lsquo;u&rsquo; },</p>
+
+<pre><code>                    StringSplitOptions.RemoveEmptyEntries);
+</code></pre>
+
+<p>Console.WriteLine(string.Join(&ldquo;, &rdquo;, newString));
+```</p>
+
+<p>This example is somewhat limited because it explore just what you can do to initialize arrays, but since then you can use the same syntax to initialize any other collecion type. A type is initializable through this syntax if it has an Add method. A generic list has an Add method with one parameter, while a generic dictionary has and Add method with two parameters. Let’s see how to initialize both.</p>
+
+<p><code>csharp C# 1
+Dictionary&lt;int, int&gt; a = new Dictionary&lt;int, int&gt;();
+a.Add(1, 2);
+a.Add(2, 4);
+List&lt;int&gt; b = new List&lt;int&gt;();
+b.Add(1);
+b.Add(2);
+</code></p>
+
+<p><code>csharp C# 3 (using collection initializer)
+Dictionary&lt;int, int&gt; a = new Dictionary&lt;int, int&gt;() { { 1, 2 }, { 2, 4 } };
+List&lt;int&gt; b = new List&lt;int&gt;() { 1, 2 };
+</code></p>
+
+<p><code>csharp C# 3 (using collection initializer)
+Dictionary&lt;int, int&gt; a = new Dictionary&lt;int, int&gt; { { 1, 2 }, { 2, 4 } };
+List&lt;int&gt; b = new List&lt;int&gt; { 1, 2 };
+</code></p>
+
+<h3>Conclusion</h3>
+
+<p>It is very important to identify when you are using a core feature or a syntax sugar, so you can know where to use what. Much more important than writing speed, syntax sugars improve readability without compromise. Syntax sugars make the life of the nexy programmer easier, so <a href="http://www.codinghorror.com/blog/2008/06/coding-for-violent-psychopaths.html">remember</a>: use them!</p>
+]]></content>
+  </entry>
+  
+</feed>

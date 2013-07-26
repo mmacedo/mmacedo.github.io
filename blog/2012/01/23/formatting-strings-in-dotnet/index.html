@@ -1,0 +1,454 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Formatting strings in .NET - Michel P. Macedo</title>
+  <meta name="author" content="Michel Pavan Macedo">
+
+  
+  <meta name="description" content="You may want to format some scalar value as a string, since default ToString functionality is possibly not what you want the user to see. You may &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://michelpm.com/blog/2012/01/23/formatting-strings-in-dotnet">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Michel P. Macedo" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-26194428-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Michel P. Macedo</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:michelpm.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Formatting Strings in .NET</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-23T21:05:00-02:00" pubdate data-updated="true">2012-01-23</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>You may want to format some scalar value as a string, since default ToString functionality is possibly not what you want the user to see. You may want to do some occasional tool or toy console app. Not only these but perhaps any other reason may inspire you to code some string art. With C# there is no string interpolation, but there is a string formatting framework with a reasonable power. Let&rsquo;s see about that.</p>
+
+<!--more-->
+
+
+<h2>String.Format</h2>
+
+<p>Most popular languages have something to format strings. In the .NET framework, this functionality is implemented by the String&rsquo;s static method Format. It has a few important properties that are definitely worth noting:</p>
+
+<ul>
+<li><strong>Indexed</strong>:  Unlike most format functions, parameters are indexed and therefore need not to be ordered.</li>
+<li><strong>Untyped</strong>: Unlike C&rsquo;s <a href="http://en.wikipedia.org/wiki/Printf_format_string">printf</a>, it doesn&rsquo;t need to know the parameters types, and instead relies on <a href="http://en.wikipedia.org/wiki/Subtype_polymorphism">subtype polymorphism</a>.</li>
+<li><strong>Flexible</strong>: It can format the parameters, but the function itself doesn&rsquo;t need to know how to do it, again it relies on polymorphism to do that.</li>
+</ul>
+
+
+<h2>How it does it?</h2>
+
+<p>You might wonder how it prints things if it is not typed. Most basic functionality in converting to String is taken from the ToString instance method of Object, which is the root type for all .NET types. If the object must support custom formatting functionality, it implements the IFormattable interface with a ToString method signature that is both format-aware and locale-aware.</p>
+
+<h2>How would I do it?</h2>
+
+<p>No one wants to duplicate this functionality, so everywhere you expose this option to your string inputs you follow some conventions and just delegate String.Format the hard work. The convention signature for a method that exposes String.Format functionality is a string parameter followed by one to three object parameters or a object array in the <a href="http://en.wikipedia.org/wiki/Variadic_function">variadic</a> form and a return of String, of course. Classic .NET methods that support this convention are:</p>
+
+<ul>
+<li><a href="http://msdn.microsoft.com/en-us/library/system.string.format.aspx">String.Format (static)</a></li>
+<li><a href="http://msdn.microsoft.com/en-us/library/system.console.write.aspx">Console.Write (static)</a>, <a href="http://msdn.microsoft.com/en-us/library/system.console.writeline.aspx">Console.WriteLine (static)</a></li>
+<li><a href="http://msdn.microsoft.com/en-us/library/system.io.textwriter.write.aspx">TextWriter.Write</a>, <a href="http://msdn.microsoft.com/en-us/library/fcs6ys85.aspx">TextWriter.WriteLine</a></li>
+<li><a href="http://msdn.microsoft.com/en-us/library/system.text.stringbuilder.appendformat.aspx">StringBuilder.AppendFormat</a></li>
+</ul>
+
+
+<p>A last advice, use it wisely, don&rsquo;t ever duplicate framework functionality. Also don&rsquo;t break the convention, it must work exactly like String.Format, don&rsquo;t add any logic at all and your user will be at home consuming your API.</p>
+
+<h2>How do I use it?</h2>
+
+<p>The basic format is with brackets and a zero-based parameter index like the following C# code:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="kt">var</span> <span class="n">name</span> <span class="p">=</span> <span class="s">&quot;World&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&quot;Hello, {0}!&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">);</span>
+</span><span class='line'><span class="c1">// Hello, World!</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>To show why indexed is better than ordered:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="kt">var</span> <span class="n">name</span> <span class="p">=</span> <span class="s">&quot;World&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="kt">var</span> <span class="n">greeting</span> <span class="p">=</span> <span class="s">&quot;Hello,&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&quot;&lt;span title=&#39;{0}&#39;&gt;{1} {0}!&lt;/span&gt; &quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">greeting</span><span class="p">);</span>
+</span><span class='line'><span class="c1">// &lt;span title=&#39;World&#39;&gt;Hello, World!&lt;/span&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>What if I need curly brackets in my string?</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="kt">var</span> <span class="n">statement1</span> <span class="p">=</span> <span class="s">&quot;var greeting = &#39;Hello World!&#39;;&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="kt">var</span> <span class="n">statement2</span> <span class="p">=</span> <span class="s">&quot;alert(greeting, name);&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="kt">var</span> <span class="n">function</span> <span class="p">=</span> <span class="s">@&quot;</span>
+</span><span class='line'><span class="s">function hello(name) &amp;#x7b;&amp;#x7b;</span>
+</span><span class='line'><span class="s">  {0}</span>
+</span><span class='line'><span class="s">  if (name != null &amp;&amp; name != &#39;&#39;) &amp;#x7b;&amp;#x7b;</span>
+</span><span class='line'><span class="s">    {1}</span>
+</span><span class='line'><span class="s">  }}</span>
+</span><span class='line'><span class="s">}}&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="n">statement1</span><span class="p">,</span> <span class="n">statement2</span><span class="p">);</span>
+</span><span class='line'><span class="c1">// function hello(name) {</span>
+</span><span class='line'><span class="c1">//   (...)</span>
+</span><span class='line'><span class="c1">// }</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>What do I need IFormattable for?</h2>
+
+<p>As stated before, IFormattable is both locale-aware and format-aware, but the basic formatting we&rsquo;ve seen so far is not. Let&rsquo;s see a example on how to use format parameter.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="kt">var</span> <span class="n">someNumber</span> <span class="p">=</span> <span class="m">320320.51d</span><span class="p">;</span>
+</span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Some number: {0}&quot;</span><span class="p">,</span> <span class="n">someNumber</span><span class="p">);</span>
+</span><span class='line'><span class="c1">// Some number: 320320.51</span>
+</span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Someone&#39;s salary: {0:C} or perhaps {0:0,0.00 USD}&quot;</span><span class="p">,</span> <span class="n">someNumber</span><span class="p">);</span>
+</span><span class='line'><span class="c1">// Someone&#39;s salary: $320,320.51 or perhaps 320,320.51 USD</span>
+</span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Four decimal places: {0:N4} or {0:0,0.0000}&quot;</span><span class="p">,</span> <span class="n">someNumber</span><span class="p">);</span>
+</span><span class='line'><span class="c1">// Four decimal places: 320,320.5100 or 320,320.5100</span>
+</span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Not less than 3, not more than 5: {0:0,0.000##}&quot;</span><span class="p">,</span> <span class="n">someNumber</span><span class="p">);</span>
+</span><span class='line'><span class="c1">// Not less than 3, not more than 5: 320,320.510</span>
+</span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Just one decimal place: {0:N1} or {0:0,0.0}&quot;</span><span class="p">,</span> <span class="n">someNumber</span><span class="p">);</span>
+</span><span class='line'><span class="c1">// Just one decimal place: 320,320.5 or 320,320.5</span>
+</span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;No decimal place or thousand separator: {0:0}&quot;</span><span class="p">,</span> <span class="n">someNumber</span><span class="p">);</span>
+</span><span class='line'><span class="c1">// No decimal place or thousand separator: 320321</span>
+</span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Fancy stuff: {0:0.# is &gt;= zero;-0.# is &lt; zero}&quot;</span><span class="p">,</span> <span class="p">-</span><span class="m">1d</span><span class="p">);</span>
+</span><span class='line'><span class="c1">// Fancy stuff: -1 is &lt; zero</span>
+</span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Fancy stuff: {0:0.# is &gt; zero; -0.# is &lt; zero;0.# is zero}&quot;</span><span class="p">,</span> <span class="m">0d</span><span class="p">);</span>
+</span><span class='line'><span class="c1">// Fancy stuff: 0 is zero</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can find everything about <a href="http://msdn.microsoft.com/en-us/library/dwhawy9k.aspx">number formatting</a> on MSDN.</p>
+
+<p>Of all methods I listed before, only String.Format exposes one extra overload starting with a locale parameter. If you don&rsquo;t feel that you should expose a parameter, you may use a culture configured in your library or just use the current culture (for that, just use String.Format without that parameter).</p>
+
+<h2>Just that?</h2>
+
+<p>I haven&rsquo;t told you the coolest thing about formatting strings yet. As everything else, it comes for free in your custom API if you don&rsquo;t do anything fancy with the string before handing to String.Format. Let&rsquo;s suppose you are in fixed-width font environment like a dummy console app you created to test something or gather some data that isn&rsquo;t worth making a library for. You are probably spending a lot of effort to get it visually pleasant, but you don&rsquo;t need that. You could do just this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="kt">var</span> <span class="n">columns</span> <span class="p">=</span> <span class="k">new</span><span class="p">[]</span> <span class="p">{</span> <span class="s">&quot;Name&quot;</span><span class="p">,</span> <span class="s">&quot;Memory&quot;</span> <span class="p">};</span>
+</span><span class='line'><span class="c1">// get top 3 running processes by memory usage</span>
+</span><span class='line'><span class="kt">var</span> <span class="n">data</span> <span class="p">=</span> <span class="n">Process</span><span class="p">.</span><span class="n">GetProcesses</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="kt">object</span><span class="p">[]</span> <span class="p">{</span> <span class="n">p</span><span class="p">.</span><span class="n">ProcessName</span><span class="p">,</span> <span class="n">p</span><span class="p">.</span><span class="n">WorkingSet64</span> <span class="p">/</span> <span class="m">1024d</span> <span class="p">/</span> <span class="m">1024d</span> <span class="p">})</span>
+</span><span class='line'>    <span class="p">.</span><span class="n">OrderByDescending</span><span class="p">(</span><span class="n">p</span><span class="p">=&gt;</span> <span class="n">p</span><span class="p">[</span><span class="m">1</span><span class="p">]).</span><span class="n">Take</span><span class="p">(</span><span class="m">3</span><span class="p">).</span><span class="n">ToArray</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// print rows</span>
+</span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;{0,-20} {1,10}&quot;</span><span class="p">,</span> <span class="n">columns</span><span class="p">[</span><span class="m">0</span><span class="p">],</span> <span class="n">columns</span><span class="p">[</span><span class="m">1</span><span class="p">]);</span>
+</span><span class='line'><span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">cell</span> <span class="k">in</span> <span class="n">data</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;{0,-20} {1,10:0,0.# MB}&quot;</span><span class="p">,</span> <span class="n">cell</span><span class="p">[</span><span class="m">0</span><span class="p">],</span> <span class="n">cell</span><span class="p">[</span><span class="m">1</span><span class="p">]);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//Output:</span>
+</span><span class='line'><span class="c1">//Name                     Memory</span>
+</span><span class='line'><span class="c1">//devenv                 364.6 MB</span>
+</span><span class='line'><span class="c1">//opera                  229.4 MB</span>
+</span><span class='line'><span class="c1">//svchost                103.3 MB</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Further reading</h2>
+
+<p>I pointed everything you should know to rock with string formatting. Any doubt on this, consult the <a href="http://msdn.microsoft.com/en-us/library/26etazsy.aspx">MSDN articles on the subject</a> for more details.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Michel Pavan Macedo</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-23T21:05:00-02:00" pubdate data-updated="true">2012-01-23</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/dot-net/'>.NET</a>, <a class='category' href='/blog/categories/c-number/'>C#</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://michelpm.com/blog/2012/01/23/formatting-strings-in-dotnet/" data-via="" data-counturl="http://michelpm.com/blog/2012/01/23/formatting-strings-in-dotnet/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/12/21/fsharp-coding-dojo/" title="Previous Post: F# Coding Dojo">&laquo; F# Coding Dojo</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/09/03/javascript-not-minus-one-operator/" title="Next Post: Javascript Not Minus One Operator">Javascript Not Minus One Operator &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>About Me</h1>
+  <p>I code awesome software for fun and work. These are the articles that haven't overthought to abandonment.</p>
+  <p>Enough <a href="http://about.me/michelpm">about me</a>.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/05/15/i18n-of-css-generated-content/">I18n of CSS Generated Content</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/23/twitter-bootstrap-and-jruby-on-rails/">Twitter Bootstrap and JRuby on Rails</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/11/functional-javascript/">Functional JavaScript</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/10/iterating-collections-in-javascript/">Iterating Collections in JavaScript</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/03/javascript-not-minus-one-operator/">Javascript Not Minus One Operator</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Books I'm Reading</h1>
+  <div id="ShelfariWidget242960">
+    <a href='http://www.shelfari.com/'>Shelfari: Book reviews on your book blog</a>
+    <script src="http://www.shelfari.com/ws/242960/widget.js?r=29470" type="text/javascript" language="javascript"></script>
+  </div>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Michel Pavan Macedo -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'halfsw';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://michelpm.com/blog/2012/01/23/formatting-strings-in-dotnet/';
+        var disqus_url = 'http://michelpm.com/blog/2012/01/23/formatting-strings-in-dotnet/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

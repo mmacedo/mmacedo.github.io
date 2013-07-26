@@ -1,0 +1,304 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Javascript Not Minus One Operator - Michel P. Macedo</title>
+  <meta name="author" content="Michel Pavan Macedo">
+
+  
+  <meta name="description" content="In most languages if you want to check if something is in a array or string, you use functions named indexOf or any variant thereof. The signature &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://michelpm.com/blog/2012/09/03/javascript-not-minus-one-operator">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Michel P. Macedo" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-26194428-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Michel P. Macedo</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:michelpm.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Javascript Not Minus One Operator</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-03T12:10:00-03:00" pubdate data-updated="true">2012-09-03</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>In most languages if you want to check if something is in a array or string, you use functions named indexOf or any variant thereof. The signature and contract don&rsquo;t usually deviate much, specially in languages with zero-based indexes.</p>
+
+<p>In Javascript, both <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/indexOf" title="Array indexOf method">Array&rsquo;s</a> and <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/String/indexOf" title="String indexOf method">String&rsquo;s</a> indexOf return minus one (-1) for not found. Minus one isn&rsquo;t particularly semantic, and checking for it tends to produce the most verbose and technical bits of otherwise <a href="http://www.shelfari.com/books/4017020/Clean-Code" title="Clean Code (2008) by Robert C. Martin">cleanly written code</a>.</p>
+
+<!--more-->
+
+
+
+
+<figure class='code'><figcaption><span>Comparison operators</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nv">hello = </span><span class="s">&#39;Hello World!&#39;</span>
+</span><span class='line'><span class="k">if</span> <span class="nx">hello</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s">&#39;World&#39;</span><span class="p">)</span> <span class="o">isnt</span> <span class="o">-</span><span class="mi">1</span> <span class="o">and</span> <span class="nx">hello</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s">&#39;Hello&#39;</span><span class="p">)</span> <span class="o">is</span> <span class="o">-</span><span class="mi">1</span>
+</span><span class='line'>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;Has World, but not Hello&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It turns out there is operator that will return 0 (a falsy value in Javascript) if, and only if it gets a -1. Isn&rsquo;t that convenient?</p>
+
+<p>Tip seen in <a href="http://arcturo.github.com/library/coffeescript/">The Little Book on CoffeeScript</a>, because CofeeScript has a <a href="http://arcturo.github.com/library/coffeescript/04_idioms.html">special idiom</a> for arrays, but not for strings.</p>
+
+<figure class='code'><figcaption><span>Complement Operator (or Not Minus One Operator)</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nv">hello = </span><span class="s">&#39;Hello World!&#39;</span>
+</span><span class='line'><span class="k">if</span> <span class="o">~</span><span class="nx">hello</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s">&#39;World&#39;</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!~</span><span class="nx">hello</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s">&#39;Hello&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;Has World, but not Hello&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It is also <a href="http://stackoverflow.com/questions/791328/how-does-the-bitwise-complement-operator-work" title="How does the bitwise complement (~) operator work?">not very semantic</a>, and if I had seen this code yesterday I wouldn&rsquo;t understand it. I would probably use <a href="http://underscorejs.org/#include" title="Underscore.js include method">an &ldquo;include&rdquo; implementation</a> for arrays/collections or <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/RegExp/test" title="RegExp test method">regular expressions</a> for strings, but it doesn&rsquo;t hurt to have other options. This syntax is almost universal (as long as 0 is evaluted as false, so no Ruby) and it works with CofeeScript too, it is just a matter of knowing the operator.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Michel Pavan Macedo</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-03T12:10:00-03:00" pubdate data-updated="true">2012-09-03</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/coffeescript/'>CoffeeScript</a>, <a class='category' href='/blog/categories/javascript/'>JavaScript</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://michelpm.com/blog/2012/09/03/javascript-not-minus-one-operator/" data-via="" data-counturl="http://michelpm.com/blog/2012/09/03/javascript-not-minus-one-operator/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/01/23/formatting-strings-in-dotnet/" title="Previous Post: Formatting strings in .NET">&laquo; Formatting strings in .NET</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/09/10/iterating-collections-in-javascript/" title="Next Post: Iterating Collections In JavaScript">Iterating Collections In JavaScript &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>About Me</h1>
+  <p>I code awesome software for fun and work. These are the articles that haven't overthought to abandonment.</p>
+  <p>Enough <a href="http://about.me/michelpm">about me</a>.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/05/15/i18n-of-css-generated-content/">I18n of CSS Generated Content</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/23/twitter-bootstrap-and-jruby-on-rails/">Twitter Bootstrap and JRuby on Rails</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/11/functional-javascript/">Functional JavaScript</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/10/iterating-collections-in-javascript/">Iterating Collections in JavaScript</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/03/javascript-not-minus-one-operator/">Javascript Not Minus One Operator</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Books I'm Reading</h1>
+  <div id="ShelfariWidget242960">
+    <a href='http://www.shelfari.com/'>Shelfari: Book reviews on your book blog</a>
+    <script src="http://www.shelfari.com/ws/242960/widget.js?r=29470" type="text/javascript" language="javascript"></script>
+  </div>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Michel Pavan Macedo -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'halfsw';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://michelpm.com/blog/2012/09/03/javascript-not-minus-one-operator/';
+        var disqus_url = 'http://michelpm.com/blog/2012/09/03/javascript-not-minus-one-operator/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

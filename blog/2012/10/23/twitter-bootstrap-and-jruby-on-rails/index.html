@@ -1,0 +1,387 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Twitter Bootstrap and JRuby on Rails - Michel P. Macedo</title>
+  <meta name="author" content="Michel Pavan Macedo">
+
+  
+  <meta name="description" content="Twitter Bootstrap is published in LESS and that is how I like to use it. The twitter-bootstrap-rails gem is the most popular and most complete for &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://michelpm.com/blog/2012/10/23/twitter-bootstrap-and-jruby-on-rails">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Michel P. Macedo" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-26194428-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Michel P. Macedo</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:michelpm.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Twitter Bootstrap and JRuby on Rails</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-23T14:06:00-02:00" pubdate data-updated="true">2012-10-23</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a> is published in <a href="http://lesscss.org/">LESS</a> and that is how I like to use it. The <a href="https://github.com/seyhunak/twitter-bootstrap-rails">twitter-bootstrap-rails</a> gem is the most popular and most complete for that purpose. It has several handy generators and helpers. But I can&rsquo;t for my life install it on <a href="http://jruby.org/">JRuby</a>. Since I don&rsquo;t like forking, I found a somewhat simple workaround.</p>
+
+<!--more-->
+
+
+<h2>Bootstrap files</h2>
+
+<p>If you are like me and want to keep the bootstrap files vendor&#8217;ed (included in asset pipeline by the vendor folder of a gem), you could use the &lsquo;static&rsquo; branch of the twitter-bootstrap-rails gem, but that is the generated CSS, not LESS. It is bad because it doesn&rsquo;t have all stuff &lsquo;master&rsquo; has and if you want to use a <a href="http://bootswatch.com/">theme</a>, it won&rsquo;t work.</p>
+
+<p>The solution is to use the <a href="https://github.com/metaskills/less-rails-bootstrap">less-rails-bootstrap</a> gem, the only thing it does is to require <a href="https://github.com/metaskills/less-rails">less-rails</a> and vendor the original files. Now we don&rsquo;t have all the stuff from the other gem, to get it back see below.</p>
+
+<h2>Require assets</h2>
+
+<p>It must be installed manually, it is pretty straightforward to do so. I use them like below.</p>
+
+<figure class='code'><figcaption><span>app/assets/stylesheets/application.css.less</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scss'><span class='line'><span class="c1">//= require_tree .</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>app/assets/stylesheets/bootstrap_and_overrides.css.less</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='scss'><span class='line'><span class="k">@import</span> <span class="s2">&quot;twitter/bootstrap/bootstrap&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="k">@import</span> <span class="s2">&quot;twitter/bootstrap/responsive&quot;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Set the correct sprite paths</span>
+</span><span class='line'><span class="k">@iconSpritePath</span><span class="nd">:</span> <span class="nt">asset-path</span><span class="o">(</span><span class="s2">&quot;twitter/bootstrap/glyphicons-halflings.png&quot;</span><span class="o">);</span>
+</span><span class='line'><span class="o">@</span><span class="nt">iconWhiteSpritePath</span><span class="nd">:</span> <span class="nt">asset-path</span><span class="o">(</span><span class="s2">&quot;twitter/bootstrap/glyphicons-halflings-white.png&quot;</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">body</span> <span class="p">{</span> <span class="na">padding-top</span><span class="o">:</span> <span class="mi">60</span><span class="kt">px</span><span class="p">;</span> <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>app/assets/javascripts/application.js.coffee</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="c1">#= require twitter/bootstrap</span>
+</span><span class='line'><span class="c1">#= require jquery</span>
+</span><span class='line'><span class="c1">#= require jquery_ujs</span>
+</span><span class='line'><span class="c1">#= require_tree .</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Generate layout</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># Remove the erubis layout generated by Rails</span>
+</span><span class='line'>git rm app/views/layouts/application.html.erb
+</span><span class='line'>
+</span><span class='line'><span class="c"># Download HAML layout (it is a erubis template)</span>
+</span><span class='line'><span class="nv">LayoutErubis</span><span class="o">=</span><span class="k">$(</span>curl https://raw.github.com/seyhunak/twitter-bootstrap-rails/master/lib/generators/bootstrap/layout/templates/layout.html.haml<span class="k">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># Concatenate code to set the local variables and execute it</span>
+</span><span class='line'><span class="o">(</span><span class="nb">echo</span> <span class="s2">&quot;app_name=&#39;MyApp&#39;;layout_type=&#39;fixed&#39;;container_class=&#39;container&#39;&quot;</span>
+</span><span class='line'> <span class="o">(</span><span class="nb">echo</span> <span class="nv">$LayoutErubis</span> | erubis -x<span class="o">)</span>
+</span><span class='line'> <span class="nb">echo</span> <span class="s2">&quot;puts _buf.to_s&quot;</span>
+</span><span class='line'><span class="o">)</span> | ruby &gt; app/views/layouts/application.html.haml
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Replace &lsquo;MyApp&rsquo; with the name of your app, it is the text the will be used in the logo and title areas. If you want to generate a fluid layout replaced &lsquo;fixed&rsquo; with &lsquo;fluid&rsquo; and &lsquo;container&rsquo; with &lsquo;container-fluid&rsquo;. For more details, look at <a href="https://github.com/seyhunak/twitter-bootstrap-rails/blob/master/lib/generators/bootstrap/layout/layout_generator.rb">the code of the generator itself</a>.</p>
+
+<h2>Include helpers</h2>
+
+<p>It won&rsquo;t work. But that is good, because it means presentation logic needed to use several Twitter Bootstrap components is available as helpers. Except we don&rsquo;t have those helpers. So let&rsquo;s go back to their repository and get them as well.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># Add remote</span>
+</span><span class='line'>git remote add -f bsrails https://github.com/seyhunak/twitter-bootstrap-rails
+</span><span class='line'>
+</span><span class='line'><span class="c"># Fetch the branch, squash all changes into a single changeset, but don&#39;t commit</span>
+</span><span class='line'>git merge -s ours --no-commit --squash bsrails/master
+</span><span class='line'>
+</span><span class='line'><span class="c"># Merge remote folder app/helpers (-u) into local folder app/helpers (--prefix)</span>
+</span><span class='line'>git <span class="nb">read</span>-tree --prefix<span class="o">=</span>app/helpers -u bsrails/master:app/helpers
+</span><span class='line'>
+</span><span class='line'><span class="c"># Commit (don&#39;t use -m your lazy bastard)</span>
+</span><span class='line'>git commit
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Word of caution</h2>
+
+<p>This is a workaround. When the twitter-bootstrap-rails is able to install with JRuby, this is going to be useless.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Michel Pavan Macedo</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-23T14:06:00-02:00" pubdate data-updated="true">2012-10-23</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/bootstrap/'>Bootstrap</a>, <a class='category' href='/blog/categories/jruby/'>JRuby</a>, <a class='category' href='/blog/categories/less/'>Less</a>, <a class='category' href='/blog/categories/rails/'>Rails</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://michelpm.com/blog/2012/10/23/twitter-bootstrap-and-jruby-on-rails/" data-via="" data-counturl="http://michelpm.com/blog/2012/10/23/twitter-bootstrap-and-jruby-on-rails/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/09/11/functional-javascript/" title="Previous Post: Functional JavaScript">&laquo; Functional JavaScript</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/05/15/i18n-of-css-generated-content/" title="Next Post: I18n of CSS generated content">I18n of CSS generated content &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>About Me</h1>
+  <p>I code awesome software for fun and work. These are the articles that haven't overthought to abandonment.</p>
+  <p>Enough <a href="http://about.me/michelpm">about me</a>.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/05/15/i18n-of-css-generated-content/">I18n of CSS Generated Content</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/23/twitter-bootstrap-and-jruby-on-rails/">Twitter Bootstrap and JRuby on Rails</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/11/functional-javascript/">Functional JavaScript</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/10/iterating-collections-in-javascript/">Iterating Collections in JavaScript</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/09/03/javascript-not-minus-one-operator/">Javascript Not Minus One Operator</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Books I'm Reading</h1>
+  <div id="ShelfariWidget242960">
+    <a href='http://www.shelfari.com/'>Shelfari: Book reviews on your book blog</a>
+    <script src="http://www.shelfari.com/ws/242960/widget.js?r=29470" type="text/javascript" language="javascript"></script>
+  </div>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Michel Pavan Macedo -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'halfsw';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://michelpm.com/blog/2012/10/23/twitter-bootstrap-and-jruby-on-rails/';
+        var disqus_url = 'http://michelpm.com/blog/2012/10/23/twitter-bootstrap-and-jruby-on-rails/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

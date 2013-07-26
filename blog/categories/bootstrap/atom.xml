@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Bootstrap | Michel P. Macedo]]></title>
+  <link href="http://michelpm.com/blog/categories/bootstrap/atom.xml" rel="self"/>
+  <link href="http://michelpm.com/"/>
+  <updated>2013-07-26T11:09:17-03:00</updated>
+  <id>http://michelpm.com/</id>
+  <author>
+    <name><![CDATA[Michel Pavan Macedo]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[I18n of CSS generated content]]></title>
+    <link href="http://michelpm.com/blog/2013/05/15/i18n-of-css-generated-content/"/>
+    <updated>2013-05-15T19:53:00-03:00</updated>
+    <id>http://michelpm.com/blog/2013/05/15/i18n-of-css-generated-content</id>
+    <content type="html"><![CDATA[<p>In the <a href="http://twitter.github.io/bootstrap/">documentation of Twitter Boostrap 2</a>, there is a pretty example box, with a caption on the top-left corner. If you inspect the HTML code, you won&rsquo;t find the caption, it is generated with CSS. It might seem absurd, a violation of the traditional separation of style and content, but there is a way around it.</p>
+
+<!--more-->
+
+
+<h2>Content inside CSS</h2>
+
+<p>This is the example box:</p>
+
+<p><img src="http://i.imgur.com/5swemcI.png?1" alt="box screen shot" /></p>
+
+<p>One might be tempted to make a mixin out of it (only relevant CSS displayed for now):</p>
+
+<p>Declaration of the mixin (LESS):</p>
+
+<p>```
+.bs-docs-box(@caption) {
+  &amp;:after {</p>
+
+<pre><code>// Echo out a label for the example
+content: @caption;
+</code></pre>
+
+<p>  }
+}
+```</p>
+
+<p>Declaration of the CSS class (LESS and ERB):</p>
+
+<p><code>
+.example {
+  .bs-docs-box("&lt;%= translate 'example' %&gt;");
+}
+</code></p>
+
+<p>Usage of the CSS class (HAML):</p>
+
+<p><code>
+.example
+  Vivamus sagittis...
+</code></p>
+
+<p>The problem with this example is that we have content of the site inside the CSS, instead of the HTML. To be able to use this example with <abbr title="Internationalization">i18n</abbr> we have to serve the CSS as if it was a view, what <a href="http://stackoverflow.com/a/16246891/619510">can not be done with Rails</a>.</p>
+
+<h2>Extracting content to HTML</h2>
+
+<p> If we go read the <a href="http://www.w3.org/TR/CSS2/generate.html#content">CSS <em>&lsquo;content&rsquo;</em> specification</a>, we will find that this property accepts <code>attr(&lt;identifier&gt;)</code> as a value. This <em>attr</em> function will return the value of a specified attribute from the selected element.</p>
+
+<p> Now, instead of having a LESS mixin with a caption parameter, we can have only one CSS class:</p>
+
+<p><code>
+.bs-docs-box:after {
+  content: attr(data-caption);
+}
+</code></p>
+
+<p>And use it like this (HAML):</p>
+
+<p><code>
+.bs-docs-box{'data-caption' =&gt; translate('example')}
+  Vivamus sagittis...
+</code></p>
+
+<h2>Extracting it to a view helper on Rails</h2>
+
+<p>Declaring a view helper:</p>
+
+<p>```
+module ApplicationHelper
+  def example</p>
+
+<pre><code>content_tag :div, 'class'        =&gt; 'bs-docs-box',
+                  'data-caption' =&gt; translate('example') do
+  yield
+end
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<p>Using the view helper:</p>
+
+<p><code>
+= example do
+  Vivamus sagittis...
+</code></p>
+
+<h2>Full code of the box</h2>
+
+<p>My best guess of the box LESS code from the static CSS code of the documentation, plus our little improvement:</p>
+
+<p>```
+@import &ldquo;twitter/bootstrap/variables&rdquo;;
+@import &ldquo;twitter/bootstrap/mixins&rdquo;;</p>
+
+<p>// Extracted from <a href="http://twitter.github.io/bootstrap/">http://twitter.github.io/bootstrap/</a>
+.bs-docs-box {
+  &amp; {</p>
+
+<pre><code>position: relative;
+margin: 15px 0;
+padding: 39px 19px 14px;
+*padding-top: 19px;
+background-color: @bodyBackground;
+border: 1px solid #ddd;
+.border-radius(@baseBorderRadius);
+</code></pre>
+
+<p>  }</p>
+
+<p>  &amp;:after {</p>
+
+<pre><code>// Echo out a label for the example
+content: attr(data-caption);
+position: absolute;
+top: -1px;
+left: -1px;
+padding: 3px 7px;
+font-size: @baseFontSize - 2;
+font-weight: bold;
+background-color: #f5f5f5;
+border: 1px solid #ddd;
+color: #9da0a4;
+.border-radius(@baseBorderRadius 0 @baseBorderRadius 0);
+</code></pre>
+
+<p>  }
+}
+```</p>
+
+<p>Credits of finding the solution to <a href="http://stackoverflow.com/a/16321962/619510">@nzifnab</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Twitter Bootstrap and JRuby on Rails]]></title>
+    <link href="http://michelpm.com/blog/2012/10/23/twitter-bootstrap-and-jruby-on-rails/"/>
+    <updated>2012-10-23T14:06:00-02:00</updated>
+    <id>http://michelpm.com/blog/2012/10/23/twitter-bootstrap-and-jruby-on-rails</id>
+    <content type="html"><![CDATA[<p><a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a> is published in <a href="http://lesscss.org/">LESS</a> and that is how I like to use it. The <a href="https://github.com/seyhunak/twitter-bootstrap-rails">twitter-bootstrap-rails</a> gem is the most popular and most complete for that purpose. It has several handy generators and helpers. But I can&rsquo;t for my life install it on <a href="http://jruby.org/">JRuby</a>. Since I don&rsquo;t like forking, I found a somewhat simple workaround.</p>
+
+<!--more-->
+
+
+<h2>Bootstrap files</h2>
+
+<p>If you are like me and want to keep the bootstrap files vendor'ed (included in asset pipeline by the vendor folder of a gem), you could use the &lsquo;static&rsquo; branch of the twitter-bootstrap-rails gem, but that is the generated CSS, not LESS. It is bad because it doesn&rsquo;t have all stuff &lsquo;master&rsquo; has and if you want to use a <a href="http://bootswatch.com/">theme</a>, it won&rsquo;t work.</p>
+
+<p>The solution is to use the <a href="https://github.com/metaskills/less-rails-bootstrap">less-rails-bootstrap</a> gem, the only thing it does is to require <a href="https://github.com/metaskills/less-rails">less-rails</a> and vendor the original files. Now we don&rsquo;t have all the stuff from the other gem, to get it back see below.</p>
+
+<h2>Require assets</h2>
+
+<p>It must be installed manually, it is pretty straightforward to do so. I use them like below.</p>
+
+<p><code>scss app/assets/stylesheets/application.css.less
+//= require_tree .
+</code></p>
+
+<p>``` scss app/assets/stylesheets/bootstrap_and_overrides.css.less
+@import &ldquo;twitter/bootstrap/bootstrap&rdquo;;
+@import &ldquo;twitter/bootstrap/responsive&rdquo;;</p>
+
+<p>// Set the correct sprite paths
+@iconSpritePath: asset-path(&ldquo;twitter/bootstrap/glyphicons-halflings.png&rdquo;);
+@iconWhiteSpritePath: asset-path(&ldquo;twitter/bootstrap/glyphicons-halflings-white.png&rdquo;);</p>
+
+<p>body { padding-top: 60px; }
+```</p>
+
+<p>``` coffeescript app/assets/javascripts/application.js.coffee</p>
+
+<h1>= require twitter/bootstrap</h1>
+
+<h1>= require jquery</h1>
+
+<h1>= require jquery_ujs</h1>
+
+<h1>= require_tree .</h1>
+
+<p>```</p>
+
+<h2>Generate layout</h2>
+
+<p>``` bash</p>
+
+<h1>Remove the erubis layout generated by Rails</h1>
+
+<p>git rm app/views/layouts/application.html.erb</p>
+
+<h1>Download HAML layout (it is a erubis template)</h1>
+
+<p>LayoutErubis=$(curl <a href="https://raw.github.com/seyhunak/twitter-bootstrap-rails/master/lib/generators/bootstrap/layout/templates/layout.html.haml">https://raw.github.com/seyhunak/twitter-bootstrap-rails/master/lib/generators/bootstrap/layout/templates/layout.html.haml</a>)</p>
+
+<h1>Concatenate code to set the local variables and execute it</h1>
+
+<p>(echo &ldquo;app_name=&lsquo;MyApp&rsquo;;layout_type=&lsquo;fixed&rsquo;;container_class=&lsquo;container&rsquo;&rdquo;
+ (echo $LayoutErubis | erubis -x)
+ echo &ldquo;puts _buf.to_s&rdquo;
+) | ruby > app/views/layouts/application.html.haml
+```</p>
+
+<p>Replace &lsquo;MyApp&rsquo; with the name of your app, it is the text the will be used in the logo and title areas. If you want to generate a fluid layout replaced &lsquo;fixed&rsquo; with &lsquo;fluid&rsquo; and &lsquo;container&rsquo; with &lsquo;container-fluid&rsquo;. For more details, look at <a href="https://github.com/seyhunak/twitter-bootstrap-rails/blob/master/lib/generators/bootstrap/layout/layout_generator.rb">the code of the generator itself</a>.</p>
+
+<h2>Include helpers</h2>
+
+<p>It won&rsquo;t work. But that is good, because it means presentation logic needed to use several Twitter Bootstrap components is available as helpers. Except we don&rsquo;t have those helpers. So let&rsquo;s go back to their repository and get them as well.</p>
+
+<p>``` bash</p>
+
+<h1>Add remote</h1>
+
+<p>git remote add -f bsrails <a href="https://github.com/seyhunak/twitter-bootstrap-rails">https://github.com/seyhunak/twitter-bootstrap-rails</a></p>
+
+<h1>Fetch the branch, squash all changes into a single changeset, but don&rsquo;t commit</h1>
+
+<p>git merge -s ours &mdash;no-commit &mdash;squash bsrails/master</p>
+
+<h1>Merge remote folder app/helpers (-u) into local folder app/helpers (&mdash;prefix)</h1>
+
+<p>git read-tree &mdash;prefix=app/helpers -u bsrails/master:app/helpers</p>
+
+<h1>Commit (don&rsquo;t use -m your lazy bastard)</h1>
+
+<p>git commit
+```</p>
+
+<h2>Word of caution</h2>
+
+<p>This is a workaround. When the twitter-bootstrap-rails is able to install with JRuby, this is going to be useless.</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: .NET | Michel P. Macedo]]></title>
+  <link href="http://michelpm.com/blog/categories/dot-net/atom.xml" rel="self"/>
+  <link href="http://michelpm.com/"/>
+  <updated>2013-07-26T11:09:17-03:00</updated>
+  <id>http://michelpm.com/</id>
+  <author>
+    <name><![CDATA[Michel Pavan Macedo]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Formatting strings in .NET]]></title>
+    <link href="http://michelpm.com/blog/2012/01/23/formatting-strings-in-dotnet/"/>
+    <updated>2012-01-23T21:05:00-02:00</updated>
+    <id>http://michelpm.com/blog/2012/01/23/formatting-strings-in-dotnet</id>
+    <content type="html"><![CDATA[<p>You may want to format some scalar value as a string, since default ToString functionality is possibly not what you want the user to see. You may want to do some occasional tool or toy console app. Not only these but perhaps any other reason may inspire you to code some string art. With C# there is no string interpolation, but there is a string formatting framework with a reasonable power. Let&rsquo;s see about that.</p>
+
+<!--more-->
+
+
+<h2>String.Format</h2>
+
+<p>Most popular languages have something to format strings. In the .NET framework, this functionality is implemented by the String&rsquo;s static method Format. It has a few important properties that are definitely worth noting:</p>
+
+<ul>
+<li><strong>Indexed</strong>:  Unlike most format functions, parameters are indexed and therefore need not to be ordered.</li>
+<li><strong>Untyped</strong>: Unlike C&rsquo;s <a href="http://en.wikipedia.org/wiki/Printf_format_string">printf</a>, it doesn&rsquo;t need to know the parameters types, and instead relies on <a href="http://en.wikipedia.org/wiki/Subtype_polymorphism">subtype polymorphism</a>.</li>
+<li><strong>Flexible</strong>: It can format the parameters, but the function itself doesn&rsquo;t need to know how to do it, again it relies on polymorphism to do that.</li>
+</ul>
+
+
+<h2>How it does it?</h2>
+
+<p>You might wonder how it prints things if it is not typed. Most basic functionality in converting to String is taken from the ToString instance method of Object, which is the root type for all .NET types. If the object must support custom formatting functionality, it implements the IFormattable interface with a ToString method signature that is both format-aware and locale-aware.</p>
+
+<h2>How would I do it?</h2>
+
+<p>No one wants to duplicate this functionality, so everywhere you expose this option to your string inputs you follow some conventions and just delegate String.Format the hard work. The convention signature for a method that exposes String.Format functionality is a string parameter followed by one to three object parameters or a object array in the <a href="http://en.wikipedia.org/wiki/Variadic_function">variadic</a> form and a return of String, of course. Classic .NET methods that support this convention are:</p>
+
+<ul>
+<li><a href="http://msdn.microsoft.com/en-us/library/system.string.format.aspx">String.Format (static)</a></li>
+<li><a href="http://msdn.microsoft.com/en-us/library/system.console.write.aspx">Console.Write (static)</a>, <a href="http://msdn.microsoft.com/en-us/library/system.console.writeline.aspx">Console.WriteLine (static)</a></li>
+<li><a href="http://msdn.microsoft.com/en-us/library/system.io.textwriter.write.aspx">TextWriter.Write</a>, <a href="http://msdn.microsoft.com/en-us/library/fcs6ys85.aspx">TextWriter.WriteLine</a></li>
+<li><a href="http://msdn.microsoft.com/en-us/library/system.text.stringbuilder.appendformat.aspx">StringBuilder.AppendFormat</a></li>
+</ul>
+
+
+<p>A last advice, use it wisely, don&rsquo;t ever duplicate framework functionality. Also don&rsquo;t break the convention, it must work exactly like String.Format, don&rsquo;t add any logic at all and your user will be at home consuming your API.</p>
+
+<h2>How do I use it?</h2>
+
+<p>The basic format is with brackets and a zero-based parameter index like the following C# code:</p>
+
+<p><code>csharp
+var name = "World";
+Console.Write("Hello, {0}!", name);
+// Hello, World!
+</code></p>
+
+<p>To show why indexed is better than ordered:</p>
+
+<p><code>csharp
+var name = "World";
+var greeting = "Hello,";
+Console.Write("&lt;span title='{0}'&gt;{1} {0}!&lt;/span&gt; ", name, greeting);
+// &lt;span title='World'&gt;Hello, World!&lt;/span&gt;
+</code></p>
+
+<p>What if I need curly brackets in my string?</p>
+
+<p>`&ldquo; csharp
+var statement1 = &ldquo;var greeting = &lsquo;Hello World!&rsquo;;&rdquo;;
+var statement2 = &ldquo;alert(greeting, name);&rdquo;;
+var function = @&ldquo;
+function hello(name) &#x7b;&#x7b;
+  {0}
+  if (name != null &amp;&amp; name != &rdquo;) &#x7b;&#x7b;</p>
+
+<pre><code>{1}
+</code></pre>
+
+<p>  }}
+}}&ldquo;;
+Console.Write(function, statement1, statement2);
+// function hello(name) {
+//   (&hellip;)
+// }
+```</p>
+
+<h2>What do I need IFormattable for?</h2>
+
+<p>As stated before, IFormattable is both locale-aware and format-aware, but the basic formatting we&rsquo;ve seen so far is not. Let&rsquo;s see a example on how to use format parameter.</p>
+
+<p><code>csharp
+var someNumber = 320320.51d;
+Console.WriteLine("Some number: {0}", someNumber);
+// Some number: 320320.51
+Console.WriteLine("Someone's salary: {0:C} or perhaps {0:0,0.00 USD}", someNumber);
+// Someone's salary: $320,320.51 or perhaps 320,320.51 USD
+Console.WriteLine("Four decimal places: {0:N4} or {0:0,0.0000}", someNumber);
+// Four decimal places: 320,320.5100 or 320,320.5100
+Console.WriteLine("Not less than 3, not more than 5: {0:0,0.000##}", someNumber);
+// Not less than 3, not more than 5: 320,320.510
+Console.WriteLine("Just one decimal place: {0:N1} or {0:0,0.0}", someNumber);
+// Just one decimal place: 320,320.5 or 320,320.5
+Console.WriteLine("No decimal place or thousand separator: {0:0}", someNumber);
+// No decimal place or thousand separator: 320321
+Console.WriteLine("Fancy stuff: {0:0.# is &gt;= zero;-0.# is &lt; zero}", -1d);
+// Fancy stuff: -1 is &lt; zero
+Console.WriteLine("Fancy stuff: {0:0.# is &gt; zero; -0.# is &lt; zero;0.# is zero}", 0d);
+// Fancy stuff: 0 is zero
+</code></p>
+
+<p>You can find everything about <a href="http://msdn.microsoft.com/en-us/library/dwhawy9k.aspx">number formatting</a> on MSDN.</p>
+
+<p>Of all methods I listed before, only String.Format exposes one extra overload starting with a locale parameter. If you don&rsquo;t feel that you should expose a parameter, you may use a culture configured in your library or just use the current culture (for that, just use String.Format without that parameter).</p>
+
+<h2>Just that?</h2>
+
+<p>I haven&rsquo;t told you the coolest thing about formatting strings yet. As everything else, it comes for free in your custom API if you don&rsquo;t do anything fancy with the string before handing to String.Format. Let&rsquo;s suppose you are in fixed-width font environment like a dummy console app you created to test something or gather some data that isn&rsquo;t worth making a library for. You are probably spending a lot of effort to get it visually pleasant, but you don&rsquo;t need that. You could do just this:</p>
+
+<p>``` csharp
+var columns = new[] { &ldquo;Name&rdquo;, &ldquo;Memory&rdquo; };
+// get top 3 running processes by memory usage
+var data = Process.GetProcesses()</p>
+
+<pre><code>.Select(p =&gt; new object[] { p.ProcessName, p.WorkingSet64 / 1024d / 1024d })
+.OrderByDescending(p=&gt; p[1]).Take(3).ToArray();
+</code></pre>
+
+<p>// print rows
+Console.WriteLine(&ldquo;{0,-20} {1,10}&rdquo;, columns[0], columns[1]);
+foreach (var cell in data)
+{</p>
+
+<pre><code>Console.WriteLine("{0,-20} {1,10:0,0.# MB}", cell[0], cell[1]);
+</code></pre>
+
+<p>}</p>
+
+<p>//Output:
+//Name                     Memory
+//devenv                 364.6 MB
+//opera                  229.4 MB
+//svchost                103.3 MB
+```</p>
+
+<h2>Further reading</h2>
+
+<p>I pointed everything you should know to rock with string formatting. Any doubt on this, consult the <a href="http://msdn.microsoft.com/en-us/library/26etazsy.aspx">MSDN articles on the subject</a> for more details.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[F# Coding Dojo]]></title>
+    <link href="http://michelpm.com/blog/2011/12/21/fsharp-coding-dojo/"/>
+    <updated>2011-12-21T01:23:00-02:00</updated>
+    <id>http://michelpm.com/blog/2011/12/21/fsharp-coding-dojo</id>
+    <content type="html"><![CDATA[<p>I am an active member of a <a href="http://bludotnet.com.br">.NET user group</a> in <a href="http://en.wikipedia.org/wiki/Blumenau">the city I live</a>. We have monthly meetings that usually combine a lecture followed by an one hour <a href="http://code.joejag.com/2009/the-coding-dojo/">coding dojo</a>. August this year we had our monthly meeting and I spoke for an hour or so about F# and then challenged the other participants to translate to F# a small problem already codified with C#.</p>
+
+<!--more-->
+
+
+<h2>Presentation</h2>
+
+<p>My presentation was mostly based on the book <a href="http://www.shelfari.com/books/4472689/Real-World-Functional-Programming-With-Examples-in-F-and-C-">Real-World Functional Programming with Examples in F# And C#</a> and <a href="http://www.infoq.com/search.action?queryString=F%23&amp;searchOrder=relevance&amp;search=F%23">presentations and slides</a> from Don Syme &ndash; the creator, and Tomas Petricek &ndash; the author of the book aforementioned. I prepared a handful of tiny code samples to demonstrate from the basic syntax to web development. The presentation was optimized not to sell, but to teach as much as possible of F# in less than a hour for C# developers. I thought &ldquo;Does it have lots of awesome features worth talking about? Sure, but let&rsquo;s concentrate on what the audience will need to know to start coding when I am finished.&rdquo;</p>
+
+<h3>Results</h3>
+
+<p>People don&rsquo;t like what they don&rsquo;t know, and functional programming suffer from not being the mainstream paradigm for enterprise solutions. When I started my presentation, functional programming had already been on the spotlight for decades, and developers had acquired all kinds of assumptions. Discussion went free and when it finally stopped, the tempo of a crash course had become slide skimming.</p>
+
+<h2>Coding Dojo</h2>
+
+<p>The idea was to take a small problem in C# and try to translate it to F# during a <a href="http://code.joejag.com/2009/the-coding-dojo/">Randori Dojo</a>. The group consisted of mostly C# developers with almost no background in functional programming. The problem required special thought on how to design the problem and make available the tools in some way that could countermeasure the lack of experience.</p>
+
+<h3>Preparation</h3>
+
+<p>Regardless of how much I like Poker there are programmers that never played or are not sure of the rules. The first handout was a printed list with nice visual hints and descriptions of the Poker hands. The second handout was a concise and specially made cheat sheet of the F# syntax commented in the natural language of the members (Brazilian Portuguese). The third handout was not printed, it was the C# code I clean coded and commented, even though it sounds contradictory. I navigated and explained every class and method.
+The fourth asset the team had was myself. Devoided of eidetic memories, it would be impossible to get work done fluently in a foreign language you just learned. My work as self appointed specialist was to help people express their intents in a way the compiler understands.</p>
+
+<h3>Results</h3>
+
+<p>One hour was just too little for this sort of experiment, we couldn&rsquo;t get past two data structures. The reason is that writing proficiency is usually associated with a specific tool and programming proficiency is very tightly coupled to the style or paradigm. The best intents couldn&rsquo;t speed us much more than that. I had the task to empathize to the F# compiler for my group while I hadn&rsquo;t used some features we needed. The result was myself being demoted to a dark corner hiding full of shame and the search engine taking over as specialist.</p>
+
+<h2>Conclusions</h2>
+
+<p>Learning and teaching are always fun, as is coding dojos. However next time I organize a lecture plus coding dojo in a programming language the audience doesn&rsquo;t feel at home, I might reevaluate some assumptions and choices I made for a even better new language coding dojo experience:</p>
+
+<ul>
+<li>It is absolutely necessary at least one guy practiced a lot that language before the coding dojo.</li>
+<li>There must be enough time for people to get used to the syntax and tools before they are productive.</li>
+<li>There is no room for the paradigmatic or marketing discussion, it must be replaced for a full pragmatic experience of the language that will be used for the coding dojo.</li>
+</ul>
+
+
+<h2>Output</h2>
+
+<ul>
+<li><strong>Poker handout</strong>: I got the more visually pleasant I found through the search engine and that didn&rsquo;t have written descriptions.</li>
+<li><strong>F# Cheat Sheet</strong>: It was optimized for Potuguese and the problem at hand, so not so awesome for general consumption.</li>
+<li><strong>Slides</strong>: It was a rewrite of existing English language slides and optimized for the problem at hand, also not great for general consumption. Yet, by the group request it is available in portuguese on the <a href="http://www.bludotnet.com.br/2011/08/ata-da-reuniao-introducao-ao-f-e-coding-dojo/">group site</a>.</li>
+<li><strong>Dojo output</strong>: We didn&rsquo;t produce quite enough output to be useful.</li>
+<li><strong>Post-dojo output</strong>: I promised the group to send the problem solved. It is available with identifiers in Portuguese on the <a href="http://www.bludotnet.com.br/2011/08/ata-da-reuniao-introducao-ao-f-e-coding-dojo/">group site</a> and also published in English on <a href="https://github.com/mmacedo/dojo-2011-08-poker">GitHub</a>.</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

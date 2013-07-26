@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: SQL | Michel P. Macedo]]></title>
+  <link href="http://michelpm.com/blog/categories/sql/atom.xml" rel="self"/>
+  <link href="http://michelpm.com/"/>
+  <updated>2013-07-26T11:09:17-03:00</updated>
+  <id>http://michelpm.com/</id>
+  <author>
+    <name><![CDATA[Michel Pavan Macedo]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Why I hate not to know Vim]]></title>
+    <link href="http://michelpm.com/blog/2011/08/26/why-i-hate-not-to-know-vim/"/>
+    <updated>2011-08-26T18:24:00-03:00</updated>
+    <id>http://michelpm.com/blog/2011/08/26/why-i-hate-not-to-know-vim</id>
+    <content type="html"><![CDATA[<p>Several times I stumbled with big SQL queries, but this one I was asked to fix was huge. I wouldn&rsquo;t question if it should be that big because refactoring that just wasn&rsquo;t worth it. Like other stupidly big queries it had really big sub-queries deeply nested in both projection (SELECT) and selection (FROM) sections. Needless to say it had a complex and badly designed spaghetti of joins. There were several N to N relationships that would be nothing but usual if not for the fact they were hiding several other circular references with some awful large perimeters. I found later there were also some inconsistent joins that should be done to correct relations that pointed to the wrong table.</p>
+
+<!--more-->
+
+
+<p>So far so good, the query was evil and according to my assignment, it would produce somewhat rare unexpected results. My luck is that my test environment couldn&rsquo;t be better, I could test directly in the database where the bug was found.</p>
+
+<p>That much of query text was dynamically built and would take forever to understand it and properly format. So I went to the obvious path to find the problem that was to decompose it. Lots of badly formatted and undocumented pieces of SQL across strings in the code or one final composed SQL unformatted. Those two were my options, perhaps it wasn&rsquo;t the wiser decision, but I got the one was already built and went online to find a tool that would fix the formatting. That shouldn&rsquo;t be a problem, because as far as I knew, it was all ANSI.</p>
+
+<p>Once I had it formatted I would strip unnecessary projections and as my problem was the duplication of some lines I would start stripping joins and filters to isolate the cause of the problem. I had it all planned in my head except I did not know a good tool to format SQL. I google&rsquo;d and bing'ed, lots and lots of free and online tools were returned only for me to find that every one of them failed to format my awful big and deeply nested SQL query.</p>
+
+<p>There are as many paid tools as free online tools to format SQL. There are also a few free and open source tools to format SQL. Formatting SQL is basically parsing the SQL and then printing it back as text. Both are very well solved problems and so I expected to be SQL formatting. Tons of style configuration, multiple output formats and nice and usable GUI should be already a must for a tool of that kind. And yet, nothing. I am yet to find a free tool that is capable of formatting that thing.</p>
+
+<p>I used the one free online tool that generated the least ugly output. Finally, with tons of time and luck I isolated some subqueries with dozen of lines, rewrote the query some times trying to understand it. No one in the project knew how the subquery worked even tough they knew why it was there. But that is a different problem. How not to write queries and the importance of documenting them are worth no less than one article each of their own.</p>
+
+<p>I spent more time searching for a simple tool to perform a very simple and old problem than I would have spent formatting by hand. I never did that by hand because it certainly would be a big waste of time. The query had been generated so I would spend one hour or two formatting what I expect to be thousands of lines of query and after I finished neither the process would be reused or the query text that would be then discarded. Perhaps, if I knew beforehand that I would not find a tool for this task I could take some more time and make myself a good tool.</p>
+
+<p>I finished my reflection, got back to work and some days later: different problem, same situation. Only that this time one of the first things that came to my mind was a nifty tool called Vim that I once worked with. At that time I used several sorts of Shell daily, but I had no training, so Vi was to me just a tool that required an extra key to start editing. Later I&rsquo;ve read some tutorials and I was amazed with everything it could do and I never learned in my days of intensive Shell scripting&hellip;</p>
+
+<p>Counting the time to download, install and execute Vim (Vi iMproved), 2 minute was the total time I needed to navigate through the parentheses and locate myself within that query. After editing it so many times I had a considerable previous knowledge of the situation, but still a tool usually perceived as complex by GUI people was the simple tool I always needed.</p>
+
+<p>I used &lsquo;%&rsquo; to navigate between matching parentheses, &lsquo;v&rsquo; for visual selection and &lsquo;/&rsquo; for searching. It is a very small subset of what I know I could quickly accomplish with Vi if I only practiced a little more. For a .NET guy that desperately needs his VS2010 and productivity plugins to code, Vim is not the most essential tool I would forgive myself to spend a whole week trying to learn (again). In a world of ORM&rsquo;s and NoSQL&rsquo;s where old SQL queries have survived by obscurity, SQL is even less of a motive to learn a whole new editor.</p>
+
+<p>I just hope that one day I will be working in some kind of environment that I am required to learn Vim to be productive. Or I might just use some bloated, buggy and painfully slow IDE and learn one new Vim command a year, on demand. That works too!</p>
+]]></content>
+  </entry>
+  
+</feed>
