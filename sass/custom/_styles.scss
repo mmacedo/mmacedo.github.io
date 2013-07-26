@@ -1,2 +1,50 @@
 // This File is imported last, and will override other styles in the cascade
 // Add styles here to make changes without digging in too much
+
+figure.code figcaption {
+  & a.switchLang {
+    color:white !important;
+    text-shadow: #333 0 1px 0;
+  }
+  span.switchLang {
+    position:absolute;
+    left: .8em;
+    right:auto;
+    padding-left:0;
+    padding-right:3em;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    user-select:none;
+    -webkit-transition: text-shadow, color 0.3s;
+  }
+  a.switchLang {
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    user-select:none;
+    -webkit-transition: text-shadow, color 0.3s;
+    background-color: #888;
+    position:initial;
+    right:auto;
+    padding:0;
+    padding-left:.8em;
+    padding-right:.8em;
+    //border:1px solid black;
+    display: inline-block;
+    border-top-right-radius:6px;
+    border-bottom-right-radius:6px;
+    border-left:0;
+    height: 1.4em;
+    line-height: 1.4em;
+  }
+  a.switchLang:first-child {
+    //border-right:0;
+    //border-left:1px solid black;
+    border-radius:0;
+    border-top-left-radius:6px;
+    border-bottom-left-radius:6px;
+
+  }
+  a.switchLang.selected {
+    background-color:#666;
+  }
+}
