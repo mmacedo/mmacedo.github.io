@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: bash | Michel P. Macedo]]></title>
+  <link href="http://michelpm.com/blog/categories/bash/atom.xml" rel="self"/>
+  <link href="http://michelpm.com/"/>
+  <updated>2013-07-26T19:35:11-03:00</updated>
+  <id>http://michelpm.com/</id>
+  <author>
+    <name><![CDATA[Michel Pavan Macedo]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Switching from zsh to fish]]></title>
+    <link href="http://michelpm.com/blog/2013/07/26/switching-from-zsh-to-fish/"/>
+    <updated>2013-07-26T15:09:00-03:00</updated>
+    <id>http://michelpm.com/blog/2013/07/26/switching-from-zsh-to-fish</id>
+    <content type="html"><![CDATA[<p>Not long ago I heard of <a href="http://fishshell.com">fish (friendly interactive shell)</a> and I decided it was worth a test drive. I have a decent configuration for zsh, with most credits to <a href="https://github.com/robbyrussell/oh-my-zsh">Oh My Zsh!</a>, but I was determined to get rid of most my dotfiles, as it is one of my greatest excuses to procrastinate, however tidy. Fish comes with lots of things out of the box, so I decided to replace zsh even if it meant to lose a thing or two.</p>
+
+<!--more-->
+
+
+<h2>Trying out fish</h2>
+
+<p>Being on Ubuntu, I found a ppa with very up to date fish:</p>
+
+<p>``` console</p>
+
+<blockquote><p>sudo add-apt-repository -y ppa:zanchey/fishfish-snapshot
+sudo aptitude update
+sudo aptitude install -y fishfish
+chsh -s /usr/bin/fish
+```</p></blockquote>
+
+<p>I opened fish and started to type things to test. Syntax highlighting and history completion were great and beautiful. Completion is a little bit different, not as good as zsh&rsquo;s with lots of plugins and configurations, but close enough and again prettier. The syntax is very nice but it is not at all compatible with popular shells and not even POSIX. The name is hard to search and the documentation and community not big enough, but I managed to translate all my functions using the <a href="http://fishshell.com/tutorial.html">tutorial</a> and the <a href="http://fishshell.com/docs/current/index.html">documentation</a>. Even harder than learning fish was to understand every feature of bash to translate the code to fish.</p>
+
+<h2>Oh My Fish!</h2>
+
+<p>The fish configuration on the browser (fish_config command) is a neat concept, with a cool prompt visualizer (beats my <a href="https://gist.github.com/mmacedo/4047615">xterm opener</a>), but disappointing as I didn&rsquo;t find anything worth configuring there. Already feeling like something was missing, I searched for <a href="https://github.com/bpinto/oh-my-fish">Oh My Fish!</a>, and I found exactly what I needed to have a complete shell:</p>
+
+<p>``` console</p>
+
+<blockquote><p>curl -L <a href="https://github.com/bpinto/oh-my-fish/raw/master/tools/install.sh">https://github.com/bpinto/oh-my-fish/raw/master/tools/install.sh</a> | bash
+```</p></blockquote>
+
+<p>Instead of a <code>~/.fishrc</code>, the fish configuration goes into <code>~/.config/fish/config.fish</code>:</p>
+
+<p><code>sh
+set fish_path $HOME/.oh-my-fish
+. $fish_path/oh-my-fish.fish
+</code></p>
+
+<h2>Prompt / Theme</h2>
+
+<p>I still had to pick a good prompt to replace Oh My Zsh!&rsquo;s <a href="http://www.maxmasnick.com/2012/09/02/zsh/">fino theme</a>. <a href="https://github.com/bpinto/oh-my-fish/pull/27">Numist</a> is pretty much the same theme, but it doesn&rsquo;t show the ruby version. I added my custom version of oh-my-fish&rsquo;s numist theme with the ruby version from oh-my-zsh&rsquo;s fino theme:</p>
+
+<p>``` sh
+set -l ruby_info
+if which rvm-prompt >/dev/null ^&amp;1
+  set ruby_info (rvm-prompt i v g)
+else
+  if which rbenv >/dev/null ^&amp;1</p>
+
+<pre><code>set ruby_info (rbenv version-name)
+</code></pre>
+
+<p>  end
+end</p>
+
+<p>test $ruby_info; and set ruby_info &ldquo;$normal&rdquo;&ldquo;using $magenta‹$ruby_info›&rdquo;
+```</p>
+
+<h2>Tools</h2>
+
+<p>Somehow the few plugins of Oh My Fish! were enough to cater for my needs. I don&rsquo;t know why, but <a href="https://github.com/sstephenson/rbenv">rbenv</a> works fine, the <a href="https://github.com/bpinto/oh-my-fish/tree/master/plugins/rake">rake</a> and <a href="https://github.com/bpinto/oh-my-fish/tree/master/plugins/bundler">bundler</a> plugins are as good as their Oh My Zsh! counterparts. The <a href="https://github.com/bpinto/oh-my-fish/tree/master/plugins/node">node</a> plugin works, but the completions that were supposed to be automatically generated, aren&rsquo;t. One plugin that I miss is completions for the heroku CLI, since it doesn&rsquo;t have a manpage (shame on heroku for that).</p>
+
+<p>Most tools, however, are not compatible with fish: how would them? It coincided that I wanted to try a new tool (<a href="https://github.com/creationix/nvm">nvm</a>) for which there was no fish shim or fish plugin. Inspired by an <a href="https://github.com/fish-shell/fish-shell/issues/522#issuecomment-12485379">attempt</a> to source POSIX/bash syntax files, I decided to write a <code>source</code> function that could execute bash code and reproduce changes to variables and functions on fish:</p>
+
+<p>{% gist 6083809 source.fish %}</p>
+
+<h2>Conclusion</h2>
+
+<p>My fish configuration now looks like this:</p>
+
+<p>``` sh</p>
+
+<h1>Oh My Fish!</h1>
+
+<p>set fish_path $HOME/.oh-my-fish
+set fish_theme my
+set fish_plugins rbenv rake bundler node
+. $fish_path/oh-my-fish.fish</p>
+
+<h1>nvm</h1>
+
+<p>. $HOME/.config/fish/source.fish
+source &mdash;bash $HOME/.nvm/nvm.sh</p>
+
+<p>. $HOME/.config/fish/functions.fish
+```</p>
+]]></content>
+  </entry>
+  
+</feed>
