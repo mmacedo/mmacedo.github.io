@@ -4,7 +4,7 @@
   <title><![CDATA[Category: shell | Michel P. Macedo]]></title>
   <link href="http://michelpm.com/blog/categories/shell/atom.xml" rel="self"/>
   <link href="http://michelpm.com/"/>
-  <updated>2013-07-26T19:35:11-03:00</updated>
+  <updated>2013-07-28T08:16:38-03:00</updated>
   <id>http://michelpm.com/</id>
   <author>
     <name><![CDATA[Michel Pavan Macedo]]></name>
@@ -27,13 +27,12 @@
 
 <p>Being on Ubuntu, I found a ppa with very up to date fish:</p>
 
-<p>``` console</p>
-
-<blockquote><p>sudo add-apt-repository -y ppa:zanchey/fishfish-snapshot
-sudo aptitude update
-sudo aptitude install -y fishfish
+<p><code>
+sudo apt-add-repository -y ppa:zanchey/fishfish-snapshot
+sudo apt-get update
+sudo apt-get install -y fishfish
 chsh -s /usr/bin/fish
-```</p></blockquote>
+</code></p>
 
 <p>I opened fish and started to type things to test. Syntax highlighting and history completion were great and beautiful. Completion is a little bit different, not as good as zsh&rsquo;s with lots of plugins and configurations, but close enough and again prettier. The syntax is very nice but it is not at all compatible with popular shells and not even POSIX. The name is hard to search and the documentation and community not big enough, but I managed to translate all my functions using the <a href="http://fishshell.com/tutorial.html">tutorial</a> and the <a href="http://fishshell.com/docs/current/index.html">documentation</a>. Even harder than learning fish was to understand every feature of bash to translate the code to fish.</p>
 
@@ -41,14 +40,13 @@ chsh -s /usr/bin/fish
 
 <p>The fish configuration on the browser (fish_config command) is a neat concept, with a cool prompt visualizer (beats my <a href="https://gist.github.com/mmacedo/4047615">xterm opener</a>), but disappointing as I didn&rsquo;t find anything worth configuring there. Already feeling like something was missing, I searched for <a href="https://github.com/bpinto/oh-my-fish">Oh My Fish!</a>, and I found exactly what I needed to have a complete shell:</p>
 
-<p>``` console</p>
-
-<blockquote><p>curl -L <a href="https://github.com/bpinto/oh-my-fish/raw/master/tools/install.sh">https://github.com/bpinto/oh-my-fish/raw/master/tools/install.sh</a> | bash
-```</p></blockquote>
+<p><code>
+curl -L https://github.com/bpinto/oh-my-fish/raw/master/tools/install.sh | bash
+</code></p>
 
 <p>Instead of a <code>~/.fishrc</code>, the fish configuration goes into <code>~/.config/fish/config.fish</code>:</p>
 
-<p><code>sh
+<p><code>
 set fish_path $HOME/.oh-my-fish
 . $fish_path/oh-my-fish.fish
 </code></p>
@@ -57,7 +55,7 @@ set fish_path $HOME/.oh-my-fish
 
 <p>I still had to pick a good prompt to replace Oh My Zsh!&rsquo;s <a href="http://www.maxmasnick.com/2012/09/02/zsh/">fino theme</a>. <a href="https://github.com/bpinto/oh-my-fish/pull/27">Numist</a> is pretty much the same theme, but it doesn&rsquo;t show the ruby version. I added my custom version of oh-my-fish&rsquo;s numist theme with the ruby version from oh-my-zsh&rsquo;s fino theme:</p>
 
-<p>``` sh
+<p>```
 set -l ruby_info
 if which rvm-prompt >/dev/null ^&amp;1
   set ruby_info (rvm-prompt i v g)
@@ -75,17 +73,156 @@ end</p>
 
 <h2>Tools</h2>
 
-<p>Somehow the few plugins of Oh My Fish! were enough to cater for my needs. I don&rsquo;t know why, but <a href="https://github.com/sstephenson/rbenv">rbenv</a> works fine, the <a href="https://github.com/bpinto/oh-my-fish/tree/master/plugins/rake">rake</a> and <a href="https://github.com/bpinto/oh-my-fish/tree/master/plugins/bundler">bundler</a> plugins are as good as their Oh My Zsh! counterparts. The <a href="https://github.com/bpinto/oh-my-fish/tree/master/plugins/node">node</a> plugin works, but the completions that were supposed to be automatically generated, aren&rsquo;t. One plugin that I miss is completions for the heroku CLI, since it doesn&rsquo;t have a manpage (shame on heroku for that).</p>
+<p>Somehow the few plugins of Oh My Fish! were enough to cater for my needs. I don&rsquo;t know why, but <a href="https://github.com/sstephenson/rbenv">rbenv</a> works fine, the <a href="https://github.com/bpinto/oh-my-fish/tree/master/plugins/rake">rake</a> and <a href="https://github.com/bpinto/oh-my-fish/tree/master/plugins/bundler">bundler</a> plugins are as good as their Oh My Zsh! counterparts. The <a href="https://github.com/bpinto/oh-my-fish/tree/master/plugins/node">node</a> plugin works, but the completions that were supposed to be automatically generated from node&rsquo;s and npm&rsquo;s manpages, weren&rsquo;t. One plugin that I miss is completions for the <a href="https://github.com/heroku/heroku">heroku CLI</a>, since it doesn&rsquo;t have a manpage (shame on heroku for that).</p>
 
-<p>Most tools, however, are not compatible with fish: how would them? It coincided that I wanted to try a new tool (<a href="https://github.com/creationix/nvm">nvm</a>) for which there was no fish shim or fish plugin. Inspired by an <a href="https://github.com/fish-shell/fish-shell/issues/522#issuecomment-12485379">attempt</a> to source POSIX/bash syntax files, I decided to write a <code>source</code> function that could execute bash code and reproduce changes to variables and functions on fish:</p>
+<p>Most tools, however, are not compatible with fish: how would them? It coincided that I wanted to try a new tool (<a href="https://github.com/creationix/nvm">nvm</a>) for which there was no fish shim or fish plugin. Inspired by a <a href="https://github.com/fish-shell/fish-shell/issues/522#issuecomment-12485379">script</a> that attempted to source POSIX/bash syntax files, I decided to write my own <code>source</code> function that could execute bash code and reproduce or simulate the changes to variables and functions on fish:</p>
 
-<p>{% gist 6083809 source.fish %}</p>
+<p><div><script src='https://gist.github.com/6083809.js?file=source.fish'></script>
+<noscript><pre><code>function _exec_with
+  set -l shell $argv[1]
+  set -l file $argv[2]
+  set -l code $argv[3]
+
+  set -l source
+  switch &quot;$shell&quot;
+    case bash dash zsh ksh sh
+      set source .
+    case tcsh csh
+      set source source
+    case '*'
+      echo &quot;Unknown shell '$shell'&quot; &gt;&amp;2
+      return 1
+  end
+
+  set -l function_names &quot;typeset -f | sed '/^{\s*\\\$/,/^}\s*\\\$/d' | sed 's/\s*[(][)]\s*\\\$//' | sort&quot;
+  set -l variable_names &quot;env | grep -v '^_|PIPESTATUS|COLUMNS|SHLVL\\\$' | sort&quot;
+
+  # Create temp files to catch the change of variables and functions
+  set -l functions_before (mktemp)
+  set -l functions_after (mktemp)
+  set -l variables_before (mktemp)
+  set -l variables_after (mktemp)
+
+  set -l before &quot;$function_names &gt; $functions_before; $variable_names &gt; $variables_before&quot;
+  set -l after &quot;$function_names &gt; $functions_after; $variable_names &gt; $variables_after&quot;
+
+  eval &quot;/usr/bin/env $shell -c \&quot;$before; $source $file; $code $after\&quot;&quot;
+
+  # Separator used by read to store a single line into several variables
+  set -l IFS =
+
+  # Diff of the env in the format (+|-)=(?&lt;VAR&gt;.+)=(?&lt;VALUE&gt;.+)
+  set -l diffopts --old-line-format '-=%L' --new-line-format '+=%L' --unchanged-line-format ''
+
+  diff $diffopts $variables_before $variables_after | while read -l state var value
+    switch $state$var
+      case -PATH -MANPATH
+        continue
+      case +PATH +MANPATH
+        # split by colons into an array
+        eval set value (echo $value | sed 's/:$//' | sed 's/:\?\([^:]\+\)/&quot;\1&quot; /g')
+        # reverse array (because preprending will cause reversing again)
+        set -l temp; for i in $value; set temp $i $temp; end; set value $temp
+
+        # Sync dirs removed from the path
+        for dir in $$var
+          if contains $dir $value; continue; end
+
+          # DEBUG:
+          # echo remove \&quot;$dir\&quot; from the \${$var}
+
+          eval set -e $var\[(contains -i $dir $$var)\]
+        end
+
+        # Sync dirs added to the path
+        for dir in $value
+          if contains $dir $$var; continue; end
+
+          # DEBUG:
+          # echo prepend \&quot;$dir\&quot; to the \${$var}
+
+          set -gx $var &quot;$dir&quot; $$var
+        end
+      case '-*'
+        # DEBUG:
+        # echo unset $var \(old: \'{$$var}\'\)
+
+        set -e $var
+      case '+*'
+        # DEBUG:
+        # echo Set \${$var} to \'$value\' \(old: \'{$$var}\'\)
+
+        set -gx $var $value
+      case '*'
+        echo &quot;Source error! Invalid case '$state$var'&quot; &gt;&amp;2
+    end
+  end
+
+  diff $diffopts $functions_before $functions_after | while read -l state func
+    switch $state$func
+      case '-*'
+        # Do nothing if a function was removed
+        continue
+      case '+*'
+        # Create wrapper function
+        eval &quot;function $func; _exec_with $shell \&quot;$file\&quot; \&quot;$func \$argv;\&quot;; end&quot;
+
+        # DEBUG:
+        # echo Create wrapper for $func from $file
+      case '*'
+        echo &quot;Source error! Invalid case '$func'&quot; &gt;&amp;2
+    end
+  end
+
+  # Remove temporary files
+  command rm $variables_before $variables_after $functions_before $functions_after &gt;-
+end
+
+function source --description 'Source bash/zsh/tcsh files'
+  set -l type
+  while true
+    if test (count $argv) -eq 0
+      echo &quot;Called with no arguments&quot; &gt;&amp;2
+      return 1
+    end
+    switch $argv[1]
+      case '--*'
+        set type (echo $argv[1] | sed 's/^--//')
+      case '*'
+        break
+    end
+    set -e argv[1]
+  end
+
+  for file in $argv
+    set -l file_type $type
+    if not test &quot;$file_type&quot;
+      switch $file
+        case '*.sh'
+          set file_type bash
+        case '*.zsh'
+          set file_type zsh
+        case '*.ksh'
+          set file_type ksh
+        case '*.csh' '*.tcsh'
+          set file_type tcsh
+        case '*'
+          echo &quot;Failed to source $file. Shell not recognized!&quot; &gt;&amp;2
+          return 1
+      end
+    end
+
+    _exec_with $file_type &quot;$file&quot; &quot;&quot;
+  end
+end
+</code></pre></noscript></div>
+</p>
 
 <h2>Conclusion</h2>
 
 <p>My fish configuration now looks like this:</p>
 
-<p>``` sh</p>
+<p>```</p>
 
 <h1>Oh My Fish!</h1>
 
