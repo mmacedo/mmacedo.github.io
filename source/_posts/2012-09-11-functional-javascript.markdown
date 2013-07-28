@@ -153,4 +153,9 @@ sum += value for value in arr
 
 ### Reduce right
 
-Usually where is reduce, there is also a reduceRight. It iterates from the last to the first item. It seldom makes a differece, even less if parallelized (doesn't happen. But it may, and if it does, it may be an issue instead of benefit. As a rule of thumb, use reduce unless you know why you are not. The native method is [reduceRight](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/ReduceRight).
+Usually where is reduce, there is also a reduceRight. It iterates from the last to the first item. It seldom makes a differece, but it may, and if it does, it may be an issue instead of benefit. As a rule of thumb, use reduce unless you know why you are not. The native method is [reduceRight](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/ReduceRight).
+
+``` coffeescript reduceRight by hand
+sum = 0
+sum += value for value in arr by -1
+```
