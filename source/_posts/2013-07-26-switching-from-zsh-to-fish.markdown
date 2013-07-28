@@ -15,11 +15,11 @@ Not long ago I heard of [fish (friendly interactive shell)](http://fishshell.com
 
 Being on Ubuntu, I found a ppa with very up to date fish:
 
-``` console
-> sudo apt-add-repository -y ppa:zanchey/fishfish-snapshot
-> sudo apt-get update
-> sudo apt-get install -y fishfish
-> chsh -s /usr/bin/fish
+```
+sudo apt-add-repository -y ppa:zanchey/fishfish-snapshot
+sudo apt-get update
+sudo apt-get install -y fishfish
+chsh -s /usr/bin/fish
 ```
 
 I opened fish and started to type things to test. Syntax highlighting and history completion were great and beautiful. Completion is a little bit different, not as good as zsh's with lots of plugins and configurations, but close enough and again prettier. The syntax is very nice but it is not at all compatible with popular shells and not even POSIX. The name is hard to search and the documentation and community not big enough, but I managed to translate all my functions using the [tutorial](http://fishshell.com/tutorial.html) and the [documentation](http://fishshell.com/docs/current/index.html). Even harder than learning fish was to understand every feature of bash to translate the code to fish.
@@ -28,13 +28,13 @@ I opened fish and started to type things to test. Syntax highlighting and histor
 
 The fish configuration on the browser (fish_config command) is a neat concept, with a cool prompt visualizer (beats my [xterm opener](https://gist.github.com/mmacedo/4047615)), but disappointing as I didn't find anything worth configuring there. Already feeling like something was missing, I searched for [Oh My Fish!](https://github.com/bpinto/oh-my-fish), and I found exactly what I needed to have a complete shell:
 
-``` console
-> curl -L https://github.com/bpinto/oh-my-fish/raw/master/tools/install.sh | bash
+```
+curl -L https://github.com/bpinto/oh-my-fish/raw/master/tools/install.sh | bash
 ```
 
 Instead of a `~/.fishrc`, the fish configuration goes into `~/.config/fish/config.fish`:
 
-``` sh
+```
 set fish_path $HOME/.oh-my-fish
 . $fish_path/oh-my-fish.fish
 ```
@@ -43,7 +43,7 @@ set fish_path $HOME/.oh-my-fish
 
 I still had to pick a good prompt to replace Oh My Zsh!'s [fino theme](http://www.maxmasnick.com/2012/09/02/zsh/). [Numist](https://github.com/bpinto/oh-my-fish/pull/27) is pretty much the same theme, but it doesn't show the ruby version. I added my custom version of oh-my-fish's numist theme with the ruby version from oh-my-zsh's fino theme:
 
-``` sh
+```
 set -l ruby_info
 if which rvm-prompt >/dev/null ^&1
   set ruby_info (rvm-prompt i v g)
@@ -68,7 +68,7 @@ Most tools, however, are not compatible with fish: how would them? It coincided 
 
 My fish configuration now looks like this:
 
-``` sh
+```
 # Oh My Fish!
 set fish_path $HOME/.oh-my-fish
 set fish_theme my
