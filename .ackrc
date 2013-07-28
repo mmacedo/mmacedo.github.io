@@ -1,0 +1,4 @@
+--ignore-dir=source/assets
+--ignore-dir=source/stylesheets
+--ignore-dir=public
+--ignore-dir=_deploy
