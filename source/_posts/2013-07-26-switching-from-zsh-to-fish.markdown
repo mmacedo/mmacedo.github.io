@@ -16,9 +16,9 @@ Not long ago I heard of [fish (friendly interactive shell)](http://fishshell.com
 Being on Ubuntu, I found a ppa with very up to date fish:
 
 ```
-sudo apt-add-repository -y ppa:zanchey/fishfish-snapshot
+sudo add-apt-repository -y ppa:fish-shell/nightly-master
 sudo apt-get update
-sudo apt-get install -y fishfish
+sudo apt-get install -y fish
 chsh -s /usr/bin/fish
 ```
 
