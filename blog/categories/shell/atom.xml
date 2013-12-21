@@ -4,7 +4,7 @@
   <title><![CDATA[Category: shell | Michel P. Macedo]]></title>
   <link href="http://michelpm.com/blog/categories/shell/atom.xml" rel="self"/>
   <link href="http://michelpm.com/"/>
-  <updated>2013-07-28T12:29:35-03:00</updated>
+  <updated>2013-12-21T13:43:36-02:00</updated>
   <id>http://michelpm.com/</id>
   <author>
     <name><![CDATA[Michel Pavan Macedo]]></name>
@@ -28,9 +28,9 @@
 <p>Being on Ubuntu, I found a ppa with very up to date fish:</p>
 
 <p><code>
-sudo apt-add-repository -y ppa:zanchey/fishfish-snapshot
+sudo add-apt-repository -y ppa:fish-shell/nightly-master
 sudo apt-get update
-sudo apt-get install -y fishfish
+sudo apt-get install -y fish
 chsh -s /usr/bin/fish
 </code></p>
 
@@ -77,146 +77,7 @@ end</p>
 
 <p>Most tools, however, are not compatible with fish: how would them? It coincided that I wanted to try a new tool (<a href="https://github.com/creationix/nvm">nvm</a>) for which there was no fish shim or fish plugin. Inspired by a <a href="https://github.com/fish-shell/fish-shell/issues/522#issuecomment-12485379">script</a> that attempted to source POSIX/bash syntax files, I decided to write my own <code>source</code> function that could execute bash code and reproduce or simulate the changes to variables and functions on fish:</p>
 
-<p><div><script src='https://gist.github.com/6083809.js?file=source.fish'></script>
-<noscript><pre><code>function _exec_with
-  set -l shell $argv[1]
-  set -l file $argv[2]
-  set -l code $argv[3]
-
-  set -l source
-  switch &quot;$shell&quot;
-    case bash dash zsh ksh sh
-      set source .
-    case tcsh csh
-      set source source
-    case '*'
-      echo &quot;Unknown shell '$shell'&quot; &gt;&amp;2
-      return 1
-  end
-
-  set -l function_names &quot;typeset -f | sed '/^{\s*\\\$/,/^}\s*\\\$/d' | sed 's/\s*[(][)]\s*\\\$//' | sort&quot;
-  set -l variable_names &quot;env | grep -v '^_|PIPESTATUS|COLUMNS|SHLVL\\\$' | sort&quot;
-
-  # Create temp files to catch the change of variables and functions
-  set -l functions_before (mktemp)
-  set -l functions_after (mktemp)
-  set -l variables_before (mktemp)
-  set -l variables_after (mktemp)
-
-  set -l before &quot;$function_names &gt; $functions_before; $variable_names &gt; $variables_before&quot;
-  set -l after &quot;$function_names &gt; $functions_after; $variable_names &gt; $variables_after&quot;
-
-  eval &quot;/usr/bin/env $shell -c \&quot;$before; $source $file; $code $after\&quot;&quot;
-
-  # Separator used by read to store a single line into several variables
-  set -l IFS =
-
-  # Diff of the env in the format (+|-)=(?&lt;VAR&gt;.+)=(?&lt;VALUE&gt;.+)
-  set -l diffopts --old-line-format '-=%L' --new-line-format '+=%L' --unchanged-line-format ''
-
-  diff $diffopts $variables_before $variables_after | while read -l state var value
-    switch $state$var
-      case -PATH -MANPATH
-        continue
-      case +PATH +MANPATH
-        # split by colons into an array
-        eval set value (echo $value | sed 's/:$//' | sed 's/:\?\([^:]\+\)/&quot;\1&quot; /g')
-        # reverse array (because preprending will cause reversing again)
-        set -l temp; for i in $value; set temp $i $temp; end; set value $temp
-
-        # Sync dirs removed from the path
-        for dir in $$var
-          if contains $dir $value; continue; end
-
-          # DEBUG:
-          # echo remove \&quot;$dir\&quot; from the \${$var}
-
-          eval set -e $var\[(contains -i $dir $$var)\]
-        end
-
-        # Sync dirs added to the path
-        for dir in $value
-          if contains $dir $$var; continue; end
-
-          # DEBUG:
-          # echo prepend \&quot;$dir\&quot; to the \${$var}
-
-          set -gx $var &quot;$dir&quot; $$var
-        end
-      case '-*'
-        # DEBUG:
-        # echo unset $var \(old: \'{$$var}\'\)
-
-        set -e $var
-      case '+*'
-        # DEBUG:
-        # echo Set \${$var} to \'$value\' \(old: \'{$$var}\'\)
-
-        set -gx $var $value
-      case '*'
-        echo &quot;Source error! Invalid case '$state$var'&quot; &gt;&amp;2
-    end
-  end
-
-  diff $diffopts $functions_before $functions_after | while read -l state func
-    switch $state$func
-      case '-*'
-        # Do nothing if a function was removed
-        continue
-      case '+*'
-        # Create wrapper function
-        eval &quot;function $func; _exec_with $shell \&quot;$file\&quot; \&quot;$func \$argv;\&quot;; end&quot;
-
-        # DEBUG:
-        # echo Create wrapper for $func from $file
-      case '*'
-        echo &quot;Source error! Invalid case '$func'&quot; &gt;&amp;2
-    end
-  end
-
-  # Remove temporary files
-  command rm $variables_before $variables_after $functions_before $functions_after &gt;-
-end
-
-function source --description 'Source bash/zsh/tcsh files'
-  set -l type
-  while true
-    if test (count $argv) -eq 0
-      echo &quot;Called with no arguments&quot; &gt;&amp;2
-      return 1
-    end
-    switch $argv[1]
-      case '--*'
-        set type (echo $argv[1] | sed 's/^--//')
-      case '*'
-        break
-    end
-    set -e argv[1]
-  end
-
-  for file in $argv
-    set -l file_type $type
-    if not test &quot;$file_type&quot;
-      switch $file
-        case '*.sh'
-          set file_type bash
-        case '*.zsh'
-          set file_type zsh
-        case '*.ksh'
-          set file_type ksh
-        case '*.csh' '*.tcsh'
-          set file_type tcsh
-        case '*'
-          echo &quot;Failed to source $file. Shell not recognized!&quot; &gt;&amp;2
-          return 1
-      end
-    end
-
-    _exec_with $file_type &quot;$file&quot; &quot;&quot;
-  end
-end
-</code></pre></noscript></div>
-</p>
+<p>{% gist 6083809 source.fish %}</p>
 
 <h2>Conclusion</h2>
 

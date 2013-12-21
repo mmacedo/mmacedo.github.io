@@ -116,9 +116,9 @@
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-add-repository -y ppa:zanchey/fishfish-snapshot
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo add-apt-repository -y ppa:fish-shell/nightly-master
 </span><span class='line'>sudo apt-get update
-</span><span class='line'>sudo apt-get install -y fishfish
+</span><span class='line'>sudo apt-get install -y fish
 </span><span class='line'>chsh -s /usr/bin/fish</span></code></pre></td></tr></table></div></figure>
 
 
@@ -184,13 +184,13 @@
       set source .
     case tcsh csh
       set source source
-    case '*'
-      echo &quot;Unknown shell '$shell'&quot; &gt;&amp;2
+    case &#39;*&#39;
+      echo &quot;Unknown shell &#39;$shell&#39;&quot; &gt;&amp;2
       return 1
   end
 
-  set -l function_names &quot;typeset -f | sed '/^{\s*\\\$/,/^}\s*\\\$/d' | sed 's/\s*[(][)]\s*\\\$//' | sort&quot;
-  set -l variable_names &quot;env | grep -v '^_|PIPESTATUS|COLUMNS|SHLVL\\\$' | sort&quot;
+  set -l function_names &quot;typeset -f | sed &#39;/^{\s*\\\$/,/^}\s*\\\$/d&#39; | sed &#39;s/\s*[(][)]\s*\\\$//&#39; | sort&quot;
+  set -l variable_names &quot;env | grep -v &#39;^_|PIPESTATUS|COLUMNS|SHLVL\\\$&#39; | sort&quot;
 
   # Create temp files to catch the change of variables and functions
   set -l functions_before (mktemp)
@@ -207,7 +207,7 @@
   set -l IFS =
 
   # Diff of the env in the format (+|-)=(?&lt;VAR&gt;.+)=(?&lt;VALUE&gt;.+)
-  set -l diffopts --old-line-format '-=%L' --new-line-format '+=%L' --unchanged-line-format ''
+  set -l diffopts --old-line-format &#39;-=%L&#39; --new-line-format &#39;+=%L&#39; --unchanged-line-format &#39;&#39;
 
   diff $diffopts $variables_before $variables_after | while read -l state var value
     switch $state$var
@@ -215,7 +215,7 @@
         continue
       case +PATH +MANPATH
         # split by colons into an array
-        eval set value (echo $value | sed 's/:$//' | sed 's/:\?\([^:]\+\)/&quot;\1&quot; /g')
+        eval set value (echo $value | sed &#39;s/:$//&#39; | sed &#39;s/:\?\([^:]\+\)/&quot;\1&quot; /g&#39;)
         # reverse array (because preprending will cause reversing again)
         set -l temp; for i in $value; set temp $i $temp; end; set value $temp
 
@@ -238,34 +238,34 @@
 
           set -gx $var &quot;$dir&quot; $$var
         end
-      case '-*'
+      case &#39;-*&#39;
         # DEBUG:
-        # echo unset $var \(old: \'{$$var}\'\)
+        # echo unset $var \(old: \&#39;{$$var}\&#39;\)
 
         set -e $var
-      case '+*'
+      case &#39;+*&#39;
         # DEBUG:
-        # echo Set \${$var} to \'$value\' \(old: \'{$$var}\'\)
+        # echo Set \${$var} to \&#39;$value\&#39; \(old: \&#39;{$$var}\&#39;\)
 
         set -gx $var $value
-      case '*'
-        echo &quot;Source error! Invalid case '$state$var'&quot; &gt;&amp;2
+      case &#39;*&#39;
+        echo &quot;Source error! Invalid case &#39;$state$var&#39;&quot; &gt;&amp;2
     end
   end
 
   diff $diffopts $functions_before $functions_after | while read -l state func
     switch $state$func
-      case '-*'
+      case &#39;-*&#39;
         # Do nothing if a function was removed
         continue
-      case '+*'
+      case &#39;+*&#39;
         # Create wrapper function
         eval &quot;function $func; _exec_with $shell \&quot;$file\&quot; \&quot;$func \$argv;\&quot;; end&quot;
 
         # DEBUG:
         # echo Create wrapper for $func from $file
-      case '*'
-        echo &quot;Source error! Invalid case '$func'&quot; &gt;&amp;2
+      case &#39;*&#39;
+        echo &quot;Source error! Invalid case &#39;$func&#39;&quot; &gt;&amp;2
     end
   end
 
@@ -273,7 +273,7 @@
   command rm $variables_before $variables_after $functions_before $functions_after &gt;-
 end
 
-function source --description 'Source bash/zsh/tcsh files'
+function source --description &#39;Source bash/zsh/tcsh files&#39;
   set -l type
   while true
     if test (count $argv) -eq 0
@@ -281,9 +281,9 @@ function source --description 'Source bash/zsh/tcsh files'
       return 1
     end
     switch $argv[1]
-      case '--*'
-        set type (echo $argv[1] | sed 's/^--//')
-      case '*'
+      case &#39;--*&#39;
+        set type (echo $argv[1] | sed &#39;s/^--//&#39;)
+      case &#39;*&#39;
         break
     end
     set -e argv[1]
@@ -293,15 +293,15 @@ function source --description 'Source bash/zsh/tcsh files'
     set -l file_type $type
     if not test &quot;$file_type&quot;
       switch $file
-        case '*.sh'
+        case &#39;*.sh&#39;
           set file_type bash
-        case '*.zsh'
+        case &#39;*.zsh&#39;
           set file_type zsh
-        case '*.ksh'
+        case &#39;*.ksh&#39;
           set file_type ksh
-        case '*.csh' '*.tcsh'
+        case &#39;*.csh&#39; &#39;*.tcsh&#39;
           set file_type tcsh
-        case '*'
+        case &#39;*&#39;
           echo &quot;Failed to source $file. Shell not recognized!&quot; &gt;&amp;2
           return 1
       end
