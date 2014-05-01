@@ -16,10 +16,10 @@ description: Blog about software development and myself.
 date_format: "%Y-%m-%d"
 
 # RSS / Email (optional) subscription links (change if using something like Feedburner)
-subscribe_rss: /atom.xml
-subscribe_email:
+subscribe_rss: http://feeds.feedburner.com/michelpm
+subscribe_email: http://feedburner.google.com/fb/a/mailverify?uri=michelpm&amp;loc=en_US
 # RSS feeds can list your email address if you like
-email:
+email: michelpm@gmail.com
 
 # ----------------------- #
 #    Jekyll & Plugins     #
