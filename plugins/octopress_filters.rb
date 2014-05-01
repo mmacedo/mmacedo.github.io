@@ -38,22 +38,6 @@ end
 
 
 module OctopressLiquidFilters
-  include Octopress::Date
-
-  # Used on the blog index to split posts on the <!--more--> marker
-  def excerpt(input)
-    if input.index(/<!--\s*more\s*-->/i)
-      input.split(/<!--\s*more\s*-->/i)[0]
-    else
-      input
-    end
-  end
-
-  # Checks for excerpts (helpful for template conditionals)
-  def has_excerpt(input)
-    input =~ /<!--\s*more\s*-->/i ? true : false
-  end
-
   # Summary is used on the Archive pages to return the first block of content from a post.
   def summary(input)
     if input.index(/\n\n/)

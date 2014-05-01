@@ -1,14 +1,10 @@
 ---
 layout: post
-title: "Functional JavaScript"
-date: 2012-09-11 04:36
-comments: true
-categories: [ "JavaScript", "CoffeeScript", "Underscore.js", "Lo-Dash" ]
+title: Functional JavaScript
+categories: javascript coffeescript underscorejs lodash
 ---
 
 In [functional languages](http://en.wikipedia.org/wiki/Functional_programming), code consists mainly of processing lists in a recursive manner. A limited list of patterns in processing lists emerge so often that all functional languages provide at least some [high-order functions](http://en.wikipedia.org/wiki/Higher-order_function), that are very well written and optimized. The most common and useful high-order functions, the primitives, are (may vary) [each](http://en.wikipedia.org/wiki/Foreach) (only for imperative programming), [filter](http://en.wikipedia.org/wiki/Filter_(higher-order_function\)), [map](http://en.wikipedia.org/wiki/Map_(higher-order_function\)) and [reduce](http://en.wikipedia.org/wiki/Fold_(higher-order_function\)).
-
-<!--more-->
 
 ## Functional implementations
 

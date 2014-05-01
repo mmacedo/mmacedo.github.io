@@ -1,14 +1,10 @@
 ---
 layout: post
 title: Twitter Bootstrap and JRuby on Rails
-date: 2012-10-23 14:06
-comments: true
-categories: [ "Bootstrap", "JRuby", "Rails", "Less" ]
+categories: twitter-bootstrap jruby rails less
 ---
 
 [Twitter Bootstrap](http://twitter.github.com/bootstrap/) is published in [LESS](http://lesscss.org/) and that is how I like to use it. The [twitter-bootstrap-rails](https://github.com/seyhunak/twitter-bootstrap-rails) gem is the most popular and most complete for that purpose. It has several handy generators and helpers. But I can't for my life install it on [JRuby](http://jruby.org/). Since I don't like forking, I found a somewhat simple workaround.
-
-<!--more-->
 
 ## Bootstrap files
 

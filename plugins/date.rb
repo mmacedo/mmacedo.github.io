@@ -32,7 +32,6 @@ module Octopress
     # Formats date either as ordinal or by given date format
     # Adds %o as ordinal representation of the day
     def format_date(date, format)
-      date = datetime(date)
       if format.nil? || format.empty? || format == "ordinal"
         date_formatted = ordinalize(date)
       else
@@ -41,19 +40,20 @@ module Octopress
       end
       date_formatted
     end
-    
+
     # Returns the date-specific liquid attributes
     def liquid_date_attributes
       date_format = self.site.config['date_format']
+
+      date = if respond_to? :date then self.date elsif self.data.has_key?('date') then self.data['date'] end
+
       date_attributes = {}
-      date_attributes['date_formatted']    = format_date(self.data['date'], date_format)    if self.data.has_key?('date')
-      date_attributes['updated_formatted'] = format_date(self.data['updated'], date_format) if self.data.has_key?('updated')
+      date_attributes['date_formatted']    = format_date(date, date_format) unless date.nil?
+      date_attributes['updated_formatted'] = format_date(datetime(self.data['updated']), date_format) if self.data.has_key?('updated')
       date_attributes
     end
-
   end
 end
-
 
 module Jekyll
 
@@ -63,8 +63,8 @@ module Jekyll
     # Convert this Convertible's data to a Hash suitable for use by Liquid.
     # Overrides the default return data and adds any date-specific liquid attributes
     alias :super_to_liquid :to_liquid
-    def to_liquid
-      super_to_liquid.deep_merge(liquid_date_attributes)
+    def to_liquid(*args)
+      super_to_liquid(*args).deep_merge(liquid_date_attributes)
     end
   end
 
@@ -74,8 +74,8 @@ module Jekyll
     # Convert this Convertible's data to a Hash suitable for use by Liquid.
     # Overrides the default return data and adds any date-specific liquid attributes
     alias :super_to_liquid :to_liquid
-    def to_liquid
-      super_to_liquid.deep_merge(liquid_date_attributes)
+    def to_liquid(*args)
+      super_to_liquid(*args).deep_merge(liquid_date_attributes)
     end
   end
 end

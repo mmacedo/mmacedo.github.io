@@ -16,13 +16,13 @@ deploy_branch  = "master"
 
 ## -- Misc Configs -- ##
 
-public_dir      = "public"    # compiled site directory
+public_dir      = "public/blog"    # compiled site directory
 source_dir      = "source"    # source file directory
 blog_index_dir  = 'source'    # directory for your blog's index page (if you put your index in source/blog/index.html, set this to 'source/blog')
 deploy_dir      = "_deploy"   # deploy directory (for Github pages deployment)
-stash_dir       = "_stash"    # directory to stash posts for speedy generation
-posts_dir       = "_posts"    # directory for blog files
-themes_dir      = ".themes"   # directory for blog files
+drafts_dir      = "_drafts"   # directory for draft files
+posts_dir       = "_posts"    # directory for post files
+themes_dir      = ".themes"   # directory for themes
 new_post_ext    = "markdown"  # default new post file extension when using the new_post task
 new_page_ext    = "markdown"  # default new page file extension when using the new_page task
 server_port     = "4000"      # port for preview server eg. localhost:4000
@@ -52,12 +52,20 @@ end
 # Working with Jekyll #
 #######################
 
-desc "Generate jekyll site"
-task :generate do
+def generate(source_dir, deploy)
   raise "### You haven't set anything up yet. First run `rake install` to set up an Octopress theme." unless File.directory?(source_dir)
   puts "## Generating Site with Jekyll"
   system "compass compile --css-dir #{source_dir}/stylesheets"
-  system "jekyll"
+  if deploy
+    system "jekyll build"
+  else
+    system "jekyll build --drafts"
+  end
+end
+
+desc "Generate jekyll site"
+task :generate do
+  generate(source_dir, false)
 end
 
 desc "Watch the site and regenerate when it changes"
@@ -65,7 +73,7 @@ task :watch do
   raise "### You haven't set anything up yet. First run `rake install` to set up an Octopress theme." unless File.directory?(source_dir)
   puts "Starting to watch source with Jekyll and Compass."
   system "compass compile --css-dir #{source_dir}/stylesheets" unless File.exist?("#{source_dir}/stylesheets/screen.css")
-  jekyllPid = Process.spawn({"OCTOPRESS_ENV"=>"preview"}, "jekyll --auto")
+  jekyllPid = Process.spawn("jekyll build --watch --drafts")
   compassPid = Process.spawn("compass watch")
 
   trap("INT") {
@@ -81,7 +89,7 @@ task :preview do
   raise "### You haven't set anything up yet. First run `rake install` to set up an Octopress theme." unless File.directory?(source_dir)
   puts "Starting to watch source with Jekyll and Compass. Starting Rack on port #{server_port}"
   system "compass compile --css-dir #{source_dir}/stylesheets" unless File.exist?("#{source_dir}/stylesheets/screen.css")
-  jekyllPid = Process.spawn({"OCTOPRESS_ENV"=>"preview"}, "jekyll --auto")
+  jekyllPid = Process.spawn("jekyll build --watch --drafts")
   compassPid = Process.spawn("compass watch")
   rackupPid = Process.spawn("rackup --port #{server_port}")
 
@@ -94,7 +102,7 @@ task :preview do
 end
 
 # usage rake new_post[my-new-post] or rake new_post['my new post'] or rake new_post (defaults to "new-post")
-desc "Begin a new post in #{source_dir}/#{posts_dir}"
+desc "Begin a new post in #{source_dir}/#{drafts_dir}"
 task :new_post, :title do |t, args|
   if args.title
     title = args.title
@@ -102,8 +110,8 @@ task :new_post, :title do |t, args|
     title = get_stdin("Enter a title for your post: ")
   end
   raise "### You haven't set anything up yet. First run `rake install` to set up an Octopress theme." unless File.directory?(source_dir)
-  mkdir_p "#{source_dir}/#{posts_dir}"
-  filename = "#{source_dir}/#{posts_dir}/#{Time.now.strftime('%Y-%m-%d')}-#{title.to_url}.#{new_post_ext}"
+  mkdir_p "#{source_dir}/#{drafts_dir}"
+  filename = "#{source_dir}/#{drafts_dir}/#{title.to_url}.#{new_post_ext}"
   if File.exist?(filename)
     abort("rake aborted!") if ask("#{filename} already exists. Do you want to overwrite?", ['y', 'n']) == 'n'
   end
@@ -111,9 +119,7 @@ task :new_post, :title do |t, args|
   open(filename, 'w') do |post|
     post.puts "---"
     post.puts "layout: post"
-    post.puts "title: \"#{title.gsub(/&/,'&amp;')}\""
-    post.puts "date: #{Time.now.strftime('%Y-%m-%d %H:%M:%S %z')}"
-    post.puts "comments: true"
+    post.puts "title: #{title.gsub(/&/,'&amp;')}"
     post.puts "categories: "
     post.puts "---"
   end
@@ -158,19 +164,12 @@ task :new_page, :filename do |t, args|
   end
 end
 
-# usage rake isolate[my-post]
-desc "Move all other posts than the one currently being worked on to a temporary stash location (stash) so regenerating the site happens much more quickly."
-task :isolate, :filename do |t, args|
-  stash_dir = "#{source_dir}/#{stash_dir}"
-  FileUtils.mkdir(stash_dir) unless File.exist?(stash_dir)
-  Dir.glob("#{source_dir}/#{posts_dir}/*.*") do |post|
-    FileUtils.mv post, stash_dir unless post.include?(args.filename)
-  end
-end
-
-desc "Move all stashed posts back into the posts directory, ready for site generation."
-task :integrate do
-  FileUtils.mv Dir.glob("#{source_dir}/#{stash_dir}/*.*"), "#{source_dir}/#{posts_dir}/"
+# usage rake publish[my-post]
+desc "Move finished draft to posts folder"
+task :publish, :filename do |t, args|
+  posts_dir = "#{source_dir}/#{posts_dir}"
+  FileUtils.mkdir(posts_dir) unless File.exist?(posts_dir)
+  FileUtils.mv "#{source_dir}/#{drafts_dir}/#{args.filename}", "#{posts_dir}/#{Time.now.strftime('%Y-%m-%d')}-#{args.filename}"
 end
 
 desc "Clean out caches: .pygments-cache, .gist-cache, .sass-cache"
@@ -220,15 +219,11 @@ task :deploy do
   if File.exists?(".preview-mode")
     puts "## Found posts in preview mode, regenerating files ..."
     File.delete(".preview-mode")
-    Rake::Task[:generate].execute
+    generate(source_dir, true)
   end
 
   Rake::Task[:copydot].invoke(source_dir, public_dir)
   Rake::Task["#{deploy_default}"].execute
-end
-
-desc "Generate website and deploy"
-task :gen_deploy => [:integrate, :generate, :deploy] do
 end
 
 desc "copy dot files for deployment"
@@ -252,7 +247,7 @@ desc "deploy public directory to github pages"
 multitask :push do
   puts "## Deploying branch to Github Pages "
   puts "## Pulling any updates from Github Pages "
-  cd "#{deploy_dir}" do 
+  cd "#{deploy_dir}" do
     system "git pull"
   end
   (Dir["#{deploy_dir}/*"]).each { |f| rm_rf(f) }

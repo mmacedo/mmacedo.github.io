@@ -1,16 +1,12 @@
 ---
 layout: post
 title: "Javascript Not Minus One Operator"
-date: 2012-09-03 12:10
-comments: true
-categories: [ "JavaScript", "CoffeeScript" ]
+categories: javascript coffeescript
 ---
 
 In most languages if you want to check if something is in a array or string, you use functions named indexOf or any variant thereof. The signature and contract don't usually deviate much, specially in languages with zero-based indexes.
 
 In Javascript, both [Array's](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/indexOf "Array indexOf method") and [String's](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/String/indexOf "String indexOf method") indexOf return minus one (-1) for not found. Minus one isn't particularly semantic, and checking for it tends to produce the most verbose and technical bits of otherwise [cleanly written code](http://www.shelfari.com/books/4017020/Clean-Code "Clean Code (2008) by Robert C. Martin").
-
-<!--more-->
 
 ``` coffeescript Comparison operators
 hello = 'Hello World!'

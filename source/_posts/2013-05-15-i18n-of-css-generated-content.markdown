@@ -1,14 +1,10 @@
 ---
 layout: post
-title: "I18n of CSS generated content"
-date: 2013-05-15 19:53
-comments: true
-categories: ["CSS", "Less", "Bootstrap", "Rails" ]
+title: I18n of CSS generated content
+categories: css less twitter-bootstrap rails
 ---
 
 In the [documentation of Twitter Boostrap 2](http://twitter.github.io/bootstrap/), there is a pretty example box, with a caption on the top-left corner. If you inspect the HTML code, you won't find the caption, it is generated with CSS. It might seem absurd, a violation of the traditional separation of style and content, but there is a way around it.
-
-<!--more-->
 
 ## Content inside CSS
 
