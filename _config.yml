@@ -6,7 +6,7 @@ url: http://michelpm.com
 title: Michel P. Macedo
 # subtitle:
 author: Michel Pavan Macedo
-simple_search: http://google.com/search
+simple_search: https://www.google.com/search
 description: Blog about software development and myself.
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
