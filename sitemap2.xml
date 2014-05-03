@@ -2,18 +2,22 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://michelpm.com/education/</loc>
-        <lastmod>2013-12-21T13:33:52-02:00</lastmod>
+        <lastmod>2014-04-28T00:00:00-03:00</lastmod>
     </url>
     <url>
         <loc>http://michelpm.com/revenue/</loc>
-        <lastmod>2013-12-21T13:33:52-02:00</lastmod>
+        <lastmod>2014-04-29T00:00:00-03:00</lastmod>
     </url>
     <url>
         <loc>http://michelpm.com/libertarianism/</loc>
-        <lastmod>2013-12-21T13:33:52-02:00</lastmod>
+        <lastmod>2014-04-30T00:00:00-03:00</lastmod>
+    </url>
+    <url>
+        <loc>http://michelpm.com/salary/</loc>
+        <lastmod>2014-05-03T12:35:00-03:00</lastmod>
     </url>
     <url>
         <loc>http://michelpm.com/</loc>
-        <lastmod>2013-12-21T13:33:52-02:00</lastmod>
+        <lastmod>2014-05-03T13:35:00-03:00</lastmod>
     </url>
 </urlset>
