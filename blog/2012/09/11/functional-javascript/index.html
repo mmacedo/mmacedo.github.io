@@ -18,14 +18,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://michelpm.com/blog/2012/09/11/functional-javascript">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="Michel P. Macedo" type="application/atom+xml">
-  <script src="/javascripts/modernizr-2.0.js"></script>
+  <link rel="canonical" href="http://michelpm.com/2012/09/11/functional-javascript">
+  <link href="/blog/favicon.png" rel="icon">
+  <link href="/blog/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="http://feeds.feedburner.com/michelpm" rel="alternate" title="Michel P. Macedo" type="application/atom+xml">
+  <script src="/blog/javascripts/modernizr-2.0.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/blog/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -48,17 +48,19 @@
 
 <body   >
   <header role="banner"><hgroup>
-  <h1><a href="/">Michel P. Macedo</a></h1>
+  <h1><a href="/blog/">Michel P. Macedo</a></h1>
   
 </hgroup>
 
 </header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss email">
+  <li><a href="http://feeds.feedburner.com/michelpm" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+    <li><a href="http://feedburner.google.com/fb/a/mailverify?uri=michelpm&amp;loc=en_US" rel="subscribe-email" title="subscribe via email">Email</a></li>
   
 </ul>
   
-<form action="http://google.com/search" method="get">
+<form action="https://www.google.com/search" method="get">
   <fieldset role="search">
     <input type="hidden" name="q" value="site:michelpm.com" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
@@ -66,7 +68,7 @@
 </form>
   
 <ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/">Blog</a></li>
   <li><a href="/blog/archives">Archives</a></li>
 </ul>
 
@@ -94,9 +96,10 @@
   
 
 
-<time datetime="2012-09-11T04:36:00-03:00" pubdate data-updated="true">2012-09-11</time>
+<time datetime="2012-09-11T00:00:00-03:00" pubdate data-updated="true">2012-09-11</time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://michelpm.com">Comments</a>
         
       </p>
     
@@ -104,9 +107,6 @@
 
 
 <div class="entry-content"><p>In <a href="http://en.wikipedia.org/wiki/Functional_programming">functional languages</a>, code consists mainly of processing lists in a recursive manner. A limited list of patterns in processing lists emerge so often that all functional languages provide at least some <a href="http://en.wikipedia.org/wiki/Higher-order_function">high-order functions</a>, that are very well written and optimized. The most common and useful high-order functions, the primitives, are (may vary) <a href="http://en.wikipedia.org/wiki/Foreach">each</a> (only for imperative programming), <a href="http://en.wikipedia.org/wiki/Filter_(higher-order_function)">filter</a>, <a href="http://en.wikipedia.org/wiki/Map_(higher-order_function)">map</a> and <a href="http://en.wikipedia.org/wiki/Fold_(higher-order_function)">reduce</a>.</p>
-
-<!--more-->
-
 
 <h2>Functional implementations</h2>
 
@@ -142,7 +142,7 @@
 
 <p>The idea of each is to iterate over a list and execute something without producing a new list. It is a imperative construct and it is very often available in imperative languages as <a href="http://michelpm.com/blog/2012/09/10/iterating-collections-in-javascript/">for/foreach constructs</a>. The native function is <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/forEach">forEach</a>.</p>
 
-<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_256123151');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_256123151');">.js</a></span><span>each</span></figcaption><div clang='CoffeeScript' id="figure_256123151"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_575914278');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_575914278');">.js</a></span><span>each</span></figcaption><div clang='CoffeeScript' id="figure_575914278"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -166,7 +166,7 @@
 </span><span class='line'>
 </span><span class='line'><span class="cm">### Comprehension ###</span>
 </span><span class='line'><span class="nx">foo</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">index</span> <span class="k">for</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">index</span> <span class="k">in</span> <span class="nx">arr</span>
-</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_256123151_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_575914278_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -194,7 +194,7 @@
 <span class='line-number'>26</span>
 <span class='line-number'>27</span>
 <span class='line-number'>28</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Generated by CoffeeScript 1.6.3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Generated by CoffeeScript 1.7.1</span>
 </span><span class='line'><span class="kd">var</span> <span class="nx">arr</span><span class="p">,</span> <span class="nx">foo</span><span class="p">,</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">_i</span><span class="p">,</span> <span class="nx">_len</span><span class="p">;</span>
 </span><span class='line'>
 </span><span class='line'><span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
@@ -203,20 +203,20 @@
 </span><span class='line'>  <span class="k">return</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;arr[&quot;</span> <span class="o">+</span> <span class="nx">key</span> <span class="o">+</span> <span class="s2">&quot;] = &quot;</span> <span class="o">+</span> <span class="nx">value</span><span class="p">);</span>
 </span><span class='line'><span class="p">};</span>
 </span><span class='line'>
-</span><span class='line'><span class="cm">/* Native*/</span>
 </span><span class='line'>
+</span><span class='line'><span class="cm">/* Native */</span>
 </span><span class='line'>
 </span><span class='line'><span class="nx">arr</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">foo</span><span class="p">);</span>
 </span><span class='line'>
-</span><span class='line'><span class="cm">/* Underscore.js / Lo-Dash*/</span>
 </span><span class='line'>
+</span><span class='line'><span class="cm">/* Underscore.js / Lo-Dash */</span>
 </span><span class='line'>
 </span><span class='line'><span class="nx">_</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">arr</span><span class="p">,</span> <span class="nx">foo</span><span class="p">);</span>
 </span><span class='line'>
 </span><span class='line'><span class="nx">_</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">arr</span><span class="p">,</span> <span class="nx">foo</span><span class="p">);</span>
 </span><span class='line'>
-</span><span class='line'><span class="cm">/* Comprehension*/</span>
 </span><span class='line'>
+</span><span class='line'><span class="cm">/* Comprehension */</span>
 </span><span class='line'>
 </span><span class='line'><span class="k">for</span> <span class="p">(</span><span class="nx">index</span> <span class="o">=</span> <span class="nx">_i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">_len</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">_i</span> <span class="o">&lt;</span> <span class="nx">_len</span><span class="p">;</span> <span class="nx">index</span> <span class="o">=</span> <span class="o">++</span><span class="nx">_i</span><span class="p">)</span> <span class="p">{</span>
 </span><span class='line'>  <span class="nx">value</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">index</span><span class="p">];</span>
@@ -229,7 +229,7 @@
 
 <p>Also known as select, the filter primitive returns a list with the items that pass a test function. The native function is <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/filter">filter</a>. It is the <a href="http://en.wikipedia.org/wiki/Selection_(relational_algebra)">selection</a> operator (<a href="http://en.wikipedia.org/wiki/Where_(SQL)">WHERE</a> in SQL).</p>
 
-<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_794482780');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_794482780');">.js</a></span><span>filter</span></figcaption><div clang='CoffeeScript' id="figure_794482780"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_83698276');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_83698276');">.js</a></span><span>filter</span></figcaption><div clang='CoffeeScript' id="figure_83698276"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -257,7 +257,7 @@
 </span><span class='line'><span class="cm">### Comprehension ###</span>
 </span><span class='line'><span class="nx">alert</span> <span class="p">(</span><span class="nx">value</span> <span class="k">for</span> <span class="nx">value</span> <span class="k">in</span> <span class="nx">arr</span> <span class="k">when</span> <span class="nx">isOdd</span><span class="p">(</span><span class="nx">value</span><span class="p">))</span>
 </span><span class='line'><span class="nx">alert</span> <span class="p">(</span><span class="nx">value</span> <span class="k">for</span> <span class="nx">value</span> <span class="k">in</span> <span class="nx">arr</span> <span class="k">when</span> <span class="nx">value</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">is</span> <span class="mi">1</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_794482780_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_83698276_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -306,7 +306,7 @@
 <span class='line-number'>47</span>
 <span class='line-number'>48</span>
 <span class='line-number'>49</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Generated by CoffeeScript 1.6.3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Generated by CoffeeScript 1.7.1</span>
 </span><span class='line'><span class="kd">var</span> <span class="nx">arr</span><span class="p">,</span> <span class="nx">isOdd</span><span class="p">,</span> <span class="nx">value</span><span class="p">;</span>
 </span><span class='line'>
 </span><span class='line'><span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
@@ -315,13 +315,13 @@
 </span><span class='line'>  <span class="k">return</span> <span class="nx">value</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">===</span> <span class="mi">1</span><span class="p">;</span>
 </span><span class='line'><span class="p">};</span>
 </span><span class='line'>
-</span><span class='line'><span class="cm">/* Native*/</span>
 </span><span class='line'>
+</span><span class='line'><span class="cm">/* Native */</span>
 </span><span class='line'>
 </span><span class='line'><span class="nx">alert</span><span class="p">(</span><span class="nx">arr</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">isOdd</span><span class="p">));</span>
 </span><span class='line'>
-</span><span class='line'><span class="cm">/* Underscore.js / Lo-Dash*/</span>
 </span><span class='line'>
+</span><span class='line'><span class="cm">/* Underscore.js / Lo-Dash */</span>
 </span><span class='line'>
 </span><span class='line'><span class="nx">alert</span><span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">arr</span><span class="p">,</span> <span class="nx">isOdd</span><span class="p">));</span>
 </span><span class='line'>
@@ -329,8 +329,8 @@
 </span><span class='line'>
 </span><span class='line'><span class="nx">alert</span><span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="nx">arr</span><span class="p">,</span> <span class="nx">isOdd</span><span class="p">));</span>
 </span><span class='line'>
-</span><span class='line'><span class="cm">/* Comprehension*/</span>
 </span><span class='line'>
+</span><span class='line'><span class="cm">/* Comprehension */</span>
 </span><span class='line'>
 </span><span class='line'><span class="nx">alert</span><span class="p">((</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
 </span><span class='line'>  <span class="kd">var</span> <span class="nx">_i</span><span class="p">,</span> <span class="nx">_len</span><span class="p">,</span> <span class="nx">_results</span><span class="p">;</span>
@@ -362,7 +362,7 @@
 
 <p>Also known as collect, the map primitive returns a list with the items returned from the map function. The native function is <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/map">map</a>. It is the <a href="http://en.wikipedia.org/wiki/Projection_(relational_algebra)">projection</a> operator (<a href="http://en.wikipedia.org/wiki/Select_(SQL)">SELECT</a> in SQL).</p>
 
-<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_584893060');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_584893060');">.js</a></span><span>map</span></figcaption><div clang='CoffeeScript' id="figure_584893060"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_341459760');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_341459760');">.js</a></span><span>map</span></figcaption><div clang='CoffeeScript' id="figure_341459760"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -388,7 +388,7 @@
 </span><span class='line'><span class="cm">### Comprehension ###</span>
 </span><span class='line'><span class="nx">alert</span> <span class="p">(</span><span class="nx">format</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="k">for</span> <span class="nx">value</span> <span class="k">in</span> <span class="nx">arr</span><span class="p">)</span>
 </span><span class='line'><span class="nx">alert</span> <span class="p">(</span><span class="nx">value</span><span class="p">.</span><span class="nx">toFixed</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="nx">value</span> <span class="k">in</span> <span class="nx">arr</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_584893060_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_341459760_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -431,7 +431,7 @@
 <span class='line-number'>41</span>
 <span class='line-number'>42</span>
 <span class='line-number'>43</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Generated by CoffeeScript 1.6.3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Generated by CoffeeScript 1.7.1</span>
 </span><span class='line'><span class="kd">var</span> <span class="nx">arr</span><span class="p">,</span> <span class="nx">format</span><span class="p">,</span> <span class="nx">value</span><span class="p">;</span>
 </span><span class='line'>
 </span><span class='line'><span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
@@ -440,20 +440,20 @@
 </span><span class='line'>  <span class="k">return</span> <span class="nx">value</span><span class="p">.</span><span class="nx">toFixed</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
 </span><span class='line'><span class="p">};</span>
 </span><span class='line'>
-</span><span class='line'><span class="cm">/* Native*/</span>
 </span><span class='line'>
+</span><span class='line'><span class="cm">/* Native */</span>
 </span><span class='line'>
 </span><span class='line'><span class="nx">alert</span><span class="p">(</span><span class="nx">arr</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">format</span><span class="p">));</span>
 </span><span class='line'>
-</span><span class='line'><span class="cm">/* Underscore.js / Lo-Dash*/</span>
 </span><span class='line'>
+</span><span class='line'><span class="cm">/* Underscore.js / Lo-Dash */</span>
 </span><span class='line'>
 </span><span class='line'><span class="nx">alert</span><span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">arr</span><span class="p">,</span> <span class="nx">format</span><span class="p">));</span>
 </span><span class='line'>
 </span><span class='line'><span class="nx">alert</span><span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">collect</span><span class="p">(</span><span class="nx">arr</span><span class="p">,</span> <span class="nx">format</span><span class="p">));</span>
 </span><span class='line'>
-</span><span class='line'><span class="cm">/* Comprehension*/</span>
 </span><span class='line'>
+</span><span class='line'><span class="cm">/* Comprehension */</span>
 </span><span class='line'>
 </span><span class='line'><span class="nx">alert</span><span class="p">((</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
 </span><span class='line'>  <span class="kd">var</span> <span class="nx">_i</span><span class="p">,</span> <span class="nx">_len</span><span class="p">,</span> <span class="nx">_results</span><span class="p">;</span>
@@ -481,11 +481,11 @@
 
 <p>Also known as fold or inject, the reduce primitive returns a single value accumulated by calling an <a href="http://en.wikipedia.org/wiki/Aggregate_function">aggregate function</a> on each item, always passing as the first parameter the value accumulated as returned from the last iteration call. This is the most often non-understood from the primitives, but it is not complicated at all. The native method is <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/reduce">reduce</a>.</p>
 
-<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_102281675');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_102281675');">.js</a></span><span>Aggregate functions: sum, mult</span></figcaption><div clang='CoffeeScript' id="figure_102281675"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_499740942');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_499740942');">.js</a></span><span>Aggregate functions: sum, mult</span></figcaption><div clang='CoffeeScript' id="figure_499740942"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nv">sum = </span><span class="nf">(sum, value) -&gt;</span> <span class="nx">sum</span> <span class="o">+</span> <span class="nx">value</span>
 </span><span class='line'><span class="nv">mult = </span><span class="nf">(product, value) -&gt;</span> <span class="nx">product</span> <span class="o">*</span> <span class="nx">value</span>
-</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_102281675_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_499740942_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -495,7 +495,7 @@
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
 <span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Generated by CoffeeScript 1.6.3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Generated by CoffeeScript 1.7.1</span>
 </span><span class='line'><span class="kd">var</span> <span class="nx">mult</span><span class="p">,</span> <span class="nx">sum</span><span class="p">;</span>
 </span><span class='line'>
 </span><span class='line'><span class="nx">sum</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">sum</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
@@ -510,15 +510,15 @@
 
 <p>Our first aggregate functions are pretty straightforward.</p>
 
-<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_601802144');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_601802144');">.js</a></span><span>Aggregate function: max</span></figcaption><div clang='CoffeeScript' id="figure_601802144"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_974430927');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_974430927');">.js</a></span><span>Aggregate function: max</span></figcaption><div clang='CoffeeScript' id="figure_974430927"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nv">max = </span><span class="nf">(max, value) -&gt;</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="nx">max</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_601802144_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_974430927_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Generated by CoffeeScript 1.6.3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Generated by CoffeeScript 1.7.1</span>
 </span><span class='line'><span class="kd">var</span> <span class="nx">max</span><span class="p">;</span>
 </span><span class='line'>
 </span><span class='line'><span class="nx">max</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">max</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
@@ -529,7 +529,7 @@
 
 <p>Since the aggregate function accepts four parameters (previousValue, currentValue, index and parameter), you can not pass <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Math/max">Math.max</a> directly to reduce, because it tries to get the maximum value for all parameters passed.</p>
 
-<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_186761439');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_186761439');">.js</a></span><span>Aggregate function: join</span></figcaption><div clang='CoffeeScript' id="figure_186761439"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_294507791');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_294507791');">.js</a></span><span>Aggregate function: join</span></figcaption><div clang='CoffeeScript' id="figure_294507791"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -539,7 +539,7 @@
 </span><span class='line'>    <span class="nx">value</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span>
 </span><span class='line'>  <span class="k">else</span>
 </span><span class='line'>    <span class="s">&quot;</span><span class="si">#{</span><span class="nx">str</span><span class="si">}</span><span class="s">, </span><span class="si">#{</span><span class="nx">value</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span><span class="si">}</span><span class="s">&quot;</span>
-</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_186761439_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_294507791_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -549,7 +549,7 @@
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
 <span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Generated by CoffeeScript 1.6.3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Generated by CoffeeScript 1.7.1</span>
 </span><span class='line'><span class="kd">var</span> <span class="nx">join</span><span class="p">;</span>
 </span><span class='line'>
 </span><span class='line'><span class="nx">join</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
@@ -564,7 +564,7 @@
 
 <p>This is also straightforward, to show what you can do. Note that the accumulated value is from a different type than the values being iterated.</p>
 
-<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_855895222');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_855895222');">.js</a></span><span>Aggregate function: avg</span></figcaption><div clang='CoffeeScript' id="figure_855895222"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_71102916');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_71102916');">.js</a></span><span>Aggregate function: avg</span></figcaption><div clang='CoffeeScript' id="figure_71102916"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -574,7 +574,7 @@
 </span><span class='line'>    <span class="p">(</span><span class="nx">sum</span> <span class="o">+</span> <span class="nx">value</span><span class="p">)</span> <span class="o">/</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span>
 </span><span class='line'>  <span class="k">else</span>
 </span><span class='line'>    <span class="nx">sum</span> <span class="o">+</span> <span class="nx">value</span>
-</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_855895222_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_71102916_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -584,7 +584,7 @@
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
 <span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Generated by CoffeeScript 1.6.3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Generated by CoffeeScript 1.7.1</span>
 </span><span class='line'><span class="kd">var</span> <span class="nx">avg</span><span class="p">;</span>
 </span><span class='line'>
 </span><span class='line'><span class="nx">avg</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">sum</span><span class="p">,</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">arr</span><span class="p">)</span> <span class="p">{</span>
@@ -599,7 +599,7 @@
 
 <p>Several implementations of reduce would accept a second function that returns the result based on the value returned from the last iteration, while simpler implementations just return the value from the last iteration. The reason from that second function is to implement aggregate functions like avg. Our implementation assumes that the list is being iterated from left to right (can not be called with reduceRight) and from the beginning to the end in the same interation (can not be merged with other iterations, therefore can not be <a href="http://en.wikipedia.org/wiki/Automatic_parallelization">parallelized</a>). <a href="https://gist.github.com/3696508">This</a> is a good solution in a bad technology.</p>
 
-<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_910055340');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_910055340');">.js</a></span><span>reduce</span></figcaption><div clang='CoffeeScript' id="figure_910055340"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_297369584');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_297369584');">.js</a></span><span>reduce</span></figcaption><div clang='CoffeeScript' id="figure_297369584"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -613,7 +613,7 @@
 </span><span class='line'>
 </span><span class='line'><span class="cm">### Underscore.js / Lo-Dash ###</span>
 </span><span class='line'><span class="nx">alert</span> <span class="s">&quot;The sum is </span><span class="si">#{</span><span class="nx">_</span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span><span class="nx">arr</span><span class="p">,</span> <span class="nx">sum</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="si">}</span><span class="s">, and the product is </span><span class="si">#{</span><span class="nx">_</span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span><span class="nx">arr</span><span class="p">,</span> <span class="nx">mult</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="si">}</span><span class="s">.&quot;</span>
-</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_910055340_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_297369584_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -627,18 +627,18 @@
 <span class='line-number'>12</span>
 <span class='line-number'>13</span>
 <span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Generated by CoffeeScript 1.6.3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Generated by CoffeeScript 1.7.1</span>
 </span><span class='line'><span class="kd">var</span> <span class="nx">arr</span><span class="p">;</span>
 </span><span class='line'>
 </span><span class='line'><span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
 </span><span class='line'>
-</span><span class='line'><span class="cm">/* Native*/</span>
 </span><span class='line'>
+</span><span class='line'><span class="cm">/* Native */</span>
 </span><span class='line'>
 </span><span class='line'><span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;The sum is &quot;</span> <span class="o">+</span> <span class="p">(</span><span class="nx">arr</span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span><span class="nx">sum</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;, and the product is &quot;</span> <span class="o">+</span> <span class="p">(</span><span class="nx">arr</span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span><span class="nx">mult</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span><span class="p">);</span>
 </span><span class='line'>
-</span><span class='line'><span class="cm">/* Underscore.js / Lo-Dash*/</span>
 </span><span class='line'>
+</span><span class='line'><span class="cm">/* Underscore.js / Lo-Dash */</span>
 </span><span class='line'>
 </span><span class='line'><span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;The sum is &quot;</span> <span class="o">+</span> <span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span><span class="nx">arr</span><span class="p">,</span> <span class="nx">sum</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;, and the product is &quot;</span> <span class="o">+</span> <span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span><span class="nx">arr</span><span class="p">,</span> <span class="nx">mult</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></div></figure>
@@ -646,11 +646,11 @@
 
 <p>Something worth noting: there is no reduce syntax for CoffeeScript. You can always use the other solutions (the code above already is in CoffeeScript) or even a loop, since it is always pleasant to write good JavaScript in CoffeeScript.</p>
 
-<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_352163131');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_352163131');">.js</a></span><span>reduce by hand</span></figcaption><div clang='CoffeeScript' id="figure_352163131"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_29609015');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_29609015');">.js</a></span><span>reduce by hand</span></figcaption><div clang='CoffeeScript' id="figure_29609015"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nv">sum = </span><span class="mi">0</span>
 </span><span class='line'><span class="nx">sum</span> <span class="o">+=</span> <span class="nx">value</span> <span class="k">for</span> <span class="nx">value</span> <span class="k">in</span> <span class="nx">arr</span>
-</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_352163131_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_29609015_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -659,7 +659,7 @@
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Generated by CoffeeScript 1.6.3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Generated by CoffeeScript 1.7.1</span>
 </span><span class='line'><span class="kd">var</span> <span class="nx">sum</span><span class="p">,</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">_i</span><span class="p">,</span> <span class="nx">_len</span><span class="p">;</span>
 </span><span class='line'>
 </span><span class='line'><span class="nx">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -675,11 +675,11 @@
 
 <p>Usually where is reduce, there is also a reduceRight. It iterates from the last to the first item. It seldom makes a differece, but it may, and if it does, it may be an issue instead of benefit. As a rule of thumb, use reduce unless you know why you are not. The native method is <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/ReduceRight">reduceRight</a>.</p>
 
-<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_401223355');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_401223355');">.js</a></span><span>reduceRight by hand</span></figcaption><div clang='CoffeeScript' id="figure_401223355"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_375190287');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_375190287');">.js</a></span><span>reduceRight by hand</span></figcaption><div clang='CoffeeScript' id="figure_375190287"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nv">sum = </span><span class="mi">0</span>
 </span><span class='line'><span class="nx">sum</span> <span class="o">+=</span> <span class="nx">value</span> <span class="k">for</span> <span class="nx">value</span> <span class="k">in</span> <span class="nx">arr</span> <span class="k">by</span> <span class="o">-</span><span class="mi">1</span>
-</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_401223355_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_375190287_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -688,7 +688,7 @@
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Generated by CoffeeScript 1.6.3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Generated by CoffeeScript 1.7.1</span>
 </span><span class='line'><span class="kd">var</span> <span class="nx">sum</span><span class="p">,</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">_i</span><span class="p">;</span>
 </span><span class='line'>
 </span><span class='line'><span class="nx">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -721,12 +721,12 @@
   
 
 
-<time datetime="2012-09-11T04:36:00-03:00" pubdate data-updated="true">2012-09-11</time>
+<time datetime="2012-09-11T00:00:00-03:00" pubdate data-updated="true">2012-09-11</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/coffeescript/'>CoffeeScript</a>, <a class='category' href='/blog/categories/javascript/'>JavaScript</a>, <a class='category' href='/blog/categories/lo-dash/'>Lo-Dash</a>, <a class='category' href='/blog/categories/underscore-dot-js/'>Underscore.js</a>
+    <a class='category' href='/blog/categories/coffeescript/'>coffeescript</a>, <a class='category' href='/blog/categories/javascript/'>javascript</a>, <a class='category' href='/blog/categories/lodash/'>lodash</a>, <a class='category' href='/blog/categories/underscorejs/'>underscorejs</a>
   
 </span>
 
@@ -735,7 +735,7 @@
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://michelpm.com/blog/2012/09/11/functional-javascript/" data-via="" data-counturl="http://michelpm.com/blog/2012/09/11/functional-javascript/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://michelpm.com/2012/09/11/functional-javascript/" data-via="" data-counturl="http://michelpm.com/2012/09/11/functional-javascript/" >Tweet</a>
   
   
   
@@ -754,12 +754,6 @@
     </p>
   </footer>
 </article>
-
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-  </section>
 
 </div>
 
@@ -812,7 +806,7 @@
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - Michel Pavan Macedo -
+  Copyright &copy; 2014 - Michel Pavan Macedo -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
@@ -823,14 +817,11 @@
       var disqus_shortname = 'halfsw';
       
         
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://michelpm.com/blog/2012/09/11/functional-javascript/';
-        var disqus_url = 'http://michelpm.com/blog/2012/09/11/functional-javascript/';
-        var disqus_script = 'embed.js';
+        var disqus_script = 'count.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>

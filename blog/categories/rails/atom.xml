@@ -2,26 +2,216 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: rails | Michel P. Macedo]]></title>
-  <link href="http://michelpm.com/blog/categories/rails/atom.xml" rel="self"/>
+  <link href="http://michelpm.com/categories/rails/atom.xml" rel="self"/>
   <link href="http://michelpm.com/"/>
-  <updated>2013-12-21T13:43:36-02:00</updated>
+  <updated>2014-05-03T12:41:40-03:00</updated>
   <id>http://michelpm.com/</id>
   <author>
     <name><![CDATA[Michel Pavan Macedo]]></name>
-    
+    <email><![CDATA[michelpm@gmail.com]]></email>
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
   
   <entry>
+    <title type="html"><![CDATA[I18n of CSS generated content]]></title>
+    <link href="http://michelpm.com/2013/05/15/i18n-of-css-generated-content/"/>
+    <updated>2013-05-15T00:00:00-03:00</updated>
+    <id>http://michelpm.com/2013/05/15/i18n-of-css-generated-content</id>
+    <content type="html"><![CDATA[<p>In the <a href="http://twitter.github.io/bootstrap/">documentation of Twitter Boostrap 2</a>, there is a pretty example box, with a caption on the top-left corner. If you inspect the HTML code, you won&rsquo;t find the caption, it is generated with CSS. It might seem absurd, a violation of the traditional separation of style and content, but there is a way around it.</p>
+
+<h2>Content inside CSS</h2>
+
+<p>This is the example box:</p>
+
+<p><img src="http://i.imgur.com/5swemcI.png?1" alt="box screen shot" /></p>
+
+<p>One might be tempted to make a mixin out of it (only relevant CSS displayed for now):</p>
+
+<p>Declaration of the mixin (LESS):</p>
+
+<pre><code>.bs-docs-box(@caption) {
+  &amp;:after {
+    // Echo out a label for the example
+    content: @caption;
+  }
+}
+</code></pre>
+
+<p>Declaration of the CSS class (LESS and ERB):</p>
+
+<pre><code>.example {
+  .bs-docs-box("&lt;%= translate 'example' %&gt;");
+}
+</code></pre>
+
+<p>Usage of the CSS class (HAML):</p>
+
+<pre><code>.example
+  Vivamus sagittis...
+</code></pre>
+
+<p>The problem with this example is that we have content of the site inside the CSS, instead of the HTML. To be able to use this example with <abbr title="Internationalization">i18n</abbr> we have to serve the CSS as if it was a view, what <a href="http://stackoverflow.com/a/16246891/619510">can not be done with Rails</a>.</p>
+
+<h2>Extracting content to HTML</h2>
+
+<p> If we go read the <a href="http://www.w3.org/TR/CSS2/generate.html#content">CSS <em>&lsquo;content&rsquo;</em> specification</a>, we will find that this property accepts <code>attr(&lt;identifier&gt;)</code> as a value. This <em>attr</em> function will return the value of a specified attribute from the selected element.</p>
+
+<p> Now, instead of having a LESS mixin with a caption parameter, we can have only one CSS class:</p>
+
+<pre><code>.bs-docs-box:after {
+  content: attr(data-caption);
+}
+</code></pre>
+
+<p>And use it like this (HAML):</p>
+
+<pre><code>.bs-docs-box{'data-caption' =&gt; translate('example')}
+  Vivamus sagittis...
+</code></pre>
+
+<h2>Extracting it to a view helper on Rails</h2>
+
+<p>Declaring a view helper:</p>
+
+<pre><code>module ApplicationHelper
+  def example
+    content_tag :div, 'class'        =&gt; 'bs-docs-box',
+                      'data-caption' =&gt; translate('example') do
+      yield
+    end
+  end
+end
+</code></pre>
+
+<p>Using the view helper:</p>
+
+<pre><code>= example do
+  Vivamus sagittis...
+</code></pre>
+
+<h2>Full code of the box</h2>
+
+<p>My best guess of the box LESS code from the static CSS code of the documentation, plus our little improvement:</p>
+
+<pre><code>@import "twitter/bootstrap/variables";
+@import "twitter/bootstrap/mixins";
+
+// Extracted from http://twitter.github.io/bootstrap/
+.bs-docs-box {
+  &amp; {
+    position: relative;
+    margin: 15px 0;
+    padding: 39px 19px 14px;
+    *padding-top: 19px;
+    background-color: @bodyBackground;
+    border: 1px solid #ddd;
+    .border-radius(@baseBorderRadius);
+  }
+
+  &amp;:after {
+    // Echo out a label for the example
+    content: attr(data-caption);
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    padding: 3px 7px;
+    font-size: @baseFontSize - 2;
+    font-weight: bold;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    color: #9da0a4;
+    .border-radius(@baseBorderRadius 0 @baseBorderRadius 0);
+  }
+}
+</code></pre>
+
+<p>Credits of finding the solution to <a href="http://stackoverflow.com/a/16321962/619510">@nzifnab</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Twitter Bootstrap and JRuby on Rails]]></title>
+    <link href="http://michelpm.com/2012/10/23/twitter-bootstrap-and-jruby-on-rails/"/>
+    <updated>2012-10-23T00:00:00-02:00</updated>
+    <id>http://michelpm.com/2012/10/23/twitter-bootstrap-and-jruby-on-rails</id>
+    <content type="html"><![CDATA[<p><a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a> is published in <a href="http://lesscss.org/">LESS</a> and that is how I like to use it. The <a href="https://github.com/seyhunak/twitter-bootstrap-rails">twitter-bootstrap-rails</a> gem is the most popular and most complete for that purpose. It has several handy generators and helpers. But I can&rsquo;t for my life install it on <a href="http://jruby.org/">JRuby</a>. Since I don&rsquo;t like forking, I found a somewhat simple workaround.</p>
+
+<h2>Bootstrap files</h2>
+
+<p>If you are like me and want to keep the bootstrap files vendor'ed (included in asset pipeline by the vendor folder of a gem), you could use the &lsquo;static&rsquo; branch of the twitter-bootstrap-rails gem, but that is the generated CSS, not LESS. It is bad because it doesn&rsquo;t have all stuff &lsquo;master&rsquo; has and if you want to use a <a href="http://bootswatch.com/">theme</a>, it won&rsquo;t work.</p>
+
+<p>The solution is to use the <a href="https://github.com/metaskills/less-rails-bootstrap">less-rails-bootstrap</a> gem, the only thing it does is to require <a href="https://github.com/metaskills/less-rails">less-rails</a> and vendor the original files. Now we don&rsquo;t have all the stuff from the other gem, to get it back see below.</p>
+
+<h2>Require assets</h2>
+
+<p>It must be installed manually, it is pretty straightforward to do so. I use them like below.</p>
+
+<pre><code class="scss app/assets/stylesheets/application.css.less">//= require_tree .
+</code></pre>
+
+<pre><code class="scss app/assets/stylesheets/bootstrap_and_overrides.css.less">@import "twitter/bootstrap/bootstrap";
+@import "twitter/bootstrap/responsive";
+
+// Set the correct sprite paths
+@iconSpritePath: asset-path("twitter/bootstrap/glyphicons-halflings.png");
+@iconWhiteSpritePath: asset-path("twitter/bootstrap/glyphicons-halflings-white.png");
+
+body { padding-top: 60px; }
+</code></pre>
+
+<pre><code class="coffeescript app/assets/javascripts/application.js.coffee">#= require twitter/bootstrap
+#= require jquery
+#= require jquery_ujs
+#= require_tree .
+</code></pre>
+
+<h2>Generate layout</h2>
+
+<pre><code class="bash"># Remove the erubis layout generated by Rails
+git rm app/views/layouts/application.html.erb
+
+# Download HAML layout (it is a erubis template)
+LayoutErubis=$(curl https://raw.github.com/seyhunak/twitter-bootstrap-rails/master/lib/generators/bootstrap/layout/templates/layout.html.haml)
+
+# Concatenate code to set the local variables and execute it
+(echo "app_name='MyApp';layout_type='fixed';container_class='container'"
+ (echo $LayoutErubis | erubis -x)
+ echo "puts _buf.to_s"
+) | ruby &gt; app/views/layouts/application.html.haml
+</code></pre>
+
+<p>Replace &lsquo;MyApp&rsquo; with the name of your app, it is the text the will be used in the logo and title areas. If you want to generate a fluid layout replaced &lsquo;fixed&rsquo; with &lsquo;fluid&rsquo; and &lsquo;container&rsquo; with &lsquo;container-fluid&rsquo;. For more details, look at <a href="https://github.com/seyhunak/twitter-bootstrap-rails/blob/master/lib/generators/bootstrap/layout/layout_generator.rb">the code of the generator itself</a>.</p>
+
+<h2>Include helpers</h2>
+
+<p>It won&rsquo;t work. But that is good, because it means presentation logic needed to use several Twitter Bootstrap components is available as helpers. Except we don&rsquo;t have those helpers. So let&rsquo;s go back to their repository and get them as well.</p>
+
+<pre><code class="bash"># Add remote
+git remote add -f bsrails https://github.com/seyhunak/twitter-bootstrap-rails
+
+# Fetch the branch, squash all changes into a single changeset, but don't commit
+git merge -s ours --no-commit --squash bsrails/master
+
+# Merge remote folder app/helpers (-u) into local folder app/helpers (--prefix)
+git read-tree --prefix=app/helpers -u bsrails/master:app/helpers
+
+# Commit (don't use -m your lazy bastard)
+git commit
+</code></pre>
+
+<h2>Word of caution</h2>
+
+<p>This is a workaround. When the twitter-bootstrap-rails is able to install with JRuby, this is going to be useless.</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[I spun off Linux from my dev machine]]></title>
-    <link href="http://michelpm.com/blog/2011/11/14/i-spun-off-linux-from-my-dev-machine/"/>
-    <updated>2011-11-14T01:41:00-02:00</updated>
-    <id>http://michelpm.com/blog/2011/11/14/i-spun-off-linux-from-my-dev-machine</id>
+    <link href="http://michelpm.com/2011/11/14/i-spun-off-linux-from-my-dev-machine/"/>
+    <updated>2011-11-14T00:00:00-02:00</updated>
+    <id>http://michelpm.com/2011/11/14/i-spun-off-linux-from-my-dev-machine</id>
     <content type="html"><![CDATA[<p>Some weeks ago I started to learn <a href="http://rubyonrails.org/">Rails</a> and I decided to make my dev machine the right way. By that I mean I had to make myself proficient with <a href="http://git-scm.com/">Git</a>, <a href="http://www.vim.org/">Vim</a>, Shell, <a href="http://en.wikipedia.org/wiki/Test-driven_development">TDD</a> and every other skill I thought a smart programmer would master. At first I didn&rsquo;t want to get rid of my state of art Windows 7 installation with awesome Microsoft Word 2010, Microsoft Visual Studio 2010 full of useful plugins and all that browsers installed to test web pages. I think I had everything a .NET developer would hope for, even had msysgit to play once in a while and pretend my OS was POSIX compliant.</p>
-
-<!--more-->
-
 
 <p>I started to install everything inside and outside <a href="http://code.google.com/p/msysgit/">msysgit</a> and <a href="http://www.cygwin.com/">Cygwin</a>, attempted to setup a gvim with everything a Rails developer need for an text editor. But it was just too hard, I tried for a long time, but couldn&rsquo;t stand anymore. It wasn&rsquo;t worth trying to convince Windows to be something it is not: a Linux. Don&rsquo;t get me wrong, I loved my Windows 7, I wouldn&rsquo;t want anything else to code .NET apps, but it wasn&rsquo;t the first time it disappointed me for things that are not rich GUI&rsquo;s like Visual Studio and I always tend to think that most of the good things aren&rsquo;t. <del>Just try <a href="http://nodejs.org">Node</a> on Windows and see what I am talking about.</del> (Looks like now it works just fine in Windows)</p>
 

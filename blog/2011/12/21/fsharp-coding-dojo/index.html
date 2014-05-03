@@ -18,14 +18,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://michelpm.com/blog/2011/12/21/fsharp-coding-dojo">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="Michel P. Macedo" type="application/atom+xml">
-  <script src="/javascripts/modernizr-2.0.js"></script>
+  <link rel="canonical" href="http://michelpm.com/2011/12/21/fsharp-coding-dojo">
+  <link href="/blog/favicon.png" rel="icon">
+  <link href="/blog/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="http://feeds.feedburner.com/michelpm" rel="alternate" title="Michel P. Macedo" type="application/atom+xml">
+  <script src="/blog/javascripts/modernizr-2.0.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/blog/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -48,17 +48,19 @@
 
 <body   >
   <header role="banner"><hgroup>
-  <h1><a href="/">Michel P. Macedo</a></h1>
+  <h1><a href="/blog/">Michel P. Macedo</a></h1>
   
 </hgroup>
 
 </header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss email">
+  <li><a href="http://feeds.feedburner.com/michelpm" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+    <li><a href="http://feedburner.google.com/fb/a/mailverify?uri=michelpm&amp;loc=en_US" rel="subscribe-email" title="subscribe via email">Email</a></li>
   
 </ul>
   
-<form action="http://google.com/search" method="get">
+<form action="https://www.google.com/search" method="get">
   <fieldset role="search">
     <input type="hidden" name="q" value="site:michelpm.com" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
@@ -66,7 +68,7 @@
 </form>
   
 <ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/">Blog</a></li>
   <li><a href="/blog/archives">Archives</a></li>
 </ul>
 
@@ -94,9 +96,10 @@
   
 
 
-<time datetime="2011-12-21T01:23:00-02:00" pubdate data-updated="true">2011-12-21</time>
+<time datetime="2011-12-21T00:00:00-02:00" pubdate data-updated="true">2011-12-21</time>
         
-         | <a href="#disqus_thread">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://michelpm.com">Comments</a>
         
       </p>
     
@@ -105,12 +108,9 @@
 
 <div class="entry-content"><p>I am an active member of a <a href="http://bludotnet.com.br">.NET user group</a> in <a href="http://en.wikipedia.org/wiki/Blumenau">the city I live</a>. We have monthly meetings that usually combine a lecture followed by an one hour <a href="http://code.joejag.com/2009/the-coding-dojo/">coding dojo</a>. August this year we had our monthly meeting and I spoke for an hour or so about F# and then challenged the other participants to translate to F# a small problem already codified with C#.</p>
 
-<!--more-->
-
-
 <h2>Presentation</h2>
 
-<p>My presentation was mostly based on the book <a href="http://www.shelfari.com/books/4472689/Real-World-Functional-Programming-With-Examples-in-F-and-C-">Real-World Functional Programming with Examples in F# And C#</a> and <a href="http://www.infoq.com/search.action?queryString=F%23&amp;searchOrder=relevance&amp;search=F%23">presentations and slides</a> from Don Syme &ndash; the creator, and Tomas Petricek &ndash; the author of the book aforementioned. I prepared a handful of tiny code samples to demonstrate from the basic syntax to web development. The presentation was optimized not to sell, but to teach as much as possible of F# in less than a hour for C# developers. I thought &ldquo;Does it have lots of awesome features worth talking about? Sure, but let&rsquo;s concentrate on what the audience will need to know to start coding when I am finished.&rdquo;</p>
+<p>My presentation was mostly based on the book <a href="http://www.shelfari.com/books/4472689/Real-World-Functional-Programming-With-Examples-in-F-and-C-">Real-World Functional Programming with Examples in F# And C#</a> and <a href="http://www.infoq.com/search.action?queryString=F%23&amp;searchOrder=relevance&amp;search=F%23">presentations and slides</a> from Don Syme - the creator, and Tomas Petricek - the author of the book aforementioned. I prepared a handful of tiny code samples to demonstrate from the basic syntax to web development. The presentation was optimized not to sell, but to teach as much as possible of F# in less than a hour for C# developers. I thought &ldquo;Does it have lots of awesome features worth talking about? Sure, but let&rsquo;s concentrate on what the audience will need to know to start coding when I am finished.&rdquo;</p>
 
 <h3>Results</h3>
 
@@ -172,12 +172,12 @@ The fourth asset the team had was myself. Devoided of eidetic memories, it would
   
 
 
-<time datetime="2011-12-21T01:23:00-02:00" pubdate data-updated="true">2011-12-21</time>
+<time datetime="2011-12-21T00:00:00-02:00" pubdate data-updated="true">2011-12-21</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/dot-net/'>.NET</a>, <a class='category' href='/blog/categories/coding-dojo/'>Coding Dojo</a>, <a class='category' href='/blog/categories/f-number/'>F#</a>
+    <a class='category' href='/blog/categories/dojo/'>dojo</a>, <a class='category' href='/blog/categories/dot-net/'>dot-net</a>, <a class='category' href='/blog/categories/f-sharp/'>f-sharp</a>
   
 </span>
 
@@ -186,7 +186,7 @@ The fourth asset the team had was myself. Devoided of eidetic memories, it would
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://michelpm.com/blog/2011/12/21/fsharp-coding-dojo/" data-via="" data-counturl="http://michelpm.com/blog/2011/12/21/fsharp-coding-dojo/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://michelpm.com/2011/12/21/fsharp-coding-dojo/" data-via="" data-counturl="http://michelpm.com/2011/12/21/fsharp-coding-dojo/" >Tweet</a>
   
   
   
@@ -205,12 +205,6 @@ The fourth asset the team had was myself. Devoided of eidetic memories, it would
     </p>
   </footer>
 </article>
-
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-  </section>
 
 </div>
 
@@ -263,7 +257,7 @@ The fourth asset the team had was myself. Devoided of eidetic memories, it would
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - Michel Pavan Macedo -
+  Copyright &copy; 2014 - Michel Pavan Macedo -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
@@ -274,14 +268,11 @@ The fourth asset the team had was myself. Devoided of eidetic memories, it would
       var disqus_shortname = 'halfsw';
       
         
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://michelpm.com/blog/2011/12/21/fsharp-coding-dojo/';
-        var disqus_url = 'http://michelpm.com/blog/2011/12/21/fsharp-coding-dojo/';
-        var disqus_script = 'embed.js';
+        var disqus_script = 'count.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>

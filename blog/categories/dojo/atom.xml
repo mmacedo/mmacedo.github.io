@@ -1,31 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Coding Dojo | Michel P. Macedo]]></title>
-  <link href="http://michelpm.com/blog/categories/coding-dojo/atom.xml" rel="self"/>
+  <title><![CDATA[Category: dojo | Michel P. Macedo]]></title>
+  <link href="http://michelpm.com/categories/dojo/atom.xml" rel="self"/>
   <link href="http://michelpm.com/"/>
-  <updated>2013-12-21T13:43:36-02:00</updated>
+  <updated>2014-05-03T12:41:40-03:00</updated>
   <id>http://michelpm.com/</id>
   <author>
     <name><![CDATA[Michel Pavan Macedo]]></name>
-    
+    <email><![CDATA[michelpm@gmail.com]]></email>
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
   
   <entry>
     <title type="html"><![CDATA[F# Coding Dojo]]></title>
-    <link href="http://michelpm.com/blog/2011/12/21/fsharp-coding-dojo/"/>
-    <updated>2011-12-21T01:23:00-02:00</updated>
-    <id>http://michelpm.com/blog/2011/12/21/fsharp-coding-dojo</id>
+    <link href="http://michelpm.com/2011/12/21/fsharp-coding-dojo/"/>
+    <updated>2011-12-21T00:00:00-02:00</updated>
+    <id>http://michelpm.com/2011/12/21/fsharp-coding-dojo</id>
     <content type="html"><![CDATA[<p>I am an active member of a <a href="http://bludotnet.com.br">.NET user group</a> in <a href="http://en.wikipedia.org/wiki/Blumenau">the city I live</a>. We have monthly meetings that usually combine a lecture followed by an one hour <a href="http://code.joejag.com/2009/the-coding-dojo/">coding dojo</a>. August this year we had our monthly meeting and I spoke for an hour or so about F# and then challenged the other participants to translate to F# a small problem already codified with C#.</p>
-
-<!--more-->
-
 
 <h2>Presentation</h2>
 
-<p>My presentation was mostly based on the book <a href="http://www.shelfari.com/books/4472689/Real-World-Functional-Programming-With-Examples-in-F-and-C-">Real-World Functional Programming with Examples in F# And C#</a> and <a href="http://www.infoq.com/search.action?queryString=F%23&amp;searchOrder=relevance&amp;search=F%23">presentations and slides</a> from Don Syme &ndash; the creator, and Tomas Petricek &ndash; the author of the book aforementioned. I prepared a handful of tiny code samples to demonstrate from the basic syntax to web development. The presentation was optimized not to sell, but to teach as much as possible of F# in less than a hour for C# developers. I thought &ldquo;Does it have lots of awesome features worth talking about? Sure, but let&rsquo;s concentrate on what the audience will need to know to start coding when I am finished.&rdquo;</p>
+<p>My presentation was mostly based on the book <a href="http://www.shelfari.com/books/4472689/Real-World-Functional-Programming-With-Examples-in-F-and-C-">Real-World Functional Programming with Examples in F# And C#</a> and <a href="http://www.infoq.com/search.action?queryString=F%23&amp;searchOrder=relevance&amp;search=F%23">presentations and slides</a> from Don Syme - the creator, and Tomas Petricek - the author of the book aforementioned. I prepared a handful of tiny code samples to demonstrate from the basic syntax to web development. The presentation was optimized not to sell, but to teach as much as possible of F# in less than a hour for C# developers. I thought &ldquo;Does it have lots of awesome features worth talking about? Sure, but let&rsquo;s concentrate on what the audience will need to know to start coding when I am finished.&rdquo;</p>
 
 <h3>Results</h3>
 

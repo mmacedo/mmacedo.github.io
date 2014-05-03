@@ -2,37 +2,33 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: zsh | Michel P. Macedo]]></title>
-  <link href="http://michelpm.com/blog/categories/zsh/atom.xml" rel="self"/>
+  <link href="http://michelpm.com/categories/zsh/atom.xml" rel="self"/>
   <link href="http://michelpm.com/"/>
-  <updated>2013-12-21T13:43:36-02:00</updated>
+  <updated>2014-05-03T12:41:40-03:00</updated>
   <id>http://michelpm.com/</id>
   <author>
     <name><![CDATA[Michel Pavan Macedo]]></name>
-    
+    <email><![CDATA[michelpm@gmail.com]]></email>
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
   
   <entry>
     <title type="html"><![CDATA[Switching from zsh to fish]]></title>
-    <link href="http://michelpm.com/blog/2013/07/26/switching-from-zsh-to-fish/"/>
-    <updated>2013-07-26T15:09:00-03:00</updated>
-    <id>http://michelpm.com/blog/2013/07/26/switching-from-zsh-to-fish</id>
+    <link href="http://michelpm.com/2013/07/26/switching-from-zsh-to-fish/"/>
+    <updated>2013-07-26T00:00:00-03:00</updated>
+    <id>http://michelpm.com/2013/07/26/switching-from-zsh-to-fish</id>
     <content type="html"><![CDATA[<p>Not long ago I heard of <a href="http://fishshell.com">fish (friendly interactive shell)</a> and I decided it was worth a test drive. I have a decent configuration for zsh, with most credits to <a href="https://github.com/robbyrussell/oh-my-zsh">Oh My Zsh!</a>, but I was determined to get rid of most my dotfiles, as it is one of my greatest excuses to procrastinate, however tidy. Fish comes with lots of things out of the box, so I decided to replace zsh even if it meant to lose a thing or two.</p>
-
-<!--more-->
-
 
 <h2>Trying out fish</h2>
 
 <p>Being on Ubuntu, I found a ppa with very up to date fish:</p>
 
-<p><code>
-sudo add-apt-repository -y ppa:fish-shell/nightly-master
+<pre><code>sudo add-apt-repository -y ppa:fish-shell/nightly-master
 sudo apt-get update
 sudo apt-get install -y fish
 chsh -s /usr/bin/fish
-</code></p>
+</code></pre>
 
 <p>I opened fish and started to type things to test. Syntax highlighting and history completion were great and beautiful. Completion is a little bit different, not as good as zsh&rsquo;s with lots of plugins and configurations, but close enough and again prettier. The syntax is very nice but it is not at all compatible with popular shells and not even POSIX. The name is hard to search and the documentation and community not big enough, but I managed to translate all my functions using the <a href="http://fishshell.com/tutorial.html">tutorial</a> and the <a href="http://fishshell.com/docs/current/index.html">documentation</a>. Even harder than learning fish was to understand every feature of bash to translate the code to fish.</p>
 
@@ -40,36 +36,30 @@ chsh -s /usr/bin/fish
 
 <p>The fish configuration on the browser (fish_config command) is a neat concept, with a cool prompt visualizer (beats my <a href="https://gist.github.com/mmacedo/4047615">xterm opener</a>), but disappointing as I didn&rsquo;t find anything worth configuring there. Already feeling like something was missing, I searched for <a href="https://github.com/bpinto/oh-my-fish">Oh My Fish!</a>, and I found exactly what I needed to have a complete shell:</p>
 
-<p><code>
-curl -L https://github.com/bpinto/oh-my-fish/raw/master/tools/install.sh | bash
-</code></p>
+<pre><code>curl -L https://github.com/bpinto/oh-my-fish/raw/master/tools/install.sh | bash
+</code></pre>
 
 <p>Instead of a <code>~/.fishrc</code>, the fish configuration goes into <code>~/.config/fish/config.fish</code>:</p>
 
-<p><code>
-set fish_path $HOME/.oh-my-fish
+<pre><code>set fish_path $HOME/.oh-my-fish
 . $fish_path/oh-my-fish.fish
-</code></p>
+</code></pre>
 
 <h2>Prompt / Theme</h2>
 
 <p>I still had to pick a good prompt to replace Oh My Zsh!&rsquo;s <a href="http://www.maxmasnick.com/2012/09/02/zsh/">fino theme</a>. <a href="https://github.com/bpinto/oh-my-fish/pull/27">Numist</a> is pretty much the same theme, but it doesn&rsquo;t show the ruby version. I added my custom version of oh-my-fish&rsquo;s numist theme with the ruby version from oh-my-zsh&rsquo;s fino theme:</p>
 
-<p>```
-set -l ruby_info
-if which rvm-prompt >/dev/null ^&amp;1
+<pre><code>set -l ruby_info
+if which rvm-prompt &gt;/dev/null ^&amp;1
   set ruby_info (rvm-prompt i v g)
 else
-  if which rbenv >/dev/null ^&amp;1</p>
+  if which rbenv &gt;/dev/null ^&amp;1
+    set ruby_info (rbenv version-name)
+  end
+end
 
-<pre><code>set ruby_info (rbenv version-name)
+test $ruby_info; and set ruby_info "$normal""using $magenta‹$ruby_info›"
 </code></pre>
-
-<p>  end
-end</p>
-
-<p>test $ruby_info; and set ruby_info &ldquo;$normal&rdquo;&ldquo;using $magenta‹$ruby_info›&rdquo;
-```</p>
 
 <h2>Tools</h2>
 
@@ -77,28 +67,184 @@ end</p>
 
 <p>Most tools, however, are not compatible with fish: how would them? It coincided that I wanted to try a new tool (<a href="https://github.com/creationix/nvm">nvm</a>) for which there was no fish shim or fish plugin. Inspired by a <a href="https://github.com/fish-shell/fish-shell/issues/522#issuecomment-12485379">script</a> that attempted to source POSIX/bash syntax files, I decided to write my own <code>source</code> function that could execute bash code and reproduce or simulate the changes to variables and functions on fish:</p>
 
-<p>{% gist 6083809 source.fish %}</p>
+<p><div><script src='https://gist.github.com/6083809.js?file=source.fish'></script>
+<noscript><pre><code>function _exec_with
+  set -l shell $argv[1]
+  set -l file $argv[2]
+  set -l code $argv[3]
+
+  set -l source
+  switch &quot;$shell&quot;
+    case bash zsh ksh
+      set source .
+    case '*'
+      echo &quot;Unknown shell '$shell'&quot; &gt;&amp;2
+      return 1
+  end
+
+  # List variables, ignore $_, $PIPESTATUS, $COLUMNS and $SHLVL
+  set -l variable_names &quot;env | grep -v '^_|PIPESTATUS|COLUMNS|SHLVL\\\$' | sort&quot;
+  # List functions, find headers (lines with '()'), keep only the name of the
+  #  function (remove after the first space or '('), ignore names with '$'
+  set -l function_names &quot;typeset -f | grep '^[^ (]\\+ \\?()' | sed 's/^\\([^ (]\\+\\).*/\\1/' | grep -v '\\\$' | sort&quot;
+  # List aliases, remove 'alias ' preffix if present and the value (everything after the =)
+  set -l aliases_names &quot;alias | sed 's/\\(alias \\)\\?\\([^=]\\+\\).*/\\2/' | sort&quot;
+
+  # Create temp files to catch the change of variables and functions
+  set -l variables_before (mktemp)
+  set -l variables_after (mktemp)
+  set -l functions_before (mktemp)
+  set -l functions_after (mktemp)
+  set -l aliases_before (mktemp)
+  set -l aliases_after (mktemp)
+
+  set -l before &quot;$variable_names &gt; $variables_before; $function_names &gt; $functions_before; $aliases_names &gt; $aliases_before&quot;
+  set -l after &quot;$variable_names &gt; $variables_after; $function_names &gt; $functions_after; $aliases_names &gt; $aliases_after&quot;
+
+  /usr/bin/env $shell -c &quot;$before; $source $file; $code $after&quot;
+
+  # Separator used by read to store a single line into several variables
+  set -l IFS =
+
+  # Diff of the env in the format (+|-)=(?&lt;VAR&gt;.+)=(?&lt;VALUE&gt;.+)
+  set -l diffopts --old-line-format '-=%L' --new-line-format '+=%L' --unchanged-line-format ''
+
+  diff $diffopts $variables_before $variables_after | while read -l state var value
+    switch $state$var
+      case -PATH -MANPATH
+        continue
+      case +PATH +MANPATH
+        # split by colons into an array
+        eval set value (echo $value | sed 's/:$//' | sed 's/:\?\([^:]\+\)/&quot;\1&quot; /g')
+        # reverse array (because preprending will cause reversing again)
+        set -l temp; for i in $value; set temp $i $temp; end; set value $temp
+
+        # Sync dirs removed from the path
+        for dir in $$var
+          if contains $dir $value; continue; end
+
+          # DEBUG:
+          # echo remove \&quot;$dir\&quot; from the \${$var}
+
+          eval set -e $var\[(contains -i $dir $$var)\]
+        end
+
+        # Sync dirs added to the path
+        for dir in $value
+          if contains $dir $$var; continue; end
+
+          # DEBUG:
+          # echo prepend \&quot;$dir\&quot; to the \${$var}
+
+          set -gx $var &quot;$dir&quot; $$var
+        end
+      case '-*'
+        # DEBUG:
+        # echo unset $var \(old: \'{$$var}\'\)
+
+        set -e $var
+      case '+*'
+        # DEBUG:
+        # echo Set \${$var} to \'$value\' \(old: \'{$$var}\'\)
+
+        set -gx $var $value
+      case '*'
+        echo &quot;Source error! Invalid case '$state$var'&quot; &gt;&amp;2
+    end
+  end
+
+  diff $diffopts $functions_before $functions_after | while read -l state func
+    switch $state$func
+      case '-*'
+        # Do nothing if a function was removed
+        continue
+      case '+*'
+        # Create wrapper function
+        eval &quot;function $func; _exec_with $shell \&quot;$file\&quot; \&quot;$func \$argv;\&quot;; end&quot;
+
+        # DEBUG:
+        # echo Create wrapper for function $func from $file
+      case '*'
+        echo &quot;Source error! Invalid case '$func'&quot; &gt;&amp;2
+    end
+  end
+
+  diff $diffopts $aliases_before $aliases_after | while read -l state func
+    switch $state$func
+      case '-*'
+        # Do nothing if an alias was removed
+        continue
+      case '+*'
+        # code to manually execute an alias
+        set -l exec_alias &quot;eval \\\$(eval echo `alias $func | sed 's/\\(alias \\)\\?[^=]\\+=//'`) \\\$argv&quot;
+
+        # Create wrapper function
+        eval &quot;function $func; _exec_with $shell \&quot;$file\&quot; \&quot;$exec_alias;\&quot;; end&quot;
+
+        # DEBUG:
+        # echo Create wrapper for alias $func from $file
+      case '*'
+        echo &quot;Source error! Invalid case '$func'&quot; &gt;&amp;2
+    end
+  end
+
+  # Remove temporary files
+  command rm $variables_before $variables_after $functions_before $functions_after $aliases_before $aliases_after &gt;/dev/null
+end
+
+function source --description 'Source bash/zsh/ksh files'
+  set -l type
+  while true
+    if test (count $argv) -eq 0
+      echo &quot;Called with no arguments&quot; &gt;&amp;2
+      return 1
+    end
+    switch $argv[1]
+      case '--*'
+        set type (echo $argv[1] | sed 's/^--//')
+      case '*'
+        break
+    end
+    set -e argv[1]
+  end
+
+  for file in $argv
+    set -l file_type $type
+    if not test &quot;$file_type&quot;
+      switch (readlink -f $file)
+        case '*.sh', '**/.bash*'
+          set file_type bash
+        case '*.zsh', '**/.zsh*'
+          set file_type zsh
+        case '*.ksh', '**/.ksh*'
+          set file_type ksh
+        case '**/.profile', '*'
+          set file_type bash
+      end
+    end
+
+    _exec_with $file_type &quot;$file&quot; &quot;&quot;
+  end
+end
+</code></pre></noscript></div>
+</p>
 
 <h2>Conclusion</h2>
 
 <p>My fish configuration now looks like this:</p>
 
-<p>```</p>
-
-<h1>Oh My Fish!</h1>
-
-<p>set fish_path $HOME/.oh-my-fish
+<pre><code># Oh My Fish!
+set fish_path $HOME/.oh-my-fish
 set fish_theme my
 set fish_plugins rbenv rake bundler node
-. $fish_path/oh-my-fish.fish</p>
+. $fish_path/oh-my-fish.fish
 
-<h1>nvm</h1>
+# nvm
+. $HOME/.config/fish/source.fish
+source --bash $HOME/.nvm/nvm.sh
 
-<p>. $HOME/.config/fish/source.fish
-source &mdash;bash $HOME/.nvm/nvm.sh</p>
-
-<p>. $HOME/.config/fish/functions.fish
-```</p>
+. $HOME/.config/fish/functions.fish
+</code></pre>
 ]]></content>
   </entry>
   

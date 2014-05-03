@@ -1,27 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: CSS | Michel P. Macedo]]></title>
-  <link href="http://michelpm.com/blog/categories/css/atom.xml" rel="self"/>
+  <title><![CDATA[Category: css | Michel P. Macedo]]></title>
+  <link href="http://michelpm.com/categories/css/atom.xml" rel="self"/>
   <link href="http://michelpm.com/"/>
-  <updated>2013-12-21T13:43:36-02:00</updated>
+  <updated>2014-05-03T12:41:40-03:00</updated>
   <id>http://michelpm.com/</id>
   <author>
     <name><![CDATA[Michel Pavan Macedo]]></name>
-    
+    <email><![CDATA[michelpm@gmail.com]]></email>
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
   
   <entry>
     <title type="html"><![CDATA[I18n of CSS generated content]]></title>
-    <link href="http://michelpm.com/blog/2013/05/15/i18n-of-css-generated-content/"/>
-    <updated>2013-05-15T19:53:00-03:00</updated>
-    <id>http://michelpm.com/blog/2013/05/15/i18n-of-css-generated-content</id>
+    <link href="http://michelpm.com/2013/05/15/i18n-of-css-generated-content/"/>
+    <updated>2013-05-15T00:00:00-03:00</updated>
+    <id>http://michelpm.com/2013/05/15/i18n-of-css-generated-content</id>
     <content type="html"><![CDATA[<p>In the <a href="http://twitter.github.io/bootstrap/">documentation of Twitter Boostrap 2</a>, there is a pretty example box, with a caption on the top-left corner. If you inspect the HTML code, you won&rsquo;t find the caption, it is generated with CSS. It might seem absurd, a violation of the traditional separation of style and content, but there is a way around it.</p>
-
-<!--more-->
-
 
 <h2>Content inside CSS</h2>
 
@@ -33,32 +30,26 @@
 
 <p>Declaration of the mixin (LESS):</p>
 
-<p>```
-.bs-docs-box(@caption) {
-  &amp;:after {</p>
-
-<pre><code>// Echo out a label for the example
-content: @caption;
-</code></pre>
-
-<p>  }
+<pre><code>.bs-docs-box(@caption) {
+  &amp;:after {
+    // Echo out a label for the example
+    content: @caption;
+  }
 }
-```</p>
+</code></pre>
 
 <p>Declaration of the CSS class (LESS and ERB):</p>
 
-<p><code>
-.example {
+<pre><code>.example {
   .bs-docs-box("&lt;%= translate 'example' %&gt;");
 }
-</code></p>
+</code></pre>
 
 <p>Usage of the CSS class (HAML):</p>
 
-<p><code>
-.example
+<pre><code>.example
   Vivamus sagittis...
-</code></p>
+</code></pre>
 
 <p>The problem with this example is that we have content of the site inside the CSS, instead of the HTML. To be able to use this example with <abbr title="Internationalization">i18n</abbr> we have to serve the CSS as if it was a view, what <a href="http://stackoverflow.com/a/16246891/619510">can not be done with Rails</a>.</p>
 
@@ -68,86 +59,72 @@ content: @caption;
 
 <p> Now, instead of having a LESS mixin with a caption parameter, we can have only one CSS class:</p>
 
-<p><code>
-.bs-docs-box:after {
+<pre><code>.bs-docs-box:after {
   content: attr(data-caption);
 }
-</code></p>
+</code></pre>
 
 <p>And use it like this (HAML):</p>
 
-<p><code>
-.bs-docs-box{'data-caption' =&gt; translate('example')}
+<pre><code>.bs-docs-box{'data-caption' =&gt; translate('example')}
   Vivamus sagittis...
-</code></p>
+</code></pre>
 
 <h2>Extracting it to a view helper on Rails</h2>
 
 <p>Declaring a view helper:</p>
 
-<p>```
-module ApplicationHelper
-  def example</p>
-
-<pre><code>content_tag :div, 'class'        =&gt; 'bs-docs-box',
-                  'data-caption' =&gt; translate('example') do
-  yield
+<pre><code>module ApplicationHelper
+  def example
+    content_tag :div, 'class'        =&gt; 'bs-docs-box',
+                      'data-caption' =&gt; translate('example') do
+      yield
+    end
+  end
 end
 </code></pre>
 
-<p>  end
-end
-```</p>
-
 <p>Using the view helper:</p>
 
-<p><code>
-= example do
+<pre><code>= example do
   Vivamus sagittis...
-</code></p>
+</code></pre>
 
 <h2>Full code of the box</h2>
 
 <p>My best guess of the box LESS code from the static CSS code of the documentation, plus our little improvement:</p>
 
-<p>```
-@import &ldquo;twitter/bootstrap/variables&rdquo;;
-@import &ldquo;twitter/bootstrap/mixins&rdquo;;</p>
+<pre><code>@import "twitter/bootstrap/variables";
+@import "twitter/bootstrap/mixins";
 
-<p>// Extracted from <a href="http://twitter.github.io/bootstrap/">http://twitter.github.io/bootstrap/</a>
+// Extracted from http://twitter.github.io/bootstrap/
 .bs-docs-box {
-  &amp; {</p>
+  &amp; {
+    position: relative;
+    margin: 15px 0;
+    padding: 39px 19px 14px;
+    *padding-top: 19px;
+    background-color: @bodyBackground;
+    border: 1px solid #ddd;
+    .border-radius(@baseBorderRadius);
+  }
 
-<pre><code>position: relative;
-margin: 15px 0;
-padding: 39px 19px 14px;
-*padding-top: 19px;
-background-color: @bodyBackground;
-border: 1px solid #ddd;
-.border-radius(@baseBorderRadius);
-</code></pre>
-
-<p>  }</p>
-
-<p>  &amp;:after {</p>
-
-<pre><code>// Echo out a label for the example
-content: attr(data-caption);
-position: absolute;
-top: -1px;
-left: -1px;
-padding: 3px 7px;
-font-size: @baseFontSize - 2;
-font-weight: bold;
-background-color: #f5f5f5;
-border: 1px solid #ddd;
-color: #9da0a4;
-.border-radius(@baseBorderRadius 0 @baseBorderRadius 0);
-</code></pre>
-
-<p>  }
+  &amp;:after {
+    // Echo out a label for the example
+    content: attr(data-caption);
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    padding: 3px 7px;
+    font-size: @baseFontSize - 2;
+    font-weight: bold;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    color: #9da0a4;
+    .border-radius(@baseBorderRadius 0 @baseBorderRadius 0);
+  }
 }
-```</p>
+</code></pre>
 
 <p>Credits of finding the solution to <a href="http://stackoverflow.com/a/16321962/619510">@nzifnab</a>.</p>
 ]]></content>
