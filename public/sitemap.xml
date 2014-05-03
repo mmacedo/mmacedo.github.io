@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<sitemapindex xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
+    <sitemap>
+        <loc>http://michelpm.com/sitemap2.xml</loc>
+        <lastmod>2013-12-21T13:33:52-02:00</lastmod>
+    </sitemap>
+    <sitemap>
+        <loc>http://michelpm.com/blog/sitemap.xml</loc>
+        <lastmod>2013-12-21T13:33:52-02:00</lastmod>
+    </sitemap>
+</sitemapindex>

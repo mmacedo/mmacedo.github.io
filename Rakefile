@@ -16,7 +16,9 @@ deploy_branch  = "master"
 
 ## -- Misc Configs -- ##
 
-public_dir      = "public/blog"    # compiled site directory
+subdir          = "/blog"
+public_dir      = "public" # compiled site directory
+public_dir_2    = "#{public_dir}#{subdir}" # compiled site directory
 source_dir      = "source"    # source file directory
 blog_index_dir  = 'source'    # directory for your blog's index page (if you put your index in source/blog/index.html, set this to 'source/blog')
 deploy_dir      = "_deploy"   # deploy directory (for Github pages deployment)
@@ -46,6 +48,7 @@ task :install, :theme do |t, args|
   cp_r "#{themes_dir}/#{theme}/sass/.", "sass"
   mkdir_p "#{source_dir}/#{posts_dir}"
   mkdir_p public_dir
+  mkdir_p public_dir_2
 end
 
 #######################
@@ -275,7 +278,7 @@ task :set_root_dir, :dir do |t, args|
       dir = "/" + args.dir.sub(/(\/*)(.+)/, "\\2").sub(/\/$/, '');
     end
     rakefile = IO.read(__FILE__)
-    rakefile.sub!(/public_dir(\s*)=(\s*)(["'])[\w\-\/]*["']/, "public_dir\\1=\\2\\3public#{dir}\\3")
+    rakefile.sub!(/subdir(\s*)=(\s*)(["'])[\w\-\/]*["']/, "subdir\\1=\\2\\3#{dir}\\3")
     File.open(__FILE__, 'w') do |f|
       f.write rakefile
     end
@@ -331,7 +334,7 @@ task :setup_github_pages, :repo do |t, args|
       system "git branch -m master source"
       puts "Master branch renamed to 'source' for committing your blog source files"
     else
-      unless !public_dir.match("#{project}").nil?
+      unless !public_dir_2.match("#{project}").nil?
         system "rake set_root_dir[#{project}]"
       end
     end
