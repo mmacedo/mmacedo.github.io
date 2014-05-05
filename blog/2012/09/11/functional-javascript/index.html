@@ -32,16 +32,14 @@
 <script src="/blog/javascripts/switchlang.js"></script>
 
   
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-26194428-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26194428-1', 'auto');
+    ga('require', 'displayfeatures');
+    ga('send', 'pageview');
   </script>
 
 
@@ -143,7 +141,7 @@
 
 <p>The idea of each is to iterate over a list and execute something without producing a new list. It is a imperative construct and it is very often available in imperative languages as <a href="http://michelpm.com/blog/2012/09/10/iterating-collections-in-javascript/">for/foreach constructs</a>. The native function is <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/forEach">forEach</a>.</p>
 
-<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_762672386');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_762672386');">.js</a></span><span>each</span></figcaption><div clang='CoffeeScript' id="figure_762672386"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_665978777');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_665978777');">.js</a></span><span>each</span></figcaption><div clang='CoffeeScript' id="figure_665978777"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -167,7 +165,7 @@
 </span><span class='line'>
 </span><span class='line'><span class="cm">### Comprehension ###</span>
 </span><span class='line'><span class="nx">foo</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">index</span> <span class="k">for</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">index</span> <span class="k">in</span> <span class="nx">arr</span>
-</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_762672386_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_665978777_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -230,7 +228,7 @@
 
 <p>Also known as select, the filter primitive returns a list with the items that pass a test function. The native function is <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/filter">filter</a>. It is the <a href="http://en.wikipedia.org/wiki/Selection_(relational_algebra)">selection</a> operator (<a href="http://en.wikipedia.org/wiki/Where_(SQL)">WHERE</a> in SQL).</p>
 
-<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_515196319');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_515196319');">.js</a></span><span>filter</span></figcaption><div clang='CoffeeScript' id="figure_515196319"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_285322620');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_285322620');">.js</a></span><span>filter</span></figcaption><div clang='CoffeeScript' id="figure_285322620"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -258,7 +256,7 @@
 </span><span class='line'><span class="cm">### Comprehension ###</span>
 </span><span class='line'><span class="nx">alert</span> <span class="p">(</span><span class="nx">value</span> <span class="k">for</span> <span class="nx">value</span> <span class="k">in</span> <span class="nx">arr</span> <span class="k">when</span> <span class="nx">isOdd</span><span class="p">(</span><span class="nx">value</span><span class="p">))</span>
 </span><span class='line'><span class="nx">alert</span> <span class="p">(</span><span class="nx">value</span> <span class="k">for</span> <span class="nx">value</span> <span class="k">in</span> <span class="nx">arr</span> <span class="k">when</span> <span class="nx">value</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">is</span> <span class="mi">1</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_515196319_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_285322620_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -363,7 +361,7 @@
 
 <p>Also known as collect, the map primitive returns a list with the items returned from the map function. The native function is <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/map">map</a>. It is the <a href="http://en.wikipedia.org/wiki/Projection_(relational_algebra)">projection</a> operator (<a href="http://en.wikipedia.org/wiki/Select_(SQL)">SELECT</a> in SQL).</p>
 
-<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_144976208');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_144976208');">.js</a></span><span>map</span></figcaption><div clang='CoffeeScript' id="figure_144976208"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_211415779');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_211415779');">.js</a></span><span>map</span></figcaption><div clang='CoffeeScript' id="figure_211415779"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -389,7 +387,7 @@
 </span><span class='line'><span class="cm">### Comprehension ###</span>
 </span><span class='line'><span class="nx">alert</span> <span class="p">(</span><span class="nx">format</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="k">for</span> <span class="nx">value</span> <span class="k">in</span> <span class="nx">arr</span><span class="p">)</span>
 </span><span class='line'><span class="nx">alert</span> <span class="p">(</span><span class="nx">value</span><span class="p">.</span><span class="nx">toFixed</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="nx">value</span> <span class="k">in</span> <span class="nx">arr</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_144976208_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_211415779_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -482,11 +480,11 @@
 
 <p>Also known as fold or inject, the reduce primitive returns a single value accumulated by calling an <a href="http://en.wikipedia.org/wiki/Aggregate_function">aggregate function</a> on each item, always passing as the first parameter the value accumulated as returned from the last iteration call. This is the most often non-understood from the primitives, but it is not complicated at all. The native method is <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/reduce">reduce</a>.</p>
 
-<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_137423665');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_137423665');">.js</a></span><span>Aggregate functions: sum, mult</span></figcaption><div clang='CoffeeScript' id="figure_137423665"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_52712116');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_52712116');">.js</a></span><span>Aggregate functions: sum, mult</span></figcaption><div clang='CoffeeScript' id="figure_52712116"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nv">sum = </span><span class="nf">(sum, value) -&gt;</span> <span class="nx">sum</span> <span class="o">+</span> <span class="nx">value</span>
 </span><span class='line'><span class="nv">mult = </span><span class="nf">(product, value) -&gt;</span> <span class="nx">product</span> <span class="o">*</span> <span class="nx">value</span>
-</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_137423665_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_52712116_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -511,9 +509,9 @@
 
 <p>Our first aggregate functions are pretty straightforward.</p>
 
-<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_674251131');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_674251131');">.js</a></span><span>Aggregate function: max</span></figcaption><div clang='CoffeeScript' id="figure_674251131"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_352454566');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_352454566');">.js</a></span><span>Aggregate function: max</span></figcaption><div clang='CoffeeScript' id="figure_352454566"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nv">max = </span><span class="nf">(max, value) -&gt;</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="nx">max</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_674251131_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_352454566_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -530,7 +528,7 @@
 
 <p>Since the aggregate function accepts four parameters (previousValue, currentValue, index and parameter), you can not pass <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Math/max">Math.max</a> directly to reduce, because it tries to get the maximum value for all parameters passed.</p>
 
-<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_862652664');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_862652664');">.js</a></span><span>Aggregate function: join</span></figcaption><div clang='CoffeeScript' id="figure_862652664"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_725941393');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_725941393');">.js</a></span><span>Aggregate function: join</span></figcaption><div clang='CoffeeScript' id="figure_725941393"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -540,7 +538,7 @@
 </span><span class='line'>    <span class="nx">value</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span>
 </span><span class='line'>  <span class="k">else</span>
 </span><span class='line'>    <span class="s">&quot;</span><span class="si">#{</span><span class="nx">str</span><span class="si">}</span><span class="s">, </span><span class="si">#{</span><span class="nx">value</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span><span class="si">}</span><span class="s">&quot;</span>
-</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_862652664_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_725941393_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -565,7 +563,7 @@
 
 <p>This is also straightforward, to show what you can do. Note that the accumulated value is from a different type than the values being iterated.</p>
 
-<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_934101318');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_934101318');">.js</a></span><span>Aggregate function: avg</span></figcaption><div clang='CoffeeScript' id="figure_934101318"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_405625784');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_405625784');">.js</a></span><span>Aggregate function: avg</span></figcaption><div clang='CoffeeScript' id="figure_405625784"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -575,7 +573,7 @@
 </span><span class='line'>    <span class="p">(</span><span class="nx">sum</span> <span class="o">+</span> <span class="nx">value</span><span class="p">)</span> <span class="o">/</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span>
 </span><span class='line'>  <span class="k">else</span>
 </span><span class='line'>    <span class="nx">sum</span> <span class="o">+</span> <span class="nx">value</span>
-</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_934101318_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_405625784_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -600,7 +598,7 @@
 
 <p>Several implementations of reduce would accept a second function that returns the result based on the value returned from the last iteration, while simpler implementations just return the value from the last iteration. The reason from that second function is to implement aggregate functions like avg. Our implementation assumes that the list is being iterated from left to right (can not be called with reduceRight) and from the beginning to the end in the same interation (can not be merged with other iterations, therefore can not be <a href="http://en.wikipedia.org/wiki/Automatic_parallelization">parallelized</a>). <a href="https://gist.github.com/3696508">This</a> is a good solution in a bad technology.</p>
 
-<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_138015077');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_138015077');">.js</a></span><span>reduce</span></figcaption><div clang='CoffeeScript' id="figure_138015077"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_543819290');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_543819290');">.js</a></span><span>reduce</span></figcaption><div clang='CoffeeScript' id="figure_543819290"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -614,7 +612,7 @@
 </span><span class='line'>
 </span><span class='line'><span class="cm">### Underscore.js / Lo-Dash ###</span>
 </span><span class='line'><span class="nx">alert</span> <span class="s">&quot;The sum is </span><span class="si">#{</span><span class="nx">_</span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span><span class="nx">arr</span><span class="p">,</span> <span class="nx">sum</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="si">}</span><span class="s">, and the product is </span><span class="si">#{</span><span class="nx">_</span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span><span class="nx">arr</span><span class="p">,</span> <span class="nx">mult</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="si">}</span><span class="s">.&quot;</span>
-</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_138015077_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_543819290_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -647,11 +645,11 @@
 
 <p>Something worth noting: there is no reduce syntax for CoffeeScript. You can always use the other solutions (the code above already is in CoffeeScript) or even a loop, since it is always pleasant to write good JavaScript in CoffeeScript.</p>
 
-<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_356378114');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_356378114');">.js</a></span><span>reduce by hand</span></figcaption><div clang='CoffeeScript' id="figure_356378114"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_160536006');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_160536006');">.js</a></span><span>reduce by hand</span></figcaption><div clang='CoffeeScript' id="figure_160536006"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nv">sum = </span><span class="mi">0</span>
 </span><span class='line'><span class="nx">sum</span> <span class="o">+=</span> <span class="nx">value</span> <span class="k">for</span> <span class="nx">value</span> <span class="k">in</span> <span class="nx">arr</span>
-</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_356378114_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_160536006_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -676,11 +674,11 @@
 
 <p>Usually where is reduce, there is also a reduceRight. It iterates from the last to the first item. It seldom makes a differece, but it may, and if it does, it may be an issue instead of benefit. As a rule of thumb, use reduce unless you know why you are not. The native method is <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/ReduceRight">reduceRight</a>.</p>
 
-<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_449151186');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_449151186');">.js</a></span><span>reduceRight by hand</span></figcaption><div clang='CoffeeScript' id="figure_449151186"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_477315625');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_477315625');">.js</a></span><span>reduceRight by hand</span></figcaption><div clang='CoffeeScript' id="figure_477315625"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nv">sum = </span><span class="mi">0</span>
 </span><span class='line'><span class="nx">sum</span> <span class="o">+=</span> <span class="nx">value</span> <span class="k">for</span> <span class="nx">value</span> <span class="k">in</span> <span class="nx">arr</span> <span class="k">by</span> <span class="o">-</span><span class="mi">1</span>
-</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_449151186_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_477315625_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
