@@ -2,7 +2,11 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://michelpm.com/education/</loc>
-        <lastmod>2014-04-28T00:00:00-03:00</lastmod>
+        <lastmod>2014-05-05T13:45:00-03:00</lastmod>
+    </url>
+    <url>
+        <loc>http://michelpm.com/education/pt/</loc>
+        <lastmod>2014-05-05T13:45:00-03:00</lastmod>
     </url>
     <url>
         <loc>http://michelpm.com/revenue/</loc>
@@ -22,6 +26,6 @@
     </url>
     <url>
         <loc>http://michelpm.com/</loc>
-        <lastmod>2014-05-03T13:35:00-03:00</lastmod>
+        <lastmod>2014-05-05T14:25:00-03:00</lastmod>
     </url>
 </urlset>

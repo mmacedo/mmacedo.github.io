@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -31,7 +32,7 @@
       margin: 0 auto;
     }
 
-    * {
+    body, a {
       color: #222;
       font-family: 'PT Serif', Georgia, 'Helvetica Neue', Arial, sans-serif;
     }
@@ -44,58 +45,69 @@
       background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAABCAYAAACsXeyTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAFUlEQVQIHWNIS0sr/v//PwMMDzY+ADqMahlW4J91AAAAAElFTkSuQmCC) bottom left repeat-x;
     }
 
-    ul.essays { list-style: none; }
-    ul.essays article { padding-left: 10em; position: relative; line-height: 1.2em; vertical-align: baseline; }
-    ul.essays time { position: absolute; left: 0; top: 0; }
-    ul.essays .month { padding-left: 5em; }
-    ul.essays .year { position: absolute; left: 0; top: 0; }
-    ul.essays .month { text-transform: uppercase; }
-    ul.essays .year, ul.essays h3 { font-size: 1.5em; }
-    time .day, time .month, time .year { color: #aaa; }
+    ul.essays { list-style: none; padding-left: 0; }
+    ul.essays article { padding-left: 10em; position: relative; line-height: 1.2em; vertical-align: baseline; margin-top: 1.5em; }
+    ul.essays time.published { position: absolute; left: 0; top: 0; }
+    ul.essays time.published .month { padding-left: 5em; }
+    ul.essays time.published .year { position: absolute; left: 0; top: 0; }
+    ul.essays time.published .month { text-transform: uppercase; }
+    ul.essays time.published .year, ul.essays h3 { font-size: 1.5em; }
+    ul.essays h3, ul.essays a[lang] { display: inline-block; margin-top: 0; margin-bottom: 1em; }
+    ul.essays a[lang] { margin-left: 10px; font-size: 1.5em; }
+    ul.essays time.published .day, ul.essays time.published .month, ul.essays time.published .year { color: #aaa; }
 
     footer { margin-top: 60px; }
   </style>
 </head>
 <body>
-  <header role="banner"><hgroup><h1><a href="/">Michel Pavan Macedo</a></h1></hgroup></header>
+  <header role="banner"><h1><a href="/">Michel Pavan Macedo</a></h1></header>
 
   <nav role="navigation">
-    <h1>Links</h2>
+    <h1>Links</h1>
     <ul class="links">
       <li><a href="/blog">Blog about Software Development</a></li>
       <li><a href="http://about.me/michelpm">About.me</a></li>
     </ul>
-    <h1>Essays</h2>
+    <h1>Essays</h1>
     <ul class="essays">
       <li>
         <article>
           <h3><a href="/income">Essay on Income Tax</a></h3>
-          <time datetime="2014-05-04T20:35:00-03:00" pubdate=""><span class="month">May</span> <span class="day">4</span> <span class="year">2014</span></time>
+          <a href="/income" lang="en">en</a>
+          <time class="published" datetime="2014-05-04T20:35:00-03:00"><span class="month">May</span> <span class="day">4</span> <span class="year">2014</span></time>
         </article>
       </li>
       <li>
         <article>
           <h3><a href="/salary">Essay on Salary</a></h3>
+          <a href="/salary" lang="en">en</a>
+          <br />
           <a href="https://docs.google.com/spreadsheets/d/1plqomRfbucFtXKnIvY1-F9Lwmi0GezSDZBDyrOx3r6E/">Real salary spreadsheet</a> · <a href="https://docs.google.com/spreadsheets/d/104vaDmXbIY3vSaC9K4xtyXqwe7AJRDVAQ4RCbX5zNrQ/">Income tax (IRPF) spreadsheet</a>
-          <time datetime="2014-05-03T12:35:00-03:00" pubdate=""><span class="month">May</span> <span class="day">3</span> <span class="year">2014</span></time>
+          <time class="published" datetime="2014-05-03T12:35:00-03:00"><span class="month">May</span> <span class="day">3</span> <span class="year">2014</span></time>
         </article>
       </li>
       <li>
         <article>
           <h3><a href="/libertarianism">Essay on Libertarianism</a></h3>
-          <time datetime="2014-04-30T00:00:00-03:00" pubdate=""><span class="month">Apr</span> <span class="day">30</span> <span class="year">2014</span></time>
+          <a href="/libertarianism" lang="en">en</a>
+          <time class="published" datetime="2014-04-30T00:00:00-03:00"><span class="month">Apr</span> <span class="day">30</span> <span class="year">2014</span></time>
         </article>
       </li>
       <li>
         <article>
           <h3><a href="/revenue">Essay on Revenue Service</a></h3>
-          <time datetime="2014-04-29T00:00:00-03:00" pubdate=""><span class="month">Apr</span> <span class="day">29</span> <span class="year">2014</span></time>
+          <a href="/revenue" lang="en">en</a>
+          <time class="published" datetime="2014-04-29T00:00:00-03:00"><span class="month">Apr</span> <span class="day">29</span> <span class="year">2014</span></time>
         </article>
       </li>
       <li>
         <article>
           <h3><a href="/education">Essay on Basic Education</a></h3>
-          <time datetime="2014-04-28T00:00:00-03:00" pubdate=""><span class="month">Apr</span> <span class="day">28</span> <span class="year">2014</span></time>
+          <a href="/education" lang="en">en</a>
+          <a href="/education/pt" lang="pt">pt</a>
+          <time class="published" datetime="2014-04-28T00:00:00-03:00"><span class="month">Apr</span> <span class="day">28</span> <span class="year">2014</span></time>
+          <br />
+          <small class="updated">Last modified in <time class="updated" datetime="2014-05-05T13:45:00-03:00">May 5th 2014 at 13:45 (-03:00)</time>.</small>
         </article>
       </li>
     </ul>
