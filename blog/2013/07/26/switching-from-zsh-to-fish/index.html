@@ -180,18 +180,18 @@
   switch &quot;$shell&quot;
     case bash zsh ksh
       set source .
-    case '*'
-      echo &quot;Unknown shell '$shell'&quot; &gt;&amp;2
+    case &#39;*&#39;
+      echo &quot;Unknown shell &#39;$shell&#39;&quot; &gt;&amp;2
       return 1
   end
 
   # List variables, ignore $_, $PIPESTATUS, $COLUMNS and $SHLVL
-  set -l variable_names &quot;env | grep -v '^_|PIPESTATUS|COLUMNS|SHLVL\\\$' | sort&quot;
-  # List functions, find headers (lines with '()'), keep only the name of the
-  #  function (remove after the first space or '('), ignore names with '$'
-  set -l function_names &quot;typeset -f | grep '^[^ (]\\+ \\?()' | sed 's/^\\([^ (]\\+\\).*/\\1/' | grep -v '\\\$' | sort&quot;
-  # List aliases, remove 'alias ' preffix if present and the value (everything after the =)
-  set -l aliases_names &quot;alias | sed 's/\\(alias \\)\\?\\([^=]\\+\\).*/\\2/' | sort&quot;
+  set -l variable_names &quot;env | grep -v &#39;^_|PIPESTATUS|COLUMNS|SHLVL\\\$&#39; | sort&quot;
+  # List functions, find headers (lines with &#39;()&#39;), keep only the name of the
+  #  function (remove after the first space or &#39;(&#39;), ignore names with &#39;$&#39;
+  set -l function_names &quot;typeset -f | grep &#39;^[^ (]\\+ \\?()&#39; | sed &#39;s/^\\([^ (]\\+\\).*/\\1/&#39; | grep -v &#39;\\\$&#39; | sort&quot;
+  # List aliases, remove &#39;alias &#39; preffix if present and the value (everything after the =)
+  set -l aliases_names &quot;alias | sed &#39;s/\\(alias \\)\\?\\([^=]\\+\\).*/\\2/&#39; | sort&quot;
 
   # Create temp files to catch the change of variables and functions
   set -l variables_before (mktemp)
@@ -210,7 +210,7 @@
   set -l IFS =
 
   # Diff of the env in the format (+|-)=(?&lt;VAR&gt;.+)=(?&lt;VALUE&gt;.+)
-  set -l diffopts --old-line-format '-=%L' --new-line-format '+=%L' --unchanged-line-format ''
+  set -l diffopts --old-line-format &#39;-=%L&#39; --new-line-format &#39;+=%L&#39; --unchanged-line-format &#39;&#39;
 
   diff $diffopts $variables_before $variables_after | while read -l state var value
     switch $state$var
@@ -218,7 +218,7 @@
         continue
       case +PATH +MANPATH
         # split by colons into an array
-        eval set value (echo $value | sed 's/:$//' | sed 's/:\?\([^:]\+\)/&quot;\1&quot; /g')
+        eval set value (echo $value | sed &#39;s/:$//&#39; | sed &#39;s/:\?\([^:]\+\)/&quot;\1&quot; /g&#39;)
         # reverse array (because preprending will cause reversing again)
         set -l temp; for i in $value; set temp $i $temp; end; set value $temp
 
@@ -241,53 +241,53 @@
 
           set -gx $var &quot;$dir&quot; $$var
         end
-      case '-*'
+      case &#39;-*&#39;
         # DEBUG:
-        # echo unset $var \(old: \'{$$var}\'\)
+        # echo unset $var \(old: \&#39;{$$var}\&#39;\)
 
         set -e $var
-      case '+*'
+      case &#39;+*&#39;
         # DEBUG:
-        # echo Set \${$var} to \'$value\' \(old: \'{$$var}\'\)
+        # echo Set \${$var} to \&#39;$value\&#39; \(old: \&#39;{$$var}\&#39;\)
 
         set -gx $var $value
-      case '*'
-        echo &quot;Source error! Invalid case '$state$var'&quot; &gt;&amp;2
+      case &#39;*&#39;
+        echo &quot;Source error! Invalid case &#39;$state$var&#39;&quot; &gt;&amp;2
     end
   end
 
   diff $diffopts $functions_before $functions_after | while read -l state func
     switch $state$func
-      case '-*'
+      case &#39;-*&#39;
         # Do nothing if a function was removed
         continue
-      case '+*'
+      case &#39;+*&#39;
         # Create wrapper function
         eval &quot;function $func; _exec_with $shell \&quot;$file\&quot; \&quot;$func \$argv;\&quot;; end&quot;
 
         # DEBUG:
         # echo Create wrapper for function $func from $file
-      case '*'
-        echo &quot;Source error! Invalid case '$func'&quot; &gt;&amp;2
+      case &#39;*&#39;
+        echo &quot;Source error! Invalid case &#39;$func&#39;&quot; &gt;&amp;2
     end
   end
 
   diff $diffopts $aliases_before $aliases_after | while read -l state func
     switch $state$func
-      case '-*'
+      case &#39;-*&#39;
         # Do nothing if an alias was removed
         continue
-      case '+*'
+      case &#39;+*&#39;
         # code to manually execute an alias
-        set -l exec_alias &quot;eval \\\$(eval echo `alias $func | sed 's/\\(alias \\)\\?[^=]\\+=//'`) \\\$argv&quot;
+        set -l exec_alias &quot;eval \\\$(eval echo `alias $func | sed &#39;s/\\(alias \\)\\?[^=]\\+=//&#39;`) \\\$argv&quot;
 
         # Create wrapper function
         eval &quot;function $func; _exec_with $shell \&quot;$file\&quot; \&quot;$exec_alias;\&quot;; end&quot;
 
         # DEBUG:
         # echo Create wrapper for alias $func from $file
-      case '*'
-        echo &quot;Source error! Invalid case '$func'&quot; &gt;&amp;2
+      case &#39;*&#39;
+        echo &quot;Source error! Invalid case &#39;$func&#39;&quot; &gt;&amp;2
     end
   end
 
@@ -295,7 +295,7 @@
   command rm $variables_before $variables_after $functions_before $functions_after $aliases_before $aliases_after &gt;/dev/null
 end
 
-function source --description 'Source bash/zsh/ksh files'
+function source --description &#39;Source bash/zsh/ksh files&#39;
   set -l type
   while true
     if test (count $argv) -eq 0
@@ -303,9 +303,9 @@ function source --description 'Source bash/zsh/ksh files'
       return 1
     end
     switch $argv[1]
-      case '--*'
-        set type (echo $argv[1] | sed 's/^--//')
-      case '*'
+      case &#39;--*&#39;
+        set type (echo $argv[1] | sed &#39;s/^--//&#39;)
+      case &#39;*&#39;
         break
     end
     set -e argv[1]
@@ -315,13 +315,13 @@ function source --description 'Source bash/zsh/ksh files'
     set -l file_type $type
     if not test &quot;$file_type&quot;
       switch (readlink -f $file)
-        case '*.sh', '**/.bash*'
+        case &#39;*.sh&#39;, &#39;**/.bash*&#39;
           set file_type bash
-        case '*.zsh', '**/.zsh*'
+        case &#39;*.zsh&#39;, &#39;**/.zsh*&#39;
           set file_type zsh
-        case '*.ksh', '**/.ksh*'
+        case &#39;*.ksh&#39;, &#39;**/.ksh*&#39;
           set file_type ksh
-        case '**/.profile', '*'
+        case &#39;**/.profile&#39;, &#39;*&#39;
           set file_type bash
       end
     end
