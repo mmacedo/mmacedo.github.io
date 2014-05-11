@@ -139,18 +139,18 @@
 
 <p>The basic format is with brackets and a zero-based parameter index like the following C# code:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div clang='' id="figure_778950109"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div clang='' id="figure_915056298"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="kt">var</span> <span class="n">name</span> <span class="p">=</span> <span class="s">&quot;World&quot;</span><span class="p">;</span>
 </span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&quot;Hello, {0}!&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">);</span>
 </span><span class='line'><span class="c1">// Hello, World!</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_778950109_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_915056298_alt" style="display:none;"></div></figure>
 
 
 <p>To show why indexed is better than ordered:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div clang='' id="figure_313531225"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div clang='' id="figure_88679461"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -158,12 +158,12 @@
 </span><span class='line'><span class="kt">var</span> <span class="n">greeting</span> <span class="p">=</span> <span class="s">&quot;Hello,&quot;</span><span class="p">;</span>
 </span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&quot;&lt;span title=&#39;{0}&#39;&gt;{1} {0}!&lt;/span&gt; &quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">greeting</span><span class="p">);</span>
 </span><span class='line'><span class="c1">// &lt;span title=&#39;World&#39;&gt;Hello, World!&lt;/span&gt;</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_313531225_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_88679461_alt" style="display:none;"></div></figure>
 
 
 <p>What if I need curly brackets in my string?</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div clang='' id="figure_131980006"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div clang='' id="figure_79043925"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -189,14 +189,14 @@
 </span><span class='line'><span class="c1">// function hello(name) {</span>
 </span><span class='line'><span class="c1">//   (...)</span>
 </span><span class='line'><span class="c1">// }</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_131980006_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_79043925_alt" style="display:none;"></div></figure>
 
 
 <h2>What do I need IFormattable for?</h2>
 
 <p>As stated before, IFormattable is both locale-aware and format-aware, but the basic formatting we&rsquo;ve seen so far is not. Let&rsquo;s see a example on how to use format parameter.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div clang='' id="figure_660754119"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div clang='' id="figure_300491848"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -230,7 +230,7 @@
 </span><span class='line'><span class="c1">// Fancy stuff: -1 is &lt; zero</span>
 </span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Fancy stuff: {0:0.# is &gt; zero; -0.# is &lt; zero;0.# is zero}&quot;</span><span class="p">,</span> <span class="m">0d</span><span class="p">);</span>
 </span><span class='line'><span class="c1">// Fancy stuff: 0 is zero</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_660754119_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_300491848_alt" style="display:none;"></div></figure>
 
 
 <p>You can find everything about <a href="http://msdn.microsoft.com/en-us/library/dwhawy9k.aspx">number formatting</a> on MSDN.</p>
@@ -241,7 +241,7 @@
 
 <p>I haven&rsquo;t told you the coolest thing about formatting strings yet. As everything else, it comes for free in your custom API if you don&rsquo;t do anything fancy with the string before handing to String.Format. Let&rsquo;s suppose you are in fixed-width font environment like a dummy console app you created to test something or gather some data that isn&rsquo;t worth making a library for. You are probably spending a lot of effort to get it visually pleasant, but you don&rsquo;t need that. You could do just this:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div clang='' id="figure_436060677"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div clang='' id="figure_582517497"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -277,7 +277,7 @@
 </span><span class='line'><span class="c1">//devenv                 364.6 MB</span>
 </span><span class='line'><span class="c1">//opera                  229.4 MB</span>
 </span><span class='line'><span class="c1">//svchost                103.3 MB</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_436060677_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_582517497_alt" style="display:none;"></div></figure>
 
 
 <h2>Further reading</h2>
