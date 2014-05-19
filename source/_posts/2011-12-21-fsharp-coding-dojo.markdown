@@ -24,7 +24,7 @@ The idea was to take a small problem in C# and try to translate it to F# during 
 ### Preparation
 
 Regardless of how much I like Poker there are programmers that never played or are not sure of the rules. The first handout was a printed list with nice visual hints and descriptions of the Poker hands. The second handout was a concise and specially made cheat sheet of the F# syntax commented in the natural language of the members (Brazilian Portuguese). The third handout was not printed, it was the C# code I clean coded and commented, even though it sounds contradictory. I navigated and explained every class and method.
-The fourth asset the team had was myself. Devoided of eidetic memories, it would be impossible to get work done fluently in a foreign language you just learned. My work as self appointed specialist was to help people express their intents in a way the compiler understands.
+The fourth asset the team had was myself. Devoid of eidetic memories, it would be impossible to get work done fluently in a foreign language you just learned. My work as self appointed specialist was to help people express their intents in a way the compiler understands.
 
 
 ### Results
@@ -34,7 +34,7 @@ One hour was just too little for this sort of experiment, we couldn't get past t
 
 ## Conclusions
 
-Learning and teaching are always fun, as is coding dojos. However next time I organize a lecture plus coding dojo in a programming language the audience doesn't feel at home, I might reevaluate some assumptions and choices I made for a even better new language coding dojo experience:
+Learning and teaching are always fun, as are coding dojos. However next time I organize a lecture plus coding dojo in a programming language the audience doesn't feel at home, I might reevaluate some assumptions and choices I made for a even better new language coding dojo experience:
 
 * It is absolutely necessary at least one guy practiced a lot that language before the coding dojo.
 * There must be enough time for people to get used to the syntax and tools before they are productive.

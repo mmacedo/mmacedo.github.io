@@ -98,7 +98,7 @@ public void DoStuff()
 
 They felt they were done selling VS2005 and then they launched VS2008 (C# 3.0). C# 3.0 was the sweetest of all versions, a lot of boilerplate code was removed with more than a handful of useful syntax sugars. The coolest of them is lambda, but the unusual mathematical name and awful big amount of noise in the internet about expression trees made a lot of people think lambda wasn’t just a syntax sugar, but a fancy super-complex super-dynamic .NET feature.
 
-First, let’s clarify what lambda is really about: a more succint syntax to declare functions inline. This is very close to the original definition in mathematics and it is the definition of how it make your daily C# routine much more sweet.
+First, let’s clarify what lambda is really about: a more succint syntax to declare functions inline. This is very close to the original definition in mathematics and it is the definition of how it makes your daily C# routine much more sweet.
 
 ``` csharp C# 3 (using lambda)
 public void DoStuff()
