@@ -4,7 +4,7 @@
   <title><![CDATA[Category: dot-net | Michel P. Macedo]]></title>
   <link href="http://michelpm.com/categories/dot-net/atom.xml" rel="self"/>
   <link href="http://michelpm.com/"/>
-  <updated>2014-05-13T01:33:07-03:00</updated>
+  <updated>2014-07-07T02:03:02-03:00</updated>
   <id>http://michelpm.com/</id>
   <author>
     <name><![CDATA[Michel Pavan Macedo]]></name>
@@ -162,7 +162,7 @@ foreach (var cell in data)
 <h3>Preparation</h3>
 
 <p>Regardless of how much I like Poker there are programmers that never played or are not sure of the rules. The first handout was a printed list with nice visual hints and descriptions of the Poker hands. The second handout was a concise and specially made cheat sheet of the F# syntax commented in the natural language of the members (Brazilian Portuguese). The third handout was not printed, it was the C# code I clean coded and commented, even though it sounds contradictory. I navigated and explained every class and method.
-The fourth asset the team had was myself. Devoided of eidetic memories, it would be impossible to get work done fluently in a foreign language you just learned. My work as self appointed specialist was to help people express their intents in a way the compiler understands.</p>
+The fourth asset the team had was myself. Devoid of eidetic memories, it would be impossible to get work done fluently in a foreign language you just learned. My work as self appointed specialist was to help people express their intents in a way the compiler understands.</p>
 
 <h3>Results</h3>
 
@@ -170,7 +170,7 @@ The fourth asset the team had was myself. Devoided of eidetic memories, it would
 
 <h2>Conclusions</h2>
 
-<p>Learning and teaching are always fun, as is coding dojos. However next time I organize a lecture plus coding dojo in a programming language the audience doesn&rsquo;t feel at home, I might reevaluate some assumptions and choices I made for a even better new language coding dojo experience:</p>
+<p>Learning and teaching are always fun, as are coding dojos. However next time I organize a lecture plus coding dojo in a programming language the audience doesn&rsquo;t feel at home, I might reevaluate some assumptions and choices I made for a even better new language coding dojo experience:</p>
 
 <ul>
 <li>It is absolutely necessary at least one guy practiced a lot that language before the coding dojo.</li>
