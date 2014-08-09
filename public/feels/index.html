@@ -8,7 +8,7 @@
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
   <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
 
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
   <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -29,6 +29,7 @@
       margin: 0 auto;
       background-color: #222;
       padding: 0 20px 200px;
+      text-align: center;
     }
 
     body, a {
@@ -144,12 +145,13 @@
   <script>!window.jQuery && document.write(unescape('%3Cscript src="../blog/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script type="text/javascript">
     $(function() {
-      $(".adolescente :text").on('input', function () {
-        var password = $(this).val();
+      $('.adolescente :text').on('input', function () {
+        var $input = $(this);
+        var password = $input.val();
 
-        // Resize input to fit text
-        $(".adolescente .resizer").text(password.replace(/ $/, '-'));
-        $('.adolescente :text').css({ width: $(".adolescente .resizer").get(0).scrollWidth.toString() + "px" }).val(password);
+        // Update text and resize input to fit text
+        var newSize = $(".adolescente .resizer").text(password.replace(/ $/, '-')).get(0).scrollWidth.toString() + "px";
+        $('.adolescente :text').css({ width: newSize }).val(password);
 
         // Re-decrypt all elements with data-encrypted attribute
         $('[data-encrypted]').each(function(){
