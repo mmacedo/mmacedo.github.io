@@ -4,7 +4,7 @@
   <title><![CDATA[Category: c-sharp | Michel P. Macedo]]></title>
   <link href="http://michelpm.com/categories/c-sharp/atom.xml" rel="self"/>
   <link href="http://michelpm.com/"/>
-  <updated>2014-07-07T02:03:02-03:00</updated>
+  <updated>2014-08-09T14:30:29-04:00</updated>
   <id>http://michelpm.com/</id>
   <author>
     <name><![CDATA[Michel Pavan Macedo]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Formatting strings in .NET]]></title>
     <link href="http://michelpm.com/2012/01/23/formatting-strings-in-dotnet/"/>
-    <updated>2012-01-23T00:00:00-02:00</updated>
+    <updated>2012-01-23T00:00:00-03:00</updated>
     <id>http://michelpm.com/2012/01/23/formatting-strings-in-dotnet</id>
     <content type="html"><![CDATA[<p>You may want to format some scalar value as a string, since default ToString functionality is possibly not what you want the user to see. You may want to do some occasional tool or toy console app. Not only these but perhaps any other reason may inspire you to code some string art. With C# there is no string interpolation, but there is a string formatting framework with a reasonable power. Let&rsquo;s see about that.</p>
 
@@ -143,7 +143,7 @@ foreach (var cell in data)
   <entry>
     <title type="html"><![CDATA[Initializing things in C#]]></title>
     <link href="http://michelpm.com/2011/10/07/initializing-things-in-csharp/"/>
-    <updated>2011-10-07T00:00:00-03:00</updated>
+    <updated>2011-10-07T00:00:00-04:00</updated>
     <id>http://michelpm.com/2011/10/07/initializing-things-in-csharp</id>
     <content type="html"><![CDATA[<p>The C# team have introduced some nifty syntax sugars since C# 1.0. Among these new features are some to declare anonymous methods and delegates and initializers for objects and collections. They are are there for a while now and still are relatively unknown or misunderstood by the majority of C# programmers.</p>
 

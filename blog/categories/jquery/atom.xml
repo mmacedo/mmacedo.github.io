@@ -4,7 +4,7 @@
   <title><![CDATA[Category: jquery | Michel P. Macedo]]></title>
   <link href="http://michelpm.com/categories/jquery/atom.xml" rel="self"/>
   <link href="http://michelpm.com/"/>
-  <updated>2014-07-07T02:03:02-03:00</updated>
+  <updated>2014-08-09T14:30:29-04:00</updated>
   <id>http://michelpm.com/</id>
   <author>
     <name><![CDATA[Michel Pavan Macedo]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Iterating Collections In JavaScript]]></title>
     <link href="http://michelpm.com/2012/09/10/iterating-collections-in-javascript/"/>
-    <updated>2012-09-10T00:00:00-03:00</updated>
+    <updated>2012-09-10T00:00:00-04:00</updated>
     <id>http://michelpm.com/2012/09/10/iterating-collections-in-javascript</id>
     <content type="html"><![CDATA[<p>When I iterate in any language, I like to have a list of somethings to iterate because I can use more idiomatic code and have more explicit initial state, state changes and exit conditions. Most languages have a slightly different for/foreach that iterates over things that are considered enumerable by the language. In JavaScript we have two types of enumerable objects: array-like objects, also known as collections or simply arrays; and objects, also known as object hashes or associative arrays, even though they are just any JavaScript object that is used for that purpose.</p>
 

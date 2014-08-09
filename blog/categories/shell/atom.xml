@@ -4,7 +4,7 @@
   <title><![CDATA[Category: shell | Michel P. Macedo]]></title>
   <link href="http://michelpm.com/categories/shell/atom.xml" rel="self"/>
   <link href="http://michelpm.com/"/>
-  <updated>2014-07-07T02:03:02-03:00</updated>
+  <updated>2014-08-09T14:30:29-04:00</updated>
   <id>http://michelpm.com/</id>
   <author>
     <name><![CDATA[Michel Pavan Macedo]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Switching from zsh to fish]]></title>
     <link href="http://michelpm.com/2013/07/26/switching-from-zsh-to-fish/"/>
-    <updated>2013-07-26T00:00:00-03:00</updated>
+    <updated>2013-07-26T00:00:00-04:00</updated>
     <id>http://michelpm.com/2013/07/26/switching-from-zsh-to-fish</id>
     <content type="html"><![CDATA[<p>Not long ago I heard of <a href="http://fishshell.com">fish (friendly interactive shell)</a> and I decided it was worth a test drive. I have a decent configuration for zsh, with most credits to <a href="https://github.com/robbyrussell/oh-my-zsh">Oh My Zsh!</a>, but I was determined to get rid of most my dotfiles, as it is one of my greatest excuses to procrastinate, however tidy. Fish comes with lots of things out of the box, so I decided to replace zsh even if it meant to lose a thing or two.</p>
 

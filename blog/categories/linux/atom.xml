@@ -4,7 +4,7 @@
   <title><![CDATA[Category: linux | Michel P. Macedo]]></title>
   <link href="http://michelpm.com/categories/linux/atom.xml" rel="self"/>
   <link href="http://michelpm.com/"/>
-  <updated>2014-07-07T02:03:02-03:00</updated>
+  <updated>2014-08-09T14:30:29-04:00</updated>
   <id>http://michelpm.com/</id>
   <author>
     <name><![CDATA[Michel Pavan Macedo]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[I spun off Linux from my dev machine]]></title>
     <link href="http://michelpm.com/2011/11/14/i-spun-off-linux-from-my-dev-machine/"/>
-    <updated>2011-11-14T00:00:00-02:00</updated>
+    <updated>2011-11-14T00:00:00-03:00</updated>
     <id>http://michelpm.com/2011/11/14/i-spun-off-linux-from-my-dev-machine</id>
     <content type="html"><![CDATA[<p>Some weeks ago I started to learn <a href="http://rubyonrails.org/">Rails</a> and I decided to make my dev machine the right way. By that I mean I had to make myself proficient with <a href="http://git-scm.com/">Git</a>, <a href="http://www.vim.org/">Vim</a>, Shell, <a href="http://en.wikipedia.org/wiki/Test-driven_development">TDD</a> and every other skill I thought a smart programmer would master. At first I didn&rsquo;t want to get rid of my state of art Windows 7 installation with awesome Microsoft Word 2010, Microsoft Visual Studio 2010 full of useful plugins and all that browsers installed to test web pages. I think I had everything a .NET developer would hope for, even had msysgit to play once in a while and pretend my OS was POSIX compliant.</p>
 

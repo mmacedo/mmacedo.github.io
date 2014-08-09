@@ -4,7 +4,7 @@
   <title><![CDATA[Category: less | Michel P. Macedo]]></title>
   <link href="http://michelpm.com/categories/less/atom.xml" rel="self"/>
   <link href="http://michelpm.com/"/>
-  <updated>2014-07-07T02:03:02-03:00</updated>
+  <updated>2014-08-09T14:30:29-04:00</updated>
   <id>http://michelpm.com/</id>
   <author>
     <name><![CDATA[Michel Pavan Macedo]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[I18n of CSS generated content]]></title>
     <link href="http://michelpm.com/2013/05/15/i18n-of-css-generated-content/"/>
-    <updated>2013-05-15T00:00:00-03:00</updated>
+    <updated>2013-05-15T00:00:00-04:00</updated>
     <id>http://michelpm.com/2013/05/15/i18n-of-css-generated-content</id>
     <content type="html"><![CDATA[<p>In the <a href="http://twitter.github.io/bootstrap/">documentation of Twitter Boostrap 2</a>, there is a pretty example box, with a caption on the top-left corner. If you inspect the HTML code, you won&rsquo;t find the caption, it is generated with CSS. It might seem absurd, a violation of the traditional separation of style and content, but there is a way around it.</p>
 
@@ -133,7 +133,7 @@ end
   <entry>
     <title type="html"><![CDATA[Twitter Bootstrap and JRuby on Rails]]></title>
     <link href="http://michelpm.com/2012/10/23/twitter-bootstrap-and-jruby-on-rails/"/>
-    <updated>2012-10-23T00:00:00-02:00</updated>
+    <updated>2012-10-23T00:00:00-03:00</updated>
     <id>http://michelpm.com/2012/10/23/twitter-bootstrap-and-jruby-on-rails</id>
     <content type="html"><![CDATA[<p><a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a> is published in <a href="http://lesscss.org/">LESS</a> and that is how I like to use it. The <a href="https://github.com/seyhunak/twitter-bootstrap-rails">twitter-bootstrap-rails</a> gem is the most popular and most complete for that purpose. It has several handy generators and helpers. But I can&rsquo;t for my life install it on <a href="http://jruby.org/">JRuby</a>. Since I don&rsquo;t like forking, I found a somewhat simple workaround.</p>
 
