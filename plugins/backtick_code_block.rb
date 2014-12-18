@@ -1,11 +1,16 @@
 require './plugins/pygments_code'
 require 'open3'
 
+def genExtra(lang,fig_id)
+  if @lang == "coffeescript"
+    return "<span class=\"switchLang\"><a class=\"switchLang selected\" onclick=\"switchLang(event,this,'#{fig_id}');\">.coffee</a><a class=\"switchLang\" onclick=\"switchLang(event,this,'#{fig_id}');\">.js</a></span>"
+  end
+end
+
 module BacktickCodeBlock
-  include HighlightCode
   AllOptions = /([^\s]+)\s+(.+?)\s+(https?:\/\/\S+|\/\S+)\s*(.+)?/i
   LangCaption = /([^\s]+)\s*(.+)?/i
-  def render_code_block(input)
+  def self.render_code_block(input)
     @options = nil
     @caption = nil
     @lang = nil
@@ -33,7 +38,7 @@ module BacktickCodeBlock
         str = str.gsub(/^( {4}|\t)/, '')
       end
       if @lang.nil? || @lang == 'plain'
-        code = tableize_code(str.gsub('<','&lt;').gsub('>','&gt;'))
+        code = HighlightCode::tableize_code(str.gsub('<','&lt;').gsub('>','&gt;'))
         "<figure class='code'>#{@caption}#{code}</figure>"
       else
         if @lang.include? "-raw"
@@ -41,7 +46,7 @@ module BacktickCodeBlock
           raw += str
           raw += "\n```\n"
         else
-          code = highlight(str, @lang)
+          code = HighlightCode::highlight(str, @lang)
           if extra == ''
             "<figure class='code'>#{@caption}#{code}</figure>"
           else
@@ -65,17 +70,12 @@ module BacktickCodeBlock
               exit_status = wait_thr.value
             end
             if alt_lang != ''
-              altcode = highlight(str2, alt_lang)
+              altcode = HighlightCode::highlight(str2, alt_lang)
             end
             "<figure class='code'>#{@caption}<div clang='#{lang_display}' id=\"#{fig_id}\">#{code}</div><div clang='#{alt_lang_display}' id=\"#{fig_id}_alt\" style=\"display:none;\">#{altcode}</div></figure>"
           end
         end
       end
-    end
-  end
-  def genExtra(lang,fig_id)
-    if @lang == "coffeescript"
-      return "<span class=\"switchLang\"><a class=\"switchLang selected\" onclick=\"switchLang(event,this,'#{fig_id}');\">.coffee</a><a class=\"switchLang\" onclick=\"switchLang(event,this,'#{fig_id}');\">.js</a></span>"
     end
   end
 end
