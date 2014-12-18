@@ -10,7 +10,7 @@
         {% include post/date.html %}{{ time }}
         {% if site.disqus_short_name and page.comments != false and post.comments != false and site.disqus_show_comment_count == true %}
            | <a href="{% if index %}{{ root_url }}{{ post.url }}{% endif %}#disqus_thread"
-             data-disqus-identifier="{% if index %}{{ root_url }}{{ post.url }}{% else %}{% if page.meta.disqus_id %}{{ page.meta.disqus_id }}{% else %}{{ root_url }}{{ page.url }}{% endif %}{% endif %}">Comments</a>
+             data-disqus-identifier="{% if index %}{{ site.url }}{{ post.url }}{% else %}{% if page.meta.disqus_id %}{{ page.meta.disqus_id }}{% else %}{{ site.url }}{{ page.url }}{% endif %}{% endif %}">Comments</a>
         {% endif %}
       </p>
     {% endunless %}
