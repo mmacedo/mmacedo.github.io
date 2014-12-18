@@ -2,6 +2,7 @@
 layout: post
 title: F# Coding Dojo
 categories: f-sharp dot-net dojo
+comments: true
 ---
 
 I am an active member of a [.NET user group](http://bludotnet.com.br) in [the city I live](http://en.wikipedia.org/wiki/Blumenau). We have monthly meetings that usually combine a lecture followed by an one hour [coding dojo](http://code.joejag.com/2009/the-coding-dojo/). August this year we had our monthly meeting and I spoke for an hour or so about F# and then challenged the other participants to translate to F# a small problem already codified with C#.

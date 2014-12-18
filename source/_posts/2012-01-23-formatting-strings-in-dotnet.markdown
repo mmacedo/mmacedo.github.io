@@ -2,6 +2,7 @@
 layout: post
 title: Formatting strings in .NET
 categories: c-sharp dot-net
+comments: true
 ---
 
 You may want to format some scalar value as a string, since default ToString functionality is possibly not what you want the user to see. You may want to do some occasional tool or toy console app. Not only these but perhaps any other reason may inspire you to code some string art. With C# there is no string interpolation, but there is a string formatting framework with a reasonable power. Let's see about that.

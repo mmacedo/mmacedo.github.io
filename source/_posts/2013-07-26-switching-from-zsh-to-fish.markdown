@@ -2,6 +2,7 @@
 layout: post
 title: Switching from zsh to fish
 categories: fish zsh shell bash
+comments: true
 ---
 
 Not long ago I heard of [fish (friendly interactive shell)](http://fishshell.com) and I decided it was worth a test drive. I have a decent configuration for zsh, with most credits to [Oh My Zsh!](https://github.com/robbyrussell/oh-my-zsh), but I was determined to get rid of most my dotfiles, as it is one of my greatest excuses to procrastinate, however tidy. Fish comes with lots of things out of the box, so I decided to replace zsh even if it meant to lose a thing or two.

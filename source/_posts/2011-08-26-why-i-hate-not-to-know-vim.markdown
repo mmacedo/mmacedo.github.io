@@ -2,6 +2,7 @@
 layout: post
 title: Why I hate not to know Vim
 categories: sql vim
+comments: true
 ---
 
 Several times I stumbled with big SQL queries, but this one I was asked to fix was huge. I wouldn't question if it should be that big because refactoring that just wasn't worth it. Like other stupidly big queries it had really big sub-queries deeply nested in both projection (SELECT) and selection (FROM) sections. Needless to say it had a complex and badly designed spaghetti of joins. There were several N to N relationships that would be nothing but usual if not for the fact they were hiding several other circular references with some awful large perimeters. I found later there were also some inconsistent joins that should be done to correct relations that pointed to the wrong table.

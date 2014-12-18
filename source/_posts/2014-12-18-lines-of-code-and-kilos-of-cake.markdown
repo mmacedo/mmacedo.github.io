@@ -2,6 +2,7 @@
 layout: post
 title: Lines Of Code And Kilos Of Cake
 categories: productivity
+comments: true
 ---
 
 I love statistics, so I keep track of lots of stuff and make statistics about it later. I knew approximately how many hours I had spent in a pet project, so I decided to calculate how many lines, words and characters I had written per hour. Linux has tools that get that data for me.

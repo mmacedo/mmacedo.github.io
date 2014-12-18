@@ -2,6 +2,7 @@
 layout: post
 title: "Javascript Not Minus One Operator"
 categories: javascript coffeescript
+comments: true
 ---
 
 In most languages if you want to check if something is in a array or string, you use functions named indexOf or any variant thereof. The signature and contract don't usually deviate much, specially in languages with zero-based indexes.

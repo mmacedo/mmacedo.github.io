@@ -2,6 +2,7 @@
 layout: post
 title: Initializing things in C#
 categories: c-sharp
+comments: true
 ---
 
 The C# team have introduced some nifty syntax sugars since C# 1.0. Among these new features are some to declare anonymous methods and delegates and initializers for objects and collections. They are are there for a while now and still are relatively unknown or misunderstood by the majority of C# programmers.

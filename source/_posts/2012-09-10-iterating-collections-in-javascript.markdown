@@ -2,6 +2,7 @@
 layout: post
 title: Iterating Collections In JavaScript
 categories: javascript coffeescript underscorejs lodash jquery nodejs
+comments: true
 ---
 
 When I iterate in any language, I like to have a list of somethings to iterate because I can use more idiomatic code and have more explicit initial state, state changes and exit conditions. Most languages have a slightly different for/foreach that iterates over things that are considered enumerable by the language. In JavaScript we have two types of enumerable objects: array-like objects, also known as collections or simply arrays; and objects, also known as object hashes or associative arrays, even though they are just any JavaScript object that is used for that purpose.
