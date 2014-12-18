@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: dot-net | Michel P. Macedo]]></title>
+  <title><![CDATA[Category: Dot-net | Michel P. Macedo]]></title>
   <link href="http://michelpm.com/categories/dot-net/atom.xml" rel="self"/>
   <link href="http://michelpm.com/"/>
-  <updated>2014-10-19T23:05:48-03:00</updated>
+  <updated>2014-12-18T18:44:59-02:00</updated>
   <id>http://michelpm.com/</id>
   <author>
     <name><![CDATA[Michel Pavan Macedo]]></name>
@@ -14,9 +14,9 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Formatting strings in .NET]]></title>
+    <title type="html"><![CDATA[Formatting Strings in .NET]]></title>
     <link href="http://michelpm.com/2012/01/23/formatting-strings-in-dotnet/"/>
-    <updated>2012-01-23T00:00:00-03:00</updated>
+    <updated>2012-01-23T00:00:00-02:00</updated>
     <id>http://michelpm.com/2012/01/23/formatting-strings-in-dotnet</id>
     <content type="html"><![CDATA[<p>You may want to format some scalar value as a string, since default ToString functionality is possibly not what you want the user to see. You may want to do some occasional tool or toy console app. Not only these but perhaps any other reason may inspire you to code some string art. With C# there is no string interpolation, but there is a string formatting framework with a reasonable power. Let&rsquo;s see about that.</p>
 
@@ -143,7 +143,7 @@ foreach (var cell in data)
   <entry>
     <title type="html"><![CDATA[F# Coding Dojo]]></title>
     <link href="http://michelpm.com/2011/12/21/fsharp-coding-dojo/"/>
-    <updated>2011-12-21T00:00:00-03:00</updated>
+    <updated>2011-12-21T00:00:00-02:00</updated>
     <id>http://michelpm.com/2011/12/21/fsharp-coding-dojo</id>
     <content type="html"><![CDATA[<p>I am an active member of a <a href="http://bludotnet.com.br">.NET user group</a> in <a href="http://en.wikipedia.org/wiki/Blumenau">the city I live</a>. We have monthly meetings that usually combine a lecture followed by an one hour <a href="http://code.joejag.com/2009/the-coding-dojo/">coding dojo</a>. August this year we had our monthly meeting and I spoke for an hour or so about F# and then challenged the other participants to translate to F# a small problem already codified with C#.</p>
 

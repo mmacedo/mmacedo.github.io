@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: twitter-bootstrap | Michel P. Macedo]]></title>
+  <title><![CDATA[Category: Twitter-bootstrap | Michel P. Macedo]]></title>
   <link href="http://michelpm.com/categories/twitter-bootstrap/atom.xml" rel="self"/>
   <link href="http://michelpm.com/"/>
-  <updated>2014-10-19T23:05:48-03:00</updated>
+  <updated>2014-12-18T18:44:59-02:00</updated>
   <id>http://michelpm.com/</id>
   <author>
     <name><![CDATA[Michel Pavan Macedo]]></name>
@@ -14,9 +14,9 @@
 
   
   <entry>
-    <title type="html"><![CDATA[I18n of CSS generated content]]></title>
+    <title type="html"><![CDATA[I18n of CSS Generated Content]]></title>
     <link href="http://michelpm.com/2013/05/15/i18n-of-css-generated-content/"/>
-    <updated>2013-05-15T00:00:00-04:00</updated>
+    <updated>2013-05-15T00:00:00-03:00</updated>
     <id>http://michelpm.com/2013/05/15/i18n-of-css-generated-content</id>
     <content type="html"><![CDATA[<p>In the <a href="http://twitter.github.io/bootstrap/">documentation of Twitter Boostrap 2</a>, there is a pretty example box, with a caption on the top-left corner. If you inspect the HTML code, you won&rsquo;t find the caption, it is generated with CSS. It might seem absurd, a violation of the traditional separation of style and content, but there is a way around it.</p>
 
@@ -133,13 +133,13 @@ end
   <entry>
     <title type="html"><![CDATA[Twitter Bootstrap and JRuby on Rails]]></title>
     <link href="http://michelpm.com/2012/10/23/twitter-bootstrap-and-jruby-on-rails/"/>
-    <updated>2012-10-23T00:00:00-03:00</updated>
+    <updated>2012-10-23T00:00:00-02:00</updated>
     <id>http://michelpm.com/2012/10/23/twitter-bootstrap-and-jruby-on-rails</id>
     <content type="html"><![CDATA[<p><a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a> is published in <a href="http://lesscss.org/">LESS</a> and that is how I like to use it. The <a href="https://github.com/seyhunak/twitter-bootstrap-rails">twitter-bootstrap-rails</a> gem is the most popular and most complete for that purpose. It has several handy generators and helpers. But I can&rsquo;t for my life install it on <a href="http://jruby.org/">JRuby</a>. Since I don&rsquo;t like forking, I found a somewhat simple workaround.</p>
 
 <h2>Bootstrap files</h2>
 
-<p>If you are like me and want to keep the bootstrap files vendor'ed (included in asset pipeline by the vendor folder of a gem), you could use the &lsquo;static&rsquo; branch of the twitter-bootstrap-rails gem, but that is the generated CSS, not LESS. It is bad because it doesn&rsquo;t have all stuff &lsquo;master&rsquo; has and if you want to use a <a href="http://bootswatch.com/">theme</a>, it won&rsquo;t work.</p>
+<p>If you are like me and want to keep the bootstrap files vendor&#8217;ed (included in asset pipeline by the vendor folder of a gem), you could use the &lsquo;static&rsquo; branch of the twitter-bootstrap-rails gem, but that is the generated CSS, not LESS. It is bad because it doesn&rsquo;t have all stuff &lsquo;master&rsquo; has and if you want to use a <a href="http://bootswatch.com/">theme</a>, it won&rsquo;t work.</p>
 
 <p>The solution is to use the <a href="https://github.com/metaskills/less-rails-bootstrap">less-rails-bootstrap</a> gem, the only thing it does is to require <a href="https://github.com/metaskills/less-rails">less-rails</a> and vendor the original files. Now we don&rsquo;t have all the stuff from the other gem, to get it back see below.</p>
 

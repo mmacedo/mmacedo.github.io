@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: sql | Michel P. Macedo]]></title>
+  <title><![CDATA[Category: Sql | Michel P. Macedo]]></title>
   <link href="http://michelpm.com/categories/sql/atom.xml" rel="self"/>
   <link href="http://michelpm.com/"/>
-  <updated>2014-10-19T23:05:48-03:00</updated>
+  <updated>2014-12-18T18:44:59-02:00</updated>
   <id>http://michelpm.com/</id>
   <author>
     <name><![CDATA[Michel Pavan Macedo]]></name>
@@ -14,9 +14,9 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Why I hate not to know Vim]]></title>
+    <title type="html"><![CDATA[Why I Hate Not to Know Vim]]></title>
     <link href="http://michelpm.com/2011/08/26/why-i-hate-not-to-know-vim/"/>
-    <updated>2011-08-26T00:00:00-04:00</updated>
+    <updated>2011-08-26T00:00:00-03:00</updated>
     <id>http://michelpm.com/2011/08/26/why-i-hate-not-to-know-vim</id>
     <content type="html"><![CDATA[<p>Several times I stumbled with big SQL queries, but this one I was asked to fix was huge. I wouldn&rsquo;t question if it should be that big because refactoring that just wasn&rsquo;t worth it. Like other stupidly big queries it had really big sub-queries deeply nested in both projection (SELECT) and selection (FROM) sections. Needless to say it had a complex and badly designed spaghetti of joins. There were several N to N relationships that would be nothing but usual if not for the fact they were hiding several other circular references with some awful large perimeters. I found later there were also some inconsistent joins that should be done to correct relations that pointed to the wrong table.</p>
 
@@ -24,7 +24,7 @@
 
 <p>That much of query text was dynamically built and would take forever to understand it and properly format. So I went to the obvious path to find the problem that was to decompose it. Lots of badly formatted and undocumented pieces of SQL across strings in the code or one final composed SQL unformatted. Those two were my options, perhaps it wasn&rsquo;t the wiser decision, but I got the one was already built and went online to find a tool that would fix the formatting. That shouldn&rsquo;t be a problem, because as far as I knew, it was all ANSI.</p>
 
-<p>Once I had it formatted I would strip unnecessary projections and as my problem was the duplication of some lines I would start stripping joins and filters to isolate the cause of the problem. I had it all planned in my head except I did not know a good tool to format SQL. I google&rsquo;d and bing'ed, lots and lots of free and online tools were returned only for me to find that every one of them failed to format my awful big and deeply nested SQL query.</p>
+<p>Once I had it formatted I would strip unnecessary projections and as my problem was the duplication of some lines I would start stripping joins and filters to isolate the cause of the problem. I had it all planned in my head except I did not know a good tool to format SQL. I google&rsquo;d and bing&#8217;ed, lots and lots of free and online tools were returned only for me to find that every one of them failed to format my awful big and deeply nested SQL query.</p>
 
 <p>There are as many paid tools as free online tools to format SQL. There are also a few free and open source tools to format SQL. Formatting SQL is basically parsing the SQL and then printing it back as text. Both are very well solved problems and so I expected to be SQL formatting. Tons of style configuration, multiple output formats and nice and usable GUI should be already a must for a tool of that kind. And yet, nothing. I am yet to find a free tool that is capable of formatting that thing.</p>
 

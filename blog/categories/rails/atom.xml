@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: rails | Michel P. Macedo]]></title>
+  <title><![CDATA[Category: Rails | Michel P. Macedo]]></title>
   <link href="http://michelpm.com/categories/rails/atom.xml" rel="self"/>
   <link href="http://michelpm.com/"/>
-  <updated>2014-10-19T23:05:48-03:00</updated>
+  <updated>2014-12-18T18:44:59-02:00</updated>
   <id>http://michelpm.com/</id>
   <author>
     <name><![CDATA[Michel Pavan Macedo]]></name>
@@ -14,9 +14,9 @@
 
   
   <entry>
-    <title type="html"><![CDATA[I18n of CSS generated content]]></title>
+    <title type="html"><![CDATA[I18n of CSS Generated Content]]></title>
     <link href="http://michelpm.com/2013/05/15/i18n-of-css-generated-content/"/>
-    <updated>2013-05-15T00:00:00-04:00</updated>
+    <updated>2013-05-15T00:00:00-03:00</updated>
     <id>http://michelpm.com/2013/05/15/i18n-of-css-generated-content</id>
     <content type="html"><![CDATA[<p>In the <a href="http://twitter.github.io/bootstrap/">documentation of Twitter Boostrap 2</a>, there is a pretty example box, with a caption on the top-left corner. If you inspect the HTML code, you won&rsquo;t find the caption, it is generated with CSS. It might seem absurd, a violation of the traditional separation of style and content, but there is a way around it.</p>
 
@@ -133,13 +133,13 @@ end
   <entry>
     <title type="html"><![CDATA[Twitter Bootstrap and JRuby on Rails]]></title>
     <link href="http://michelpm.com/2012/10/23/twitter-bootstrap-and-jruby-on-rails/"/>
-    <updated>2012-10-23T00:00:00-03:00</updated>
+    <updated>2012-10-23T00:00:00-02:00</updated>
     <id>http://michelpm.com/2012/10/23/twitter-bootstrap-and-jruby-on-rails</id>
     <content type="html"><![CDATA[<p><a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a> is published in <a href="http://lesscss.org/">LESS</a> and that is how I like to use it. The <a href="https://github.com/seyhunak/twitter-bootstrap-rails">twitter-bootstrap-rails</a> gem is the most popular and most complete for that purpose. It has several handy generators and helpers. But I can&rsquo;t for my life install it on <a href="http://jruby.org/">JRuby</a>. Since I don&rsquo;t like forking, I found a somewhat simple workaround.</p>
 
 <h2>Bootstrap files</h2>
 
-<p>If you are like me and want to keep the bootstrap files vendor'ed (included in asset pipeline by the vendor folder of a gem), you could use the &lsquo;static&rsquo; branch of the twitter-bootstrap-rails gem, but that is the generated CSS, not LESS. It is bad because it doesn&rsquo;t have all stuff &lsquo;master&rsquo; has and if you want to use a <a href="http://bootswatch.com/">theme</a>, it won&rsquo;t work.</p>
+<p>If you are like me and want to keep the bootstrap files vendor&#8217;ed (included in asset pipeline by the vendor folder of a gem), you could use the &lsquo;static&rsquo; branch of the twitter-bootstrap-rails gem, but that is the generated CSS, not LESS. It is bad because it doesn&rsquo;t have all stuff &lsquo;master&rsquo; has and if you want to use a <a href="http://bootswatch.com/">theme</a>, it won&rsquo;t work.</p>
 
 <p>The solution is to use the <a href="https://github.com/metaskills/less-rails-bootstrap">less-rails-bootstrap</a> gem, the only thing it does is to require <a href="https://github.com/metaskills/less-rails">less-rails</a> and vendor the original files. Now we don&rsquo;t have all the stuff from the other gem, to get it back see below.</p>
 
@@ -207,9 +207,9 @@ git commit
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[I spun off Linux from my dev machine]]></title>
+    <title type="html"><![CDATA[I Spun Off Linux From My Dev Machine]]></title>
     <link href="http://michelpm.com/2011/11/14/i-spun-off-linux-from-my-dev-machine/"/>
-    <updated>2011-11-14T00:00:00-03:00</updated>
+    <updated>2011-11-14T00:00:00-02:00</updated>
     <id>http://michelpm.com/2011/11/14/i-spun-off-linux-from-my-dev-machine</id>
     <content type="html"><![CDATA[<p>Some weeks ago I started to learn <a href="http://rubyonrails.org/">Rails</a> and I decided to make my dev machine the right way. By that I mean I had to make myself proficient with <a href="http://git-scm.com/">Git</a>, <a href="http://www.vim.org/">Vim</a>, Shell, <a href="http://en.wikipedia.org/wiki/Test-driven_development">TDD</a> and every other skill I thought a smart programmer would master. At first I didn&rsquo;t want to get rid of my state of art Windows 7 installation with awesome Microsoft Word 2010, Microsoft Visual Studio 2010 full of useful plugins and all that browsers installed to test web pages. I think I had everything a .NET developer would hope for, even had msysgit to play once in a while and pretend my OS was POSIX compliant.</p>
 

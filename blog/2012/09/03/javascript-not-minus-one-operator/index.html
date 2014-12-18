@@ -27,8 +27,9 @@
   <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/blog/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
 <script src="/blog/javascripts/switchlang.js"></script>
 
   
@@ -46,8 +47,10 @@
 </head>
 
 <body   >
-  <header role="banner"><h1><a href="/blog/">Michel P. Macedo</a></h1>
-
+  <header role="banner"><hgroup>
+  <h1><a href="/blog/">Michel P. Macedo</a></h1>
+  
+</hgroup>
 
 </header>
   <nav role="navigation"><ul class="subscription" data-subscription="rss email">
@@ -86,18 +89,10 @@
 
 
 
-
-
-
-
-  
-
-
-
-<time datetime="2012-09-03T00:00:00-04:00"  data-updated="true">2012-09-03</time>
+<time class='entry-date' datetime='2012-09-03T00:00:00-03:00'><span class='date'>2012-09-03</span> <span class='time'></span></time>
         
            | <a href="#disqus_thread"
-             data-disqus-identifier="http://michelpm.com">Comments</a>
+             data-disqus-identifier="/2012/09/03/javascript-not-minus-one-operator/">Comments</a>
         
       </p>
     
@@ -108,13 +103,13 @@
 
 <p>In Javascript, both <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/indexOf" title="Array indexOf method">Array&rsquo;s</a> and <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/String/indexOf" title="String indexOf method">String&rsquo;s</a> indexOf return minus one (-1) for not found. Minus one isn&rsquo;t particularly semantic, and checking for it tends to produce the most verbose and technical bits of otherwise <a href="http://www.shelfari.com/books/4017020/Clean-Code" title="Clean Code (2008) by Robert C. Martin">cleanly written code</a>.</p>
 
-<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_532146909');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_532146909');">.js</a></span><span>Comparison operators</span></figcaption><div clang='CoffeeScript' id="figure_532146909"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_620148861');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_620148861');">.js</a></span><span>Comparison operators</span></figcaption><div clang='CoffeeScript' id="figure_620148861"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nv">hello = </span><span class="s">&#39;Hello World!&#39;</span>
 </span><span class='line'><span class="k">if</span> <span class="nx">hello</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s">&#39;World&#39;</span><span class="p">)</span> <span class="o">isnt</span> <span class="o">-</span><span class="mi">1</span> <span class="o">and</span> <span class="nx">hello</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s">&#39;Hello&#39;</span><span class="p">)</span> <span class="o">is</span> <span class="o">-</span><span class="mi">1</span>
 </span><span class='line'>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;Has World, but not Hello&#39;</span>
-</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_532146909_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_620148861_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -122,7 +117,7 @@
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Generated by CoffeeScript 1.7.1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Generated by CoffeeScript 1.8.0</span>
 </span><span class='line'><span class="kd">var</span> <span class="nx">hello</span><span class="p">;</span>
 </span><span class='line'>
 </span><span class='line'><span class="nx">hello</span> <span class="o">=</span> <span class="s1">&#39;Hello World!&#39;</span><span class="p">;</span>
@@ -137,13 +132,13 @@
 
 <p>Tip seen in <a href="http://arcturo.github.com/library/coffeescript/">The Little Book on CoffeeScript</a>, because CofeeScript has a <a href="http://arcturo.github.com/library/coffeescript/04_idioms.html">special idiom</a> for arrays, but not for strings.</p>
 
-<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_601242788');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_601242788');">.js</a></span><span>Complement Operator (or Not Minus One Operator)</span></figcaption><div clang='CoffeeScript' id="figure_601242788"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_738491403');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_738491403');">.js</a></span><span>Complement Operator (or Not Minus One Operator)</span></figcaption><div clang='CoffeeScript' id="figure_738491403"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nv">hello = </span><span class="s">&#39;Hello World!&#39;</span>
 </span><span class='line'><span class="k">if</span> <span class="o">~</span><span class="nx">hello</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s">&#39;World&#39;</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!~</span><span class="nx">hello</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s">&#39;Hello&#39;</span><span class="p">)</span>
 </span><span class='line'>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;Has World, but not Hello&#39;</span>
-</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_601242788_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_738491403_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -151,7 +146,7 @@
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Generated by CoffeeScript 1.7.1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Generated by CoffeeScript 1.8.0</span>
 </span><span class='line'><span class="kd">var</span> <span class="nx">hello</span><span class="p">;</span>
 </span><span class='line'>
 </span><span class='line'><span class="nx">hello</span> <span class="o">=</span> <span class="s1">&#39;Hello World!&#39;</span><span class="p">;</span>
@@ -178,15 +173,7 @@
 
 
 
-
-
-
-
-  
-
-
-
-<time datetime="2012-09-03T00:00:00-04:00"  data-updated="true">2012-09-03</time>
+<time class='entry-date' datetime='2012-09-03T00:00:00-03:00'><span class='date'>2012-09-03</span> <span class='time'></span></time>
       
 
 <span class="categories">
@@ -200,11 +187,7 @@
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://michelpm.com/2012/09/03/javascript-not-minus-one-operator/" data-via="" data-counturl="http://michelpm.com/2012/09/03/javascript-not-minus-one-operator/" >Tweet</a>
   
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
   
 </div>
 
@@ -220,18 +203,28 @@
   </footer>
 </article>
 
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
 </div>
 
 <aside class="sidebar">
   
     <section>
   <h1>About Me</h1>
-  <p>I code awesome software for fun and work. These are the articles that haven't overthought to abandonment.</p>
+  <p>I code awesome software for fun and work. These are the articles that I haven&#8217;t overthought to abandonment.</p>
   <p>Enough <a href="http://about.me/michelpm">about me</a>.</p>
 </section>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/12/18/lines-of-code-and-kilos-of-cake/">Lines of Code and Kilos of Cake</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/07/26/switching-from-zsh-to-fish/">Switching From Zsh to Fish</a>
@@ -249,15 +242,11 @@
         <a href="/blog/2012/09/11/functional-javascript/">Functional JavaScript</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2012/09/10/iterating-collections-in-javascript/">Iterating Collections in JavaScript</a>
-      </li>
-    
   </ul>
 </section>
 
 <section>
-  <h1>Books I'm Reading</h1>
+  <h1>Books I&#8217;m Reading</h1>
   <div id="ShelfariWidget242960">
     <a href='http://www.shelfari.com/'>Shelfari: Book reviews on your book blog</a>
     <script src="http://www.shelfari.com/ws/242960/widget.js?r=29470" type="text/javascript" language="javascript"></script>
@@ -282,7 +271,10 @@
       var disqus_shortname = 'halfsw';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://michelpm.com/2012/09/03/javascript-not-minus-one-operator/';
+        var disqus_url = 'http://michelpm.com/2012/09/03/javascript-not-minus-one-operator/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -293,28 +285,9 @@
 
 
 
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id; js.async = true;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
 
 
 
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = '//platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
 
 
 
