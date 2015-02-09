@@ -113,7 +113,7 @@
 
 <p>For the examples below we will use a dummy calculator that will be posted only once, since it won’t change in my experiments:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div clang='' id="figure_186385341"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div clang='' id="figure_733263476"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -131,12 +131,12 @@
 </span><span class='line'>        <span class="k">return</span> <span class="nf">op</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
 </span><span class='line'>    <span class="p">}</span>
 </span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_186385341_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_733263476_alt" style="display:none;"></div></figure>
 
 
 <p>Now let’s do something with delegates and events. To demonstrate delegates we are using the delegate BinaryOperation we just defined that accepts two doubles and returns a double. To demonstrate events we are using AppDomain’s UnhandledException event.</p>
 
-<figure class='code'><figcaption><span>C# 1</span></figcaption><div clang='' id="figure_675376178"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 1</span></figcaption><div clang='' id="figure_251124934"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -176,12 +176,12 @@
 </span><span class='line'><span class="p">{</span>
 </span><span class='line'>    <span class="k">return</span> <span class="n">x</span> <span class="p">+</span> <span class="n">y</span><span class="p">;</span>
 </span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_675376178_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_251124934_alt" style="display:none;"></div></figure>
 
 
 
 
-<figure class='code'><figcaption><span>C# 2 (using method group conversion)</span></figcaption><div clang='' id="figure_328446114"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 2 (using method group conversion)</span></figcaption><div clang='' id="figure_174529398"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -217,12 +217,12 @@
 </span><span class='line'><span class="p">{</span>
 </span><span class='line'>    <span class="k">return</span> <span class="n">x</span> <span class="p">+</span> <span class="n">y</span><span class="p">;</span>
 </span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_328446114_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_174529398_alt" style="display:none;"></div></figure>
 
 
 
 
-<figure class='code'><figcaption><span>C# 2 (using anonymous methods)</span></figcaption><div clang='' id="figure_977591854"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 2 (using anonymous methods)</span></figcaption><div clang='' id="figure_944740287"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -254,14 +254,14 @@
 </span><span class='line'>    <span class="p">});</span>
 </span><span class='line'>    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
 </span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_977591854_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_944740287_alt" style="display:none;"></div></figure>
 
 
 <p>They felt they were done selling VS2005 and then they launched VS2008 (C# 3.0). C# 3.0 was the sweetest of all versions, a lot of boilerplate code was removed with more than a handful of useful syntax sugars. The coolest of them is lambda, but the unusual mathematical name and awful big amount of noise in the internet about expression trees made a lot of people think lambda wasn’t just a syntax sugar, but a fancy super-complex super-dynamic .NET feature.</p>
 
 <p>First, let’s clarify what lambda is really about: a more succint syntax to declare functions inline. This is very close to the original definition in mathematics and it is the definition of how it makes your daily C# routine much more sweet.</p>
 
-<figure class='code'><figcaption><span>C# 3 (using lambda)</span></figcaption><div clang='' id="figure_311971478"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 3 (using lambda)</span></figcaption><div clang='' id="figure_466112758"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -293,12 +293,12 @@
 </span><span class='line'>    <span class="p">});</span>
 </span><span class='line'>    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
 </span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_311971478_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_466112758_alt" style="display:none;"></div></figure>
 
 
 
 
-<figure class='code'><figcaption><span>C# 3 (using lambda and type inference)</span></figcaption><div clang='' id="figure_258465094"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 3 (using lambda and type inference)</span></figcaption><div clang='' id="figure_613128701"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -326,12 +326,12 @@
 </span><span class='line'>    <span class="p">});</span>
 </span><span class='line'>    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
 </span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_258465094_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_613128701_alt" style="display:none;"></div></figure>
 
 
 
 
-<figure class='code'><figcaption><span>C# 3 (using lambda inlined and type inference)</span></figcaption><div clang='' id="figure_346766320"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 3 (using lambda inlined and type inference)</span></figcaption><div clang='' id="figure_830385194"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -347,7 +347,7 @@
 </span><span class='line'>    <span class="kt">var</span> <span class="n">result</span> <span class="p">=</span> <span class="n">Calculator</span><span class="p">.</span><span class="n">Calculate</span><span class="p">(</span><span class="m">5.0d</span><span class="p">,</span> <span class="m">4.0d</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="n">x</span> <span class="p">+</span> <span class="n">y</span><span class="p">);</span>
 </span><span class='line'>    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
 </span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_346766320_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_830385194_alt" style="display:none;"></div></figure>
 
 
 <p>Every one of the examples compile and are IL-equivalent. Code very similar that do the same thing will be generated for each one by the C# compiler. If you are not using the last one, I ask you: why not?</p>
@@ -360,7 +360,7 @@
 
 <p>For the examples below we will have declared two classes (please excuse the meaningless names):</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div clang='' id="figure_549228538"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div clang='' id="figure_315107082"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -382,12 +382,12 @@
 </span><span class='line'>    <span class="k">public</span> <span class="kt">int</span> <span class="n">P1</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
 </span><span class='line'>    <span class="k">public</span> <span class="n">C1</span> <span class="n">P2</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
 </span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_549228538_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_315107082_alt" style="display:none;"></div></figure>
 
 
 <p>We want initialize a instance of C2 class, so we write the following code:</p>
 
-<figure class='code'><figcaption><span>C# 1</span></figcaption><div clang='' id="figure_630664231"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 1</span></figcaption><div clang='' id="figure_334297857"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -403,47 +403,47 @@
 </span><span class='line'><span class="n">b</span><span class="p">.</span><span class="n">P2</span> <span class="p">=</span> <span class="n">a</span><span class="p">;</span>
 </span><span class='line'>
 </span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;&amp;#x7b;&amp;#x7b; P1:{0}, P2:&amp;#x7b;&amp;#x7b; P1:{1} }} }}&quot;</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">P1</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">P2</span><span class="p">.</span><span class="n">P1</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_630664231_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_334297857_alt" style="display:none;"></div></figure>
 
 
 
 
-<figure class='code'><figcaption><span>C# 3 (using object initializer)</span></figcaption><div clang='' id="figure_367849197"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 3 (using object initializer)</span></figcaption><div clang='' id="figure_2383148"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="kt">var</span> <span class="n">a</span> <span class="p">=</span> <span class="k">new</span> <span class="n">C1</span><span class="p">()</span> <span class="p">{</span> <span class="n">P1</span> <span class="p">=</span> <span class="m">5</span> <span class="p">};</span>
 </span><span class='line'><span class="kt">var</span> <span class="n">b</span> <span class="p">=</span> <span class="k">new</span> <span class="n">C2</span><span class="p">()</span> <span class="p">{</span> <span class="n">P1</span> <span class="p">=</span> <span class="m">4</span><span class="p">,</span> <span class="n">P2</span> <span class="p">=</span> <span class="n">a</span> <span class="p">};</span>
 </span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;&amp;#x7b;&amp;#x7b; P1:{0}, P2:&amp;#x7b;&amp;#x7b; P1:{1} }} }}&quot;</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">P1</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">P2</span><span class="p">.</span><span class="n">P1</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_367849197_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_2383148_alt" style="display:none;"></div></figure>
 
 
 
 
-<figure class='code'><figcaption><span>C# 3 (using object initializer)</span></figcaption><div clang='' id="figure_677358509"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 3 (using object initializer)</span></figcaption><div clang='' id="figure_607090558"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="kt">var</span> <span class="n">a</span> <span class="p">=</span> <span class="k">new</span> <span class="n">C1</span> <span class="p">{</span> <span class="n">P1</span> <span class="p">=</span> <span class="m">5</span> <span class="p">};</span>
 </span><span class='line'><span class="kt">var</span> <span class="n">b</span> <span class="p">=</span> <span class="k">new</span> <span class="n">C2</span> <span class="p">{</span> <span class="n">P1</span> <span class="p">=</span> <span class="m">4</span><span class="p">,</span> <span class="n">P2</span> <span class="p">=</span> <span class="n">a</span> <span class="p">};</span>
 </span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;&amp;#x7b;&amp;#x7b; P1:{0}, P2:&amp;#x7b;&amp;#x7b; P1:{1} }} }}&quot;</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">P1</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">P2</span><span class="p">.</span><span class="n">P1</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_677358509_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_607090558_alt" style="display:none;"></div></figure>
 
 
 
 
-<figure class='code'><figcaption><span>C# 3 (using object initializer)</span></figcaption><div clang='' id="figure_629616732"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 3 (using object initializer)</span></figcaption><div clang='' id="figure_156914445"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="kt">var</span> <span class="n">b</span> <span class="p">=</span> <span class="k">new</span> <span class="n">C2</span> <span class="p">{</span> <span class="n">P1</span> <span class="p">=</span> <span class="m">4</span><span class="p">,</span> <span class="n">P2</span> <span class="p">=</span> <span class="k">new</span> <span class="n">C1</span> <span class="p">{</span> <span class="n">P1</span> <span class="p">=</span> <span class="m">5</span> <span class="p">}</span> <span class="p">};</span>
 </span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;&amp;#x7b;&amp;#x7b; P1:{0}, P2:&amp;#x7b;&amp;#x7b; P1:{1} }} }}&quot;</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">P1</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">P2</span><span class="p">.</span><span class="n">P1</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_629616732_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_156914445_alt" style="display:none;"></div></figure>
 
 
 
 
-<figure class='code'><figcaption><span>C# 3 (using object initializer)</span></figcaption><div clang='' id="figure_70242254"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 3 (using object initializer)</span></figcaption><div clang='' id="figure_835443253"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="kt">var</span> <span class="n">b</span> <span class="p">=</span> <span class="k">new</span> <span class="n">C2</span> <span class="p">{</span> <span class="n">P1</span> <span class="p">=</span> <span class="m">4</span><span class="p">,</span> <span class="n">P2</span> <span class="p">=</span> <span class="p">{</span> <span class="n">P1</span> <span class="p">=</span> <span class="m">5</span> <span class="p">}</span> <span class="p">};</span>
 </span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;&amp;#x7b;&amp;#x7b; P1:{0}, P2:&amp;#x7b;&amp;#x7b; P1:{1} }} }}&quot;</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">P1</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">P2</span><span class="p">.</span><span class="n">P1</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_70242254_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_835443253_alt" style="display:none;"></div></figure>
 
 
 <p>It is amazing how much boilerplate code we got rid of. Up to this point every version I presented do exactly the same thing. So again, if you are not using the last one: why not?</p>
@@ -452,29 +452,29 @@
 
 <p>First thing you remove the code where you declared C1 and C2 classes. Now your initialization code doesn’t work because you specified a name for the class. The version for C# 1 cannot be converted to anonymous types because you need to specify a property upon initialization. Let’s start fixing our code to compile with anonymous types.</p>
 
-<figure class='code'><figcaption><span>C# 3 (using anonymous types)</span></figcaption><div clang='' id="figure_318319747"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 3 (using anonymous types)</span></figcaption><div clang='' id="figure_989710570"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="kt">var</span> <span class="n">a</span> <span class="p">=</span> <span class="k">new</span> <span class="p">{</span> <span class="n">P1</span> <span class="p">=</span> <span class="m">5</span> <span class="p">};</span>
 </span><span class='line'><span class="kt">var</span> <span class="n">b</span> <span class="p">=</span> <span class="k">new</span> <span class="p">{</span> <span class="n">P1</span> <span class="p">=</span> <span class="m">4</span><span class="p">,</span> <span class="n">P2</span> <span class="p">=</span> <span class="n">a</span> <span class="p">};</span>
 </span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;&amp;#x7b;&amp;#x7b; P1:{0}, P2:&amp;#x7b;&amp;#x7b; P1:{1} }} }}&quot;</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">P1</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">P2</span><span class="p">.</span><span class="n">P1</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_318319747_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_989710570_alt" style="display:none;"></div></figure>
 
 
 
 
-<figure class='code'><figcaption><span>C# 3 (using anonymous types)</span></figcaption><div clang='' id="figure_169340777"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 3 (using anonymous types)</span></figcaption><div clang='' id="figure_849529714"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="kt">var</span> <span class="n">b</span> <span class="p">=</span> <span class="k">new</span> <span class="p">{</span> <span class="n">P1</span> <span class="p">=</span> <span class="m">4</span><span class="p">,</span> <span class="n">P2</span> <span class="p">=</span> <span class="k">new</span> <span class="p">{</span> <span class="n">P1</span> <span class="p">=</span> <span class="m">5</span> <span class="p">}</span> <span class="p">};</span>
 </span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;&amp;#x7b;&amp;#x7b; P1:{0}, P2:&amp;#x7b;&amp;#x7b; P1:{1} }} }}&quot;</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">P1</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">P2</span><span class="p">.</span><span class="n">P1</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_169340777_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_849529714_alt" style="display:none;"></div></figure>
 
 
 <p>The code above does not instantiate any specific class, but the one it will generate and that you won’t have access. The only thing you can do with those objects is use its properties and discard it after the method ends. It is sometimes more practical not to declare types for something that you will use just once in a method, for example in a LINQ query. Any other use of the anonymous objects is not advisable, please consider it wisely and do not overuse it.</p>
 
 <p>Now for the sake of knowledge let’s try a slightly different different:</p>
 
-<figure class='code'><figcaption><span>C# 3 (using anonymous types and property name inference)</span></figcaption><div clang='' id="figure_920991776"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 3 (using anonymous types and property name inference)</span></figcaption><div clang='' id="figure_685689651"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -482,7 +482,7 @@
 </span><span class='line'><span class="kt">var</span> <span class="n">a</span> <span class="p">=</span> <span class="k">new</span> <span class="p">{</span> <span class="n">P1</span> <span class="p">=</span> <span class="n">n</span> <span class="p">};</span>
 </span><span class='line'><span class="kt">var</span> <span class="n">b</span> <span class="p">=</span> <span class="k">new</span> <span class="p">{</span> <span class="n">P1</span> <span class="p">=</span> <span class="m">4</span><span class="p">,</span> <span class="n">a</span> <span class="p">};</span>
 </span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;&amp;#x7b;&amp;#x7b; P1:{0}, a:&amp;#x7b;&amp;#x7b; P1:{1} }} }}&quot;</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">P1</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">a</span><span class="p">.</span><span class="n">P1</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_920991776_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_685689651_alt" style="display:none;"></div></figure>
 
 
 <p>In the above code I did not specify the name of the property to assign the variable therefore the variable name was assigned as the name of the property. This may reduces a bunch of code when using anonymous types as well as the readability. This alternative syntax does not work for object initializers.</p>
@@ -491,7 +491,7 @@
 
 <p>It is not unusual to declare collections adding itens one by one. If you are doing it then you probably could replace that with a more object oriented approach. You could do that with if’s and enum’s, but you probably won’t do for every one of them. In C# 1 e 2 they probably didn’t realize the pain it would be to initialize collections item by item. Older C# versions already had initializers for arrays only. Let’s see how you would split a string by low case vowels removing empty entries:</p>
 
-<figure class='code'><figcaption><span>C# 1</span></figcaption><div clang='' id="figure_318285218"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 1</span></figcaption><div clang='' id="figure_326933150"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -509,12 +509,12 @@
 </span><span class='line'><span class="n">separators</span><span class="p">[</span><span class="m">4</span><span class="p">]</span> <span class="p">=</span> <span class="sc">&#39;u&#39;</span><span class="p">;</span>
 </span><span class='line'><span class="kt">var</span> <span class="n">newString</span> <span class="p">=</span> <span class="n">s</span><span class="p">.</span><span class="n">Split</span><span class="p">(</span><span class="n">separators</span><span class="p">,</span> <span class="n">StringSplitOptions</span><span class="p">.</span><span class="n">RemoveEmptyEntries</span><span class="p">);</span>
 </span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="kt">string</span><span class="p">.</span><span class="n">Join</span><span class="p">(</span><span class="s">&quot;, &quot;</span><span class="p">,</span> <span class="n">newString</span><span class="p">));</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_318285218_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_326933150_alt" style="display:none;"></div></figure>
 
 
 
 
-<figure class='code'><figcaption><span>C# 1 (using array initializer)</span></figcaption><div clang='' id="figure_487546613"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 1 (using array initializer)</span></figcaption><div clang='' id="figure_452809780"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -522,12 +522,12 @@
 </span><span class='line'><span class="kt">char</span><span class="p">[]</span> <span class="n">separators</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">char</span><span class="p">[</span><span class="m">5</span><span class="p">]</span> <span class="p">{</span> <span class="sc">&#39;a&#39;</span><span class="p">,</span> <span class="sc">&#39;e&#39;</span><span class="p">,</span> <span class="sc">&#39;i&#39;</span><span class="p">,</span> <span class="sc">&#39;o&#39;</span><span class="p">,</span> <span class="sc">&#39;u&#39;</span> <span class="p">};</span>
 </span><span class='line'><span class="kt">var</span> <span class="n">newString</span> <span class="p">=</span> <span class="n">s</span><span class="p">.</span><span class="n">Split</span><span class="p">(</span><span class="n">separators</span><span class="p">,</span> <span class="n">StringSplitOptions</span><span class="p">.</span><span class="n">RemoveEmptyEntries</span><span class="p">);</span>
 </span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="kt">string</span><span class="p">.</span><span class="n">Join</span><span class="p">(</span><span class="s">&quot;, &quot;</span><span class="p">,</span> <span class="n">newString</span><span class="p">));</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_487546613_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_452809780_alt" style="display:none;"></div></figure>
 
 
 
 
-<figure class='code'><figcaption><span>C# 1 (using array initializer)</span></figcaption><div clang='' id="figure_1320524"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 1 (using array initializer)</span></figcaption><div clang='' id="figure_666660317"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -535,12 +535,12 @@
 </span><span class='line'><span class="kt">char</span><span class="p">[]</span> <span class="n">separators</span> <span class="p">=</span> <span class="p">{</span> <span class="sc">&#39;a&#39;</span><span class="p">,</span> <span class="sc">&#39;e&#39;</span><span class="p">,</span> <span class="sc">&#39;i&#39;</span><span class="p">,</span> <span class="sc">&#39;o&#39;</span><span class="p">,</span> <span class="sc">&#39;u&#39;</span> <span class="p">};</span>
 </span><span class='line'><span class="kt">var</span> <span class="n">newString</span> <span class="p">=</span> <span class="n">s</span><span class="p">.</span><span class="n">Split</span><span class="p">(</span><span class="n">separators</span><span class="p">,</span> <span class="n">StringSplitOptions</span><span class="p">.</span><span class="n">RemoveEmptyEntries</span><span class="p">);</span>
 </span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="kt">string</span><span class="p">.</span><span class="n">Join</span><span class="p">(</span><span class="s">&quot;, &quot;</span><span class="p">,</span> <span class="n">newString</span><span class="p">));</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_1320524_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_666660317_alt" style="display:none;"></div></figure>
 
 
 
 
-<figure class='code'><figcaption><span>C# 1 (using array initializer)</span></figcaption><div clang='' id="figure_317271688"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 1 (using array initializer)</span></figcaption><div clang='' id="figure_964072071"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -548,12 +548,12 @@
 </span><span class='line'><span class="kt">var</span> <span class="n">newString</span> <span class="p">=</span> <span class="n">s</span><span class="p">.</span><span class="n">Split</span><span class="p">(</span><span class="k">new</span> <span class="kt">char</span><span class="p">[]</span> <span class="p">{</span> <span class="sc">&#39;a&#39;</span><span class="p">,</span> <span class="sc">&#39;e&#39;</span><span class="p">,</span> <span class="sc">&#39;i&#39;</span><span class="p">,</span> <span class="sc">&#39;o&#39;</span><span class="p">,</span> <span class="sc">&#39;u&#39;</span> <span class="p">},</span>
 </span><span class='line'>                        <span class="n">StringSplitOptions</span><span class="p">.</span><span class="n">RemoveEmptyEntries</span><span class="p">);</span>
 </span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="kt">string</span><span class="p">.</span><span class="n">Join</span><span class="p">(</span><span class="s">&quot;, &quot;</span><span class="p">,</span> <span class="n">newString</span><span class="p">));</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_317271688_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_964072071_alt" style="display:none;"></div></figure>
 
 
 
 
-<figure class='code'><figcaption><span>C# 3 (using array initializer and type inference)</span></figcaption><div clang='' id="figure_296824239"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 3 (using array initializer and type inference)</span></figcaption><div clang='' id="figure_659665587"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -561,12 +561,12 @@
 </span><span class='line'><span class="kt">var</span> <span class="n">newString</span> <span class="p">=</span> <span class="n">s</span><span class="p">.</span><span class="n">Split</span><span class="p">(</span><span class="k">new</span><span class="p">[]</span> <span class="p">{</span> <span class="sc">&#39;a&#39;</span><span class="p">,</span> <span class="sc">&#39;e&#39;</span><span class="p">,</span> <span class="sc">&#39;i&#39;</span><span class="p">,</span> <span class="sc">&#39;o&#39;</span><span class="p">,</span> <span class="sc">&#39;u&#39;</span> <span class="p">},</span>
 </span><span class='line'>                        <span class="n">StringSplitOptions</span><span class="p">.</span><span class="n">RemoveEmptyEntries</span><span class="p">);</span>
 </span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="kt">string</span><span class="p">.</span><span class="n">Join</span><span class="p">(</span><span class="s">&quot;, &quot;</span><span class="p">,</span> <span class="n">newString</span><span class="p">));</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_296824239_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_659665587_alt" style="display:none;"></div></figure>
 
 
 <p>This example is somewhat limited because it explore just what you can do to initialize arrays, but since then you can use the same syntax to initialize any other collecion type. A type is initializable through this syntax if it has an Add method. A generic list has an Add method with one parameter, while a generic dictionary has and Add method with two parameters. Let’s see how to initialize both.</p>
 
-<figure class='code'><figcaption><span>C# 1</span></figcaption><div clang='' id="figure_256734044"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 1</span></figcaption><div clang='' id="figure_765092831"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -578,25 +578,25 @@
 </span><span class='line'><span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">b</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;();</span>
 </span><span class='line'><span class="n">b</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="m">1</span><span class="p">);</span>
 </span><span class='line'><span class="n">b</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="m">2</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_256734044_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_765092831_alt" style="display:none;"></div></figure>
 
 
 
 
-<figure class='code'><figcaption><span>C# 3 (using collection initializer)</span></figcaption><div clang='' id="figure_314107626"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 3 (using collection initializer)</span></figcaption><div clang='' id="figure_484585988"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">&gt;</span> <span class="n">a</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">&gt;()</span> <span class="p">{</span> <span class="p">{</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span> <span class="p">},</span> <span class="p">{</span> <span class="m">2</span><span class="p">,</span> <span class="m">4</span> <span class="p">}</span> <span class="p">};</span>
 </span><span class='line'><span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">b</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;()</span> <span class="p">{</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span> <span class="p">};</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_314107626_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_484585988_alt" style="display:none;"></div></figure>
 
 
 
 
-<figure class='code'><figcaption><span>C# 3 (using collection initializer)</span></figcaption><div clang='' id="figure_74974400"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 3 (using collection initializer)</span></figcaption><div clang='' id="figure_799708683"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">&gt;</span> <span class="n">a</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">&gt;</span> <span class="p">{</span> <span class="p">{</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span> <span class="p">},</span> <span class="p">{</span> <span class="m">2</span><span class="p">,</span> <span class="m">4</span> <span class="p">}</span> <span class="p">};</span>
 </span><span class='line'><span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">b</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="p">{</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span> <span class="p">};</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_74974400_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_799708683_alt" style="display:none;"></div></figure>
 
 
 <h3>Conclusion</h3>
@@ -704,7 +704,7 @@
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2014 - Michel Pavan Macedo -
+  Copyright &copy; 2015 - Michel Pavan Macedo -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
