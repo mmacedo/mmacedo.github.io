@@ -22,7 +22,9 @@ This kind of system is [**social democracy**](https://en.wikipedia.org/wiki/Soci
 
 ## Two True Positives
 
-Things that are actually socialism, but politicians do not admit because they are morons and because they rarely concern themselves with the truth. It is worth noting that there are socialists that despise communism as well as communists that despise non-communist socialism. Socialism and capitalism are expected by some to evolve to something resembling communism.
+Things that are actually socialism, but politicians do not admit because they are morons and because they rarely concern themselves with the truth.
+
+It is worth noting that there are socialists that despise communism as well as communists that despise non-communist socialism. Socialism and capitalism are expected by some to evolve to something resembling communism.
 
 ### Socialism
 
