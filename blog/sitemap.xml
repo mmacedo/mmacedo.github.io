@@ -50,10 +50,80 @@
   </url>
   <url>
     <loc>http://michelpm.com/archives/</loc>
-    <lastmod>2015-03-25T08:03:48-03:00</lastmod>
   </url>
   <url>
     <loc>http://michelpm.com/</loc>
-    <lastmod>2015-03-25T08:03:48-03:00</lastmod>
+  </url>
+  <url>
+    <loc>http://michelpm.com/categories/sql/</loc>
+  </url>
+  <url>
+    <loc>http://michelpm.com/categories/vim/</loc>
+  </url>
+  <url>
+    <loc>http://michelpm.com/categories/c-sharp/</loc>
+  </url>
+  <url>
+    <loc>http://michelpm.com/categories/linux/</loc>
+  </url>
+  <url>
+    <loc>http://michelpm.com/categories/rails/</loc>
+  </url>
+  <url>
+    <loc>http://michelpm.com/categories/f-sharp/</loc>
+  </url>
+  <url>
+    <loc>http://michelpm.com/categories/dot-net/</loc>
+  </url>
+  <url>
+    <loc>http://michelpm.com/categories/dojo/</loc>
+  </url>
+  <url>
+    <loc>http://michelpm.com/categories/javascript/</loc>
+  </url>
+  <url>
+    <loc>http://michelpm.com/categories/coffeescript/</loc>
+  </url>
+  <url>
+    <loc>http://michelpm.com/categories/underscorejs/</loc>
+  </url>
+  <url>
+    <loc>http://michelpm.com/categories/lodash/</loc>
+  </url>
+  <url>
+    <loc>http://michelpm.com/categories/jquery/</loc>
+  </url>
+  <url>
+    <loc>http://michelpm.com/categories/nodejs/</loc>
+  </url>
+  <url>
+    <loc>http://michelpm.com/categories/twitter-bootstrap/</loc>
+  </url>
+  <url>
+    <loc>http://michelpm.com/categories/jruby/</loc>
+  </url>
+  <url>
+    <loc>http://michelpm.com/categories/less/</loc>
+  </url>
+  <url>
+    <loc>http://michelpm.com/categories/css/</loc>
+  </url>
+  <url>
+    <loc>http://michelpm.com/categories/fish/</loc>
+  </url>
+  <url>
+    <loc>http://michelpm.com/categories/zsh/</loc>
+  </url>
+  <url>
+    <loc>http://michelpm.com/categories/shell/</loc>
+  </url>
+  <url>
+    <loc>http://michelpm.com/categories/bash/</loc>
+  </url>
+  <url>
+    <loc>http://michelpm.com/categories/productivity/</loc>
+  </url>
+  <url>
+    <loc>http://michelpm.com/page/2/</loc>
   </url>
 </urlset>
