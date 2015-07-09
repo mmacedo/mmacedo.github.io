@@ -30,6 +30,7 @@
       display: inline-block;
       width: 20em;
       height: 20em;
+      overflow: hidden;
     }
 
     .example-box, .example-box-small, .example-code {
@@ -136,8 +137,8 @@
         <div id="frame_1_box" class="example-box" data-example="box" data-html="frame_1_html" data-css="frame_1_css"></div>
       </div>
       <div class="col-md-6">
-        <div id="frame_1_html" class="example-code" data-example="html" data-html="frame_1_html"></div>
-        <div id="frame_1_css" class="example-code" data-example="css" data-css="frame_1_css"></div>
+        <div id="frame_1_html_code" class="example-code" data-example="html" data-html="frame_1_html"></div>
+        <div id="frame_1_css_code" class="example-code" data-example="css" data-css="frame_1_css"></div>
       </div>
     </div>
     <p><strong>Make it round.</strong> Make the <code>border-radius</code> half the size of the clock.</p>
@@ -152,7 +153,7 @@
         <div id="frame_2_box" class="example-box" data-example="box" data-html="frame_1_html" data-css="frame_2_css"></div>
       </div>
       <div class="col-md-6">
-        <div id="frame_2_code" class="example-code" data-example="css" data-css="frame_2_css"></div>
+        <div id="frame_2_css_code" class="example-code" data-example="css" data-css="frame_2_css"></div>
       </div>
     </div>
     <h2 id="digits" class="page-header">
@@ -180,9 +181,10 @@
         line-height: @digitSize;
         text-align: center;
         position: absolute;
+        .animationsForEachDigit;
       }
 
-      .animationsForDigit(@hours, @hour:1) when (@hour <= @hours) {
+      .animationsForEachDigit(@hour:1) when (@hour <= @hours) {
         @rotate: (360deg / @hours) * @hour;
         @translate: (@clockSize / 2) -
                     (@digitSize / 2) -
@@ -242,14 +244,12 @@
           }
         }
 
-        #watch .digits li:nth-child(@{hour}) {
+        &:nth-child(@{hour}) {
           animation: ~"addDigit@{hour}" 8s ease infinite;
         }
 
-        .animationsForDigit(@hours, (@hour + 1));
+        .animationsForEachDigit((@hour + 1));
       }
-
-      .animationsForDigit(@hours);
     </script>
     <div class="text-center">
       <div id="digits_transition_box" class="example-box" data-example="box" data-html="digits_html" data-css="digits_transition_css"></div>
@@ -278,8 +278,8 @@
         <div id="single_digit_1_box" class="example-box-small" data-example="box" data-html="single_digit_1_html" data-css="single_digit_1_css" data-css-after="show_digit_border_css"></div>
       </div>
       <div class="col-md-6">
-        <div id="single_digit_1_html" class="example-code" data-example="html" data-html="single_digit_1_html"></div>
-        <div id="single_digit_1_css" class="example-code" data-example="css" data-css="single_digit_1_css"></div>
+        <div id="single_digit_1_html_code" class="example-code" data-example="html" data-html="single_digit_1_html"></div>
+        <div id="single_digit_1_css_code" class="example-code" data-example="css" data-css="single_digit_1_css"></div>
       </div>
     </div>
     <p>To properly align the digits, we have to <strong>center the digit</strong> inside its <code>&lt;li&gt;</code> tag. We make it <code>display: block;</code>, set <code>text-align: center;</code> to align horizontally and then set <code>width</code>, <code>height</code> and <code>line-height</code> the same as the digit size to align vertically. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
@@ -298,7 +298,7 @@
         <div id="single_digit_2_box" class="example-box-small" data-example="box" data-html="single_digit_1_html" data-css="single_digit_2_css" data-css-after="show_digit_border_css"></div>
       </div>
       <div class="col-md-6">
-        <div id="single_digit_2_css" class="example-code" data-example="css" data-css="single_digit_2_css"></div>
+        <div id="single_digit_2_css_code" class="example-code" data-example="css" data-css="single_digit_2_css"></div>
       </div>
     </div>
     <p><strong>Center the digit.</strong> Make the parent a positioned ancestor by setting <code>position: relative;</code>. Use <code>position: absolute;</code> and set <code>top</code> and <code>left</code> to <code>50%</code>. This will anchor the top-left corner of the digit to the center of the parent, but we want the center of the digit to be anchored, so we pull the digit half its width to the left and to the top with negative margin. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
@@ -327,7 +327,7 @@
         <div id="single_digit_3_box" class="example-box" data-example="box" data-html="single_digit_1_html" data-css="single_digit_3_css" data-css-after="show_digit_and_watch_border_css"></div>
       </div>
       <div class="col-md-6">
-        <div id="single_digit_3_css" class="example-code" data-example="css" data-css="single_digit_3_css"></div>
+        <div id="single_digit_3_css_code" class="example-code" data-example="css" data-css="single_digit_3_css"></div>
       </div>
     </div>
     <p><strong>Move the digit to the border.</strong> Use <code>transform-translate</code> and move back half the size of the clock minus the size of the digit and the desired margin from the border. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
@@ -348,7 +348,7 @@
         <div id="single_digit_4_box" class="example-box" data-example="box" data-html="single_digit_1_html" data-css="single_digit_4_css" data-css-after="show_digit_and_watch_border_css"></div>
       </div>
       <div class="col-md-6">
-        <div id="single_digit_4_css" class="example-code" data-example="css" data-css="single_digit_4_css"></div>
+        <div id="single_digit_4_css_code" class="example-code" data-example="css" data-css="single_digit_4_css"></div>
       </div>
     </div>
     <p><strong>Move the digit to the right position.</strong> Use <code>transform-rotate</code> to rotate it around the center as defined by <code>transform-origin</code>. To calculate how many degrees we have to rotate to find the right position, we divide 360 degrees by 12 hours. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
@@ -372,7 +372,7 @@
         <div id="single_digit_5_box" class="example-box" data-example="box" data-html="single_digit_1_html" data-css="single_digit_5_css" data-css-after="show_digit_and_watch_border_css"></div>
       </div>
       <div class="col-md-6">
-        <div id="single_digit_5_css" class="example-code" data-example="css" data-css="single_digit_5_css"></div>
+        <div id="single_digit_5_css_code" class="example-code" data-example="css" data-css="single_digit_5_css"></div>
       </div>
     </div>
     <p><strong>Straighten the rotated digit.</strong> Now we would have to apply another rotation around itself in the reverse direction, but we can not set a different value for <code>transform-origin</code> for each transformation. We could use a wrapper element, we apply the first set of transformations to the outer element and the last rotation in the inner element. But instead, we will apply <a href="http://lea.verou.me/2012/02/moving-an-element-along-a-circle/">these transformations in a different order to avoid having to set the center or rotation</a>, thus being able to do it all in a sigle step. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
@@ -396,7 +396,7 @@
         <div id="single_digit_6_box" class="example-box" data-example="box" data-html="single_digit_1_html" data-css="single_digit_6_css" data-css-after="show_digit_and_watch_border_css"></div>
       </div>
       <div class="col-md-6">
-        <div id="single_digit_6_css" class="example-code" data-example="css" data-css="single_digit_6_css"></div>
+        <div id="single_digit_6_css_code" class="example-code" data-example="css" data-css="single_digit_6_css"></div>
       </div>
     </div>
     <p><strong>Add all digits.</strong> In the html part we are looping with <a href="https://lodash.com/docs#forEach">_.forEach</a> to generate 12 <code>&lt;li&gt;</code> tags with the digit as content. In the css part we are looping with <a href="http://lesscss.org/features/#loops-feature">recursive mixins</a> to generate the transformations for each digit with appropriate rotation calculed according to the index of the digit.</p>
@@ -415,7 +415,7 @@
       @digitMargin: 1em;
       @hours: 12;
 
-      .transformDigits(@hours, @hour:1) when (@hour <= @hours) {
+      .transformDigits(@hour:1) when (@hour <= @hours) {
         @rotate: (360deg / @hours) * @hour;
         @translate: (@clockSize / 2) -
                     (@digitSize / 2) -
@@ -425,11 +425,11 @@
                      translateY(-@translate)
                      rotate(-@rotate);
         }
-        .transformDigits(@hours, (@hour + 1));
+        .transformDigits((@hour + 1));
       }
 
       #watch .digits li {
-        .transformDigits(@hours);
+        .transformDigits;
       }
     </script>
     <div class="row">
@@ -437,14 +437,302 @@
         <div id="digits_box" class="example-box" data-example="box" data-html="digits_html" data-css="digits_css"></div>
       </div>
       <div class="col-md-6">
-        <div id="digits_html" class="example-code" data-example="html" data-html="digits_html"></div>
-        <div id="digits_css" class="example-code" data-example="css" data-css="digits_css"></div>
+        <div id="digits_html_code" class="example-code" data-example="html" data-html="digits_html"></div>
+        <div id="digits_css_code" class="example-code" data-example="css" data-css="digits_css"></div>
       </div>
     </div>
     <h2 id="marks" class="page-header">
       <a href="#marks" aria-hidden="true" class="anchor"><span class="glyphicon glyphicon-link"></span></a>
       Marks
     </h2>
+    <script id="marks_transition_css" type="text/example-css">
+      @clockSize: 20em;
+      @markWidth: .2em;
+      @markSize: .6em;
+      @markColour: #929394;
+      @markMargin: 1em;
+      @minutes: 60;
+      @hours: 12;
+
+      #watch .marks {
+        list-style: none; margin: 0; padding: 0;
+        width: @clockSize; height: @clockSize;
+        border-radius: (@clockSize / 2);
+        position: relative;
+      }
+
+      #watch .marks li {
+        display: block;
+        width: @markWidth;
+        height: @markSize;
+        background: @markColour;
+        position: absolute;
+        .animationsForEachMark;
+      }
+
+      .animationsForEachMark(@minute:1) when (@minute <= @minutes) {
+        @rotate: (360deg / @minutes) * @minute;
+        @translate: (@clockSize / 2) -
+                    (@markSize / 2) -
+                    @markMargin;
+
+        .findIfIsMinuteOrHour() {
+          @markToRemoveOpacity: 1;
+          @markToRemoveColour: @markColour;
+          @markToRemoveTranslate: 0;
+        }
+        .findIfIsMinuteOrHour() when (mod(@minute, (@minutes / @hours)) = 0) {
+          @markToRemoveOpacity: 0;
+          @markToRemoveColour: red;
+          @markToRemoveTranslate: @markMargin;
+        }
+        .findIfIsMinuteOrHour;
+
+        @keyframes ~"addMark@{minute}" {
+          0% {
+            top: (@markSize * 1.42857143 * (@minute - 1));
+            left: 0;
+            margin: 0;
+          }
+          10% {
+            top: 50%; left: 50%;
+            margin: -(@markSize / 2) 0 0 -(@markSize / 2);
+          }
+          20% {
+            top: 50%; left: 50%;
+            margin: -(@markSize / 2) 0 0 -(@markSize / 2);
+            transform: rotate(0);
+          }
+          30% {
+            top: 50%; left: 50%;
+            margin: -(@markSize / 2) 0 0 -(@markSize / 2);
+            transform: rotate(@rotate);
+          }
+          40% {
+            top: 50%; left: 50%;
+            margin: -(@markSize / 2) 0 0 -(@markSize / 2);
+            transform: rotate(@rotate) translateY(0);
+          }
+          50% {
+            top: 50%; left: 50%;
+            margin: -(@markSize / 2) 0 0 -(@markSize / 2);
+            transform: rotate(@rotate)
+                       translateY(-@translate);
+          }
+          60% {
+            top: 50%; left: 50%;
+            margin: -(@markSize / 2) 0 0 -(@markSize / 2);
+            transform: rotate(@rotate)
+                       translateY(-@translate);
+            background: @markColour;
+          }
+          70% {
+            top: 50%; left: 50%;
+            margin: -(@markSize / 2) 0 0 -(@markSize / 2);
+            transform: rotate(@rotate)
+                       translateY(-@translate);
+            background: @markToRemoveColour;
+          }
+          80% {
+            top: 50%; left: 50%;
+            margin: -(@markSize / 2) 0 0 -(@markSize / 2);
+            transform: rotate(@rotate)
+                       translateY(-@translate)
+                       translateY(0);
+            opacity: 1;
+            background: @markToRemoveColour;
+          }
+          90% {
+            top: 50%; left: 50%;
+            margin: -(@markSize / 2) 0 0 -(@markSize / 2);
+            transform: rotate(@rotate)
+                       translateY(-@translate)
+                       translateY(-@markToRemoveTranslate);
+            opacity: @markToRemoveOpacity;
+            background: @markToRemoveColour;
+          }
+          100% {
+            top: 50%; left: 50%;
+            margin: -(@markSize / 2) 0 0 -(@markSize / 2);
+            transform: rotate(@rotate)
+                       translateY(-@translate)
+                       translateY(-@markToRemoveTranslate);
+            opacity: @markToRemoveOpacity;
+            background: @markToRemoveColour;
+          }
+        }
+
+        &:nth-child(@{minute}) {
+          animation: ~"addMark@{minute}" 8s ease infinite;
+        }
+
+        .animationsForEachMark((@minute + 1));
+      }
+    </script>
+    <div class="text-center">
+      <div id="marks_transition_box" class="example-box" data-example="box" data-html="marks_html" data-css="marks_transition_css"></div>
+    </div>
+    <p><strong>Add a mark.</strong> Same instructions as for the digit.</p>
+    <script id="single_mark_1_html" type="text/example-html">
+      <div id="watch">
+        <ul class="marks">
+          <li></li>
+        </ul>
+      </div>
+    </script>
+    <script id="single_mark_1_css" type="text/example-css">
+      @markHeight: .6em;
+      @markWidth: .2em;
+
+      #watch .marks { list-style: none; margin: 0; padding: 0; }
+
+      #watch .marks li {
+        width: @markWidth; height: @markHeight;
+        background: #929394;
+      }
+    </script>
+    <div class="row">
+      <div class="col-md-6">
+        <div id="single_mark_1_box" class="example-box-small" data-example="box" data-html="single_mark_1_html" data-css="single_mark_1_css"></div>
+      </div>
+      <div class="col-md-6">
+        <div id="single_mark_1_html_code" class="example-code" data-example="html" data-html="single_mark_1_html"></div>
+        <div id="single_mark_1_css_code" class="example-code" data-example="css" data-css="single_mark_1_css"></div>
+      </div>
+    </div>
+    <p><strong>Center the mark.</strong> Same instructions as for the digit. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
+    <script id="single_mark_2_css" type="text/example-css" data-import="single_mark_1_css">
+      @clockSize: 20em;
+      @markHeight: .6em;
+      @markWidth: .2em;
+
+      #watch .marks {
+        width: @clockSize; height: @clockSize;
+        border-radius: (@clockSize / 2);
+        position: relative;
+      }
+
+      #watch .marks li {
+        position: absolute;
+        top: 50%; left: 50%;
+        margin: -(@markHeight / 2) 0 0 -(@markWidth / 2);
+      }
+    </script>
+    <script id="show_mark_and_watch_border_css" type="text/example-css">
+      #watch .marks { border: 1px solid blue; }
+    </script>
+    <div class="row">
+      <div class="col-md-6 text-center">
+        <div id="single_mark_2_box" class="example-box" data-example="box" data-html="single_mark_1_html" data-css="single_mark_2_css" data-css-after="show_mark_and_watch_border_css"></div>
+      </div>
+      <div class="col-md-6">
+        <div id="single_mark_2_css_code" class="example-code" data-example="css" data-css="single_mark_2_css"></div>
+      </div>
+    </div>
+    <p><strong>Rotate the mark and move it to the border.</strong> Same instructions as for the digit, only this time there will be no third straightening out transformation. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
+    <script id="single_mark_3_css" type="text/example-css" data-import="single_mark_2_css">
+      @markMargin: 1em;
+
+      #watch .marks li {
+        &:nth-child(1) {
+          @translate: (@clockSize / 2) -
+                      (@markHeight / 2) -
+                      @markMargin;
+          @rotate: (360deg / 60) * 1;
+          transform: rotate(@rotate)
+                     translateY(-@translate);
+        }
+      }
+    </script>
+    <div class="row">
+      <div class="col-md-6 text-center">
+        <div id="single_mark_4_box" class="example-box" data-example="box" data-html="single_mark_1_html" data-css="single_mark_3_css" data-css-after="show_mark_and_watch_border_css"></div>
+      </div>
+      <div class="col-md-6">
+        <div id="single_mark_3_css_code" class="example-code" data-example="css" data-css="single_mark_3_css"></div>
+      </div>
+    </div>
+    <p><strong>Add all marks.</strong> In the html part we are looping with <a href="https://lodash.com/docs#forEach">_.forEach</a> to generate 60 empty <code>&lt;li&gt;</code> tags. In the css part we are looping with <a href="http://lesscss.org/features/#loops-feature">recursive mixins</a> to generate the transformations for each mark with appropriate rotation calculed according to the index of the mark.</p>
+    <script id="marks_html" type="text/example-html">
+      <% var minutes = _.range(60); %>
+
+      <div id="watch">
+        <ul class="marks">
+          <% _.forEach(minutes, function() { %>
+            <li></li>
+          <% }); %>
+        </ul>
+      </div>
+    </script>
+    <script id="marks_css" type="text/example-css" data-import="single_mark_2_css">
+      @markMargin: 1em;
+      @minutes: 60;
+
+      .transformMarks(@minute:1) when (@minute <= @minutes) {
+        @rotate: (360deg / @minutes) * @minute;
+        @translate: (@clockSize / 2) -
+                    (@markHeight / 2) -
+                    @markMargin;
+        &:nth-child(@{minute}) {
+          transform: rotate(@rotate)
+                     translateY(-@translate);
+        }
+        .transformMarks((@minute + 1));
+      }
+
+      #watch .marks li {
+        .transformMarks;
+      }
+    </script>
+    <div class="row">
+      <div class="col-md-6 text-center">
+        <div id="marks_box" class="example-box" data-example="box" data-html="marks_html" data-css="marks_css"></div>
+      </div>
+      <div class="col-md-6">
+        <div id="marks_html_code" class="example-code" data-example="html" data-html="marks_html"></div>
+        <div id="marks_css_code" class="example-code" data-example="css" data-css="marks_css"></div>
+      </div>
+    </div>
+    <p><strong>Hide the marks</strong> where the hours should be. Change the less loop to conditionally hide every 5 marks (60 minutes / 12 hours).</p>
+    <script id="marks_2_css" type="text/example-css" data-import="single_mark_2_css">
+      @markMargin: 1em;
+      @minutes: 60;
+      @hours: 12;
+
+      .transformMarks(@minute:1) when (@minute <= @minutes) {
+        @rotate: (360deg / @minutes) * @minute;
+        @translate: (@clockSize / 2) -
+                    (@markHeight / 2) -
+                    @markMargin;
+
+        .findIfIsMinuteOrHour() {
+          @visibility: visible;
+        }
+        .findIfIsMinuteOrHour() when (mod(@minute, (@minutes / @hours)) = 0) {
+          @visibility: hidden;
+        }
+        .findIfIsMinuteOrHour;
+
+        &:nth-child(@{minute}) {
+          transform: rotate(@rotate)
+                     translateY(-@translate);
+          visibility: @visibility;
+        }
+        .transformMarks((@minute + 1));
+      }
+
+      #watch .marks li {
+        .transformMarks;
+      }
+    </script>
+    <div class="row">
+      <div class="col-md-6 text-center">
+        <div id="marks_2_box" class="example-box" data-example="box" data-html="marks_html" data-css="marks_2_css"></div>
+      </div>
+      <div class="col-md-6">
+        <div id="marks_css_code" class="example-code" data-example="css" data-css="marks_2_css"></div>
+      </div>
+    </div>
     <h2 id="hands" class="page-header">
       <a href="#hands" aria-hidden="true" class="anchor"><span class="glyphicon glyphicon-link"></span></a>
       Hands
@@ -544,7 +832,13 @@
           });
           var css  = code.css;
           // Make ids unique
-          css = css.replace(/#([a-z0-9_\-]*)/g, '#' + prefix + '_$1');
+          css = css.replace(/#([a-z0-9_\-]*)/g, function(match, id) {
+            // If it is a colour, do not touch it
+            if (id.match(/^[a-fA-F0-9]{3,6}$/)) {
+              return match;
+            }
+            return '#' + prefix + '_' + id;
+          });
           // Makes classes unique
           css = css.replace(/\.([a-z][a-zA-Z0-9_\-]*)/g, '.' + prefix + '_$1');
           $el.html('<style type="text/css">' + css + '</style>' + html);
