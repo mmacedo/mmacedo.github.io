@@ -37,6 +37,32 @@
       margin: 2em 0;
     }
 
+    .crosshairs {
+      position: relative;
+    }
+
+    .crosshairs > .crosshairs-layer {
+      position: absolute;
+      width: 100%; height: 100%;
+      z-index: -9999;
+    }
+
+    .crosshairs-layer > .crosshairs-vertical,
+    .crosshairs-layer > .crosshairs-horizontal {
+      position: absolute;
+      opacity: .2;
+    }
+
+    .crosshairs-layer > .crosshairs-vertical {
+      top: 0; height: 100%;
+      left: 50%; width: 2px; margin-left: -1px;
+    }
+
+    .crosshairs-layer > .crosshairs-horizontal {
+      left: 0; width: 100%;
+      top: 50%; height: 2px; margin-top: -1px;
+    }
+
     .page-header .anchor {
       color: #bcbcbc;
       font-size: 65%;
@@ -304,7 +330,6 @@
     <p><strong>Center the digit.</strong> Make the parent a positioned ancestor by setting <code>position: relative;</code>. Use <code>position: absolute;</code> and set <code>top</code> and <code>left</code> to <code>50%</code>. This will anchor the top-left corner of the digit to the center of the parent, but we want the center of the digit to be anchored, so we pull the digit half its width to the left and to the top with negative margin. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
     <script id="single_digit_3_css" type="text/example-css" data-import="single_digit_2_css">
       @clockSize: 20em;
-      @digitSize: 1em;
 
       #watch .digits {
         width: @clockSize; height: @clockSize;
@@ -324,7 +349,7 @@
     </script>
     <div class="row">
       <div class="col-md-6 text-center">
-        <div id="single_digit_3_box" class="example-box" data-example="box" data-html="single_digit_1_html" data-css="single_digit_3_css" data-css-after="show_digit_and_watch_border_css"></div>
+        <div id="single_digit_3_box" class="example-box" data-example="box" data-html="single_digit_1_html" data-css="single_digit_3_css" data-css-after="show_digit_and_watch_border_css" data-crosshairs="#888"></div>
       </div>
       <div class="col-md-6">
         <div id="single_digit_3_css_code" class="example-code" data-example="css" data-css="single_digit_3_css"></div>
@@ -572,7 +597,7 @@
     <div class="text-center">
       <div id="marks_transition_box" class="example-box" data-example="box" data-html="marks_html" data-css="marks_transition_css"></div>
     </div>
-    <p><strong>Add a mark.</strong> Same instructions as for the digit.</p>
+    <p><strong>Add a mark.</strong> Same instructions as for the digits.</p>
     <script id="single_mark_1_html" type="text/example-html">
       <div id="watch">
         <ul class="marks">
@@ -600,11 +625,9 @@
         <div id="single_mark_1_css_code" class="example-code" data-example="css" data-css="single_mark_1_css"></div>
       </div>
     </div>
-    <p><strong>Center the mark.</strong> Same instructions as for the digit. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
+    <p><strong>Center the mark.</strong> Same instructions as for the digits. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
     <script id="single_mark_2_css" type="text/example-css" data-import="single_mark_1_css">
       @clockSize: 20em;
-      @markHeight: .6em;
-      @markWidth: .2em;
 
       #watch .marks {
         width: @clockSize; height: @clockSize;
@@ -623,13 +646,13 @@
     </script>
     <div class="row">
       <div class="col-md-6 text-center">
-        <div id="single_mark_2_box" class="example-box" data-example="box" data-html="single_mark_1_html" data-css="single_mark_2_css" data-css-after="show_mark_and_watch_border_css"></div>
+        <div id="single_mark_2_box" class="example-box" data-example="box" data-html="single_mark_1_html" data-css="single_mark_2_css" data-css-after="show_mark_and_watch_border_css" data-crosshairs="#888"></div>
       </div>
       <div class="col-md-6">
         <div id="single_mark_2_css_code" class="example-code" data-example="css" data-css="single_mark_2_css"></div>
       </div>
     </div>
-    <p><strong>Rotate the mark and move it to the border.</strong> Same instructions as for the digit, only this time there will be no third straightening out transformation. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
+    <p><strong>Rotate the mark and move it to the border.</strong> Same instructions as for the digits, only this time there will be no third straightening out transformation. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
     <script id="single_mark_3_css" type="text/example-css" data-import="single_mark_2_css">
       @markMargin: 1em;
 
@@ -737,13 +760,165 @@
       <a href="#hands" aria-hidden="true" class="anchor"><span class="glyphicon glyphicon-link"></span></a>
       Hands
     </h2>
-    <h2 id="layers" class="page-header">
-      <a href="#layers" aria-hidden="true" class="anchor"><span class="glyphicon glyphicon-link"></span></a>
-      Layers
-    </h2>
-    <h2 id="builder" class="page-header">
-      <a href="#builder" aria-hidden="true" class="anchor"><span class="glyphicon glyphicon-link"></span></a>
-      Builder
+    <script id="hand_transition_css" type="text/example-css">
+      @clockSize: 20em;
+      @handHeight: 10em;
+      @handTail: 2em;
+      @handWidth: .2em;
+
+      #watch {
+        position: relative;
+        width: @clockSize; height: @clockSize;
+        border-radius: (@clockSize / 2);
+      }
+
+      #watch .hand {
+        height: @handHeight;
+        width: @handWidth;
+        background: #c00;
+        position: absolute;
+        animation: addHand 6s ease infinite;
+      }
+
+      @centerOfRotationX: (@handWidth / 2);
+      @centerOfRotationY: (@handHeight - @handTail);
+      @rotate: (360deg / 60) * 1;
+
+      @keyframes addHand {
+        0% {
+          top: 0;
+          left: 0;
+          margin: 0;
+        }
+        16.67% {
+          top: 50%; left: 50%;
+          margin: -@handHeight 0 0 -(@handWidth / 2);
+        }
+        33.33% {
+          top: 50%; left: 50%;
+          margin: -@handHeight 0 0 -(@handWidth / 2);
+        }
+        50% {
+          top: 50%; left: 50%;
+          margin: -(@handHeight - @handTail) 0 0 -(@handWidth / 2);
+        }
+        66.67% {
+          top: 50%; left: 50%;
+          margin: -(@handHeight - @handTail) 0 0 -(@handWidth / 2);
+          transform-origin: @centerOfRotationX @centerOfRotationY 0;
+          transform: rotate(0);
+        }
+        83.33% {
+          top: 50%; left: 50%;
+          margin: -(@handHeight - @handTail) 0 0 -(@handWidth / 2);
+          transform-origin: @centerOfRotationX @centerOfRotationY 0;
+          transform: rotate(@rotate);
+        }
+        100% {
+          top: 50%; left: 50%;
+          margin: -(@handHeight - @handTail) 0 0 -(@handWidth / 2);
+          transform-origin: @centerOfRotationX @centerOfRotationY 0;
+          transform: rotate(@rotate);
+        }
+      }
+    </script>
+    <div class="text-center">
+      <div id="hand_transition_box" class="example-box" data-example="box" data-html="single_hand_1_html" data-css="hand_transition_css"></div>
+    </div>
+    <p><strong>Add a hand.</strong> Just create a <code>&lt;div&gt;</code> with the desired <code>background</code>, <code>height</code> (length) and <code>width</code>.</p>
+    <script id="single_hand_1_html" type="text/example-html">
+      <div id="watch">
+        <div class="hand"></div>
+      </div>
+    </script>
+    <script id="single_hand_1_css" type="text/example-css">
+      @handHeight: 8em;
+      @handWidth: .2em;
+
+      #watch .hand {
+        height: @handHeight;
+        width: @handWidth;
+        background: #c00;
+      }
+    </script>
+    <div class="row">
+      <div class="col-md-6">
+        <div id="single_hand_1_box" class="example-box-small" data-example="box" data-html="single_hand_1_html" data-css="single_hand_1_css"></div>
+      </div>
+      <div class="col-md-6">
+        <div id="single_hand_1_html_code" class="example-code" data-example="html" data-html="single_hand_1_html"></div>
+        <div id="single_hand_1_css_code" class="example-code" data-example="css" data-css="single_hand_1_css"></div>
+      </div>
+    </div>
+    <p><strong>Move the hand to the center.</strong> Similar instructions as for digits and marks, but the positioned ancestor now is the <code>#watch</code> container. Now we will still center it horizontally, but instead of centering it vertically, we will anchor the bottom of the hand to the center of the watch by pulling its whole height to the top with negative margin instead of just half. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
+    <script id="single_hand_2_css" type="text/example-css" data-import="single_hand_1_css">
+      @clockSize: 20em;
+
+      #watch { position: relative; }
+
+      #watch .hand {
+        position: absolute;
+        top: 50%; left: 50%;
+        margin: -@handHeight 0 0 -(@handWidth / 2);
+      }
+
+      /* This is not part of the final code
+       * These lines are needed only without the frame */
+      #watch {
+        width: @clockSize; height: @clockSize;
+        border-radius: (@clockSize / 2);
+      }
+    </script>
+    <script id="show_hand_and_watch_border_css" type="text/example-css">
+      #watch { border: 1px solid blue; }
+    </script>
+    <div class="row">
+      <div class="col-md-6 text-center">
+        <div id="single_hand_2_box" class="example-box" data-example="box" data-html="single_hand_1_html" data-css="single_hand_2_css" data-css-after="show_hand_and_watch_border_css" data-crosshairs="#888"></div>
+      </div>
+      <div class="col-md-6">
+        <div id="single_hand_2_css_code" class="example-code" data-example="css" data-css="single_hand_2_css"></div>
+      </div>
+    </div>
+    <p><strong>Add a tail to the hand.</strong> Change the <code>margin-top</code> so we do not pull its whole length to the top with negative margin. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
+    <script id="single_hand_3_css" type="text/example-css" data-import="single_hand_2_css">
+      @handHeight: 10em;
+      @handTail: 2em;
+
+      #watch .hand {
+        margin: -(@handHeight - @handTail) 0 0 -(@handWidth / 2);
+      }
+    </script>
+    <div class="row">
+      <div class="col-md-6 text-center">
+        <div id="single_hand_3_box" class="example-box" data-example="box" data-html="single_hand_1_html" data-css="single_hand_3_css" data-css-after="show_hand_and_watch_border_css" data-crosshairs="#888"></div>
+      </div>
+      <div class="col-md-6">
+        <div id="single_hand_3_css_code" class="example-code" data-example="css" data-css="single_hand_3_css"></div>
+      </div>
+    </div>
+    <p><strong>Rotate the hand around the center of the watch.</strong> We negate the offsets that we calculated for the negative margins to find the center of the watch and therefore our center of rotation. We set it in <code>transform-origin</code>. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
+    <script id="single_hand_4_css" type="text/example-css" data-import="single_hand_3_css">
+      #watch .hand {
+        @centerOfRotationX: (@handWidth / 2);
+        @centerOfRotationY: (@handHeight - @handTail);
+        @rotate: (360deg / 60) * 1;
+
+        transform-origin: @centerOfRotationX @centerOfRotationY 0;
+        transform: rotate(@rotate);
+      }
+    </script>
+    <div class="row">
+      <div class="col-md-6 text-center">
+        <div id="single_hand_4_box" class="example-box" data-example="box" data-html="single_hand_1_html" data-css="single_hand_4_css" data-css-after="show_hand_and_watch_border_css" data-crosshairs="#888"></div>
+      </div>
+      <div class="col-md-6">
+        <div id="single_hand_4_css_code" class="example-code" data-example="css" data-css="single_hand_4_css"></div>
+      </div>
+    </div>
+    <h2 id="putting-them-together" class="page-header">
+      <a href="#putting-them-together" aria-hidden="true" class="anchor"><span class="glyphicon glyphicon-link"></span></a>
+      Putting them together
     </h2>
     <h2 id="animation" class="page-header">
       <a href="#animation" aria-hidden="true" class="anchor"><span class="glyphicon glyphicon-link"></span></a>
@@ -752,6 +927,10 @@
     <h2 id="current-time" class="page-header">
       <a href="#current-time" aria-hidden="true" class="anchor"><span class="glyphicon glyphicon-link"></span></a>
       Current time
+    </h2>
+    <h2 id="builder" class="page-header">
+      <a href="#builder" aria-hidden="true" class="anchor"><span class="glyphicon glyphicon-link"></span></a>
+      Builder
     </h2>
     <h2 id="decimal-time" class="page-header">
       <a href="#decimal-time" aria-hidden="true" class="anchor"><span class="glyphicon glyphicon-link"></span></a>
@@ -841,7 +1020,7 @@
           });
           // Makes classes unique
           css = css.replace(/\.([a-z][a-zA-Z0-9_\-]*)/g, '.' + prefix + '_$1');
-          $el.html('<style type="text/css">' + css + '</style>' + html);
+          $el.append('<style type="text/css">' + css + '</style>' + html);
         });
       });
 
@@ -849,14 +1028,22 @@
         var $el    = $(this);
         var htmlId = $el.data('html');
         var code   = $('#' + htmlId).html();
-        $el.html(generateCodeBlock($el, code, 'html'));
+        $el.append(generateCodeBlock($el, code, 'html'));
       });
 
       $('[data-example="css"]').each(function() {
         var $el   = $(this);
         var cssId = $el.data('css');
         var code  = $('#' + cssId).html();
-        $el.html(generateCodeBlock($el, code, 'less'));
+        $el.append(generateCodeBlock($el, code, 'less'));
+      });
+
+      $('[data-crosshairs]').each(function() {
+        var colour = $(this).data('crosshairs');
+        var style = 'style="background-color: ' + colour + ';"';
+        var vertical   = '<div class="crosshairs-vertical" ' + style + '></div>';
+        var horizontal = '<div class="crosshairs-horizontal" ' + style + '></div>';
+        $(this).append('<div class ="crosshairs-layer">' + vertical + horizontal + '</div>');
       });
     });
   </script>
