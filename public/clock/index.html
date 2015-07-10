@@ -30,6 +30,7 @@
       display: inline-block;
       width: 20em;
       height: 20em;
+      position: relative;
       overflow: hidden;
     }
 
@@ -210,7 +211,7 @@
         .animationsForEachDigit;
       }
 
-      .animationsForEachDigit(@hour:1) when (@hour <= @hours) {
+      .animationsForEachDigit(@hour: 1) when (@hour <= @hours) {
         @rotate: (360deg / @hours) * @hour;
         @translate: (@clockSize / 2) -
                     (@digitSize / 2) -
@@ -426,11 +427,11 @@
     </div>
     <p><strong>Add all digits.</strong> In the html part we are looping with <a href="https://lodash.com/docs#forEach">_.forEach</a> to generate 12 <code>&lt;li&gt;</code> tags with the digit as content. In the css part we are looping with <a href="http://lesscss.org/features/#loops-feature">recursive mixins</a> to generate the transformations for each digit with appropriate rotation calculed according to the index of the digit.</p>
     <script id="digits_html" type="text/example-html">
-      <% var hours = _.range(12); %>
+      <% var hours = 12; %>
 
       <div id="watch">
         <ul class="digits">
-          <% _.forEach(hours, function(hour) { %>
+          <% _.forEach(_.range(hours), function(hour) { %>
             <li><%- hour + 1 %></li>
           <% }); %>
         </ul>
@@ -440,7 +441,7 @@
       @digitMargin: 1em;
       @hours: 12;
 
-      .transformDigits(@hour:1) when (@hour <= @hours) {
+      .positionDigits(@hour: 1) when (@hour <= @hours) {
         @rotate: (360deg / @hours) * @hour;
         @translate: (@clockSize / 2) -
                     (@digitSize / 2) -
@@ -450,11 +451,11 @@
                      translateY(-@translate)
                      rotate(-@rotate);
         }
-        .transformDigits((@hour + 1));
+        .positionDigits((@hour + 1));
       }
 
       #watch .digits li {
-        .transformDigits;
+        .positionDigits;
       }
     </script>
     <div class="row">
@@ -472,8 +473,8 @@
     </h2>
     <script id="marks_transition_css" type="text/example-css">
       @clockSize: 20em;
-      @markWidth: .2em;
-      @markSize: .6em;
+      @markWidth: .125em;
+      @markHeight: .375em;
       @markColour: #929394;
       @markMargin: 1em;
       @minutes: 60;
@@ -489,16 +490,16 @@
       #watch .marks li {
         display: block;
         width: @markWidth;
-        height: @markSize;
+        height: @markHeight;
         background: @markColour;
         position: absolute;
         .animationsForEachMark;
       }
 
-      .animationsForEachMark(@minute:1) when (@minute <= @minutes) {
+      .animationsForEachMark(@minute: 1) when (@minute <= @minutes) {
         @rotate: (360deg / @minutes) * @minute;
         @translate: (@clockSize / 2) -
-                    (@markSize / 2) -
+                    (@markHeight / 2) -
                     @markMargin;
 
         .findIfIsMinuteOrHour() {
@@ -515,52 +516,52 @@
 
         @keyframes ~"addMark@{minute}" {
           0% {
-            top: (@markSize * 1.42857143 * (@minute - 1));
+            top: (@markHeight * 1.42857143 * (@minute - 1));
             left: 0;
             margin: 0;
           }
           10% {
             top: 50%; left: 50%;
-            margin: -(@markSize / 2) 0 0 -(@markSize / 2);
+            margin: -(@markHeight / 2) 0 0 -(@markHeight / 2);
           }
           20% {
             top: 50%; left: 50%;
-            margin: -(@markSize / 2) 0 0 -(@markSize / 2);
+            margin: -(@markHeight / 2) 0 0 -(@markHeight / 2);
             transform: rotate(0);
           }
           30% {
             top: 50%; left: 50%;
-            margin: -(@markSize / 2) 0 0 -(@markSize / 2);
+            margin: -(@markHeight / 2) 0 0 -(@markHeight / 2);
             transform: rotate(@rotate);
           }
           40% {
             top: 50%; left: 50%;
-            margin: -(@markSize / 2) 0 0 -(@markSize / 2);
+            margin: -(@markHeight / 2) 0 0 -(@markHeight / 2);
             transform: rotate(@rotate) translateY(0);
           }
           50% {
             top: 50%; left: 50%;
-            margin: -(@markSize / 2) 0 0 -(@markSize / 2);
+            margin: -(@markHeight / 2) 0 0 -(@markHeight / 2);
             transform: rotate(@rotate)
                        translateY(-@translate);
           }
           60% {
             top: 50%; left: 50%;
-            margin: -(@markSize / 2) 0 0 -(@markSize / 2);
+            margin: -(@markHeight / 2) 0 0 -(@markHeight / 2);
             transform: rotate(@rotate)
                        translateY(-@translate);
             background: @markColour;
           }
           70% {
             top: 50%; left: 50%;
-            margin: -(@markSize / 2) 0 0 -(@markSize / 2);
+            margin: -(@markHeight / 2) 0 0 -(@markHeight / 2);
             transform: rotate(@rotate)
                        translateY(-@translate);
             background: @markToRemoveColour;
           }
           80% {
             top: 50%; left: 50%;
-            margin: -(@markSize / 2) 0 0 -(@markSize / 2);
+            margin: -(@markHeight / 2) 0 0 -(@markHeight / 2);
             transform: rotate(@rotate)
                        translateY(-@translate)
                        translateY(0);
@@ -569,7 +570,7 @@
           }
           90% {
             top: 50%; left: 50%;
-            margin: -(@markSize / 2) 0 0 -(@markSize / 2);
+            margin: -(@markHeight / 2) 0 0 -(@markHeight / 2);
             transform: rotate(@rotate)
                        translateY(-@translate)
                        translateY(-@markToRemoveTranslate);
@@ -578,7 +579,7 @@
           }
           100% {
             top: 50%; left: 50%;
-            margin: -(@markSize / 2) 0 0 -(@markSize / 2);
+            margin: -(@markHeight / 2) 0 0 -(@markHeight / 2);
             transform: rotate(@rotate)
                        translateY(-@translate)
                        translateY(-@markToRemoveTranslate);
@@ -606,8 +607,8 @@
       </div>
     </script>
     <script id="single_mark_1_css" type="text/example-css">
-      @markHeight: .6em;
-      @markWidth: .2em;
+      @markHeight: .375em;
+      @markWidth: .125em;
 
       #watch .marks { list-style: none; margin: 0; padding: 0; }
 
@@ -677,11 +678,11 @@
     </div>
     <p><strong>Add all marks.</strong> In the html part we are looping with <a href="https://lodash.com/docs#forEach">_.forEach</a> to generate 60 empty <code>&lt;li&gt;</code> tags. In the css part we are looping with <a href="http://lesscss.org/features/#loops-feature">recursive mixins</a> to generate the transformations for each mark with appropriate rotation calculed according to the index of the mark.</p>
     <script id="marks_html" type="text/example-html">
-      <% var minutes = _.range(60); %>
+      <% var minutes = 60; %>
 
       <div id="watch">
         <ul class="marks">
-          <% _.forEach(minutes, function() { %>
+          <% _.forEach(_.range(minutes), function() { %>
             <li></li>
           <% }); %>
         </ul>
@@ -691,7 +692,7 @@
       @markMargin: 1em;
       @minutes: 60;
 
-      .transformMarks(@minute:1) when (@minute <= @minutes) {
+      .positionMarks(@minute: 1) when (@minute <= @minutes) {
         @rotate: (360deg / @minutes) * @minute;
         @translate: (@clockSize / 2) -
                     (@markHeight / 2) -
@@ -700,11 +701,11 @@
           transform: rotate(@rotate)
                      translateY(-@translate);
         }
-        .transformMarks((@minute + 1));
+        .positionMarks((@minute + 1));
       }
 
       #watch .marks li {
-        .transformMarks;
+        .positionMarks;
       }
     </script>
     <div class="row">
@@ -722,7 +723,7 @@
       @minutes: 60;
       @hours: 12;
 
-      .transformMarks(@minute:1) when (@minute <= @minutes) {
+      .positionMarks(@minute: 1) when (@minute <= @minutes) {
         @rotate: (360deg / @minutes) * @minute;
         @translate: (@clockSize / 2) -
                     (@markHeight / 2) -
@@ -741,11 +742,11 @@
                      translateY(-@translate);
           visibility: @visibility;
         }
-        .transformMarks((@minute + 1));
+        .positionMarks((@minute + 1));
       }
 
       #watch .marks li {
-        .transformMarks;
+        .positionMarks;
       }
     </script>
     <div class="row">
@@ -920,6 +921,322 @@
       <a href="#putting-them-together" aria-hidden="true" class="anchor"><span class="glyphicon glyphicon-link"></span></a>
       Putting them together
     </h2>
+    <script id="together_transition_html" type="text/example-html">
+      <% var hours = 12, minutes = 60; %>
+
+      <div id="watch">
+        <div class="frame"></div>
+        <ul class="marks">
+        <% _.forEach(_.range(minutes), function() { %>
+          <li></li>
+        <% }); %>
+        </ul>
+        <ul class="digits">
+        <% _.forEach(_.range(hours), function(hour) { %>
+          <li><%- hour + 1 %></li>
+        <% }); %>
+        </ul>
+        <div class="hands">
+          <div class="hours-hand"></div>
+          <div class="minutes-hand"></div>
+          <div class="seconds-hand"></div>
+        </div>
+      </div>
+    </script>
+    <script id="together_transition_css" type="text/example-css" data-import="together_4_css">
+      #watch {
+        font-size: 50%;
+        display: block;
+        width: @clockSize; height: @clockSize;
+        position: absolute;
+        top: 25%; left: 0;
+      }
+      #watch .digits {
+        left: 100%;
+      }
+      #watch .marks {
+        left: 200%;
+      }
+      #watch .hands {
+        display: block;
+        width: @clockSize; height: @clockSize;
+        position: absolute;
+        top: 0;
+        left: 300%;
+      }
+
+      #watch {
+        animation: moveToTheCenterOfExampleBox 4s ease infinite;
+      }
+
+      @keyframes moveToTheCenterOfExampleBox {
+        50% {
+          left: 37.5%;
+        }
+        100% {
+          left: 37.5%;
+        }
+      }
+
+      #watch .digits,
+      #watch .marks,
+      #watch .hands {
+        animation: moveToTheCenterOfWatch 4s ease infinite;
+      }
+
+      @keyframes moveToTheCenterOfWatch {
+        50% {
+          left: 0;
+        }
+        100% {
+          left: 0;
+        }
+      }
+    </script>
+    <div class="text-center">
+      <div id="together_transition_box" class="example-box" data-example="box" data-html="together_transition_html" data-css="together_transition_css" style="width: 40em;"></div>
+    </div>
+    <p><strong>Add the frame.</strong>The frame is the only one in the flow. All other components are absolutely positioned, so set <code>position: relative;</code> in the watch to make it a positioned ancestor.</p>
+    <script id="together_1_html" type="text/example-html">
+      <div id="watch">
+        <div class="frame"></div>
+      </div>
+    </script>
+    <script id="together_1_css" type="text/example-css">
+      @clockSize: 20em;
+      @clockBorder: .5em;
+
+      .makeCircle(@diameter) {
+        width: @clockSize; height: @clockSize;
+        border-radius: (@clockSize / 2);
+      }
+
+      #watch .frame {
+        .makeCircle(@clockSize);
+        background: white;
+        border: @clockBorder solid black;
+      }
+    </script>
+    <div class="row">
+      <div class="col-md-6 text-center">
+        <div id="together_1_box" class="example-box" data-example="box" data-html="together_1_html" data-css="together_1_css"></div>
+      </div>
+      <div class="col-md-6">
+        <div id="together_1_html_code" class="example-code" data-example="html" data-html="together_1_html"></div>
+        <div id="together_1_css_code" class="example-code" data-example="css" data-css="together_1_css"></div>
+      </div>
+    </div>
+    <p>The frame is the only one in the flow. All other components are absolutely positioned, so set <code>position: relative;</code> in the watch to make it the closest positioned ancestor.</p>
+    <script id="together_positioned_css" type="text/example-css" data-import="together_1_css">
+      #watch {
+        position: relative;
+      }
+    </script>
+    <div id="together_positioned_css_code" class="example-code" data-example="css" data-css="together_positioned_css"></div>
+    <p>Let's define a few mixins to deal with centering.</p>
+    <script id="together_centering_css" type="text/example-css" data-import="together_positioned_css">
+      .clearListStyle { list-style: none; margin: 0; padding: 0; }
+
+      .centerText(@width, @height:@width) {
+        display: block;
+        width: @width; height: @height;
+        line-height: @height;
+        text-align: center;
+      }
+
+      .moveBoxToFillParent {
+        position: absolute;
+        top: 0; left: 0;
+      }
+
+      .moveBoxToParentCenter(@width, @height:@width) {
+        position: absolute;
+        top: 50%; left: 50%;
+        margin: -(@height / 2) 0 0 -(@width / 2);
+      }
+    </script>
+    <div id="together_centering_css_code" class="example-code" data-example="css" data-css="together_centering_css"></div>
+    <p><strong>Add the digits.</strong></p>
+    <script id="together_2_html" type="text/example-html">
+      <% var hours = 12; %>
+
+      <div id="watch">
+        <div class="frame"></div>
+        <ul class="digits">
+        <% _.forEach(_.range(hours), function(hour) { %>
+          <li><%- hour + 1 %></li>
+        <% }); %>
+        </ul>
+      </div>
+    </script>
+    <script id="together_2_css" type="text/example-css" data-import="together_centering_css">
+      @digitSize: 1em;
+      @digitMargin: 1em;
+      @hours: 12;
+
+      .positionDigits(@hour: @hours) when (@hour > 0) {
+        .positionDigits((@hour - 1));
+
+        @rotate: (360deg / @hours) * @hour;
+        @translate: (@clockSize / 2) -
+                    (@digitSize / 2) -
+                    @digitMargin;
+
+        &:nth-child(@{hour}) {
+          transform: rotate(@rotate)
+                     translateY(-@translate)
+                     rotate(-@rotate);
+        }
+      }
+
+      #watch .digits {
+        .clearListStyle;
+        .makeCircle(@clockSize);
+        .moveBoxToFillParent;
+      }
+
+      #watch .digits li {
+        font-weight: bold;
+        font-family: sans-serif;
+        .centerText(@digitSize);
+        .moveBoxToParentCenter(@digitSize);
+        .positionDigits;
+      }
+    </script>
+    <div class="row">
+      <div class="col-md-6 text-center">
+        <div id="together_2_box" class="example-box" data-example="box" data-html="together_2_html" data-css="together_2_css"></div>
+      </div>
+      <div class="col-md-6">
+        <div id="together_2_html_code" class="example-code" data-example="html" data-html="together_2_html"></div>
+        <div id="together_2_css_code" class="example-code" data-example="css" data-css="together_2_css"></div>
+      </div>
+    </div>
+    <p><strong>Add the marks.</strong></p>
+    <script id="together_3_html" type="text/example-html">
+      <% var hours = 12, minutes = 60; %>
+
+      <div id="watch">
+        <div class="frame"></div>
+        <ul class="digits">
+        <% _.forEach(_.range(hours), function(hour) { %>
+          <li><%- hour + 1 %></li>
+        <% }); %>
+        </ul>
+        <ul class="marks">
+        <% _.forEach(_.range(minutes), function() { %>
+          <li></li>
+        <% }); %>
+        </ul>
+      </div>
+    </script>
+    <script id="together_3_css" type="text/example-css" data-import="together_2_css">
+      @markHeight: .375em;
+      @markWidth: .125em;
+      @markMargin: @digitMargin;
+      @minutes: 60;
+
+      .positionMarks(@minute: @minutes) when (@minute > 0) {
+        .positionMarks((@minute - 1));
+
+        @rotate: (360deg / @minutes) * @minute;
+        @translate: (@clockSize / 2) -
+                    (@markHeight / 2) -
+                    @markMargin;
+
+        &:nth-child(@{minute}) {
+          transform: rotate(@rotate)
+                     translateY(-@translate);
+        }
+      }
+
+      .hideMarks(@minute: @minutes) when (@minute > 0) {
+        .hideMarks((@minute - 5));
+
+        &:nth-child(@{minute}) {
+          visibility: hidden;
+        }
+      }
+
+      #watch .marks {
+        .clearListStyle;
+        .makeCircle(@clockSize);
+        .moveBoxToFillParent;
+      }
+
+      #watch .marks li {
+        display: block;
+        width: @markWidth; height: @markHeight;
+        background: #929394;
+        .moveBoxToParentCenter(@markWidth, @markHeight);
+        .positionMarks;
+        .hideMarks;
+      }
+    </script>
+    <div class="row">
+      <div class="col-md-6 text-center">
+        <div id="together_3_box" class="example-box" data-example="box" data-html="together_3_html" data-css="together_3_css"></div>
+      </div>
+      <div class="col-md-6">
+        <div id="together_3_html_code" class="example-code" data-example="html" data-html="together_3_html"></div>
+        <div id="together_3_css_code" class="example-code" data-example="css" data-css="together_3_css"></div>
+      </div>
+    </div>
+    <p><strong>Add the hands.</strong></p>
+    <script id="together_4_html" type="text/example-html">
+      <% var hours = 12, minutes = 60; %>
+
+      <div id="watch">
+        <div class="frame"></div>
+        <ul class="marks">
+        <% _.forEach(_.range(minutes), function() { %>
+          <li></li>
+        <% }); %>
+        </ul>
+        <ul class="digits">
+        <% _.forEach(_.range(hours), function(hour) { %>
+          <li><%- hour + 1 %></li>
+        <% }); %>
+        </ul>
+        <div class="hours-hand"></div>
+        <div class="minutes-hand"></div>
+        <div class="seconds-hand"></div>
+      </div>
+    </script>
+    <script id="together_4_css" type="text/example-css" data-import="together_3_css">
+      .hand(@colour, @length, @tail, @width) {
+        background: @colour;
+        display: block;
+        height: @length; width: @width;
+        position: absolute;
+        top: 50%; left: 50%;
+        margin: -(@length - @tail) 0 0 -(@width / 2);
+        transform-origin: (@width / 2) (@length - @tail) 0;
+      }
+
+      .hours-hand {
+        .hand(#232425, 4.375em, .5em, .5em);
+        transform: rotate((360deg / 12 * 4.333));
+      }
+
+      .minutes-hand {
+        .hand(#343536, 7.815em, .9375em, .5em);
+        transform: rotate((360deg / 60 * 20));
+      }
+
+      .seconds-hand {
+        .hand(#c00, 8.75em, 1.25em, .125em);
+      }
+    </script>
+    <div class="row">
+      <div class="col-md-6 text-center">
+        <div id="together_4_box" class="example-box" data-example="box" data-html="together_4_html" data-css="together_4_css"></div>
+      </div>
+      <div class="col-md-6">
+        <div id="together_4_html_code" class="example-code" data-example="html" data-html="together_4_html"></div>
+        <div id="together_4_css_code" class="example-code" data-example="css" data-css="together_4_css"></div>
+      </div>
+    </div>
     <h2 id="animation" class="page-header">
       <a href="#animation" aria-hidden="true" class="anchor"><span class="glyphicon glyphicon-link"></span></a>
       Animation
