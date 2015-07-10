@@ -1241,6 +1241,77 @@
       <a href="#animation" aria-hidden="true" class="anchor"><span class="glyphicon glyphicon-link"></span></a>
       Animation
     </h2>
+    <p><strong>Add rotation animation.</strong> Create a single <code>@keyframes</code> that rotates 360 degrees and set it to all hands with <code>animation-timing-function: linear;</code> and <code>animation-iteration-count: infinite;</code>. For each hand, set the <code>animation-duration</code> to the time in seconds that take the hand to complete a cycle (the second hand takes 60 seconds, the minute hand takes 3600 seconds and the hour hand takes 86400 seconds).</p>
+    <script id="animation_1_css" type="text/example-css" data-import="together_4_css">
+      @keyframes rotation {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .hours-hand {
+        animation: rotation (60s * 60 * 24) linear infinite;
+      }
+
+      .minutes-hand {
+        animation: rotation (60s * 60) linear infinite;
+      }
+
+      .seconds-hand {
+        animation: rotation 60s linear infinite;
+      }
+    </script>
+    <div class="row">
+      <div class="col-md-6 text-center">
+        <div id="animation_1_box" class="example-box" data-example="box" data-html="together_4_html" data-css="animation_1_css"></div>
+      </div>
+      <div class="col-md-6">
+        <div id="animation_1_css_code" class="example-code" data-example="css" data-css="animation_1_css"></div>
+      </div>
+    </div>
+    <p><strong>Move the seconds hand in ticks.</strong> Instead of the <code>linear</code>, use a <code>steps</code> timing function.</p>
+    <script id="animation_2_css" type="text/example-css" data-import="animation_1_css">
+      .seconds-hand {
+        animation-timing-function: steps(60, start);
+      }
+    </script>
+    <div class="row">
+      <div class="col-md-6 text-center">
+        <div id="animation_2_box" class="example-box" data-example="box" data-html="together_4_html" data-css="animation_2_css"></div>
+      </div>
+      <div class="col-md-6">
+        <div id="animation_2_css_code" class="example-code" data-example="css" data-css="animation_2_css"></div>
+      </div>
+    </div>
+    <p><strong>Set the clock.</strong> It is possible to start the animation in a specific position setting a negative <code>animation-delay</code>.</p>
+    <script id="animation_3_css" type="text/example-css" data-import="animation_2_css">
+      @hour: 4;
+      @minute: 20;
+      @second: 0;
+
+      .hours-hand {
+        animation-delay: ((@hour * 3600s) + (@minute * 60s) + @second);
+      }
+
+      .minutes-hand {
+        animation-delay: ((@minute * 60s) + @second);
+      }
+
+      .seconds-hand {
+        animation-delay: @second;
+      }
+    </script>
+    <div class="row">
+      <div class="col-md-6 text-center">
+        <div id="animation_3_box" class="example-box" data-example="box" data-html="together_4_html" data-css="animation_3_css"></div>
+      </div>
+      <div class="col-md-6">
+        <div id="animation_3_css_code" class="example-code" data-example="css" data-css="animation_3_css"></div>
+      </div>
+    </div>
     <h2 id="current-time" class="page-header">
       <a href="#current-time" aria-hidden="true" class="anchor"><span class="glyphicon glyphicon-link"></span></a>
       Current time
