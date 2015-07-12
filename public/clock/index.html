@@ -15,6 +15,7 @@
 
   <!-- Bootstrap -->
   <link href="/clock/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/clock/css/goldenratio.css" rel="stylesheet">
 
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -26,15 +27,42 @@
   <link rel="stylesheet" href="/clock/css/railscasts.css">
 
   <style type="text/css">
-    .example-box {
-      display: inline-block;
-      width: 20em;
-      height: 20em;
+    .example-result, .example-result-fluid, .example-result-small {
+      font-size: 87.5%;
+      max-width: 100%;
+    }
+
+    .example-result, .example-result-fluid {
+      text-align: center;
+    }
+
+    .example-result > .example-result-container {
       position: relative;
+      display: inline-block;
+      font-size: 87.5%;
+      width: 20em;
+      max-width: 100%;
+      height: 20em;
       overflow: hidden;
     }
 
+    .example-result-fluid > .example-result-container {
+      position: relative;
+      width: 100%;
+      height: 20em;
+      overflow: hidden;
+    }
+
+<<<<<<< HEAD
+    .example-result, .example-result-small, .example-code {
+=======
+    .hljs {
+      overflow-x: auto;
+      word-wrap: normal;
+    }
+
     .example-box, .example-box-small, .example-code {
+>>>>>>> b89f165... Building a clock, fixing problems for .xs
       margin: 2em 0;
     }
 
@@ -91,15 +119,15 @@
     <h1>Clock</h1>
     <p>Attempt to reverse engineer and rewrite step by step this <a href="http://codepen.io/iliadraznin/pen/JcqbE">pure-CSS3 clock</a> in order to build me a <a href="https://en.wikipedia.org/wiki/Decimal_time">decimal time</a> clock.</p>
     <p>I want it parameterized to be easier to understand and write the final code, so I use <a href="https://lodash.com/docs#template">_.template</a> for the HTML and <a href="http://lesscss.org/">Less</a> for the CSS.</p>
-    <h2 id="frame" class="page-header">
-      <a href="#frame" aria-hidden="true" class="anchor"><span class="glyphicon glyphicon-link"></span></a>
-      Frame
+    <h2 id="face" class="page-header">
+      <a href="#face" aria-hidden="true" class="anchor"><span class="glyphicon glyphicon-link"></span></a>
+      Face
     </h2>
-    <script id="frame_transition_css" type="text/example-css">
+    <script id="face_transition_css" type="text/example-css">
       @clockSize: 20em;
       @borderSize: .5em;
 
-      @keyframes addFrame {
+      @keyframes addFace {
         0% {
           width: @borderSize * 2;
           height: @borderSize * 2;
@@ -135,52 +163,50 @@
         }
       }
 
-      #watch .frame {
-        animation: addFrame 4s normal infinite;
+      #watch .face {
+        animation: addFace 4s normal infinite;
         background: white;
         border: @borderSize solid black;
       }
     </script>
-    <div class="text-center">
-      <div id="frame_transition_box" class="example-box" data-example="box" data-html="frame_1_html" data-css="frame_transition_css"></div>
-    </div>
-    <p><strong>Add the fame.</strong> Create a <code>&lt;div&gt;</code> with the same <code>height</code> and <code>width</code>. I made it proportional to the digit size by using a size in <code>em</code>. I added a background and border to make the frame visible in the white background.</p>
-    <script id="frame_1_html" type="text/example-html">
+    <div id="face_transition_result" class="example-result" data-example="result" data-html="face_1_html" data-css="face_transition_css"></div>
+    <p><strong>Add the face.</strong> Create a <code>&lt;div&gt;</code> with the same <code>height</code> and <code>width</code>. I made it proportional to the digit size by using a size in <code>em</code>. I added a background and border to make the face visible in the white background.</p>
+    <script id="face_1_html" type="text/example-html">
       <div id="watch">
-        <div class="frame"></div>
+        <div class="face"></div>
       </div>
     </script>
-    <script id="frame_1_css" type="text/example-css">
+    <script id="face_1_css" type="text/example-css">
       @clockSize: 20em;
 
-      #watch .frame {
+      #watch > .face {
         width: @clockSize; height: @clockSize;
         background: white;
         border: .5em solid black;
       }
     </script>
     <div class="row">
-      <div class="col-md-6 text-center">
-        <div id="frame_1_box" class="example-box" data-example="box" data-html="frame_1_html" data-css="frame_1_css"></div>
+      <div class="col-md-goldsm">
+        <div id="face_1_result" class="example-result" data-example="result" data-html="face_1_html" data-css="face_1_css"></div>
       </div>
-      <div class="col-md-6">
-        <div id="frame_1_html_code" class="example-code" data-example="html" data-html="frame_1_html"></div>
-        <div id="frame_1_css_code" class="example-code" data-example="css" data-css="frame_1_css"></div>
+      <div class="col-md-goldlg">
+        <div id="face_1_html_code" class="example-code" data-example="html" data-html="face_1_html"></div>
+        <div id="face_1_css_code" class="example-code" data-example="css" data-css="face_1_css"></div>
       </div>
     </div>
     <p><strong>Make it round.</strong> Make the <code>border-radius</code> half the size of the clock.</p>
-    <script id="frame_2_css" type="text/example-css" data-import="frame_1_css">
-      #watch .frame {
+    <script id="face_2_css" type="text/example-css" data-import="face_1_css">
+      #watch > .face {
         width: @clockSize; height: @clockSize;
         border-radius: (@clockSize / 2);
       }
     </script>
     <div class="row">
-      <div class="col-md-6 text-center">
-        <div id="frame_2_box" class="example-box" data-example="box" data-html="frame_1_html" data-css="frame_2_css"></div>
+      <div class="col-md-goldsm">
+        <div id="face_2_result" class="example-result" data-example="result" data-html="face_1_html" data-css="face_2_css"></div>
       </div>
-      <div class="col-md-6">
-        <div id="frame_2_css_code" class="example-code" data-example="css" data-css="frame_2_css"></div>
+      <div class="col-md-goldlg">
+        <div id="face_2_css_code" class="example-code" data-example="css" data-css="face_2_css"></div>
       </div>
     </div>
     <h2 id="digits" class="page-header">
@@ -193,16 +219,16 @@
       @digitMargin: 1em;
       @hours: 12;
 
-      #watch .digits {
+      #watch > .digits {
         list-style: none; margin: 0; padding: 0;
         width: @clockSize; height: @clockSize;
         border-radius: (@clockSize / 2);
         position: relative;
       }
 
-      #watch .digits li {
+      #watch > .digits > li {
         font-weight: bold;
-        font-family: sans-serif;
+        font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
         display: block;
         width: @digitSize; height: @digitSize;
         line-height: @digitSize;
@@ -278,9 +304,7 @@
         .animationsForEachDigit((@hour + 1));
       }
     </script>
-    <div class="text-center">
-      <div id="digits_transition_box" class="example-box" data-example="box" data-html="digits_html" data-css="digits_transition_css"></div>
-    </div>
+    <div id="digits_transition_result" class="example-result" data-example="result" data-html="digits_html" data-css="digits_transition_css"></div>
     <p><strong>Add a digit.</strong> Since we are using a <code>&lt;ul&gt;</code>, we have to clear the style by removing <code>list-style</code>, <code>margin</code> and <code>padding</code>. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
     <script id="single_digit_1_html" type="text/example-html">
       <div id="watch">
@@ -290,21 +314,21 @@
       </div>
     </script>
     <script id="single_digit_1_css" type="text/example-css">
-      #watch .digits { list-style: none; margin: 0; padding: 0; }
+      #watch > .digits { list-style: none; margin: 0; padding: 0; }
 
-      #watch .digits li {
+      #watch > .digits > li {
         font-weight: bold;
-        font-family: sans-serif;
+        font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
       }
     </script>
     <script id="show_digit_border_css" type="text/example-css">
-      #watch .digits li { border: 1px solid red; }
+      #watch > .digits > li { border: 1px solid red; }
     </script>
     <div class="row">
-      <div class="col-md-6">
-        <div id="single_digit_1_box" class="example-box-small" data-example="box" data-html="single_digit_1_html" data-css="single_digit_1_css" data-css-after="show_digit_border_css"></div>
+      <div class="col-md-goldsm">
+        <div id="single_digit_1_result" class="example-result-small" data-example="result" data-html="single_digit_1_html" data-css="single_digit_1_css" data-css-after="show_digit_border_css"></div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-goldlg">
         <div id="single_digit_1_html_code" class="example-code" data-example="html" data-html="single_digit_1_html"></div>
         <div id="single_digit_1_css_code" class="example-code" data-example="css" data-css="single_digit_1_css"></div>
       </div>
@@ -313,7 +337,7 @@
     <script id="single_digit_2_css" type="text/example-css" data-import="single_digit_1_css">
       @digitSize: 1em;
 
-      #watch .digits li {
+      #watch > .digits > li {
         display: block;
         width: @digitSize; height: @digitSize;
         line-height: @digitSize;
@@ -321,10 +345,10 @@
       }
     </script>
     <div class="row">
-      <div class="col-md-6">
-        <div id="single_digit_2_box" class="example-box-small" data-example="box" data-html="single_digit_1_html" data-css="single_digit_2_css" data-css-after="show_digit_border_css"></div>
+      <div class="col-md-goldsm">
+        <div id="single_digit_2_result" class="example-result-small" data-example="result" data-html="single_digit_1_html" data-css="single_digit_2_css" data-css-after="show_digit_border_css"></div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-goldlg">
         <div id="single_digit_2_css_code" class="example-code" data-example="css" data-css="single_digit_2_css"></div>
       </div>
     </div>
@@ -332,27 +356,27 @@
     <script id="single_digit_3_css" type="text/example-css" data-import="single_digit_2_css">
       @clockSize: 20em;
 
-      #watch .digits {
+      #watch > .digits {
         width: @clockSize; height: @clockSize;
         border-radius: (@clockSize / 2);
         position: relative;
       }
 
-      #watch .digits li {
+      #watch > .digits > li {
         position: absolute;
         top: 50%; left: 50%;
         margin: -(@digitSize / 2) 0 0 -(@digitSize / 2);
       }
     </script>
     <script id="show_digit_and_watch_border_css" type="text/example-css">
-      #watch .digits { border: 1px solid blue; }
-      #watch .digits li { border: 1px solid red; }
+      #watch > .digits { border: 1px solid blue; }
+      #watch > .digits > li { border: 1px solid red; }
     </script>
     <div class="row">
-      <div class="col-md-6 text-center">
-        <div id="single_digit_3_box" class="example-box" data-example="box" data-html="single_digit_1_html" data-css="single_digit_3_css" data-css-after="show_digit_and_watch_border_css" data-crosshairs="#888"></div>
+      <div class="col-md-goldsm">
+        <div id="single_digit_3_result" class="example-result" data-example="result" data-html="single_digit_1_html" data-css="single_digit_3_css" data-css-after="show_digit_and_watch_border_css" data-crosshairs="#888"></div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-goldlg">
         <div id="single_digit_3_css_code" class="example-code" data-example="css" data-css="single_digit_3_css"></div>
       </div>
     </div>
@@ -360,7 +384,7 @@
     <script id="single_digit_4_css" type="text/example-css" data-import="single_digit_3_css">
       @digitMargin: 1em;
 
-      #watch .digits li {
+      #watch > .digits > li {
         &:nth-child(1) {
           @translate: (@clockSize / 2) -
                       (@digitSize / 2) -
@@ -370,10 +394,10 @@
       }
     </script>
     <div class="row">
-      <div class="col-md-6 text-center">
-        <div id="single_digit_4_box" class="example-box" data-example="box" data-html="single_digit_1_html" data-css="single_digit_4_css" data-css-after="show_digit_and_watch_border_css"></div>
+      <div class="col-md-goldsm">
+        <div id="single_digit_4_result" class="example-result" data-example="result" data-html="single_digit_1_html" data-css="single_digit_4_css" data-css-after="show_digit_and_watch_border_css"></div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-goldlg">
         <div id="single_digit_4_css_code" class="example-code" data-example="css" data-css="single_digit_4_css"></div>
       </div>
     </div>
@@ -381,7 +405,7 @@
     <script id="single_digit_5_css" type="text/example-css" data-import="single_digit_3_css">
       @digitMargin: 1em;
 
-      #watch .digits li {
+      #watch > .digits > li {
         &:nth-child(1) {
           @translate: (@clockSize / 2) -
                       (@digitSize / 2) -
@@ -394,10 +418,10 @@
       }
     </script>
     <div class="row">
-      <div class="col-md-6 text-center">
-        <div id="single_digit_5_box" class="example-box" data-example="box" data-html="single_digit_1_html" data-css="single_digit_5_css" data-css-after="show_digit_and_watch_border_css"></div>
+      <div class="col-md-goldsm">
+        <div id="single_digit_5_result" class="example-result" data-example="result" data-html="single_digit_1_html" data-css="single_digit_5_css" data-css-after="show_digit_and_watch_border_css"></div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-goldlg">
         <div id="single_digit_5_css_code" class="example-code" data-example="css" data-css="single_digit_5_css"></div>
       </div>
     </div>
@@ -405,7 +429,7 @@
     <script id="single_digit_6_css" type="text/example-css" data-import="single_digit_3_css">
       @digitMargin: 1em;
 
-      #watch .digits li {
+      #watch > .digits > li {
         &:nth-child(1) {
           @translate: (@clockSize / 2) -
                       (@digitSize / 2) -
@@ -418,10 +442,10 @@
       }
     </script>
     <div class="row">
-      <div class="col-md-6 text-center">
-        <div id="single_digit_6_box" class="example-box" data-example="box" data-html="single_digit_1_html" data-css="single_digit_6_css" data-css-after="show_digit_and_watch_border_css"></div>
+      <div class="col-md-goldsm">
+        <div id="single_digit_6_result" class="example-result" data-example="result" data-html="single_digit_1_html" data-css="single_digit_6_css" data-css-after="show_digit_and_watch_border_css"></div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-goldlg">
         <div id="single_digit_6_css_code" class="example-code" data-example="css" data-css="single_digit_6_css"></div>
       </div>
     </div>
@@ -454,15 +478,15 @@
         .positionDigits((@hour + 1));
       }
 
-      #watch .digits li {
+      #watch > .digits > li {
         .positionDigits;
       }
     </script>
     <div class="row">
-      <div class="col-md-6 text-center">
-        <div id="digits_box" class="example-box" data-example="box" data-html="digits_html" data-css="digits_css"></div>
+      <div class="col-md-goldsm">
+        <div id="digits_result" class="example-result" data-example="result" data-html="digits_html" data-css="digits_css"></div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-goldlg">
         <div id="digits_html_code" class="example-code" data-example="html" data-html="digits_html"></div>
         <div id="digits_css_code" class="example-code" data-example="css" data-css="digits_css"></div>
       </div>
@@ -480,14 +504,14 @@
       @minutes: 60;
       @hours: 12;
 
-      #watch .marks {
+      #watch > .marks {
         list-style: none; margin: 0; padding: 0;
         width: @clockSize; height: @clockSize;
         border-radius: (@clockSize / 2);
         position: relative;
       }
 
-      #watch .marks li {
+      #watch > .marks > li {
         display: block;
         width: @markWidth;
         height: @markHeight;
@@ -595,9 +619,7 @@
         .animationsForEachMark((@minute + 1));
       }
     </script>
-    <div class="text-center">
-      <div id="marks_transition_box" class="example-box" data-example="box" data-html="marks_html" data-css="marks_transition_css"></div>
-    </div>
+    <div id="marks_transition_result" class="example-result" data-example="result" data-html="marks_html" data-css="marks_transition_css"></div>
     <p><strong>Add a mark.</strong> Same instructions as for the digits.</p>
     <script id="single_mark_1_html" type="text/example-html">
       <div id="watch">
@@ -610,18 +632,18 @@
       @markHeight: .375em;
       @markWidth: .125em;
 
-      #watch .marks { list-style: none; margin: 0; padding: 0; }
+      #watch > .marks { list-style: none; margin: 0; padding: 0; }
 
-      #watch .marks li {
+      #watch > .marks > li {
         width: @markWidth; height: @markHeight;
         background: #929394;
       }
     </script>
     <div class="row">
-      <div class="col-md-6">
-        <div id="single_mark_1_box" class="example-box-small" data-example="box" data-html="single_mark_1_html" data-css="single_mark_1_css"></div>
+      <div class="col-md-goldsm">
+        <div id="single_mark_1_result" class="example-result-small" data-example="result" data-html="single_mark_1_html" data-css="single_mark_1_css"></div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-goldlg">
         <div id="single_mark_1_html_code" class="example-code" data-example="html" data-html="single_mark_1_html"></div>
         <div id="single_mark_1_css_code" class="example-code" data-example="css" data-css="single_mark_1_css"></div>
       </div>
@@ -630,26 +652,26 @@
     <script id="single_mark_2_css" type="text/example-css" data-import="single_mark_1_css">
       @clockSize: 20em;
 
-      #watch .marks {
+      #watch > .marks {
         width: @clockSize; height: @clockSize;
         border-radius: (@clockSize / 2);
         position: relative;
       }
 
-      #watch .marks li {
+      #watch > .marks > li {
         position: absolute;
         top: 50%; left: 50%;
         margin: -(@markHeight / 2) 0 0 -(@markWidth / 2);
       }
     </script>
     <script id="show_mark_and_watch_border_css" type="text/example-css">
-      #watch .marks { border: 1px solid blue; }
+      #watch > .marks { border: 1px solid blue; }
     </script>
     <div class="row">
-      <div class="col-md-6 text-center">
-        <div id="single_mark_2_box" class="example-box" data-example="box" data-html="single_mark_1_html" data-css="single_mark_2_css" data-css-after="show_mark_and_watch_border_css" data-crosshairs="#888"></div>
+      <div class="col-md-goldsm">
+        <div id="single_mark_2_result" class="example-result" data-example="result" data-html="single_mark_1_html" data-css="single_mark_2_css" data-css-after="show_mark_and_watch_border_css" data-crosshairs="#888"></div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-goldlg">
         <div id="single_mark_2_css_code" class="example-code" data-example="css" data-css="single_mark_2_css"></div>
       </div>
     </div>
@@ -657,7 +679,7 @@
     <script id="single_mark_3_css" type="text/example-css" data-import="single_mark_2_css">
       @markMargin: 1em;
 
-      #watch .marks li {
+      #watch > .marks > li {
         &:nth-child(1) {
           @translate: (@clockSize / 2) -
                       (@markHeight / 2) -
@@ -669,10 +691,10 @@
       }
     </script>
     <div class="row">
-      <div class="col-md-6 text-center">
-        <div id="single_mark_4_box" class="example-box" data-example="box" data-html="single_mark_1_html" data-css="single_mark_3_css" data-css-after="show_mark_and_watch_border_css"></div>
+      <div class="col-md-goldsm">
+        <div id="single_mark_4_result" class="example-result" data-example="result" data-html="single_mark_1_html" data-css="single_mark_3_css" data-css-after="show_mark_and_watch_border_css"></div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-goldlg">
         <div id="single_mark_3_css_code" class="example-code" data-example="css" data-css="single_mark_3_css"></div>
       </div>
     </div>
@@ -704,15 +726,15 @@
         .positionMarks((@minute + 1));
       }
 
-      #watch .marks li {
+      #watch > .marks > li {
         .positionMarks;
       }
     </script>
     <div class="row">
-      <div class="col-md-6 text-center">
-        <div id="marks_box" class="example-box" data-example="box" data-html="marks_html" data-css="marks_css"></div>
+      <div class="col-md-goldsm">
+        <div id="marks_result" class="example-result" data-example="result" data-html="marks_html" data-css="marks_css"></div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-goldlg">
         <div id="marks_html_code" class="example-code" data-example="html" data-html="marks_html"></div>
         <div id="marks_css_code" class="example-code" data-example="css" data-css="marks_css"></div>
       </div>
@@ -745,15 +767,15 @@
         .positionMarks((@minute + 1));
       }
 
-      #watch .marks li {
+      #watch > .marks > li {
         .positionMarks;
       }
     </script>
     <div class="row">
-      <div class="col-md-6 text-center">
-        <div id="marks_2_box" class="example-box" data-example="box" data-html="marks_html" data-css="marks_2_css"></div>
+      <div class="col-md-goldsm">
+        <div id="marks_2_result" class="example-result" data-example="result" data-html="marks_html" data-css="marks_2_css"></div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-goldlg">
         <div id="marks_css_code" class="example-code" data-example="css" data-css="marks_2_css"></div>
       </div>
     </div>
@@ -773,7 +795,7 @@
         border-radius: (@clockSize / 2);
       }
 
-      #watch .hand {
+      #watch > .hand {
         height: @handHeight;
         width: @handWidth;
         background: #c00;
@@ -823,9 +845,7 @@
         }
       }
     </script>
-    <div class="text-center">
-      <div id="hand_transition_box" class="example-box" data-example="box" data-html="single_hand_1_html" data-css="hand_transition_css"></div>
-    </div>
+    <div id="hand_transition_result" class="example-result" data-example="result" data-html="single_hand_1_html" data-css="hand_transition_css"></div>
     <p><strong>Add a hand.</strong> Just create a <code>&lt;div&gt;</code> with the desired <code>background</code>, <code>height</code> (length) and <code>width</code>.</p>
     <script id="single_hand_1_html" type="text/example-html">
       <div id="watch">
@@ -836,17 +856,17 @@
       @handHeight: 8em;
       @handWidth: .2em;
 
-      #watch .hand {
+      #watch > .hand {
         height: @handHeight;
         width: @handWidth;
         background: #c00;
       }
     </script>
     <div class="row">
-      <div class="col-md-6">
-        <div id="single_hand_1_box" class="example-box-small" data-example="box" data-html="single_hand_1_html" data-css="single_hand_1_css"></div>
+      <div class="col-md-goldsm">
+        <div id="single_hand_1_result" class="example-result-small" data-example="result" data-html="single_hand_1_html" data-css="single_hand_1_css"></div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-goldlg">
         <div id="single_hand_1_html_code" class="example-code" data-example="html" data-html="single_hand_1_html"></div>
         <div id="single_hand_1_css_code" class="example-code" data-example="css" data-css="single_hand_1_css"></div>
       </div>
@@ -857,14 +877,14 @@
 
       #watch { position: relative; }
 
-      #watch .hand {
+      #watch > .hand {
         position: absolute;
         top: 50%; left: 50%;
         margin: -@handHeight 0 0 -(@handWidth / 2);
       }
 
       /* This is not part of the final code
-       * These lines are needed only without the frame */
+       * These lines are needed only without the face */
       #watch {
         width: @clockSize; height: @clockSize;
         border-radius: (@clockSize / 2);
@@ -874,10 +894,10 @@
       #watch { border: 1px solid blue; }
     </script>
     <div class="row">
-      <div class="col-md-6 text-center">
-        <div id="single_hand_2_box" class="example-box" data-example="box" data-html="single_hand_1_html" data-css="single_hand_2_css" data-css-after="show_hand_and_watch_border_css" data-crosshairs="#888"></div>
+      <div class="col-md-goldsm">
+        <div id="single_hand_2_result" class="example-result" data-example="result" data-html="single_hand_1_html" data-css="single_hand_2_css" data-css-after="show_hand_and_watch_border_css" data-crosshairs="#888"></div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-goldlg">
         <div id="single_hand_2_css_code" class="example-code" data-example="css" data-css="single_hand_2_css"></div>
       </div>
     </div>
@@ -886,21 +906,21 @@
       @handHeight: 10em;
       @handTail: 2em;
 
-      #watch .hand {
+      #watch > .hand {
         margin: -(@handHeight - @handTail) 0 0 -(@handWidth / 2);
       }
     </script>
     <div class="row">
-      <div class="col-md-6 text-center">
-        <div id="single_hand_3_box" class="example-box" data-example="box" data-html="single_hand_1_html" data-css="single_hand_3_css" data-css-after="show_hand_and_watch_border_css" data-crosshairs="#888"></div>
+      <div class="col-md-goldsm">
+        <div id="single_hand_3_result" class="example-result" data-example="result" data-html="single_hand_1_html" data-css="single_hand_3_css" data-css-after="show_hand_and_watch_border_css" data-crosshairs="#888"></div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-goldlg">
         <div id="single_hand_3_css_code" class="example-code" data-example="css" data-css="single_hand_3_css"></div>
       </div>
     </div>
     <p><strong>Rotate the hand around the center of the watch.</strong> We negate the offsets that we calculated for the negative margins to find the center of the watch and therefore our center of rotation. We set it in <code>transform-origin</code>. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
     <script id="single_hand_4_css" type="text/example-css" data-import="single_hand_3_css">
-      #watch .hand {
+      #watch > .hand {
         @centerOfRotationX: (@handWidth / 2);
         @centerOfRotationY: (@handHeight - @handTail);
         @rotate: (360deg / 60) * 1;
@@ -910,10 +930,10 @@
       }
     </script>
     <div class="row">
-      <div class="col-md-6 text-center">
-        <div id="single_hand_4_box" class="example-box" data-example="box" data-html="single_hand_1_html" data-css="single_hand_4_css" data-css-after="show_hand_and_watch_border_css" data-crosshairs="#888"></div>
+      <div class="col-md-goldsm">
+        <div id="single_hand_4_result" class="example-result" data-example="result" data-html="single_hand_1_html" data-css="single_hand_4_css" data-css-after="show_hand_and_watch_border_css" data-crosshairs="#888"></div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-goldlg">
         <div id="single_hand_4_css_code" class="example-code" data-example="css" data-css="single_hand_4_css"></div>
       </div>
     </div>
@@ -924,63 +944,97 @@
     <script id="together_transition_html" type="text/example-html">
       <% var hours = 12, minutes = 60; %>
 
-      <div id="watch">
-        <div class="frame"></div>
-        <ul class="marks">
-        <% _.forEach(_.range(minutes), function() { %>
-          <li></li>
-        <% }); %>
-        </ul>
-        <ul class="digits">
-        <% _.forEach(_.range(hours), function(hour) { %>
-          <li><%- hour + 1 %></li>
-        <% }); %>
-        </ul>
-        <div class="hands">
-          <div class="hours-hand"></div>
-          <div class="minutes-hand"></div>
-          <div class="seconds-hand"></div>
+      <div id="wrapper">
+        <div id="watch">
+          <div class="face"></div>
+          <ul class="marks">
+          <% _.forEach(_.range(minutes), function() { %>
+            <li></li>
+          <% }); %>
+          </ul>
+          <ul class="digits">
+          <% _.forEach(_.range(hours), function(hour) { %>
+            <li><%- hour + 1 %></li>
+          <% }); %>
+          </ul>
+          <div class="hands">
+            <div class="hours-hand"></div>
+            <div class="minutes-hand"></div>
+            <div class="seconds-hand"></div>
+          </div>
         </div>
       </div>
     </script>
+<<<<<<< HEAD
+    <script id="together_transition_css" type="text/example-css" data-import="together_5_css">
+      #wrapper {
+=======
     <script id="together_transition_css" type="text/example-css" data-import="together_4_css">
       #watch {
+        .marks li, .seconds-hand { min-width: 1px; }
+      }
+
+      #watch {
+>>>>>>> b89f165... Building a clock, fixing problems for .xs
         font-size: 50%;
+        .marks > li, .seconds-hand { min-width: 1px; }
+
+        display: inline-block;
+        width: (@clockSize * 4);
+        max-width: 100%;
+        height: @clockSize;
+        margin-top: (@clockSize / 2);
+        position: relative;
+      }
+
+      #watch {
         display: block;
         width: @clockSize; height: @clockSize;
         position: absolute;
+<<<<<<< HEAD
+        top: 0;
+        left: 0;
+=======
         top: 25%; left: 0;
+>>>>>>> b89f165... Building a clock, fixing problems for .xs
+        margin-left: 0;
       }
-      #watch .digits {
+      #watch > .digits {
         left: 100%;
       }
-      #watch .marks {
+      #watch > .marks {
         left: 200%;
       }
-      #watch .hands {
+      #watch > .hands {
         display: block;
         width: @clockSize; height: @clockSize;
         position: absolute;
         top: 0;
         left: 300%;
+
+        > .hours-hand:extend(#watch > .hours-hand) {}
+        > .minutes-hand:extend(#watch > .minutes-hand) {}
+        > .seconds-hand:extend(#watch > .seconds-hand) {}
       }
 
       #watch {
-        animation: moveToTheCenterOfExampleBox 4s ease infinite;
+        animation: moveToTheCenterOfExampleResult 4s ease infinite;
       }
 
-      @keyframes moveToTheCenterOfExampleBox {
+      @keyframes moveToTheCenterOfExampleResult {
         50% {
-          left: 37.5%;
+          margin-left: -(@clockSize / 2);
+          left: 50%;
         }
         100% {
-          left: 37.5%;
+          margin-left: -(@clockSize / 2);
+          left: 50%;
         }
       }
 
-      #watch .digits,
-      #watch .marks,
-      #watch .hands {
+      #watch > .digits,
+      #watch > .marks,
+      #watch > .hands {
         animation: moveToTheCenterOfWatch 4s ease infinite;
       }
 
@@ -993,13 +1047,11 @@
         }
       }
     </script>
-    <div class="text-center">
-      <div id="together_transition_box" class="example-box" data-example="box" data-html="together_transition_html" data-css="together_transition_css" style="width: 40em;"></div>
-    </div>
-    <p><strong>Add the frame.</strong>The frame is the only one in the flow. All other components are absolutely positioned, so set <code>position: relative;</code> in the watch to make it a positioned ancestor.</p>
+    <div id="together_transition_result" class="example-result-fluid" data-example="result" data-html="together_transition_html" data-css="together_transition_css"></div>
+    <p><strong>Add the face.</strong>The face is the only one in the flow. All other components are absolutely positioned, so set <code>position: relative;</code> in the watch to make it a positioned ancestor.</p>
     <script id="together_1_html" type="text/example-html">
       <div id="watch">
-        <div class="frame"></div>
+        <div class="face"></div>
       </div>
     </script>
     <script id="together_1_css" type="text/example-css">
@@ -1011,22 +1063,22 @@
         border-radius: (@clockSize / 2);
       }
 
-      #watch .frame {
+      #watch > .face {
         .makeCircle(@clockSize);
         background: white;
         border: @clockBorder solid black;
       }
     </script>
     <div class="row">
-      <div class="col-md-6 text-center">
-        <div id="together_1_box" class="example-box" data-example="box" data-html="together_1_html" data-css="together_1_css"></div>
+      <div class="col-md-goldsm">
+        <div id="together_1_result" class="example-result" data-example="result" data-html="together_1_html" data-css="together_1_css"></div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-goldlg">
         <div id="together_1_html_code" class="example-code" data-example="html" data-html="together_1_html"></div>
         <div id="together_1_css_code" class="example-code" data-example="css" data-css="together_1_css"></div>
       </div>
     </div>
-    <p>The frame is the only one in the flow. All other components are absolutely positioned, so set <code>position: relative;</code> in the watch to make it the closest positioned ancestor.</p>
+    <p>The face is the only one in the flow. All other components are absolutely positioned, so set <code>position: relative;</code> in the watch to make it the closest positioned ancestor.</p>
     <script id="together_positioned_css" type="text/example-css" data-import="together_1_css">
       #watch {
         position: relative;
@@ -1061,7 +1113,7 @@
       <% var hours = 12; %>
 
       <div id="watch">
-        <div class="frame"></div>
+        <div class="face"></div>
         <ul class="digits">
         <% _.forEach(_.range(hours), function(hour) { %>
           <li><%- hour + 1 %></li>
@@ -1089,25 +1141,25 @@
         }
       }
 
-      #watch .digits {
+      #watch > .digits {
         .clearListStyle;
         .makeCircle(@clockSize);
         .moveBoxToFillParent;
       }
 
-      #watch .digits li {
+      #watch > .digits > li {
         font-weight: bold;
-        font-family: sans-serif;
+        font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
         .centerText(@digitSize);
         .moveBoxToParentCenter(@digitSize);
         .positionDigits;
       }
     </script>
     <div class="row">
-      <div class="col-md-6 text-center">
-        <div id="together_2_box" class="example-box" data-example="box" data-html="together_2_html" data-css="together_2_css"></div>
+      <div class="col-md-goldsm">
+        <div id="together_2_result" class="example-result" data-example="result" data-html="together_2_html" data-css="together_2_css"></div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-goldlg">
         <div id="together_2_html_code" class="example-code" data-example="html" data-html="together_2_html"></div>
         <div id="together_2_css_code" class="example-code" data-example="css" data-css="together_2_css"></div>
       </div>
@@ -1117,15 +1169,19 @@
       <% var hours = 12, minutes = 60; %>
 
       <div id="watch">
+<<<<<<< HEAD
+        <div class="face"></div>
+=======
         <div class="frame"></div>
-        <ul class="digits">
-        <% _.forEach(_.range(hours), function(hour) { %>
-          <li><%- hour + 1 %></li>
-        <% }); %>
-        </ul>
+>>>>>>> b89f165... Building a clock, fixing problems for .xs
         <ul class="marks">
         <% _.forEach(_.range(minutes), function() { %>
           <li></li>
+        <% }); %>
+        </ul>
+        <ul class="digits">
+        <% _.forEach(_.range(hours), function(hour) { %>
+          <li><%- hour + 1 %></li>
         <% }); %>
         </ul>
       </div>
@@ -1158,13 +1214,13 @@
         }
       }
 
-      #watch .marks {
+      #watch > .marks {
         .clearListStyle;
         .makeCircle(@clockSize);
         .moveBoxToFillParent;
       }
 
-      #watch .marks li {
+      #watch > .marks > li {
         display: block;
         width: @markWidth; height: @markHeight;
         background: #929394;
@@ -1174,10 +1230,10 @@
       }
     </script>
     <div class="row">
-      <div class="col-md-6 text-center">
-        <div id="together_3_box" class="example-box" data-example="box" data-html="together_3_html" data-css="together_3_css"></div>
+      <div class="col-md-goldsm">
+        <div id="together_3_result" class="example-result" data-example="result" data-html="together_3_html" data-css="together_3_css"></div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-goldlg">
         <div id="together_3_html_code" class="example-code" data-example="html" data-html="together_3_html"></div>
         <div id="together_3_css_code" class="example-code" data-example="css" data-css="together_3_css"></div>
       </div>
@@ -1187,7 +1243,7 @@
       <% var hours = 12, minutes = 60; %>
 
       <div id="watch">
-        <div class="frame"></div>
+        <div class="face"></div>
         <ul class="marks">
         <% _.forEach(_.range(minutes), function() { %>
           <li></li>
@@ -1214,34 +1270,58 @@
         transform-origin: (@width / 2) (@length - @tail) 0;
       }
 
-      .hours-hand {
+      #watch > .hours-hand {
         .hand(#232425, 4.375em, .5em, .5em);
-        transform: rotate((360deg / 12 * 4.333));
       }
 
-      .minutes-hand {
+      #watch > .minutes-hand {
         .hand(#343536, 7.815em, .9375em, .5em);
-        transform: rotate((360deg / 60 * 20));
       }
 
-      .seconds-hand {
+      #watch > .seconds-hand {
         .hand(#c00, 8.75em, 1.25em, .125em);
       }
     </script>
     <div class="row">
-      <div class="col-md-6 text-center">
-        <div id="together_4_box" class="example-box" data-example="box" data-html="together_4_html" data-css="together_4_css"></div>
+      <div class="col-md-goldsm">
+        <div id="together_4_result" class="example-result" data-example="result" data-html="together_4_html" data-css="together_4_css"></div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-goldlg">
         <div id="together_4_html_code" class="example-code" data-example="html" data-html="together_4_html"></div>
         <div id="together_4_css_code" class="example-code" data-example="css" data-css="together_4_css"></div>
+      </div>
+    </div>
+    <p><strong>Set the time.</strong> The center of rotation was already set for each hand. We just have to rotate the hand a number of degrees proportional to the desired time. It is essential to remember to set the hour hand relative to 12 hours, not 24 and set minutes and hours hands with its fractions, since they do not move just once every minute or hour.</p>
+    <script id="together_5_css" type="text/example-css" data-import="together_4_css">
+      @hour: 4;
+      @minute: 20;
+      @second: 42;
+
+      #watch > .hours-hand {
+        transform: rotate((360deg / 12 * (@hour + @minute/60 + @second/3600)));
+      }
+
+      #watch > .minutes-hand {
+        transform: rotate((360deg / 60 * (@minute + @second/60)));
+      }
+
+      #watch > .seconds-hand {
+        transform: rotate((360deg / 60 * @second));
+      }
+    </script>
+    <div class="row">
+      <div class="col-md-goldsm">
+        <div id="together_5_result" class="example-result" data-example="result" data-html="together_4_html" data-css="together_5_css"></div>
+      </div>
+      <div class="col-md-goldlg">
+        <div id="together_5_css_code" class="example-code" data-example="css" data-css="together_5_css"></div>
       </div>
     </div>
     <h2 id="animation" class="page-header">
       <a href="#animation" aria-hidden="true" class="anchor"><span class="glyphicon glyphicon-link"></span></a>
       Animation
     </h2>
-    <p><strong>Add rotation animation.</strong> Create a single <code>@keyframes</code> that rotates 360 degrees and set it to all hands with <code>animation-timing-function: linear;</code> and <code>animation-iteration-count: infinite;</code>. For each hand, set the <code>animation-duration</code> to the time in seconds that take the hand to complete a cycle (the second hand takes 60 seconds, the minute hand takes 3600 seconds and the hour hand takes 86400 seconds).</p>
+    <p><strong>Add rotation animation.</strong> Create a single <code>@keyframes</code> that rotates 360 degrees and set it to all hands with <code>animation-timing-function: linear;</code> and <code>animation-iteration-count: infinite;</code>. For each hand, set the <code>animation-duration</code> to the time in seconds that take the hand to complete a cycle. The second hand takes 60 seconds to complete a rotation, the minute hand takes 3600 seconds and the hour hand takes 43200 seconds (only half a day, since the clock has only 12 hours).</p>
     <script id="animation_1_css" type="text/example-css" data-import="together_4_css">
       @keyframes rotation {
         0% {
@@ -1252,70 +1332,184 @@
         }
       }
 
-      .hours-hand {
-        animation: rotation (60s * 60 * 24) linear infinite;
+      #watch > .hours-hand {
+        animation: rotation (60s * 60 * 12) linear infinite;
       }
 
-      .minutes-hand {
+      #watch > .minutes-hand {
         animation: rotation (60s * 60) linear infinite;
       }
 
-      .seconds-hand {
+      #watch > .seconds-hand {
         animation: rotation 60s linear infinite;
       }
     </script>
     <div class="row">
-      <div class="col-md-6 text-center">
-        <div id="animation_1_box" class="example-box" data-example="box" data-html="together_4_html" data-css="animation_1_css"></div>
+      <div class="col-md-goldsm">
+        <div id="animation_1_result" class="example-result" data-example="result" data-html="together_4_html" data-css="animation_1_css"></div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-goldlg">
         <div id="animation_1_css_code" class="example-code" data-example="css" data-css="animation_1_css"></div>
       </div>
     </div>
-    <p><strong>Move the seconds hand in ticks.</strong> Instead of the <code>linear</code>, use a <code>steps</code> timing function.</p>
+    <p><strong>Move the seconds hand in ticks.</strong> Instead of the <code>linear</code>, use a <code>steps</code> timing function. <code>60</code> means it will do the rotation in 60 steps and <code>end</code> means it will animate at the end of every step.</p>
     <script id="animation_2_css" type="text/example-css" data-import="animation_1_css">
-      .seconds-hand {
-        animation-timing-function: steps(60, start);
+      #watch > .seconds-hand {
+        animation-timing-function: steps(60, end);
       }
     </script>
     <div class="row">
-      <div class="col-md-6 text-center">
-        <div id="animation_2_box" class="example-box" data-example="box" data-html="together_4_html" data-css="animation_2_css"></div>
+      <div class="col-md-goldsm">
+        <div id="animation_2_result" class="example-result" data-example="result" data-html="together_4_html" data-css="animation_2_css"></div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-goldlg">
         <div id="animation_2_css_code" class="example-code" data-example="css" data-css="animation_2_css"></div>
       </div>
     </div>
-    <p><strong>Set the clock.</strong> It is possible to start the animation in a specific position setting a negative <code>animation-delay</code>.</p>
-    <script id="animation_3_css" type="text/example-css" data-import="animation_2_css">
-      @hour: 4;
-      @minute: 20;
-      @second: 0;
-
-      .hours-hand {
-        animation-delay: ((@hour * 3600s) + (@minute * 60s) + @second);
+    <p><strong>Pause and resume the clock.</strong> We just have to toggle <code>animation-play-state</code> between <code>running</code> and <code>paused</code>. The default is running, but we will change it to paused and add a class for a running watch. It is a pure CSS endeavor, but it will not prevent your script from adjusting the clock if you forgot to stop it.</p>
+    <script id="pause_css" type="text/example-css" data-import="animation_2_css">
+      #watch.running {
+        .hours-hand { animation-play-state: running; }
+        .minutes-hand { animation-play-state: running; }
+        .seconds-hand { animation-play-state: running; }
+      }
+      #watch.paused {
+        .hours-hand { animation-play-state: paused; }
+        .minutes-hand { animation-play-state: paused; }
+        .seconds-hand { animation-play-state: paused; }
+      }
+      #watch:extend(#watch.paused all) {}
+    </script>
+    <script id="pause_on_hover_css" type="text/example-css">
+      #watch:before {
+        position: absolute;
+        top: 0; left: 0; z-index: 99999;
+        width: 100%;
+        background: white;
+        border: 2px solid black;
       }
 
-      .minutes-hand {
-        animation-delay: ((@minute * 60s) + @second);
+      #watch:hover:before {
+        content: 'Running (take your mouse off to stop it)';
+        color: green;
       }
 
-      .seconds-hand {
-        animation-delay: @second;
+      #watch:before {
+        content: 'Paused (mouse over to start it)';
+        color: red;
       }
+
+      #watch:hover:extend(#watch.running all) {}
     </script>
     <div class="row">
-      <div class="col-md-6 text-center">
-        <div id="animation_3_box" class="example-box" data-example="box" data-html="together_4_html" data-css="animation_3_css"></div>
+      <div class="col-md-goldsm">
+        <div id="pause_result" class="example-result" data-example="result" data-html="together_4_html" data-css="pause_css" data-css-after="pause_on_hover_css"></div>
       </div>
-      <div class="col-md-6">
-        <div id="animation_3_css_code" class="example-code" data-example="css" data-css="animation_3_css"></div>
+      <div class="col-md-goldlg">
+        <div id="pause_code" class="example-code" data-example="css" data-css="pause_css"></div>
       </div>
     </div>
     <h2 id="current-time" class="page-header">
       <a href="#current-time" aria-hidden="true" class="anchor"><span class="glyphicon glyphicon-link"></span></a>
       Current time
     </h2>
+    <p><strong>Set the time</strong> in a clock that is using animation. Since the animation is modifying the <code>transform</code> property, trying to rotate it manually is not the best approach as it would require a change to the <code>@keyframes</code> and it would make it impossible for the hands to share a single animation. It is possible to start the animation in a specific position by setting a negative <code>animation-delay</code>.</p>
+    <p>The movement of each hand is like a movie that starts at 12 hours and end at 12 hours after taking a whole clockwise trip around the clock and setting the negative delay is just like seeking a specific time in that movie and pressing play.</p>
+    <script id="set_clock_css" type="text/example-css" data-import="animation_2_css">
+      @hour: 4;
+      @minute: 20;
+      @second: 0;
+
+      #watch > .hours-hand {
+        animation-delay: -((@hour * 3600s) + (@minute * 60s) + @second);
+      }
+
+      #watch > .minutes-hand {
+        animation-delay: -((@minute * 60s) + @second);
+      }
+
+      #watch > .seconds-hand {
+        animation-delay: -@second;
+      }
+    </script>
+    <div class="row">
+      <div class="col-md-goldsm">
+        <div id="set_clock_result" class="example-result" data-example="result" data-html="together_4_html" data-css="set_clock_css"></div>
+      </div>
+      <div class="col-md-goldlg">
+        <div id="set_clock_css_code" class="example-code" data-example="css" data-css="set_clock_css"></div>
+      </div>
+    </div>
+    <p><strong>Set the clock to current time.</strong> To do this we need JavaScript, since knowing current time goes beyond the scope of either HTML or CSS. We just find the right time, calculate the seconds and set it as the position where the animation should start. But once the animation has already started it does not work properly. To set the delay we have to find a way to <a href="https://css-tricks.com/restart-css-animation/">reload the animation</a> and the easiest way to do that is to replace the element with its clone.</p>
+    <script id="current_time_js" type="text/example-js">
+      /**
+       * Seek a specific position in the animation.
+       * @param {jQuery} watchId The animated element wrapped in a jQuery object.
+       * @param {Number} position The position in seconds to seek. */
+      function seekCssAnimation($el, position) {
+        var clone = $el.clone(true).css('animation-delay', -position + 's');
+        $el.replaceWith(clone);
+      }
+
+      /**
+       * Set the watch to the desired time.
+       * @param {String} watchId The id of the watch element.
+       * @param {Date} time The desired time. */
+      function setTime(watchId, time) {
+        var hour   = time.getHours();
+        var minute = time.getMinutes();
+        var second = time.getSeconds();
+        var minutesInSeconds = minute * 60 + second;
+        var hoursInSeconds   = hour * 3600 + minutesInSeconds;
+        var $watch = $('#' + watchId);
+        seekCssAnimation($watch.find('.seconds-hand'), second);
+        seekCssAnimation($watch.find('.minutes-hand'), minutesInSeconds);
+        seekCssAnimation($watch.find('.hours-hand'),   hoursInSeconds);
+      }
+    </script>
+    <script id="current_time_startup" type="text/example-js">
+      setTime('watch', new Date());
+    </script>
+    <div class="row">
+      <div class="col-md-goldsm">
+        <div id="current_time_result" class="example-result" data-example="result" data-html="together_4_html" data-css="animation_2_css" data-js="current_time_js" data-startup="current_time_startup"></div>
+      </div>
+      <div class="col-md-goldlg">
+        <div id="current_time_code" class="example-code" data-example="js" data-js="current_time_js" data-startup="current_time_startup"></div>
+      </div>
+    </div>
+    <p>Since the animation is playing, we only have to set it once, but if the correctness of time is important in a long-running page, we may set a timer to adjust the clock in case it got out of sync with the much more precise computer clock.</p>
+    <script id="adjust_every_minute_js" type="text/example-js" data-import="current_time_js">
+      /**
+       * Set the clock to the current time and do it again every minute.
+       * @param {String} watchId The id of the watch element. */
+      function startAdjustingTheClock(watchId) {
+        // Adjust now
+        setTime(watchId, new Date());
+        // Set timer to adjust every 1 minute
+        var intervalId = setInterval(function() {
+          setTime(watchId, new Date());
+        }, 60000);
+        // Store the interval id to be able to stop it
+        $('#' + watchId).data('intervalId', intervalId);
+      }
+
+      /**
+       * Stop timer that adjust the clock every minute.
+       * @param {String} watchId The id of the watch element. */
+      function stopAdjustingTheClock(watchId) {
+        var $watch = $('#' + watchId);
+        var intervalId = $watch.data('intervalId');
+        $watch.data('intervalId', null);
+        clearInterval(intervalId);
+      }
+    </script>
+    <script id="adjust_every_minute_startup" type="text/example-js">
+      startAdjustingTheClock('watch');
+      // This won't stop the clock, just adjusting the time every minute
+      // stopAdjustingTheClock('watch');
+    </script>
+    <div id="adjust_every_minute_code" class="example-code" data-example="js" data-js="adjust_every_minute_js" data-startup="adjust_every_minute_startup"></div>
     <h2 id="builder" class="page-header">
       <a href="#builder" aria-hidden="true" class="anchor"><span class="glyphicon glyphicon-link"></span></a>
       Builder
@@ -1333,7 +1527,7 @@
   <script src="/clock/js/ie10-viewport-bug-workaround.js"></script>
   <script src="/clock/js/highlight.min.js"></script>
   <script type="text/javascript">
-    function unindent(script) {
+    function trimBlankLines(script) {
       var lines = script.split('\n');
       // Remove trailing spaces
       var lines2 = _.map(lines, _.trimRight);
@@ -1345,14 +1539,31 @@
       var lines4 = _.dropRightWhile(lines3, function(line) {
         return line.length === 0;
       });
-      if (lines4.length === 0) {
-        return lines4;
+      return lines4.join('\n');
+    }
+
+    function minimumIndentation(script) {
+      var cleaned = trimBlankLines(script);
+      var lines = cleaned.split('\n');
+      if (lines.length === 0) {
+        return lines;
       }
-      var identation = lines4[0].length - _.trimLeft(lines4[0]).length;
-      var lines5 = _.map(lines4, function(line) {
-        return line.slice(identation);
+      var leastIndentedLine = _.first(lines);
+      var indentation = leastIndentedLine.length - _.trimLeft(leastIndentedLine).length;
+      var indentedLines = _.map(lines, function(line) {
+        if (line.match(/^ */)[0].length < indentation) {
+          return line;
+        } else {
+          return line.slice(indentation);
+        }
       });
-      return lines5.join('\n');
+      return indentedLines.join('\n');
+    }
+
+    function indent(code, columns) {
+      return _.map(code.split('\n'), function(line) {
+        return _.repeat(' ', columns) + line;
+      }).join('\n');
     }
 
     function readLess(cssId) {
@@ -1360,19 +1571,48 @@
       var prepend = '';
       var prependId = $css.data('import');
       if (prependId != null) {
-        prepend = readLess(prependId);;
+        prepend = readLess(prependId);
       }
       return prepend + $css.html();
     }
 
-    function readExampleCode(htmlId, cssId, postCssId) {
+    function readJavaScript(jsId, startupId, skipImports) {
+      var $js = $('#' + jsId);
+      var prepend = '';
+      if (skipImports !== true) {
+        var prependId = $js.data('import');
+        if (prependId != null) {
+          prepend = readJavaScript(prependId);
+        }
+      }
+      var startup = '';
+      if (startupId != null) {
+        var bareStartup = trimBlankLines($('#' + startupId).html());
+        var indentation = bareStartup.match(/^ */)[0];
+        var open  = indentation + '$(function() {';
+        var close = indentation + '});';
+        startup = [ '', open, indent(bareStartup, 2), close, '' ].join('\n');
+      }
+      return prepend + $js.html() + startup;
+    }
+
+    function readExampleCode($el) {
       return new Promise(function(done) {
+        var htmlId     = $el.data('html');
+        var cssId      = $el.data('css');
+        var cssAfterId = $el.data('css-after');
+        var jsId       = $el.data('js');
+        var startupId  = $el.data('startup');
         var code = {};
-        var lodash = $('#' + htmlId).html();
-        code.html = _.template(lodash)();
+        if (jsId != null) {
+          code.js = readJavaScript(jsId, startupId);
+        }
+        code.lodash = $('#' + htmlId).html();
+        code.html = _.template(code.lodash)();
         var lessScript = readLess(cssId);
-        var postLessScript = postCssId != null ? readLess(postCssId) : '';
-        less.render(lessScript + postLessScript).then(function(output) {
+        var postLessScript = cssAfterId != null ? readLess(cssAfterId) : '';
+        code.less = lessScript + postLessScript;
+        less.render(code.less).then(function(output) {
           code.css = output.css;
           done(code);
         }).catch(function(err) {
@@ -1381,34 +1621,111 @@
       });
     }
 
-    function generateCodeBlock($parent, code, type) {
-      var highlighted = hljs.highlight(type, unindent(code)).value;
+    function generateCodeBlock(code, type) {
+      var highlighted = hljs.highlight(type, code).value;
       return '<pre class="hljs ' + type + '">' + highlighted + '</pre>';
     }
 
+    function sandboxHtml(code, prefix) {
+      var html = code;
+      // Make ids unique
+      html = html.replace(/id=['"](.*?)['"]/g, 'id="' + prefix + '_$1"');
+      // Make classes unique
+      html = html.replace(/class=['"](.*?)['"]/g, function(match, cssClass) {
+        return 'class="' + cssClass.replace(/([^ ]+)/g, prefix + '_$1') + '"';
+      });
+      return html;
+    }
+
+    function sandboxCss(code, prefix) {
+      var css = code;
+      // Make ids unique
+      css = css.replace(/#([a-z0-9_\-]*)/g, function(match, id) {
+        // If it is a colour, do not touch it
+        if (id.match(/^[a-fA-F0-9]{3,6}$/)) {
+          return match;
+        }
+        return '#' + prefix + '_' + id;
+      });
+      // Makes classes unique
+      css = css.replace(/\.([a-z][a-zA-Z0-9_\-]*)/g, '.' + prefix + '_$1');
+      return css;
+    }
+
+    function getSandboxedJQuery(containerId, startupFunctions) {
+      function SandboxedJQuery(selector, context) {
+        return new SandboxedJQuery.prototype.init(selector, context);
+      }
+      SandboxedJQuery.prototype.init = function(selector, context) {
+        if (selector == null) {
+          return this;
+        }
+        // Instead of calling the startup functions, store them
+        if (_.isFunction(selector)) {
+          startupFunctions.push(selector);
+          return;
+        }
+        if (_.isElement(selector)) {
+          this[0] = selector;
+          this.length = 1;
+          return this;
+        }
+        if (_.isString(selector) && !_.startsWith(selector, '<')) {
+          return this.find(selector, context);
+        }
+        throw "Not supported by SandboxedJQuery";
+      };
+      SandboxedJQuery.prototype.init.prototype = _.create(jQuery.prototype.init.prototype, {
+        constructor: SandboxedJQuery,
+        // Sandboxed #find
+        find: function(selector, context) {
+          // Add a prefix to the selectors and ids
+          var sandboxedSelector = sandboxCss(selector, containerId);
+          var result = jQuery(sandboxedSelector, context).get(0);
+          return this.constructor(result);
+        }
+      });
+      return SandboxedJQuery;
+    }
+
+    function generateExampleResult(code, prefix) {
+      var html = sandboxHtml(code.html, prefix);
+      var css  = sandboxCss(code.css, prefix);
+      return '<style type="text/css">' + css + '</style>' + html;
+    }
+
+    function generateCrosshairs(colour) {
+      var style = 'style="background-color: ' + colour + ';"';
+      var vertical   = '<div class="crosshairs-vertical" ' + style + '></div>';
+      var horizontal = '<div class="crosshairs-horizontal" ' + style + '></div>';
+      return '<div class ="crosshairs-layer">' + vertical + horizontal + '</div>';
+    }
+
     jQuery(function($) {
-      $('[data-example="box"]').each(function() {
-        var $el = $(this), prefix = $el.attr('id');
-        readExampleCode($el.data('html'), $el.data('css'), $el.data('css-after')).then(function(code) {
-          var html = code.html;
-          // Make ids unique
-          html = html.replace(/id=['"](.*?)['"]/g, 'id="' + prefix + '_$1"');
-          // Make classes unique
-          html = html.replace(/class=['"](.*?)['"]/g, function(match, cssClass) {
-            return 'class="' + cssClass.replace(/([^ ]+)/g, prefix + '_$1') + '"';
-          });
-          var css  = code.css;
-          // Make ids unique
-          css = css.replace(/#([a-z0-9_\-]*)/g, function(match, id) {
-            // If it is a colour, do not touch it
-            if (id.match(/^[a-fA-F0-9]{3,6}$/)) {
-              return match;
-            }
-            return '#' + prefix + '_' + id;
-          });
-          // Makes classes unique
-          css = css.replace(/\.([a-z][a-zA-Z0-9_\-]*)/g, '.' + prefix + '_$1');
-          $el.append('<style type="text/css">' + css + '</style>' + html);
+      $('[data-example="result"]').each(function() {
+        var $el = $(this), id = $el.attr('id');
+        readExampleCode($el).then(function(code) {
+          var $container = $('<div class="example-result-container">' + generateExampleResult(code, id) + '</div>');
+
+          var colour = $el.data('crosshairs');
+          if (colour != null) {
+            $container.append(generateCrosshairs(colour));
+          }
+
+          $el.append($container);
+
+          if (code.js != null) {
+            var startupFunctions = [];
+            sandboxJQuery = getSandboxedJQuery(id, startupFunctions);
+            new Function('$', code.js).call(null, sandboxJQuery);
+            _.last(startupFunctions)();
+          }
+
+          // $el.append(generateCodeBlock(code.lodash, 'html'));
+          // $el.append(generateCodeBlock(code.html, 'html'));
+          // $el.append(generateCodeBlock(code.less, 'less'));
+          // $el.append(generateCodeBlock(code.css, 'css'));
+          // $el.append(generateCodeBlock(code.js, 'js'));
         });
       });
 
@@ -1416,22 +1733,22 @@
         var $el    = $(this);
         var htmlId = $el.data('html');
         var code   = $('#' + htmlId).html();
-        $el.append(generateCodeBlock($el, code, 'html'));
+        $el.append(generateCodeBlock(minimumIndentation(code), 'html'));
       });
 
       $('[data-example="css"]').each(function() {
         var $el   = $(this);
         var cssId = $el.data('css');
         var code  = $('#' + cssId).html();
-        $el.append(generateCodeBlock($el, code, 'less'));
+        $el.append(generateCodeBlock(minimumIndentation(code), 'less'));
       });
 
-      $('[data-crosshairs]').each(function() {
-        var colour = $(this).data('crosshairs');
-        var style = 'style="background-color: ' + colour + ';"';
-        var vertical   = '<div class="crosshairs-vertical" ' + style + '></div>';
-        var horizontal = '<div class="crosshairs-horizontal" ' + style + '></div>';
-        $(this).append('<div class ="crosshairs-layer">' + vertical + horizontal + '</div>');
+      $('[data-example="js"]').each(function() {
+        var $el  = $(this);
+        var jsId = $el.data('js');
+        var startupId = $el.data('startup');
+        var code = readJavaScript(jsId, startupId, true);
+        $el.append(generateCodeBlock(minimumIndentation(code), 'js'));
       });
     });
   </script>
