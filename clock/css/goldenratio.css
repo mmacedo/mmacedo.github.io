@@ -1,0 +1,23 @@
+.col-md-goldsm, .col-md-goldlg {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+@media (min-width: 992px) {
+  .col-md-goldsm {
+    float: left;
+    width: 38.2%;
+  }
+  .col-md-goldlg {
+    float: left;
+    width: 61.8%;
+  }
+  .col-md-goldsm-offset {
+    margin-left: 38.2%;
+  }
+  .col-md-goldlg-offset {
+    margin-left: 61.8%;
+  }
+}
