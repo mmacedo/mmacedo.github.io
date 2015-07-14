@@ -1654,7 +1654,7 @@
             <div id="builder_watch_container" class="row">
               <div class="col-sm-6">
                 <div class="builder_watch_caption">Current time</div>
-                <div id="builder_watch_current" class="builder_watch">
+                <div id="builder_watch_current">
                   <div class="face"></div>
                   <ul class="marks">
                   <% _.forEach(_.range(marks), function() { %>
@@ -1673,7 +1673,70 @@
               </div>
               <div class="col-sm-6">
                 <div class="builder_watch_caption">Fast rotation</div>
-                <div id="builder_watch_fast" class="builder_watch">
+                <div id="builder_watch_fast">
+                  <div class="face"></div>
+                  <ul class="marks">
+                  <% _.forEach(_.range(marks), function() { %>
+                    <li></li>
+                  <% }); %>
+                  </ul>
+                  <ul class="digits">
+                  <% _.forEach(_.range(digits), function(current) { %>
+                    <li><%- (current + 1) * (hours / digits) %></li>
+                  <% }); %>
+                  </ul>
+                  <div class="hours-hand"></div>
+                  <div class="minutes-hand"></div>
+                  <div class="seconds-hand"></div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="builder_watch_caption">Noon (12:00)</div>
+                <div id="builder_watch_noon">
+                  <div class="face"></div>
+                  <ul class="marks">
+                  <% _.forEach(_.range(marks), function() { %>
+                    <li></li>
+                  <% }); %>
+                  </ul>
+                  <ul class="digits">
+                  <% _.forEach(_.range(digits), function(current) { %>
+                    <li><%- (current + 1) * (hours / digits) %></li>
+                  <% }); %>
+                  </ul>
+                  <div class="hours-hand"></div>
+                  <div class="minutes-hand"></div>
+                  <div class="seconds-hand"></div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="builder_watch_caption">420 (16:20)</div>
+                <div id="builder_watch_420">
+                  <div class="face"></div>
+                  <ul class="marks">
+                  <% _.forEach(_.range(marks), function() { %>
+                    <li></li>
+                  <% }); %>
+                  </ul>
+                  <ul class="digits">
+                  <% _.forEach(_.range(digits), function(current) { %>
+                    <li><%- (current + 1) * (hours / digits) %></li>
+                  <% }); %>
+                  </ul>
+                  <div class="hours-hand"></div>
+                  <div class="minutes-hand"></div>
+                  <div class="seconds-hand"></div>
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="builder_watch_caption">
+                  <input id="builder_custom_hour" type="text" value="00" />
+                  :
+                  <input id="builder_custom_minute" type="text" value="00" />
+                  :
+                  <input id="builder_custom_second" type="text" value="00" />
+                </div>
+                <div id="builder_watch_custom">
                   <div class="face"></div>
                   <ul class="marks">
                   <% _.forEach(_.range(marks), function() { %>
@@ -1710,16 +1773,37 @@
               margin-top: 22px;
             }
 
-            .builder_watch {
+            .builder_watch_caption input[type=text] {
+              width: 50px;
+              text-align: center;
+            }
+
+            #builder_watch_current,
+            #builder_watch_fast,
+            #builder_watch_noon,
+            #builder_watch_420,
+            #builder_watch_custom {
               .watch;
-              .animate-watch;
               display: inline-block;
             }
 
+            #builder_watch_current {
+              .animate-watch;
+            }
+
             #builder_watch_fast {
+              .animate-watch;
               .hours-hand { animation-duration: 100s; }
               .minutes-hand { animation-duration: (100s / @minutes); }
               .seconds-hand { visibility: hidden; }
+            }
+
+            #builder_watch_noon {
+              .rotate-to-duodecimal-time(12);
+            }
+
+            #builder_watch_420 {
+              .rotate-to-duodecimal-time(16, 20);
             }
 
             .make-circle(@diameter) {
@@ -1794,6 +1878,20 @@
               transform-origin: (@width / 2) (@length - @tail) 0;
             }
 
+            .rotate-to-duodecimal-time(@hour:0, @minute:0, @second:0) {
+              @second-hand-cycle: (@second-size * @seconds);
+              @minute-hand-cycle: (@second-hand-cycle * @minutes);
+              @hour-hand-cycle: (@minute-hand-cycle * @hours);
+              @hour-seconds: (@second + @minute*60 + @hour*3600);
+              @hour-degrees: 360deg * (@hour-seconds / @hour-hand-cycle);
+              .hours-hand { transform: rotate((@hour-degrees)); }
+              @minute-seconds: (@second + @minute*60);
+              @minute-degrees: 360deg * (@minute-seconds / @minute-hand-cycle);
+              .minutes-hand { transform: rotate((@minute-degrees)); }
+              @second-degrees: 360deg * (@second / @second-hand-cycle);
+              .seconds-hand { transform: rotate((@second-degrees)); }
+            }
+
             .watch() {
               position: relative;
 
@@ -1835,18 +1933,14 @@
 
               > .hours-hand {
                 .hand(@hours-hand-colour, @hours-hand-length, @hours-hand-tail, @hours-hand-width);
-                animation: hand-rotation (1s * @second-size * @seconds * @minutes * @hours) linear infinite;
               }
 
               > .minutes-hand {
                 .hand(@minutes-hand-colour, @minutes-hand-length, @minutes-hand-tail, @minutes-hand-width);
-                animation: hand-rotation (1s * @second-size * @seconds * @minutes) linear infinite;
               }
 
               > .seconds-hand {
                 .hand(@seconds-hand-colour, @seconds-hand-length, @seconds-hand-tail, @seconds-hand-width);
-                animation: hand-rotation (1s * @second-size * @seconds) linear infinite;
-                animation-timing-function: steps(@seconds, end);
               }
 
             }
@@ -2285,6 +2379,25 @@
         seekCssAnimation($watch.find('.hours-hand'),   hoursInSeconds);
       }
 
+      function rotateCustomHands($container) {
+        var vars = $container.data();
+        var secondHandCycle = +vars.secondSize * +vars.seconds;
+        var minuteHandCycle = secondHandCycle * +vars.minutes;
+        var hourHandCycle = minuteHandCycle * +vars.hours;
+        var second = +$('#builder_custom_second', $container).val();
+        var minute = +$('#builder_custom_minute', $container).val();
+        var minutesInSeconds = minute * 60 + second;
+        var hour   = +$('#builder_custom_hour', $container).val();
+        var hoursInSeconds   = hour * 3600 + minutesInSeconds;
+        var $watch = $('#builder_watch_custom', $container);
+        $watch.find('.seconds-hand')
+          .css('transform', 'rotate(' + (360 * second / secondHandCycle) + 'deg)');
+        $watch.find('.minutes-hand')
+          .css('transform', 'rotate(' + (360 * minutesInSeconds / minuteHandCycle) + 'deg)');
+        $watch.find('.hours-hand')
+          .css('transform', 'rotate(' + (360 * hoursInSeconds / hourHandCycle) + 'deg)');
+      }
+
       function recreateBuilderCss() {
         var inputs = $('#builder_form [data-var]').get();
         var vars = _.map(inputs, function(txt) {
@@ -2306,9 +2419,16 @@
           var name = _.camelCase($txt.data('var').slice(1));
           return [ name, $txt.val() ];
         });
-        var html = _.template($('#builder_lodash').html())(_.zipObject(vars));
-        var $container = $(html);
+        var data = _.zipObject(vars);
+        var html = _.template($('#builder_lodash').html())(data);
+        var $container = $(html).data(data);
         setTime($container.find('#builder_watch_current'), new Date());
+        if ($('#builder_watch_container').length === 1) {
+          $('#builder_custom_hour', $container).val($('#builder_custom_hour').val());
+          $('#builder_custom_minute', $container).val($('#builder_custom_minute').val());
+          $('#builder_custom_second', $container).val($('#builder_custom_second').val());
+        }
+        rotateCustomHands($container);
         $('#builder_html').replaceWith($('<div id="builder_html"></div>').append($container));
       }
 
@@ -2320,6 +2440,10 @@
 
         recreateBuilderCss();
         recreateBuilderHtml();
+
+        $(document).on('change', '#builder_custom_hour, #builder_custom_minute, #builder_custom_second', function() {
+          rotateCustomHands($('#builder_watch_container'));
+        });
       });
 
       $(document).one('show.section', '#decimal-time', function() {
