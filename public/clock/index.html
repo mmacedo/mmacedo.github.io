@@ -113,7 +113,8 @@
       font-family: Menlo, Monaco, Consolas, "Courier New", monospace
     }
 
-    .conversion-table > tbody > tr:nth-child(4n+1) > td {
+    .conversion-table.every-4 > tbody > tr:nth-child(4n+1) > td,
+    .conversion-table.every-5 > tbody > tr:nth-child(5n+1) > td {
       background-color: #f9f9f9;
     }
   </style>
@@ -1883,7 +1884,7 @@
           <p>From the Babylonian (SI) double duodecimal (2x12) to the French Revolutionary decimal (10) and Chinese Shoushi decimal (100):</p>
           <div class="row">
             <div class="col-sm-6">
-              <table id="from-double-duodecimal-1" class="table table-condensed table-bordered conversion-table">
+              <table id="from-double-duodecimal-1" class="table table-condensed table-bordered conversion-table every-4">
                 <caption>00:00-05:45</caption>
                 <thead>
                   <tr>
@@ -1896,7 +1897,7 @@
               </table>
             </div>
             <div class="col-sm-6">
-              <table id="from-double-duodecimal-2" class="table table-condensed table-bordered conversion-table">
+              <table id="from-double-duodecimal-2" class="table table-condensed table-bordered conversion-table every-4">
                 <caption>06:00-11:45</caption>
                 <thead>
                   <tr>
@@ -1909,7 +1910,7 @@
               </table>
             </div>
             <div class="col-sm-6">
-              <table id="from-double-duodecimal-3" class="table table-condensed table-bordered conversion-table">
+              <table id="from-double-duodecimal-3" class="table table-condensed table-bordered conversion-table every-4">
                 <caption>12:00-17:45</caption>
                 <thead>
                   <tr>
@@ -1922,7 +1923,7 @@
               </table>
             </div>
             <div class="col-sm-6">
-              <table id="from-double-duodecimal-4" class="table table-condensed table-bordered conversion-table">
+              <table id="from-double-duodecimal-4" class="table table-condensed table-bordered conversion-table every-4">
                 <caption>18:00-23:45</caption>
                 <thead>
                   <tr>
@@ -1938,7 +1939,7 @@
           <p>From the French Revolutionary decimal (10) and Chinese Shoushi decimal (100) to the Babylonian (SI) double duodecimal (2x12):</p>
           <div class="row">
             <div class="col-sm-6">
-              <table id="from-decimal-1" class="table table-condensed table-bordered conversion-table">
+              <table id="from-decimal-1" class="table table-condensed table-bordered conversion-table every-5">
                 <caption>00:00-02:40</caption>
                 <thead>
                   <tr>
@@ -1951,7 +1952,7 @@
               </table>
             </div>
             <div class="col-sm-6">
-              <table id="from-decimal-2" class="table table-condensed table-bordered conversion-table">
+              <table id="from-decimal-2" class="table table-condensed table-bordered conversion-table every-5">
                 <caption>02:50-04:90</caption>
                 <thead>
                   <tr>
@@ -1964,7 +1965,7 @@
               </table>
             </div>
             <div class="col-sm-6">
-              <table id="from-decimal-3" class="table table-condensed table-bordered conversion-table">
+              <table id="from-decimal-3" class="table table-condensed table-bordered conversion-table every-5">
                 <caption>05:00-07:40</caption>
                 <thead>
                   <tr>
@@ -1977,7 +1978,7 @@
               </table>
             </div>
             <div class="col-sm-6">
-              <table id="from-decimal-4" class="table table-condensed table-bordered conversion-table">
+              <table id="from-decimal-4" class="table table-condensed table-bordered conversion-table every-5">
                 <caption>07:50-09:90</caption>
                 <thead>
                   <tr>
