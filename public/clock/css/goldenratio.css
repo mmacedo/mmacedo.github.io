@@ -21,3 +21,27 @@
     margin-left: 61.8%;
   }
 }
+
+.col-lg-goldsm, .col-lg-goldlg {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+@media (min-width: 1200px) {
+  .col-lg-goldsm {
+    float: left;
+    width: 38.2%;
+  }
+  .col-lg-goldlg {
+    float: left;
+    width: 61.8%;
+  }
+  .col-lg-goldsm-offset {
+    margin-left: 38.2%;
+  }
+  .col-lg-goldlg-offset {
+    margin-left: 61.8%;
+  }
+}

@@ -27,6 +27,24 @@
   <link rel="stylesheet" href="/clock/css/railscasts.css">
 
   <style type="text/css">
+    .section {
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    @media (min-width: 992px) {
+      #toc-column {
+        float: right;
+      }
+      #toc-nav {
+        position: fixed;
+        width: 293px;
+      }
+    }
+
     /* Because 14px * 20em = 280px + (2 * 15px) = 310px < 360px - (2 * 15px) = 330px */
     .example-result, .example-result-fluid, .example-result-small, #builder_html {
       font-size: 87.5%;
@@ -47,7 +65,7 @@
 
     .example-result-fluid > .example-result-container {
       position: relative;
-      width: 100%;
+      max-width: 100%;
       height: 20em;
       overflow: hidden;
     }
@@ -82,17 +100,6 @@
       top: 50%; height: 2px; margin-top: -1px;
     }
 
-    .page-header .anchor {
-      color: #bcbcbc;
-      font-size: 65%;
-      margin-left: -30px;
-      visibility: hidden;
-    }
-
-    .page-header:hover .anchor {
-      visibility: visible;
-    }
-
     .conversion-table {
       width: 100%;
     }
@@ -122,1855 +129,1868 @@
   </script>
 </head>
 <body>
+  <a class="sr-only sr-only-focusable" href="#content">
+    <div class="container">Skip to main content</div>
+  </a>
   <div class="container">
-    <h1>Clock</h1>
-    <p>Attempt to reverse engineer and rewrite step by step this <a href="http://codepen.io/iliadraznin/pen/JcqbE">pure-CSS3 clock</a> in order to build me a <a href="https://en.wikipedia.org/wiki/Decimal_time">decimal time</a> clock.</p>
-    <p>I want it parameterized to be easier to understand and write the final code, so I use <a href="https://lodash.com/docs#template">_.template</a> for the HTML and <a href="http://lesscss.org/">Less</a> for the CSS.</p>
-    <h2 id="face" class="page-header">
-      <a href="#face" aria-hidden="true" class="anchor"><span class="glyphicon glyphicon-link"></span></a>
-      Face
-    </h2>
-    <script id="face_transition_css" type="text/example-css">
-      @face-size: 20em;
-      @face-border-width: .5em;
-
-      @keyframes add-face {
-        0% {
-          width: @face-border-width * 2;
-          height: @face-border-width * 2;
-          margin-left: (@face-size / 2);
-          margin-top: (@face-size / 2);
-        }
-        25% {
-          width: @face-size;
-          height: @face-size;
-          margin-left: 0;
-          margin-top: 0;
-        }
-        50% {
-          width: @face-size;
-          height: @face-size;
-          margin-left: 0;
-          margin-top: 0;
-          border-radius: 0;
-        }
-        75% {
-          width: @face-size;
-          height: @face-size;
-          margin-left: 0;
-          margin-top: 0;
-          border-radius: (@face-size / 2);
-        }
-        100% {
-          width: @face-size;
-          height: @face-size;
-          margin-left: 0;
-          margin-top: 0;
-          border-radius: (@face-size / 2);
-        }
-      }
-
-      .watch .face {
-        animation: add-face 4s normal infinite;
-        background: white;
-        border: @face-border-width solid black;
-      }
-    </script>
-    <div id="face_transition_result" class="example-result" data-example="result" data-html="face_1_html" data-css="face_transition_css"></div>
-    <p><strong>Add the face.</strong> Create a <code>&lt;div&gt;</code> with the same <code>height</code> and <code>width</code>. I made it proportional to the digit size by using a size in <code>em</code>. I added a background and border to make the face visible in the white background.</p>
-    <script id="face_1_html" type="text/example-html">
-      <div id="example_watch" class="watch">
-        <div class="face"></div>
-      </div>
-    </script>
-    <script id="face_1_css" type="text/example-css">
-      @face-size: 20em;
-
-      .watch > .face {
-        width: @face-size; height: @face-size;
-        background: white;
-        border: .5em solid black;
-      }
-    </script>
     <div class="row">
-      <div class="col-md-goldsm">
-        <div id="face_1_result" class="example-result" data-example="result" data-html="face_1_html" data-css="face_1_css"></div>
-      </div>
-      <div class="col-md-goldlg">
-        <div id="face_1_html_code" class="example-code" data-example="html" data-html="face_1_html"></div>
-        <div id="face_1_css_code" class="example-code" data-example="css" data-css="face_1_css"></div>
-      </div>
-    </div>
-    <p><strong>Make it round.</strong> Make the <code>border-radius</code> half the size of the clock.</p>
-    <script id="face_2_css" type="text/example-css" data-import="face_1_css">
-      .watch > .face {
-        width: @face-size; height: @face-size;
-        border-radius: (@face-size / 2);
-      }
-    </script>
-    <div class="row">
-      <div class="col-md-goldsm">
-        <div id="face_2_result" class="example-result" data-example="result" data-html="face_1_html" data-css="face_2_css"></div>
-      </div>
-      <div class="col-md-goldlg">
-        <div id="face_2_css_code" class="example-code" data-example="css" data-css="face_2_css"></div>
-      </div>
-    </div>
-    <h2 id="digits" class="page-header">
-      <a href="#digits" aria-hidden="true" class="anchor"><span class="glyphicon glyphicon-link"></span></a>
-      Digits
-    </h2>
-    <script id="digits_transition_css" type="text/example-css">
-      @face-size: 20em;
-      @digit-size: 1em;
-      @digit-margin: 1em;
-      @hours: 12;
-
-      .watch > .digits {
-        list-style: none; margin: 0; padding: 0;
-        width: @face-size; height: @face-size;
-        border-radius: (@face-size / 2);
-        position: relative;
-      }
-
-      .watch > .digits > li {
-        font-weight: bold;
-        font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
-        display: block;
-        width: @digit-size; height: @digit-size;
-        line-height: @digit-size;
-        text-align: center;
-        position: absolute;
-        .animations-for-each-digit;
-      }
-
-      .animations-for-each-digit(@hour: 1) when (@hour <= @hours) {
-        @rotate: (360deg / @hours) * @hour;
-        @translate: (@face-size / 2) -
-                    (@digit-size / 2) -
-                    @digit-margin;
-
-        @keyframes ~"add-digit-@{hour}" {
-          0% {
-            top: (@digit-size * 1.42857143 * (@hour - 1));
-            left: 0;
-            margin: 0;
-          }
-          12.5% {
-            top: 50%; left: 50%;
-            margin: -(@digit-size / 2) 0 0 -(@digit-size / 2);
-          }
-          25% {
-            top: 50%; left: 50%;
-            margin: -(@digit-size / 2) 0 0 -(@digit-size / 2);
-            transform: rotate(0);
-          }
-          37.5% {
-            top: 50%; left: 50%;
-            margin: -(@digit-size / 2) 0 0 -(@digit-size / 2);
-            transform: rotate(@rotate);
-          }
-          50% {
-            top: 50%; left: 50%;
-            margin: -(@digit-size / 2) 0 0 -(@digit-size / 2);
-            transform: rotate(@rotate) translateY(0);
-          }
-          62.5% {
-            top: 50%; left: 50%;
-            margin: -(@digit-size / 2) 0 0 -(@digit-size / 2);
-            transform: rotate(@rotate)
-                       translateY(-@translate);
-          }
-          75% {
-            top: 50%; left: 50%;
-            margin: -(@digit-size / 2) 0 0 -(@digit-size / 2);
-            transform: rotate(@rotate)
-                       translateY(-@translate)
-                       rotate(0);
-          }
-          87.5% {
-            top: 50%; left: 50%;
-            margin: -(@digit-size / 2) 0 0 -(@digit-size / 2);
-            transform: rotate(@rotate)
-                       translateY(-@translate)
-                       rotate(-@rotate);
-          }
-          100% {
-            top: 50%; left: 50%;
-            margin: -(@digit-size / 2) 0 0 -(@digit-size / 2);
-            transform: rotate(@rotate)
-                       translateY(-@translate)
-                       rotate(-@rotate);
-          }
-        }
-
-        &:nth-child(@{hour}) {
-          animation: ~"add-digit-@{hour}" 8s ease infinite;
-        }
-
-        .animations-for-each-digit((@hour + 1));
-      }
-    </script>
-    <div id="digits_transition_result" class="example-result" data-example="result" data-html="digits_html" data-css="digits_transition_css"></div>
-    <p><strong>Add a digit.</strong> Since we are using a <code>&lt;ul&gt;</code>, we have to clear the style by removing <code>list-style</code>, <code>margin</code> and <code>padding</code>. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
-    <script id="single_digit_1_html" type="text/example-html">
-      <div id="example_watch" class="watch">
-        <ul class="digits">
-          <li>1</li>
-        </ul>
-      </div>
-    </script>
-    <script id="single_digit_1_css" type="text/example-css">
-      .watch > .digits { list-style: none; margin: 0; padding: 0; }
-
-      .watch > .digits > li {
-        font-weight: bold;
-        font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
-      }
-    </script>
-    <script id="show_digit_border_css" type="text/example-css">
-      .watch > .digits > li { border: 1px solid red; }
-    </script>
-    <div class="row">
-      <div class="col-md-goldsm">
-        <div id="single_digit_1_result" class="example-result-small" data-example="result" data-html="single_digit_1_html" data-css="single_digit_1_css" data-css-after="show_digit_border_css"></div>
-      </div>
-      <div class="col-md-goldlg">
-        <div id="single_digit_1_html_code" class="example-code" data-example="html" data-html="single_digit_1_html"></div>
-        <div id="single_digit_1_css_code" class="example-code" data-example="css" data-css="single_digit_1_css"></div>
-      </div>
-    </div>
-    <p>To properly align the digits, we have to <strong>center the digit</strong> inside its <code>&lt;li&gt;</code> tag. We make it <code>display: block;</code>, set <code>text-align: center;</code> to align horizontally and then set <code>width</code>, <code>height</code> and <code>line-height</code> the same as the digit size to align vertically. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
-    <script id="single_digit_2_css" type="text/example-css" data-import="single_digit_1_css">
-      @digit-size: 1em;
-
-      .watch > .digits > li {
-        display: block;
-        width: @digit-size; height: @digit-size;
-        line-height: @digit-size;
-        text-align: center;
-      }
-    </script>
-    <div class="row">
-      <div class="col-md-goldsm">
-        <div id="single_digit_2_result" class="example-result-small" data-example="result" data-html="single_digit_1_html" data-css="single_digit_2_css" data-css-after="show_digit_border_css"></div>
-      </div>
-      <div class="col-md-goldlg">
-        <div id="single_digit_2_css_code" class="example-code" data-example="css" data-css="single_digit_2_css"></div>
-      </div>
-    </div>
-    <p><strong>Center the digit.</strong> Make the parent a positioned ancestor by setting <code>position: relative;</code>. Use <code>position: absolute;</code> and set <code>top</code> and <code>left</code> to <code>50%</code>. This will anchor the top-left corner of the digit to the center of the parent, but we want the center of the digit to be anchored, so we pull the digit half its width to the left and to the top with negative margin. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
-    <script id="single_digit_3_css" type="text/example-css" data-import="single_digit_2_css">
-      @face-size: 20em;
-
-      .watch > .digits {
-        width: @face-size; height: @face-size;
-        border-radius: (@face-size / 2);
-        position: relative;
-      }
-
-      .watch > .digits > li {
-        position: absolute;
-        top: 50%; left: 50%;
-        margin: -(@digit-size / 2) 0 0 -(@digit-size / 2);
-      }
-    </script>
-    <script id="show_digit_and_watch_border_css" type="text/example-css">
-      .watch > .digits { border: 1px solid blue; }
-      .watch > .digits > li { border: 1px solid red; }
-    </script>
-    <div class="row">
-      <div class="col-md-goldsm">
-        <div id="single_digit_3_result" class="example-result" data-example="result" data-html="single_digit_1_html" data-css="single_digit_3_css" data-css-after="show_digit_and_watch_border_css" data-crosshairs="#888"></div>
-      </div>
-      <div class="col-md-goldlg">
-        <div id="single_digit_3_css_code" class="example-code" data-example="css" data-css="single_digit_3_css"></div>
-      </div>
-    </div>
-    <p><strong>Move the digit to the border.</strong> Use <code>transform-translate</code> and move back half the size of the clock minus the size of the digit and the desired margin from the border. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
-    <script id="single_digit_4_css" type="text/example-css" data-import="single_digit_3_css">
-      @digit-margin: 1em;
-
-      .watch > .digits > li {
-        &:nth-child(1) {
-          @translate: (@face-size / 2) -
-                      (@digit-size / 2) -
-                      @digit-margin;
-          transform: translateY(-@translate);
-        }
-      }
-    </script>
-    <div class="row">
-      <div class="col-md-goldsm">
-        <div id="single_digit_4_result" class="example-result" data-example="result" data-html="single_digit_1_html" data-css="single_digit_4_css" data-css-after="show_digit_and_watch_border_css"></div>
-      </div>
-      <div class="col-md-goldlg">
-        <div id="single_digit_4_css_code" class="example-code" data-example="css" data-css="single_digit_4_css"></div>
-      </div>
-    </div>
-    <p><strong>Move the digit to the right position.</strong> Use <code>transform-rotate</code> to rotate it around the center as defined by <code>transform-origin</code>. To calculate how many degrees we have to rotate to find the right position, we divide 360 degrees by 12 hours. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
-    <script id="single_digit_5_css" type="text/example-css" data-import="single_digit_3_css">
-      @digit-margin: 1em;
-
-      .watch > .digits > li {
-        &:nth-child(1) {
-          @translate: (@face-size / 2) -
-                      (@digit-size / 2) -
-                      @digit-margin;
-          @rotate: (360deg / 12) * 1;
-          transform-origin: 50% @translate 0;
-          transform: translateY(-@translate)
-                     rotate(@rotate);
-        }
-      }
-    </script>
-    <div class="row">
-      <div class="col-md-goldsm">
-        <div id="single_digit_5_result" class="example-result" data-example="result" data-html="single_digit_1_html" data-css="single_digit_5_css" data-css-after="show_digit_and_watch_border_css"></div>
-      </div>
-      <div class="col-md-goldlg">
-        <div id="single_digit_5_css_code" class="example-code" data-example="css" data-css="single_digit_5_css"></div>
-      </div>
-    </div>
-    <p><strong>Straighten the rotated digit.</strong> Now we would have to apply another rotation around itself in the reverse direction, but we can not set a different value for <code>transform-origin</code> for each transformation. We could use a wrapper element, we apply the first set of transformations to the outer element and the last rotation in the inner element. But instead, we will apply <a href="http://lea.verou.me/2012/02/moving-an-element-along-a-circle/">these transformations in a different order to avoid having to set the center or rotation</a>, thus being able to do it all in a sigle step. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
-    <script id="single_digit_6_css" type="text/example-css" data-import="single_digit_3_css">
-      @digit-margin: 1em;
-
-      .watch > .digits > li {
-        &:nth-child(1) {
-          @translate: (@face-size / 2) -
-                      (@digit-size / 2) -
-                      @digit-margin;
-          @rotate: (360deg / 12) * 1;
-          transform: rotate(@rotate)
-                     translateY(-@translate)
-                     rotate(-@rotate);
-        }
-      }
-    </script>
-    <div class="row">
-      <div class="col-md-goldsm">
-        <div id="single_digit_6_result" class="example-result" data-example="result" data-html="single_digit_1_html" data-css="single_digit_6_css" data-css-after="show_digit_and_watch_border_css"></div>
-      </div>
-      <div class="col-md-goldlg">
-        <div id="single_digit_6_css_code" class="example-code" data-example="css" data-css="single_digit_6_css"></div>
-      </div>
-    </div>
-    <p><strong>Add all digits.</strong> In the html part we are looping with <a href="https://lodash.com/docs#forEach">_.forEach</a> to generate 12 <code>&lt;li&gt;</code> tags with the digit as content. In the css part we are looping with <a href="http://lesscss.org/features/#loops-feature">recursive mixins</a> to generate the transformations for each digit with appropriate rotation calculed according to the index of the digit.</p>
-    <script id="digits_html" type="text/example-html">
-      <% var hours = 12; %>
-
-      <div id="example_watch" class="watch">
-        <ul class="digits">
-          <% _.forEach(_.range(hours), function(hour) { %>
-            <li><%- hour + 1 %></li>
-          <% }); %>
-        </ul>
-      </div>
-    </script>
-    <script id="digits_css" type="text/example-css" data-import="single_digit_3_css">
-      @digit-margin: 1em;
-      @hours: 12;
-
-      .position-digits(@hour: 1) when (@hour <= @hours) {
-        @rotate: (360deg / @hours) * @hour;
-        @translate: (@face-size / 2) -
-                    (@digit-size / 2) -
-                    @digit-margin;
-        &:nth-child(@{hour}) {
-          transform: rotate(@rotate)
-                     translateY(-@translate)
-                     rotate(-@rotate);
-        }
-        .position-digits((@hour + 1));
-      }
-
-      .watch > .digits > li {
-        .position-digits;
-      }
-    </script>
-    <div class="row">
-      <div class="col-md-goldsm">
-        <div id="digits_result" class="example-result" data-example="result" data-html="digits_html" data-css="digits_css"></div>
-      </div>
-      <div class="col-md-goldlg">
-        <div id="digits_html_code" class="example-code" data-example="html" data-html="digits_html"></div>
-        <div id="digits_css_code" class="example-code" data-example="css" data-css="digits_css"></div>
-      </div>
-    </div>
-    <h2 id="marks" class="page-header">
-      <a href="#marks" aria-hidden="true" class="anchor"><span class="glyphicon glyphicon-link"></span></a>
-      Marks
-    </h2>
-    <script id="marks_transition_css" type="text/example-css">
-      @face-size: 20em;
-      @mark-length: .375em;
-      @mark-width: .125em;
-      @mark-colour: #929394;
-      @mark-margin: 1em;
-      @minutes: 60;
-      @hours: 12;
-
-      .watch > .marks {
-        list-style: none; margin: 0; padding: 0;
-        width: @face-size; height: @face-size;
-        border-radius: (@face-size / 2);
-        position: relative;
-      }
-
-      .watch > .marks > li {
-        display: block;
-        width: @mark-width;
-        height: @mark-length;
-        background: @mark-colour;
-        position: absolute;
-        .animations-for-each-mark;
-      }
-
-      .animations-for-each-mark(@minute: 1) when (@minute <= @minutes) {
-        @rotate: (360deg / @minutes) * @minute;
-        @translate: (@face-size / 2) -
-                    (@mark-length / 2) -
-                    @mark-margin;
-
-        .find-if-is-minute-or-hour() {
-          @mark-to-remove-opacity: 1;
-          @mark-to-remove-colour: @mark-colour;
-          @mark-to-remove-translate: 0;
-        }
-        .find-if-is-minute-or-hour() when (mod(@minute, (@minutes / @hours)) = 0) {
-          @mark-to-remove-opacity: 0;
-          @mark-to-remove-colour: red;
-          @mark-to-remove-translate: @mark-margin;
-        }
-        .find-if-is-minute-or-hour;
-
-        @keyframes ~"add-mark-@{minute}" {
-          0% {
-            top: (@mark-length * 1.42857143 * (@minute - 1));
-            left: 0;
-            margin: 0;
-          }
-          10% {
-            top: 50%; left: 50%;
-            margin: -(@mark-length / 2) 0 0 -(@mark-length / 2);
-          }
-          20% {
-            top: 50%; left: 50%;
-            margin: -(@mark-length / 2) 0 0 -(@mark-length / 2);
-            transform: rotate(0);
-          }
-          30% {
-            top: 50%; left: 50%;
-            margin: -(@mark-length / 2) 0 0 -(@mark-length / 2);
-            transform: rotate(@rotate);
-          }
-          40% {
-            top: 50%; left: 50%;
-            margin: -(@mark-length / 2) 0 0 -(@mark-length / 2);
-            transform: rotate(@rotate) translateY(0);
-          }
-          50% {
-            top: 50%; left: 50%;
-            margin: -(@mark-length / 2) 0 0 -(@mark-length / 2);
-            transform: rotate(@rotate)
-                       translateY(-@translate);
-          }
-          60% {
-            top: 50%; left: 50%;
-            margin: -(@mark-length / 2) 0 0 -(@mark-length / 2);
-            transform: rotate(@rotate)
-                       translateY(-@translate);
-            background: @mark-colour;
-          }
-          70% {
-            top: 50%; left: 50%;
-            margin: -(@mark-length / 2) 0 0 -(@mark-length / 2);
-            transform: rotate(@rotate)
-                       translateY(-@translate);
-            background: @mark-to-remove-colour;
-          }
-          80% {
-            top: 50%; left: 50%;
-            margin: -(@mark-length / 2) 0 0 -(@mark-length / 2);
-            transform: rotate(@rotate)
-                       translateY(-@translate)
-                       translateY(0);
-            opacity: 1;
-            background: @mark-to-remove-colour;
-          }
-          90% {
-            top: 50%; left: 50%;
-            margin: -(@mark-length / 2) 0 0 -(@mark-length / 2);
-            transform: rotate(@rotate)
-                       translateY(-@translate)
-                       translateY(-@mark-to-remove-translate);
-            opacity: @mark-to-remove-opacity;
-            background: @mark-to-remove-colour;
-          }
-          100% {
-            top: 50%; left: 50%;
-            margin: -(@mark-length / 2) 0 0 -(@mark-length / 2);
-            transform: rotate(@rotate)
-                       translateY(-@translate)
-                       translateY(-@mark-to-remove-translate);
-            opacity: @mark-to-remove-opacity;
-            background: @mark-to-remove-colour;
-          }
-        }
-
-        &:nth-child(@{minute}) {
-          animation: ~"add-mark-@{minute}" 8s ease infinite;
-        }
-
-        .animations-for-each-mark((@minute + 1));
-      }
-    </script>
-    <div id="marks_transition_result" class="example-result" data-example="result" data-html="marks_html" data-css="marks_transition_css"></div>
-    <p><strong>Add a mark.</strong> Same instructions as for the digits.</p>
-    <script id="single_mark_1_html" type="text/example-html">
-      <div id="example_watch" class="watch">
-        <ul class="marks">
-          <li></li>
-        </ul>
-      </div>
-    </script>
-    <script id="single_mark_1_css" type="text/example-css">
-      @mark-length: .375em;
-      @mark-width: .125em;
-
-      .watch > .marks { list-style: none; margin: 0; padding: 0; }
-
-      .watch > .marks > li {
-        width: @mark-width; height: @mark-length;
-        background: #929394;
-      }
-    </script>
-    <div class="row">
-      <div class="col-md-goldsm">
-        <div id="single_mark_1_result" class="example-result-small" data-example="result" data-html="single_mark_1_html" data-css="single_mark_1_css"></div>
-      </div>
-      <div class="col-md-goldlg">
-        <div id="single_mark_1_html_code" class="example-code" data-example="html" data-html="single_mark_1_html"></div>
-        <div id="single_mark_1_css_code" class="example-code" data-example="css" data-css="single_mark_1_css"></div>
-      </div>
-    </div>
-    <p><strong>Center the mark.</strong> Same instructions as for the digits. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
-    <script id="single_mark_2_css" type="text/example-css" data-import="single_mark_1_css">
-      @face-size: 20em;
-
-      .watch > .marks {
-        width: @face-size; height: @face-size;
-        border-radius: (@face-size / 2);
-        position: relative;
-      }
-
-      .watch > .marks > li {
-        position: absolute;
-        top: 50%; left: 50%;
-        margin: -(@mark-length / 2) 0 0 -(@mark-width / 2);
-      }
-    </script>
-    <script id="show_mark_and_watch_border_css" type="text/example-css">
-      .watch > .marks { border: 1px solid blue; }
-    </script>
-    <div class="row">
-      <div class="col-md-goldsm">
-        <div id="single_mark_2_result" class="example-result" data-example="result" data-html="single_mark_1_html" data-css="single_mark_2_css" data-css-after="show_mark_and_watch_border_css" data-crosshairs="#888"></div>
-      </div>
-      <div class="col-md-goldlg">
-        <div id="single_mark_2_css_code" class="example-code" data-example="css" data-css="single_mark_2_css"></div>
-      </div>
-    </div>
-    <p><strong>Rotate the mark and move it to the border.</strong> Same instructions as for the digits, only this time there will be no third straightening out transformation. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
-    <script id="single_mark_3_css" type="text/example-css" data-import="single_mark_2_css">
-      @mark-margin: 1em;
-
-      .watch > .marks > li {
-        &:nth-child(1) {
-          @translate: (@face-size / 2) -
-                      (@mark-length / 2) -
-                      @mark-margin;
-          @rotate: (360deg / 60) * 1;
-          transform: rotate(@rotate)
-                     translateY(-@translate);
-        }
-      }
-    </script>
-    <div class="row">
-      <div class="col-md-goldsm">
-        <div id="single_mark_4_result" class="example-result" data-example="result" data-html="single_mark_1_html" data-css="single_mark_3_css" data-css-after="show_mark_and_watch_border_css"></div>
-      </div>
-      <div class="col-md-goldlg">
-        <div id="single_mark_3_css_code" class="example-code" data-example="css" data-css="single_mark_3_css"></div>
-      </div>
-    </div>
-    <p><strong>Add all marks.</strong> In the html part we are looping with <a href="https://lodash.com/docs#forEach">_.forEach</a> to generate 60 empty <code>&lt;li&gt;</code> tags. In the css part we are looping with <a href="http://lesscss.org/features/#loops-feature">recursive mixins</a> to generate the transformations for each mark with appropriate rotation calculed according to the index of the mark.</p>
-    <script id="marks_html" type="text/example-html">
-      <% var minutes = 60; %>
-
-      <div id="example_watch" class="watch">
-        <ul class="marks">
-          <% _.forEach(_.range(minutes), function() { %>
-            <li></li>
-          <% }); %>
-        </ul>
-      </div>
-    </script>
-    <script id="marks_css" type="text/example-css" data-import="single_mark_2_css">
-      @mark-margin: 1em;
-      @minutes: 60;
-
-      .position-marks(@minute: 1) when (@minute <= @minutes) {
-        @rotate: (360deg / @minutes) * @minute;
-        @translate: (@face-size / 2) -
-                    (@mark-length / 2) -
-                    @mark-margin;
-        &:nth-child(@{minute}) {
-          transform: rotate(@rotate)
-                     translateY(-@translate);
-        }
-        .position-marks((@minute + 1));
-      }
-
-      .watch > .marks > li {
-        .position-marks;
-      }
-    </script>
-    <div class="row">
-      <div class="col-md-goldsm">
-        <div id="marks_result" class="example-result" data-example="result" data-html="marks_html" data-css="marks_css"></div>
-      </div>
-      <div class="col-md-goldlg">
-        <div id="marks_html_code" class="example-code" data-example="html" data-html="marks_html"></div>
-        <div id="marks_css_code" class="example-code" data-example="css" data-css="marks_css"></div>
-      </div>
-    </div>
-    <p><strong>Hide the marks</strong> where the hours should be. Change the less loop to conditionally hide every 5 marks (60 minutes / 12 hours).</p>
-    <script id="marks_2_css" type="text/example-css" data-import="single_mark_2_css">
-      @mark-margin: 1em;
-      @minutes: 60;
-      @hours: 12;
-
-      .position-marks(@minute: 1) when (@minute <= @minutes) {
-        @rotate: (360deg / @minutes) * @minute;
-        @translate: (@face-size / 2) -
-                    (@mark-length / 2) -
-                    @mark-margin;
-
-        .find-if-is-minute-or-hour() {
-          @visibility: visible;
-        }
-        .find-if-is-minute-or-hour() when (mod(@minute, (@minutes / @hours)) = 0) {
-          @visibility: hidden;
-        }
-        .find-if-is-minute-or-hour;
-
-        &:nth-child(@{minute}) {
-          transform: rotate(@rotate)
-                     translateY(-@translate);
-          visibility: @visibility;
-        }
-        .position-marks((@minute + 1));
-      }
-
-      .watch > .marks > li {
-        .position-marks;
-      }
-    </script>
-    <div class="row">
-      <div class="col-md-goldsm">
-        <div id="marks_2_result" class="example-result" data-example="result" data-html="marks_html" data-css="marks_2_css"></div>
-      </div>
-      <div class="col-md-goldlg">
-        <div id="marks_css_code" class="example-code" data-example="css" data-css="marks_2_css"></div>
-      </div>
-    </div>
-    <h2 id="hands" class="page-header">
-      <a href="#hands" aria-hidden="true" class="anchor"><span class="glyphicon glyphicon-link"></span></a>
-      Hands
-    </h2>
-    <script id="hand_transition_css" type="text/example-css">
-      @face-size: 20em;
-      @hand-length: 10em;
-      @hand-tail: 2em;
-      @hand-width: .2em;
-
-      .watch {
-        position: relative;
-        width: @face-size; height: @face-size;
-        border-radius: (@face-size / 2);
-      }
-
-      .watch > .hand {
-        height: @hand-length;
-        width: @hand-width;
-        background: #c00;
-        position: absolute;
-        animation: add-hand 6s ease infinite;
-      }
-
-      @center-of-rotation-x: (@hand-width / 2);
-      @center-of-rotation-y: (@hand-length - @hand-tail);
-      @rotate: (360deg / 60) * 1;
-
-      @keyframes add-hand {
-        0% {
-          top: 0;
-          left: 0;
-          margin: 0;
-        }
-        16.67% {
-          top: 50%; left: 50%;
-          margin: -@hand-length 0 0 -(@hand-width / 2);
-        }
-        33.33% {
-          top: 50%; left: 50%;
-          margin: -@hand-length 0 0 -(@hand-width / 2);
-        }
-        50% {
-          top: 50%; left: 50%;
-          margin: -(@hand-length - @hand-tail) 0 0 -(@hand-width / 2);
-        }
-        66.67% {
-          top: 50%; left: 50%;
-          margin: -(@hand-length - @hand-tail) 0 0 -(@hand-width / 2);
-          transform-origin: @center-of-rotation-x @center-of-rotation-y 0;
-          transform: rotate(0);
-        }
-        83.33% {
-          top: 50%; left: 50%;
-          margin: -(@hand-length - @hand-tail) 0 0 -(@hand-width / 2);
-          transform-origin: @center-of-rotation-x @center-of-rotation-y 0;
-          transform: rotate(@rotate);
-        }
-        100% {
-          top: 50%; left: 50%;
-          margin: -(@hand-length - @hand-tail) 0 0 -(@hand-width / 2);
-          transform-origin: @center-of-rotation-x @center-of-rotation-y 0;
-          transform: rotate(@rotate);
-        }
-      }
-    </script>
-    <div id="hand_transition_result" class="example-result" data-example="result" data-html="single_hand_1_html" data-css="hand_transition_css"></div>
-    <p><strong>Add a hand.</strong> Just create a <code>&lt;div&gt;</code> with the desired <code>background</code>, <code>height</code> (length) and <code>width</code>.</p>
-    <script id="single_hand_1_html" type="text/example-html">
-      <div id="example_watch" class="watch">
-        <div class="hand"></div>
-      </div>
-    </script>
-    <script id="single_hand_1_css" type="text/example-css">
-      @hand-length: 8em;
-      @hand-width: .2em;
-
-      .watch > .hand {
-        height: @hand-length;
-        width: @hand-width;
-        background: #c00;
-      }
-    </script>
-    <div class="row">
-      <div class="col-md-goldsm">
-        <div id="single_hand_1_result" class="example-result-small" data-example="result" data-html="single_hand_1_html" data-css="single_hand_1_css"></div>
-      </div>
-      <div class="col-md-goldlg">
-        <div id="single_hand_1_html_code" class="example-code" data-example="html" data-html="single_hand_1_html"></div>
-        <div id="single_hand_1_css_code" class="example-code" data-example="css" data-css="single_hand_1_css"></div>
-      </div>
-    </div>
-    <p><strong>Move the hand to the center.</strong> Similar instructions as for digits and marks, but the positioned ancestor now is the <code>.watch</code> container. Now we will still center it horizontally, but instead of centering it vertically, we will anchor the bottom of the hand to the center of the watch by pulling its whole height to the top with negative margin instead of just half. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
-    <script id="single_hand_2_css" type="text/example-css" data-import="single_hand_1_css">
-      @face-size: 20em;
-
-      .watch { position: relative; }
-
-      .watch > .hand {
-        position: absolute;
-        top: 50%; left: 50%;
-        margin: -@hand-length 0 0 -(@hand-width / 2);
-      }
-
-      /* This is not part of the final code
-       * These lines are needed only without the face */
-      .watch {
-        width: @face-size; height: @face-size;
-        border-radius: (@face-size / 2);
-      }
-    </script>
-    <script id="show_hand_and_watch_border_css" type="text/example-css">
-      .watch { border: 1px solid blue; }
-    </script>
-    <div class="row">
-      <div class="col-md-goldsm">
-        <div id="single_hand_2_result" class="example-result" data-example="result" data-html="single_hand_1_html" data-css="single_hand_2_css" data-css-after="show_hand_and_watch_border_css" data-crosshairs="#888"></div>
-      </div>
-      <div class="col-md-goldlg">
-        <div id="single_hand_2_css_code" class="example-code" data-example="css" data-css="single_hand_2_css"></div>
-      </div>
-    </div>
-    <p><strong>Add a tail to the hand.</strong> Change the <code>margin-top</code> so we do not pull its whole length to the top with negative margin. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
-    <script id="single_hand_3_css" type="text/example-css" data-import="single_hand_2_css">
-      @hand-length: 10em;
-      @hand-tail: 2em;
-
-      .watch > .hand {
-        margin: -(@hand-length - @hand-tail) 0 0 -(@hand-width / 2);
-      }
-    </script>
-    <div class="row">
-      <div class="col-md-goldsm">
-        <div id="single_hand_3_result" class="example-result" data-example="result" data-html="single_hand_1_html" data-css="single_hand_3_css" data-css-after="show_hand_and_watch_border_css" data-crosshairs="#888"></div>
-      </div>
-      <div class="col-md-goldlg">
-        <div id="single_hand_3_css_code" class="example-code" data-example="css" data-css="single_hand_3_css"></div>
-      </div>
-    </div>
-    <p><strong>Rotate the hand around the center of the watch.</strong> We negate the offsets that we calculated for the negative margins to find the center of the watch and therefore our center of rotation. We set it in <code>transform-origin</code>. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
-    <script id="single_hand_4_css" type="text/example-css" data-import="single_hand_3_css">
-      .watch > .hand {
-        @center-of-rotation-x: (@hand-width / 2);
-        @center-of-rotation-y: (@hand-length - @hand-tail);
-        @rotate: (360deg / 60) * 1;
-
-        transform-origin: @center-of-rotation-x @center-of-rotation-y 0;
-        transform: rotate(@rotate);
-      }
-    </script>
-    <div class="row">
-      <div class="col-md-goldsm">
-        <div id="single_hand_4_result" class="example-result" data-example="result" data-html="single_hand_1_html" data-css="single_hand_4_css" data-css-after="show_hand_and_watch_border_css" data-crosshairs="#888"></div>
-      </div>
-      <div class="col-md-goldlg">
-        <div id="single_hand_4_css_code" class="example-code" data-example="css" data-css="single_hand_4_css"></div>
-      </div>
-    </div>
-    <h2 id="putting-them-together" class="page-header">
-      <a href="#putting-them-together" aria-hidden="true" class="anchor"><span class="glyphicon glyphicon-link"></span></a>
-      Putting them together
-    </h2>
-    <script id="together_transition_html" type="text/example-html">
-      <% var hours = 12, minutes = 60; %>
-
-      <div id="wrapper">
-        <div id="example_watch" class="watch">
-          <div class="face"></div>
-          <ul class="marks">
-          <% _.forEach(_.range(minutes), function() { %>
-            <li></li>
-          <% }); %>
+      <div id="toc-column" class="col-md-3" role="complementary">
+        <nav id="toc-nav" class="hidden-print">
+          <h1>Clock</h1>
+          <ul id="toc" role="tablist" class="nav nav-stacked nav-pills">
+            <li id="show_intro" role="presentation"><a href="#intro" aria-controls="intro" role="tab">Intro</a></li>
+            <li id="show_face" role="presentation"><a href="#face" aria-controls="face" role="tab">Face</a></li>
+            <li id="show_digits" role="presentation"><a href="#digits" aria-controls="digits" role="tab">Digits</a></li>
+            <li id="show_marks" role="presentation"><a href="#marks" aria-controls="marks" role="tab">Marks</a></li>
+            <li id="show_hands" role="presentation"><a href="#hands" aria-controls="hands" role="tab">Hands</a></li>
+            <li id="show_putting-them-together" role="presentation"><a href="#putting-them-together" aria-controls="putting-them-together" role="tab">Putting them together</a></li>
+            <li id="show_animation" role="presentation"><a href="#animation" aria-controls="animation" role="tab">Animation</a></li>
+            <li id="show_current" role="presentation"><a href="#current-time" aria-controls="current-time" role="tab">Current time</a></li>
+            <li id="show_builder" role="presentation"><a href="#builder" aria-controls="builder" role="tab">Builder</a></li>
+            <li id="show_decimal-time" role="presentation"><a href="#decimal-time" aria-controls="decimal-time" role="tab">Decimal time</a></li>
           </ul>
-          <ul class="digits">
-          <% _.forEach(_.range(hours), function(hour) { %>
-            <li><%- hour + 1 %></li>
-          <% }); %>
-          </ul>
-          <div class="hands">
-            <div class="hours-hand"></div>
-            <div class="minutes-hand"></div>
-            <div class="seconds-hand"></div>
+        </nav>
+      </div>
+      <div id="content" class="col-md-9" role="main">
+        <div role="tabpanel" class="section" id="intro">
+          <h2 class="page-header">Intro</h2>
+          <p>Attempt to reverse engineer and rewrite step by step this <a href="http://codepen.io/iliadraznin/pen/JcqbE">pure-CSS3 clock</a> in order to build me a <a href="https://en.wikipedia.org/wiki/Decimal_time">decimal time</a> clock.</p>
+          <p>I want it parameterized to be easier to understand and write the final code, so I use <a href="https://lodash.com/docs#template">_.template</a> for the HTML and <a href="http://lesscss.org/">Less</a> for the CSS.</p>
+        </div>
+        <div role="tabpanel" class="section" id="face">
+          <h2 id="face" class="page-header">Face</h2>
+          <script id="face_transition_css" type="text/example-css">
+            @face-size: 20em;
+            @face-border-width: .5em;
+
+            @keyframes add-face {
+              0% {
+                width: @face-border-width * 2;
+                height: @face-border-width * 2;
+                margin-left: (@face-size / 2);
+                margin-top: (@face-size / 2);
+              }
+              25% {
+                width: @face-size;
+                height: @face-size;
+                margin-left: 0;
+                margin-top: 0;
+              }
+              50% {
+                width: @face-size;
+                height: @face-size;
+                margin-left: 0;
+                margin-top: 0;
+                border-radius: 0;
+              }
+              75% {
+                width: @face-size;
+                height: @face-size;
+                margin-left: 0;
+                margin-top: 0;
+                border-radius: (@face-size / 2);
+              }
+              100% {
+                width: @face-size;
+                height: @face-size;
+                margin-left: 0;
+                margin-top: 0;
+                border-radius: (@face-size / 2);
+              }
+            }
+
+            .watch .face {
+              animation: add-face 4s normal infinite;
+              background: white;
+              border: @face-border-width solid black;
+            }
+          </script>
+          <div id="face_transition_result" class="example-result" data-example="result" data-html="face_1_html" data-css="face_transition_css"></div>
+          <p><strong>Add the face.</strong> Create a <code>&lt;div&gt;</code> with the same <code>height</code> and <code>width</code>. I made it proportional to the digit size by using a size in <code>em</code>. I added a background and border to make the face visible in the white background.</p>
+          <script id="face_1_html" type="text/example-html">
+            <div id="example_watch" class="watch">
+              <div class="face"></div>
+            </div>
+          </script>
+          <script id="face_1_css" type="text/example-css">
+            @face-size: 20em;
+
+            .watch > .face {
+              width: @face-size; height: @face-size;
+              background: white;
+              border: .5em solid black;
+            }
+          </script>
+          <div class="row">
+            <div class="col-lg-goldsm">
+              <div id="face_1_result" class="example-result" data-example="result" data-html="face_1_html" data-css="face_1_css"></div>
+            </div>
+            <div class="col-lg-goldlg">
+              <div id="face_1_html_code" class="example-code" data-example="html" data-html="face_1_html"></div>
+              <div id="face_1_css_code" class="example-code" data-example="css" data-css="face_1_css"></div>
+            </div>
+          </div>
+          <p><strong>Make it round.</strong> Make the <code>border-radius</code> half the size of the clock.</p>
+          <script id="face_2_css" type="text/example-css" data-import="face_1_css">
+            .watch > .face {
+              width: @face-size; height: @face-size;
+              border-radius: (@face-size / 2);
+            }
+          </script>
+          <div class="row">
+            <div class="col-lg-goldsm">
+              <div id="face_2_result" class="example-result" data-example="result" data-html="face_1_html" data-css="face_2_css"></div>
+            </div>
+            <div class="col-lg-goldlg">
+              <div id="face_2_css_code" class="example-code" data-example="css" data-css="face_2_css"></div>
+            </div>
           </div>
         </div>
-      </div>
-    </script>
-    <script id="together_transition_css" type="text/example-css" data-import="together_5_css">
-      #wrapper {
-        font-size: 50%;
-        .marks > li, .seconds-hand { min-width: 1px; }
+        <div role="tabpanel" class="section" id="digits">
+          <h2 class="page-header">Digits</h2>
+          <script id="digits_transition_css" type="text/example-css">
+            @face-size: 20em;
+            @digit-size: 1em;
+            @digit-margin: 1em;
+            @hours: 12;
 
-        display: inline-block;
-        width: (@face-size * 4);
-        max-width: 100%;
-        height: @face-size;
-        margin-top: (@face-size / 2);
-        position: relative;
-      }
+            .watch > .digits {
+              list-style: none; margin: 0; padding: 0;
+              width: @face-size; height: @face-size;
+              border-radius: (@face-size / 2);
+              position: relative;
+            }
 
-      .watch {
-        display: block;
-        width: @face-size; height: @face-size;
-        position: absolute;
-        top: 0;
-        left: 0;
-        margin-left: 0;
-      }
-      .watch > .digits {
-        left: 100%;
-      }
-      .watch > .marks {
-        left: 200%;
-      }
-      .watch > .hands {
-        display: block;
-        width: @face-size; height: @face-size;
-        position: absolute;
-        top: 0;
-        left: 300%;
+            .watch > .digits > li {
+              font-weight: bold;
+              font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+              display: block;
+              width: @digit-size; height: @digit-size;
+              line-height: @digit-size;
+              text-align: center;
+              position: absolute;
+              .animations-for-each-digit;
+            }
 
-        > .hours-hand:extend(.watch > .hours-hand) {}
-        > .minutes-hand:extend(.watch > .minutes-hand) {}
-        > .seconds-hand:extend(.watch > .seconds-hand) {}
-      }
+            .animations-for-each-digit(@hour: 1) when (@hour <= @hours) {
+              @rotate: (360deg / @hours) * @hour;
+              @translate: (@face-size / 2) -
+                          (@digit-size / 2) -
+                          @digit-margin;
 
-      .watch {
-        animation: move-to-the-center-of-container 4s ease infinite;
-      }
+              @keyframes ~"add-digit-@{hour}" {
+                0% {
+                  top: (@digit-size * 1.42857143 * (@hour - 1));
+                  left: 0;
+                  margin: 0;
+                }
+                12.5% {
+                  top: 50%; left: 50%;
+                  margin: -(@digit-size / 2) 0 0 -(@digit-size / 2);
+                }
+                25% {
+                  top: 50%; left: 50%;
+                  margin: -(@digit-size / 2) 0 0 -(@digit-size / 2);
+                  transform: rotate(0);
+                }
+                37.5% {
+                  top: 50%; left: 50%;
+                  margin: -(@digit-size / 2) 0 0 -(@digit-size / 2);
+                  transform: rotate(@rotate);
+                }
+                50% {
+                  top: 50%; left: 50%;
+                  margin: -(@digit-size / 2) 0 0 -(@digit-size / 2);
+                  transform: rotate(@rotate) translateY(0);
+                }
+                62.5% {
+                  top: 50%; left: 50%;
+                  margin: -(@digit-size / 2) 0 0 -(@digit-size / 2);
+                  transform: rotate(@rotate)
+                             translateY(-@translate);
+                }
+                75% {
+                  top: 50%; left: 50%;
+                  margin: -(@digit-size / 2) 0 0 -(@digit-size / 2);
+                  transform: rotate(@rotate)
+                             translateY(-@translate)
+                             rotate(0);
+                }
+                87.5% {
+                  top: 50%; left: 50%;
+                  margin: -(@digit-size / 2) 0 0 -(@digit-size / 2);
+                  transform: rotate(@rotate)
+                             translateY(-@translate)
+                             rotate(-@rotate);
+                }
+                100% {
+                  top: 50%; left: 50%;
+                  margin: -(@digit-size / 2) 0 0 -(@digit-size / 2);
+                  transform: rotate(@rotate)
+                             translateY(-@translate)
+                             rotate(-@rotate);
+                }
+              }
 
-      @keyframes move-to-the-center-of-container {
-        50% {
-          margin-left: -(@face-size / 2);
-          left: 50%;
-        }
-        100% {
-          margin-left: -(@face-size / 2);
-          left: 50%;
-        }
-      }
+              &:nth-child(@{hour}) {
+                animation: ~"add-digit-@{hour}" 8s ease infinite;
+              }
 
-      .watch > .digits,
-      .watch > .marks,
-      .watch > .hands {
-        animation: move-to-the-center-of-watch 4s ease infinite;
-      }
-
-      @keyframes move-to-the-center-of-watch {
-        50% {
-          left: 0;
-        }
-        100% {
-          left: 0;
-        }
-      }
-    </script>
-    <div id="together_transition_result" class="example-result-fluid" data-example="result" data-html="together_transition_html" data-css="together_transition_css"></div>
-    <p><strong>Add the face.</strong>The face is the only one in the flow. All other components are absolutely positioned, so set <code>position: relative;</code> in the watch to make it a positioned ancestor.</p>
-    <script id="together_1_html" type="text/example-html">
-      <div id="example_watch" class="watch">
-        <div class="face"></div>
-      </div>
-    </script>
-    <script id="together_1_css" type="text/example-css">
-      @face-size: 20em;
-      @face-border-width: .5em;
-
-      .make-circle(@diameter) {
-        width: @diameter; height: @diameter;
-        border-radius: (@diameter / 2);
-      }
-
-      .watch > .face {
-        .make-circle(@face-size);
-        background: white;
-        border: @face-border-width solid black;
-      }
-    </script>
-    <div class="row">
-      <div class="col-md-goldsm">
-        <div id="together_1_result" class="example-result" data-example="result" data-html="together_1_html" data-css="together_1_css"></div>
-      </div>
-      <div class="col-md-goldlg">
-        <div id="together_1_html_code" class="example-code" data-example="html" data-html="together_1_html"></div>
-        <div id="together_1_css_code" class="example-code" data-example="css" data-css="together_1_css"></div>
-      </div>
-    </div>
-    <p>The face is the only one in the flow. All other components are absolutely positioned, so set <code>position: relative;</code> in the watch to make it the closest positioned ancestor.</p>
-    <script id="together_positioned_css" type="text/example-css" data-import="together_1_css">
-      .watch {
-        position: relative;
-      }
-    </script>
-    <div id="together_positioned_css_code" class="example-code" data-example="css" data-css="together_positioned_css"></div>
-    <p>Let's define a few mixins to deal with centering.</p>
-    <script id="together_centering_css" type="text/example-css" data-import="together_positioned_css">
-      .clear-list-style() { list-style: none; margin: 0; padding: 0; }
-
-      .center-text(@width, @height:@width) {
-        display: block;
-        width: @width; height: @height;
-        line-height: @height;
-        text-align: center;
-      }
-
-      .move-box-to-fill-parent() {
-        position: absolute;
-        top: 0; left: 0;
-      }
-
-      .move-box-to-parent-center(@width, @height:@width) {
-        position: absolute;
-        top: 50%; left: 50%;
-        margin: -(@height / 2) 0 0 -(@width / 2);
-      }
-    </script>
-    <div id="together_centering_css_code" class="example-code" data-example="css" data-css="together_centering_css"></div>
-    <p><strong>Add the digits.</strong></p>
-    <script id="together_2_html" type="text/example-html">
-      <% var hours = 12; %>
-
-      <div id="example_watch" class="watch">
-        <div class="face"></div>
-        <ul class="digits">
-        <% _.forEach(_.range(hours), function(hour) { %>
-          <li><%- hour + 1 %></li>
-        <% }); %>
-        </ul>
-      </div>
-    </script>
-    <script id="together_2_css" type="text/example-css" data-import="together_centering_css">
-      @digit-size: 1em;
-      @digit-margin: 1em;
-      @hours: 12;
-
-      .position-digits(@hour: @hours) when (@hour > 0) {
-        .position-digits((@hour - 1));
-
-        @rotate: (360deg / @hours) * @hour;
-        @translate: (@face-size / 2) -
-                    (@digit-size / 2) -
-                    @digit-margin;
-
-        &:nth-child(@{hour}) {
-          transform: rotate(@rotate)
-                     translateY(-@translate)
-                     rotate(-@rotate);
-        }
-      }
-
-      .watch > .digits {
-        .clear-list-style;
-        .make-circle(@face-size);
-        .move-box-to-fill-parent;
-      }
-
-      .watch > .digits > li {
-        font-weight: bold;
-        font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
-        .center-text(@digit-size);
-        .move-box-to-parent-center(@digit-size);
-        .position-digits;
-      }
-    </script>
-    <div class="row">
-      <div class="col-md-goldsm">
-        <div id="together_2_result" class="example-result" data-example="result" data-html="together_2_html" data-css="together_2_css"></div>
-      </div>
-      <div class="col-md-goldlg">
-        <div id="together_2_html_code" class="example-code" data-example="html" data-html="together_2_html"></div>
-        <div id="together_2_css_code" class="example-code" data-example="css" data-css="together_2_css"></div>
-      </div>
-    </div>
-    <p><strong>Add the marks.</strong></p>
-    <script id="together_3_html" type="text/example-html">
-      <% var hours = 12, minutes = 60; %>
-
-      <div id="example_watch" class="watch">
-        <div class="face"></div>
-        <ul class="marks">
-        <% _.forEach(_.range(minutes), function() { %>
-          <li></li>
-        <% }); %>
-        </ul>
-        <ul class="digits">
-        <% _.forEach(_.range(hours), function(hour) { %>
-          <li><%- hour + 1 %></li>
-        <% }); %>
-        </ul>
-      </div>
-    </script>
-    <script id="together_3_css" type="text/example-css" data-import="together_2_css">
-      @mark-length: .375em;
-      @mark-width: .125em;
-      @mark-margin: @digit-margin;
-      @minutes: 60;
-
-      .position-marks(@minute: @minutes) when (@minute > 0) {
-        .position-marks((@minute - 1));
-
-        @rotate: (360deg / @minutes) * @minute;
-        @translate: (@face-size / 2) -
-                    (@mark-length / 2) -
-                    @mark-margin;
-
-        &:nth-child(@{minute}) {
-          transform: rotate(@rotate)
-                     translateY(-@translate);
-        }
-      }
-
-      .hide-marks(@minute: @minutes) when (@minute > 0) {
-        .hide-marks((@minute - 5));
-
-        &:nth-child(@{minute}) {
-          visibility: hidden;
-        }
-      }
-
-      .watch > .marks {
-        .clear-list-style;
-        .make-circle(@face-size);
-        .move-box-to-fill-parent;
-      }
-
-      .watch > .marks > li {
-        display: block;
-        width: @mark-width; height: @mark-length;
-        background: #929394;
-        .move-box-to-parent-center(@mark-width, @mark-length);
-        .position-marks;
-        .hide-marks;
-      }
-    </script>
-    <div class="row">
-      <div class="col-md-goldsm">
-        <div id="together_3_result" class="example-result" data-example="result" data-html="together_3_html" data-css="together_3_css"></div>
-      </div>
-      <div class="col-md-goldlg">
-        <div id="together_3_html_code" class="example-code" data-example="html" data-html="together_3_html"></div>
-        <div id="together_3_css_code" class="example-code" data-example="css" data-css="together_3_css"></div>
-      </div>
-    </div>
-    <p><strong>Add the hands.</strong></p>
-    <script id="together_4_html" type="text/example-html">
-      <% var hours = 12, minutes = 60; %>
-
-      <div id="example_watch" class="watch">
-        <div class="face"></div>
-        <ul class="marks">
-        <% _.forEach(_.range(minutes), function() { %>
-          <li></li>
-        <% }); %>
-        </ul>
-        <ul class="digits">
-        <% _.forEach(_.range(hours), function(hour) { %>
-          <li><%- hour + 1 %></li>
-        <% }); %>
-        </ul>
-        <div class="hours-hand"></div>
-        <div class="minutes-hand"></div>
-        <div class="seconds-hand"></div>
-      </div>
-    </script>
-    <script id="together_4_css" type="text/example-css" data-import="together_3_css">
-      .hand(@colour, @length, @tail, @width) {
-        background: @colour;
-        display: block;
-        height: @length; width: @width;
-        position: absolute;
-        top: 50%; left: 50%;
-        margin: -(@length - @tail) 0 0 -(@width / 2);
-        transform-origin: (@width / 2) (@length - @tail) 0;
-      }
-
-      .watch > .hours-hand {
-        .hand(#232425, 4.375em, .5em, .5em);
-      }
-
-      .watch > .minutes-hand {
-        .hand(#343536, 7.815em, .9375em, .5em);
-      }
-
-      .watch > .seconds-hand {
-        .hand(#c00, 8.75em, 1.25em, .125em);
-      }
-    </script>
-    <div class="row">
-      <div class="col-md-goldsm">
-        <div id="together_4_result" class="example-result" data-example="result" data-html="together_4_html" data-css="together_4_css"></div>
-      </div>
-      <div class="col-md-goldlg">
-        <div id="together_4_html_code" class="example-code" data-example="html" data-html="together_4_html"></div>
-        <div id="together_4_css_code" class="example-code" data-example="css" data-css="together_4_css"></div>
-      </div>
-    </div>
-    <p><strong>Set the time.</strong> The center of rotation was already set for each hand. We just have to rotate the hand a number of degrees proportional to the desired time. It is essential to remember to set the hour hand relative to 12 hours, not 24 and set minutes and hours hands with its fractions, since they do not move just once every minute or hour.</p>
-    <script id="together_5_css" type="text/example-css" data-import="together_4_css">
-      @hour: 4;
-      @minute: 20;
-      @second: 42;
-
-      .watch > .hours-hand {
-        transform: rotate((360deg / 12 * (@hour + @minute/60 + @second/3600)));
-      }
-
-      .watch > .minutes-hand {
-        transform: rotate((360deg / 60 * (@minute + @second/60)));
-      }
-
-      .watch > .seconds-hand {
-        transform: rotate((360deg / 60 * @second));
-      }
-    </script>
-    <div class="row">
-      <div class="col-md-goldsm">
-        <div id="together_5_result" class="example-result" data-example="result" data-html="together_4_html" data-css="together_5_css"></div>
-      </div>
-      <div class="col-md-goldlg">
-        <div id="together_5_css_code" class="example-code" data-example="css" data-css="together_5_css"></div>
-      </div>
-    </div>
-    <h2 id="animation" class="page-header">
-      <a href="#animation" aria-hidden="true" class="anchor"><span class="glyphicon glyphicon-link"></span></a>
-      Animation
-    </h2>
-    <p><strong>Add rotation animation.</strong> Create a single <code>@keyframes</code> that rotates 360 degrees and set it to all hands with <code>animation-timing-function: linear;</code> and <code>animation-iteration-count: infinite;</code>. For each hand, set the <code>animation-duration</code> to the time in seconds that take the hand to complete a cycle. The second hand takes 60 seconds to complete a rotation, the minute hand takes 3600 seconds and the hour hand takes 43200 seconds (only half a day, since the clock has only 12 hours).</p>
-    <script id="animation_1_css" type="text/example-css" data-import="together_4_css">
-      @keyframes hand-rotation {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-
-      .watch > .hours-hand {
-        animation: hand-rotation (60s * 60 * 12) linear infinite;
-      }
-
-      .watch > .minutes-hand {
-        animation: hand-rotation (60s * 60) linear infinite;
-      }
-
-      .watch > .seconds-hand {
-        animation: hand-rotation 60s linear infinite;
-      }
-    </script>
-    <div class="row">
-      <div class="col-md-goldsm">
-        <div id="animation_1_result" class="example-result" data-example="result" data-html="together_4_html" data-css="animation_1_css"></div>
-      </div>
-      <div class="col-md-goldlg">
-        <div id="animation_1_css_code" class="example-code" data-example="css" data-css="animation_1_css"></div>
-      </div>
-    </div>
-    <p><strong>Move the seconds hand in ticks.</strong> Instead of the <code>linear</code>, use a <code>steps</code> timing function. <code>60</code> means it will do the rotation in 60 steps and <code>end</code> means it will animate at the end of every step.</p>
-    <script id="animation_2_css" type="text/example-css" data-import="animation_1_css">
-      .watch > .seconds-hand {
-        animation-timing-function: steps(60, end);
-      }
-    </script>
-    <div class="row">
-      <div class="col-md-goldsm">
-        <div id="animation_2_result" class="example-result" data-example="result" data-html="together_4_html" data-css="animation_2_css"></div>
-      </div>
-      <div class="col-md-goldlg">
-        <div id="animation_2_css_code" class="example-code" data-example="css" data-css="animation_2_css"></div>
-      </div>
-    </div>
-    <p><strong>Pause and resume the clock.</strong> We just have to toggle <code>animation-play-state</code> between <code>running</code> and <code>paused</code>. The default is running, but we will change it to paused and add a class for a running watch. It is a pure CSS endeavor, but it will not prevent your script from adjusting the clock if you forgot to stop it.</p>
-    <script id="pause_css" type="text/example-css" data-import="animation_2_css">
-      .watch.running {
-        .hours-hand { animation-play-state: running; }
-        .minutes-hand { animation-play-state: running; }
-        .seconds-hand { animation-play-state: running; }
-      }
-      .watch.paused {
-        .hours-hand { animation-play-state: paused; }
-        .minutes-hand { animation-play-state: paused; }
-        .seconds-hand { animation-play-state: paused; }
-      }
-      .watch:extend(.watch.paused all) {}
-    </script>
-    <script id="pause_on_hover_css" type="text/example-css">
-      .watch:before {
-        position: absolute;
-        top: 0; left: 0; z-index: 99999;
-        width: 100%;
-        background: white;
-        border: 2px solid black;
-      }
-
-      .watch:hover:before {
-        content: 'Running (take your mouse off to stop it)';
-        color: green;
-      }
-
-      .watch:before {
-        content: 'Paused (mouse over to start it)';
-        color: red;
-      }
-
-      .watch:hover:extend(.watch.running all) {}
-    </script>
-    <div class="row">
-      <div class="col-md-goldsm">
-        <div id="pause_result" class="example-result" data-example="result" data-html="together_4_html" data-css="pause_css" data-css-after="pause_on_hover_css"></div>
-      </div>
-      <div class="col-md-goldlg">
-        <div id="pause_code" class="example-code" data-example="css" data-css="pause_css"></div>
-      </div>
-    </div>
-    <h2 id="current-time" class="page-header">
-      <a href="#current-time" aria-hidden="true" class="anchor"><span class="glyphicon glyphicon-link"></span></a>
-      Current time
-    </h2>
-    <p><strong>Set the time</strong> in a clock that is using animation. Since the animation is modifying the <code>transform</code> property, trying to rotate it manually is not the best approach as it would require a change to the <code>@keyframes</code> and it would make it impossible for the hands to share a single animation. It is possible to start the animation in a specific position by setting a negative <code>animation-delay</code>.</p>
-    <p>The movement of each hand is like a movie that starts at 12 hours and end at 12 hours after taking a whole clockwise trip around the clock and setting the negative delay is just like seeking a specific time in that movie and pressing play.</p>
-    <script id="set_clock_css" type="text/example-css" data-import="animation_2_css">
-      @hour: 4;
-      @minute: 20;
-      @second: 0;
-
-      .watch > .hours-hand {
-        animation-delay: -((@hour * 3600s) + (@minute * 60s) + @second);
-      }
-
-      .watch > .minutes-hand {
-        animation-delay: -((@minute * 60s) + @second);
-      }
-
-      .watch > .seconds-hand {
-        animation-delay: -@second;
-      }
-    </script>
-    <div class="row">
-      <div class="col-md-goldsm">
-        <div id="set_clock_result" class="example-result" data-example="result" data-html="together_4_html" data-css="set_clock_css"></div>
-      </div>
-      <div class="col-md-goldlg">
-        <div id="set_clock_css_code" class="example-code" data-example="css" data-css="set_clock_css"></div>
-      </div>
-    </div>
-    <p><strong>Set the clock to current time.</strong> To do this we need JavaScript, since knowing current time goes beyond the scope of either HTML or CSS. We just find the right time, calculate the seconds and set it as the position where the animation should start. But once the animation has already started it does not work properly. To set the delay we have to find a way to <a href="https://css-tricks.com/restart-css-animation/">reload the animation</a> and the easiest way to do that is to replace the element with its clone.</p>
-    <script id="current_time_js" type="text/example-js">
-      /**
-       * Seek a specific position in the animation.
-       * @param {jQuery} $hand The hand element.
-       * @param {Number} position The position in seconds to seek. */
-      function seekCssAnimation($hand, position) {
-        var clone = $hand.clone(true).css('animation-delay', -position + 's');
-        $hand.replaceWith(clone);
-      }
-
-      /**
-       * Set the watch to the desired time.
-       * @param {jQuery} $watch The watch element.
-       * @param {Date} time The desired time. */
-      function setTime($watch, time) {
-        var hour   = time.getHours();
-        var minute = time.getMinutes();
-        var second = time.getSeconds();
-        var minutesInSeconds = minute * 60 + second;
-        var hoursInSeconds   = hour * 3600 + minutesInSeconds;
-        seekCssAnimation($watch.find('.seconds-hand'), second);
-        seekCssAnimation($watch.find('.minutes-hand'), minutesInSeconds);
-        seekCssAnimation($watch.find('.hours-hand'),   hoursInSeconds);
-      }
-    </script>
-    <script id="current_time_startup" type="text/example-js">
-      setTime($('#example_watch'), new Date());
-    </script>
-    <div class="row">
-      <div class="col-md-goldsm">
-        <div id="current_time_result" class="example-result" data-example="result" data-html="together_4_html" data-css="animation_2_css" data-js="current_time_js" data-startup="current_time_startup"></div>
-      </div>
-      <div class="col-md-goldlg">
-        <div id="current_time_code" class="example-code" data-example="js" data-js="current_time_js" data-startup="current_time_startup"></div>
-      </div>
-    </div>
-    <p>Since the animation is playing, we only have to set it once, but if the correctness of time is important in a long-running page, we may set a timer to adjust the clock in case it got out of sync with the much more precise computer clock.</p>
-    <script id="adjust_every_minute_js" type="text/example-js" data-import="current_time_js">
-      /**
-       * Set the clock to the current time and do it again every minute.
-       * @param {jQuery} $watch The watch element. */
-      function startAdjustingTheClock($watch) {
-        // Adjust now
-        setTime($watch, new Date());
-        // Set timer to adjust every 1 minute
-        var intervalId = setInterval(function() {
-          setTime($watch, new Date());
-        }, 60000);
-        // Store the interval id to be able to stop it
-        $watch.data('intervalId', intervalId);
-      }
-
-      /**
-       * Stop timer that adjust the clock every minute.
-       * @param {jQuery} $watch The watch element. */
-      function stopAdjustingTheClock($watch) {
-        var intervalId = $watch.data('intervalId');
-        $watch.data('intervalId', null);
-        clearInterval(intervalId);
-      }
-    </script>
-    <script id="adjust_every_minute_startup" type="text/example-js">
-      startAdjustingTheClock($('#example_watch'));
-      // This won't stop the clock, just adjusting the time every minute
-      // stopAdjustingTheClock($('#example_watch'));
-    </script>
-    <div id="adjust_every_minute_code" class="example-code" data-example="js" data-js="adjust_every_minute_js" data-startup="adjust_every_minute_startup"></div>
-    <h2 id="builder" class="page-header">
-      <a href="#builder" aria-hidden="true" class="anchor"><span class="glyphicon glyphicon-link"></span></a>
-      Builder
-    </h2>
-    <div class="row">
-      <div class="col-md-goldlg">
-        <form id="builder_form">
-          <h3 id="builder_units">Units</h3>
-          <div class="row">
-            <div class="col-xs-6 col-lg-4">
-              <label for="builder-@hours">@hours</label>
-              <input id="builder-@hours" type="text" value="12" data-var="@hours" class="form-control"/>
-            </div>
-            <div class="col-xs-6 col-lg-4">
-              <label for="builder-@minutes">@minutes</label>
-              <input id="builder-@minutes" type="text" value="60" data-var="@minutes" class="form-control"/>
-            </div>
-            <div class="col-xs-6 col-lg-4">
-              <label for="builder-@seconds">@seconds</label>
-              <input id="builder-@seconds" type="text" value="60" data-var="@seconds" class="form-control"/>
-            </div>
-            <div class="col-xs-6 col-lg-4">
-              <label for="builder-@second-size">@second-size</label>
-              <input id="builder-@second-size" type="text" value="1" data-var="@second-size" class="form-control"/>
-            </div>
-          </div>
-          <h3 id="builder_units">Face</h3>
-          <div class="row">
-            <div class="col-xs-6 col-lg-4">
-              <label for="builder-@face-size">@face-size</label>
-              <input id="builder-@face-size" type="text" value="20em" data-var="@face-size" class="form-control"/>
-            </div>
-            <div class="col-xs-6 col-lg-4">
-              <label for="builder-@face-border-width">@face-border-width</label>
-              <input id="builder-@face-border-width" type="text" value=".5em" data-var="@face-border-width" class="form-control"/>
-            </div>
-          </div>
-          <h3 id="builder_digits">Digits</h3>
-          <div class="row">
-            <div class="col-xs-6 col-lg-4">
-              <label for="builder-@digits">@digits</label>
-              <input id="builder-@digits" type="text" value="12" data-var="@digits" class="form-control"/>
-            </div>
-            <div class="col-xs-6 col-lg-4">
-              <label for="builder-@digit-size">@digit-size</label>
-              <input id="builder-@digit-size" type="text" value="1em" data-var="@digit-size" class="form-control"/>
-            </div>
-            <div class="col-xs-6 col-lg-4">
-              <label for="builder-@digit-font-family">@digit-font-family</label>
-              <input id="builder-@digit-font-family" type="text" value="'Raleway', 'Helvetica Neue', Helvetica, Arial, sans-serif" data-var="@digit-font-family" class="form-control"/>
-            </div>
-            <div class="col-xs-6 col-lg-4">
-              <label for="builder-@digit-margin">@digit-margin</label>
-              <input id="builder-@digit-margin" type="text" value="1em" data-var="@digit-margin" class="form-control"/>
-            </div>
-          </div>
-          <h3 id="builder_marks">Marks</h3>
-          <div class="row">
-            <div class="col-xs-6 col-lg-4">
-              <label for="builder-@marks">@marks</label>
-              <input id="builder-@marks" type="text" value="60" data-var="@marks" class="form-control"/>
-            </div>
-            <div class="col-xs-6 col-lg-4">
-              <label for="builder-@mark-length">@mark-length</label>
-              <input id="builder-@mark-length" type="text" value=".375em" data-var="@mark-length" class="form-control"/>
-            </div>
-            <div class="col-xs-6 col-lg-4">
-              <label for="builder-@mark-width">@mark-width</label>
-              <input id="builder-@mark-width" type="text" value=".125em" data-var="@mark-width" class="form-control"/>
-            </div>
-            <div class="col-xs-6 col-lg-4">
-              <label for="builder-@mark-colour">@mark-colour</label>
-              <input id="builder-@mark-colour" type="text" value="#929394" data-var="@mark-colour" class="form-control"/>
-            </div>
-            <div class="col-xs-6 col-lg-4">
-              <label for="builder-@mark-margin">@mark-margin</label>
-              <input id="builder-@mark-margin" type="text" value="1em" data-var="@mark-margin" class="form-control"/>
-            </div>
-          </div>
-          <h3 id="builder_hands">Hands</h3>
-          <div class="row">
-            <div class="col-xs-6 col-lg-4">
-              <label for="builder-@hours-hand-colour">@hours-hand-colour</label>
-              <input id="builder-@hours-hand-colour" type="text" value="#232425" data-var="@hours-hand-colour" class="form-control"/>
-            </div>
-            <div class="col-xs-6 col-lg-4">
-              <label for="builder-@hours-hand-length">@hours-hand-length</label>
-              <input id="builder-@hours-hand-length" type="text" value="4.375em" data-var="@hours-hand-length" class="form-control"/>
-            </div>
-            <div class="col-xs-6 col-lg-4">
-              <label for="builder-@hours-hand-tail">@hours-hand-tail</label>
-              <input id="builder-@hours-hand-tail" type="text" value=".5em" data-var="@hours-hand-tail" class="form-control"/>
-            </div>
-            <div class="col-xs-6 col-lg-4">
-              <label for="builder-@hours-hand-width">@hours-hand-width</label>
-              <input id="builder-@hours-hand-width" type="text" value=".5em" data-var="@hours-hand-width" class="form-control"/>
-            </div>
-            <div class="col-xs-6 col-lg-4">
-              <label for="builder-@minutes-hand-colour">@minutes-hand-colour</label>
-              <input id="builder-@minutes-hand-colour" type="text" value="#343536" data-var="@minutes-hand-colour" class="form-control"/>
-            </div>
-            <div class="col-xs-6 col-lg-4">
-              <label for="builder-@minutes-hand-length">@minutes-hand-length</label>
-              <input id="builder-@minutes-hand-length" type="text" value="7.815em" data-var="@minutes-hand-length" class="form-control"/>
-            </div>
-            <div class="col-xs-6 col-lg-4">
-              <label for="builder-@minutes-hand-tail">@minutes-hand-tail</label>
-              <input id="builder-@minutes-hand-tail" type="text" value=".9375em" data-var="@minutes-hand-tail" class="form-control"/>
-            </div>
-            <div class="col-xs-6 col-lg-4">
-              <label for="builder-@minutes-hand-width">@minutes-hand-width</label>
-              <input id="builder-@minutes-hand-width" type="text" value=".5em" data-var="@minutes-hand-width" class="form-control"/>
-            </div>
-            <div class="col-xs-6 col-lg-4">
-              <label for="builder-@seconds-hand-colour">@seconds-hand-colour</label>
-              <input id="builder-@seconds-hand-colour" type="text" value="#c00" data-var="@seconds-hand-colour" class="form-control"/>
-            </div>
-            <div class="col-xs-6 col-lg-4">
-              <label for="builder-@seconds-hand-length">@seconds-hand-length</label>
-              <input id="builder-@seconds-hand-length" type="text" value="8.75em" data-var="@seconds-hand-length" class="form-control"/>
-            </div>
-            <div class="col-xs-6 col-lg-4">
-              <label for="builder-@seconds-hand-tail">@seconds-hand-tail</label>
-              <input id="builder-@seconds-hand-tail" type="text" value="1.25em" data-var="@seconds-hand-tail" class="form-control"/>
-            </div>
-            <div class="col-xs-6 col-lg-4">
-              <label for="builder-@seconds-hand-width">@seconds-hand-width</label>
-              <input id="builder-@seconds-hand-width" type="text" value=".125em" data-var="@seconds-hand-width" class="form-control"/>
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="col-md-goldsm">
-        <script id="builder_lodash" type="text/example-html">
-          <div id="builder_watch_container">
-            <div class="builder_watch_caption">Current time</div>
-            <div id="builder_watch_current" class="builder_watch">
-              <div class="face"></div>
-              <ul class="marks">
-              <% _.forEach(_.range(marks), function() { %>
-                <li></li>
-              <% }); %>
-              </ul>
+              .animations-for-each-digit((@hour + 1));
+            }
+          </script>
+          <div id="digits_transition_result" class="example-result" data-example="result" data-html="digits_html" data-css="digits_transition_css"></div>
+          <p><strong>Add a digit.</strong> Since we are using a <code>&lt;ul&gt;</code>, we have to clear the style by removing <code>list-style</code>, <code>margin</code> and <code>padding</code>. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
+          <script id="single_digit_1_html" type="text/example-html">
+            <div id="example_watch" class="watch">
               <ul class="digits">
-              <% _.forEach(_.range(digits), function(current) { %>
-                <li><%- (current + 1) * (hours / digits) %></li>
-              <% }); %>
+                <li>1</li>
               </ul>
-              <div class="hours-hand"></div>
-              <div class="minutes-hand"></div>
-              <div class="seconds-hand"></div>
             </div>
-            <div class="builder_watch_caption">Fast rotation</div>
-            <div id="builder_watch_fast" class="builder_watch">
-              <div class="face"></div>
-              <ul class="marks">
-              <% _.forEach(_.range(marks), function() { %>
-                <li></li>
-              <% }); %>
-              </ul>
-              <ul class="digits">
-              <% _.forEach(_.range(digits), function(current) { %>
-                <li><%- (current + 1) * (hours / digits) %></li>
-              <% }); %>
-              </ul>
-              <div class="hours-hand"></div>
-              <div class="minutes-hand"></div>
-              <div class="seconds-hand"></div>
+          </script>
+          <script id="single_digit_1_css" type="text/example-css">
+            .watch > .digits { list-style: none; margin: 0; padding: 0; }
+
+            .watch > .digits > li {
+              font-weight: bold;
+              font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            }
+          </script>
+          <script id="show_digit_border_css" type="text/example-css">
+            .watch > .digits > li { border: 1px solid red; }
+          </script>
+          <div class="row">
+            <div class="col-lg-goldsm">
+              <div id="single_digit_1_result" class="example-result-small" data-example="result" data-html="single_digit_1_html" data-css="single_digit_1_css" data-css-after="show_digit_border_css"></div>
+            </div>
+            <div class="col-lg-goldlg">
+              <div id="single_digit_1_html_code" class="example-code" data-example="html" data-html="single_digit_1_html"></div>
+              <div id="single_digit_1_css_code" class="example-code" data-example="css" data-css="single_digit_1_css"></div>
             </div>
           </div>
-        </script>
-        <script id="builder_less" type="text/example-css">
-          #builder_watch_container {
-            text-align: center;
-          }
+          <p>To properly align the digits, we have to <strong>center the digit</strong> inside its <code>&lt;li&gt;</code> tag. We make it <code>display: block;</code>, set <code>text-align: center;</code> to align horizontally and then set <code>width</code>, <code>height</code> and <code>line-height</code> the same as the digit size to align vertically. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
+          <script id="single_digit_2_css" type="text/example-css" data-import="single_digit_1_css">
+            @digit-size: 1em;
 
-          .builder_watch_caption {
-            width: 100%;
-            text-align: center;
-            line-height: 50px;
-            font-size: 28px;
-            margin-top: (22px + 30px);
-            margin-bottom: 11px;
-          }
-
-          .builder_watch_caption:first-child {
-            margin-top: 22px;
-          }
-
-          .builder_watch {
-            .watch;
-            .animate-watch;
-            display: inline-block;
-          }
-
-          #builder_watch_fast {
-            .hours-hand { animation-duration: 100s; }
-            .minutes-hand { animation-duration: (100s / @minutes); }
-            .seconds-hand { visibility: hidden; }
-          }
-
-          .make-circle(@diameter) {
-            width: @diameter; height: @diameter;
-            border-radius: (@diameter / 2);
-          }
-
-          .clear-list-style() { list-style: none; margin: 0; padding: 0; }
-
-          .center-text(@width, @height:@width) {
-            display: block;
-            width: @width; height: @height;
-            line-height: @height;
-            text-align: center;
-          }
-
-          .move-box-to-fill-parent() {
-            position: absolute;
-            top: 0; left: 0;
-          }
-
-          .move-box-to-parent-center(@width, @height:@width) {
-            position: absolute;
-            top: 50%; left: 50%;
-            margin: -(@height / 2) 0 0 -(@width / 2);
-          }
-
-          .position-digits(@current: @digits) when (@current > 0) {
-            .position-digits((@current - 1));
-
-            @rotate: (360deg / @digits) * @current;
-            @translate: (@face-size / 2) -
-                        (@digit-size / 2) -
-                        @digit-margin;
-
-            &:nth-child(@{current}) {
-              transform: rotate(@rotate)
-                         translateY(-@translate)
-                         rotate(-@rotate);
+            .watch > .digits > li {
+              display: block;
+              width: @digit-size; height: @digit-size;
+              line-height: @digit-size;
+              text-align: center;
             }
-          }
+          </script>
+          <div class="row">
+            <div class="col-lg-goldsm">
+              <div id="single_digit_2_result" class="example-result-small" data-example="result" data-html="single_digit_1_html" data-css="single_digit_2_css" data-css-after="show_digit_border_css"></div>
+            </div>
+            <div class="col-lg-goldlg">
+              <div id="single_digit_2_css_code" class="example-code" data-example="css" data-css="single_digit_2_css"></div>
+            </div>
+          </div>
+          <p><strong>Center the digit.</strong> Make the parent a positioned ancestor by setting <code>position: relative;</code>. Use <code>position: absolute;</code> and set <code>top</code> and <code>left</code> to <code>50%</code>. This will anchor the top-left corner of the digit to the center of the parent, but we want the center of the digit to be anchored, so we pull the digit half its width to the left and to the top with negative margin. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
+          <script id="single_digit_3_css" type="text/example-css" data-import="single_digit_2_css">
+            @face-size: 20em;
 
-          .position-marks(@current: @marks) when (@current > 0) {
-            .position-marks((@current - 1));
-
-            @rotate: (360deg / @marks) * @current;
-            @translate: (@face-size / 2) -
-                        (@mark-length / 2) -
-                        @mark-margin;
-
-            &:nth-child(@{current}) {
-              transform: rotate(@rotate)
-                         translateY(-@translate);
+            .watch > .digits {
+              width: @face-size; height: @face-size;
+              border-radius: (@face-size / 2);
+              position: relative;
             }
-          }
 
-          .hide-marks(@current: @marks) when (@current > 0) {
-            .hide-marks((@current - (@marks / @digits)));
-
-            &:nth-child(@{current}) {
-              visibility: hidden;
+            .watch > .digits > li {
+              position: absolute;
+              top: 50%; left: 50%;
+              margin: -(@digit-size / 2) 0 0 -(@digit-size / 2);
             }
-          }
+          </script>
+          <script id="show_digit_and_watch_border_css" type="text/example-css">
+            .watch > .digits { border: 1px solid blue; }
+            .watch > .digits > li { border: 1px solid red; }
+          </script>
+          <div class="row">
+            <div class="col-lg-goldsm">
+              <div id="single_digit_3_result" class="example-result" data-example="result" data-html="single_digit_1_html" data-css="single_digit_3_css" data-css-after="show_digit_and_watch_border_css" data-crosshairs="#888"></div>
+            </div>
+            <div class="col-lg-goldlg">
+              <div id="single_digit_3_css_code" class="example-code" data-example="css" data-css="single_digit_3_css"></div>
+            </div>
+          </div>
+          <p><strong>Move the digit to the border.</strong> Use <code>transform-translate</code> and move back half the size of the clock minus the size of the digit and the desired margin from the border. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
+          <script id="single_digit_4_css" type="text/example-css" data-import="single_digit_3_css">
+            @digit-margin: 1em;
 
-          .hand(@colour, @length, @tail, @width) {
-            background: @colour;
-            display: block;
-            height: @length; width: @width;
-            position: absolute;
-            top: @face-size / 2; left: @face-size / 2;
-            margin: -(@length - @tail) 0 0 -(@width / 2);
-            transform-origin: (@width / 2) (@length - @tail) 0;
-          }
+            .watch > .digits > li {
+              &:nth-child(1) {
+                @translate: (@face-size / 2) -
+                            (@digit-size / 2) -
+                            @digit-margin;
+                transform: translateY(-@translate);
+              }
+            }
+          </script>
+          <div class="row">
+            <div class="col-lg-goldsm">
+              <div id="single_digit_4_result" class="example-result" data-example="result" data-html="single_digit_1_html" data-css="single_digit_4_css" data-css-after="show_digit_and_watch_border_css"></div>
+            </div>
+            <div class="col-lg-goldlg">
+              <div id="single_digit_4_css_code" class="example-code" data-example="css" data-css="single_digit_4_css"></div>
+            </div>
+          </div>
+          <p><strong>Move the digit to the right position.</strong> Use <code>transform-rotate</code> to rotate it around the center as defined by <code>transform-origin</code>. To calculate how many degrees we have to rotate to find the right position, we divide 360 degrees by 12 hours. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
+          <script id="single_digit_5_css" type="text/example-css" data-import="single_digit_3_css">
+            @digit-margin: 1em;
 
-          .watch() {
-            position: relative;
+            .watch > .digits > li {
+              &:nth-child(1) {
+                @translate: (@face-size / 2) -
+                            (@digit-size / 2) -
+                            @digit-margin;
+                @rotate: (360deg / 12) * 1;
+                transform-origin: 50% @translate 0;
+                transform: translateY(-@translate)
+                           rotate(@rotate);
+              }
+            }
+          </script>
+          <div class="row">
+            <div class="col-lg-goldsm">
+              <div id="single_digit_5_result" class="example-result" data-example="result" data-html="single_digit_1_html" data-css="single_digit_5_css" data-css-after="show_digit_and_watch_border_css"></div>
+            </div>
+            <div class="col-lg-goldlg">
+              <div id="single_digit_5_css_code" class="example-code" data-example="css" data-css="single_digit_5_css"></div>
+            </div>
+          </div>
+          <p><strong>Straighten the rotated digit.</strong> Now we would have to apply another rotation around itself in the reverse direction, but we can not set a different value for <code>transform-origin</code> for each transformation. We could use a wrapper element, we apply the first set of transformations to the outer element and the last rotation in the inner element. But instead, we will apply <a href="http://lea.verou.me/2012/02/moving-an-element-along-a-circle/">these transformations in a different order to avoid having to set the center or rotation</a>, thus being able to do it all in a sigle step. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
+          <script id="single_digit_6_css" type="text/example-css" data-import="single_digit_3_css">
+            @digit-margin: 1em;
 
-            > .face {
+            .watch > .digits > li {
+              &:nth-child(1) {
+                @translate: (@face-size / 2) -
+                            (@digit-size / 2) -
+                            @digit-margin;
+                @rotate: (360deg / 12) * 1;
+                transform: rotate(@rotate)
+                           translateY(-@translate)
+                           rotate(-@rotate);
+              }
+            }
+          </script>
+          <div class="row">
+            <div class="col-lg-goldsm">
+              <div id="single_digit_6_result" class="example-result" data-example="result" data-html="single_digit_1_html" data-css="single_digit_6_css" data-css-after="show_digit_and_watch_border_css"></div>
+            </div>
+            <div class="col-lg-goldlg">
+              <div id="single_digit_6_css_code" class="example-code" data-example="css" data-css="single_digit_6_css"></div>
+            </div>
+          </div>
+          <p><strong>Add all digits.</strong> In the html part we are looping with <a href="https://lodash.com/docs#forEach">_.forEach</a> to generate 12 <code>&lt;li&gt;</code> tags with the digit as content. In the css part we are looping with <a href="http://lesscss.org/features/#loops-feature">recursive mixins</a> to generate the transformations for each digit with appropriate rotation calculed according to the index of the digit.</p>
+          <script id="digits_html" type="text/example-html">
+            <% var hours = 12; %>
+
+            <div id="example_watch" class="watch">
+              <ul class="digits">
+                <% _.forEach(_.range(hours), function(hour) { %>
+                  <li><%- hour + 1 %></li>
+                <% }); %>
+              </ul>
+            </div>
+          </script>
+          <script id="digits_css" type="text/example-css" data-import="single_digit_3_css">
+            @digit-margin: 1em;
+            @hours: 12;
+
+            .position-digits(@hour: 1) when (@hour <= @hours) {
+              @rotate: (360deg / @hours) * @hour;
+              @translate: (@face-size / 2) -
+                          (@digit-size / 2) -
+                          @digit-margin;
+              &:nth-child(@{hour}) {
+                transform: rotate(@rotate)
+                           translateY(-@translate)
+                           rotate(-@rotate);
+              }
+              .position-digits((@hour + 1));
+            }
+
+            .watch > .digits > li {
+              .position-digits;
+            }
+          </script>
+          <div class="row">
+            <div class="col-lg-goldsm">
+              <div id="digits_result" class="example-result" data-example="result" data-html="digits_html" data-css="digits_css"></div>
+            </div>
+            <div class="col-lg-goldlg">
+              <div id="digits_html_code" class="example-code" data-example="html" data-html="digits_html"></div>
+              <div id="digits_css_code" class="example-code" data-example="css" data-css="digits_css"></div>
+            </div>
+          </div>
+        </div>
+        <div role="tabpanel" class="section" id="marks">
+          <h2 class="page-header">Marks</h2>
+          <script id="marks_transition_css" type="text/example-css">
+            @face-size: 20em;
+            @mark-length: .375em;
+            @mark-width: .125em;
+            @mark-colour: #929394;
+            @mark-margin: 1em;
+            @minutes: 60;
+            @hours: 12;
+
+            .watch > .marks {
+              list-style: none; margin: 0; padding: 0;
+              width: @face-size; height: @face-size;
+              border-radius: (@face-size / 2);
+              position: relative;
+            }
+
+            .watch > .marks > li {
+              display: block;
+              width: @mark-width;
+              height: @mark-length;
+              background: @mark-colour;
+              position: absolute;
+              .animations-for-each-mark;
+            }
+
+            .animations-for-each-mark(@minute: 1) when (@minute <= @minutes) {
+              @rotate: (360deg / @minutes) * @minute;
+              @translate: (@face-size / 2) -
+                          (@mark-length / 2) -
+                          @mark-margin;
+
+              .find-if-is-minute-or-hour() {
+                @mark-to-remove-opacity: 1;
+                @mark-to-remove-colour: @mark-colour;
+                @mark-to-remove-translate: 0;
+              }
+              .find-if-is-minute-or-hour() when (mod(@minute, (@minutes / @hours)) = 0) {
+                @mark-to-remove-opacity: 0;
+                @mark-to-remove-colour: red;
+                @mark-to-remove-translate: @mark-margin;
+              }
+              .find-if-is-minute-or-hour;
+
+              @keyframes ~"add-mark-@{minute}" {
+                0% {
+                  top: (@mark-length * 1.42857143 * (@minute - 1));
+                  left: 0;
+                  margin: 0;
+                }
+                10% {
+                  top: 50%; left: 50%;
+                  margin: -(@mark-length / 2) 0 0 -(@mark-length / 2);
+                }
+                20% {
+                  top: 50%; left: 50%;
+                  margin: -(@mark-length / 2) 0 0 -(@mark-length / 2);
+                  transform: rotate(0);
+                }
+                30% {
+                  top: 50%; left: 50%;
+                  margin: -(@mark-length / 2) 0 0 -(@mark-length / 2);
+                  transform: rotate(@rotate);
+                }
+                40% {
+                  top: 50%; left: 50%;
+                  margin: -(@mark-length / 2) 0 0 -(@mark-length / 2);
+                  transform: rotate(@rotate) translateY(0);
+                }
+                50% {
+                  top: 50%; left: 50%;
+                  margin: -(@mark-length / 2) 0 0 -(@mark-length / 2);
+                  transform: rotate(@rotate)
+                             translateY(-@translate);
+                }
+                60% {
+                  top: 50%; left: 50%;
+                  margin: -(@mark-length / 2) 0 0 -(@mark-length / 2);
+                  transform: rotate(@rotate)
+                             translateY(-@translate);
+                  background: @mark-colour;
+                }
+                70% {
+                  top: 50%; left: 50%;
+                  margin: -(@mark-length / 2) 0 0 -(@mark-length / 2);
+                  transform: rotate(@rotate)
+                             translateY(-@translate);
+                  background: @mark-to-remove-colour;
+                }
+                80% {
+                  top: 50%; left: 50%;
+                  margin: -(@mark-length / 2) 0 0 -(@mark-length / 2);
+                  transform: rotate(@rotate)
+                             translateY(-@translate)
+                             translateY(0);
+                  opacity: 1;
+                  background: @mark-to-remove-colour;
+                }
+                90% {
+                  top: 50%; left: 50%;
+                  margin: -(@mark-length / 2) 0 0 -(@mark-length / 2);
+                  transform: rotate(@rotate)
+                             translateY(-@translate)
+                             translateY(-@mark-to-remove-translate);
+                  opacity: @mark-to-remove-opacity;
+                  background: @mark-to-remove-colour;
+                }
+                100% {
+                  top: 50%; left: 50%;
+                  margin: -(@mark-length / 2) 0 0 -(@mark-length / 2);
+                  transform: rotate(@rotate)
+                             translateY(-@translate)
+                             translateY(-@mark-to-remove-translate);
+                  opacity: @mark-to-remove-opacity;
+                  background: @mark-to-remove-colour;
+                }
+              }
+
+              &:nth-child(@{minute}) {
+                animation: ~"add-mark-@{minute}" 8s ease infinite;
+              }
+
+              .animations-for-each-mark((@minute + 1));
+            }
+          </script>
+          <div id="marks_transition_result" class="example-result" data-example="result" data-html="marks_html" data-css="marks_transition_css"></div>
+          <p><strong>Add a mark.</strong> Same instructions as for the digits.</p>
+          <script id="single_mark_1_html" type="text/example-html">
+            <div id="example_watch" class="watch">
+              <ul class="marks">
+                <li></li>
+              </ul>
+            </div>
+          </script>
+          <script id="single_mark_1_css" type="text/example-css">
+            @mark-length: .375em;
+            @mark-width: .125em;
+
+            .watch > .marks { list-style: none; margin: 0; padding: 0; }
+
+            .watch > .marks > li {
+              width: @mark-width; height: @mark-length;
+              background: #929394;
+            }
+          </script>
+          <div class="row">
+            <div class="col-lg-goldsm">
+              <div id="single_mark_1_result" class="example-result-small" data-example="result" data-html="single_mark_1_html" data-css="single_mark_1_css"></div>
+            </div>
+            <div class="col-lg-goldlg">
+              <div id="single_mark_1_html_code" class="example-code" data-example="html" data-html="single_mark_1_html"></div>
+              <div id="single_mark_1_css_code" class="example-code" data-example="css" data-css="single_mark_1_css"></div>
+            </div>
+          </div>
+          <p><strong>Center the mark.</strong> Same instructions as for the digits. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
+          <script id="single_mark_2_css" type="text/example-css" data-import="single_mark_1_css">
+            @face-size: 20em;
+
+            .watch > .marks {
+              width: @face-size; height: @face-size;
+              border-radius: (@face-size / 2);
+              position: relative;
+            }
+
+            .watch > .marks > li {
+              position: absolute;
+              top: 50%; left: 50%;
+              margin: -(@mark-length / 2) 0 0 -(@mark-width / 2);
+            }
+          </script>
+          <script id="show_mark_and_watch_border_css" type="text/example-css">
+            .watch > .marks { border: 1px solid blue; }
+          </script>
+          <div class="row">
+            <div class="col-lg-goldsm">
+              <div id="single_mark_2_result" class="example-result" data-example="result" data-html="single_mark_1_html" data-css="single_mark_2_css" data-css-after="show_mark_and_watch_border_css" data-crosshairs="#888"></div>
+            </div>
+            <div class="col-lg-goldlg">
+              <div id="single_mark_2_css_code" class="example-code" data-example="css" data-css="single_mark_2_css"></div>
+            </div>
+          </div>
+          <p><strong>Rotate the mark and move it to the border.</strong> Same instructions as for the digits, only this time there will be no third straightening out transformation. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
+          <script id="single_mark_3_css" type="text/example-css" data-import="single_mark_2_css">
+            @mark-margin: 1em;
+
+            .watch > .marks > li {
+              &:nth-child(1) {
+                @translate: (@face-size / 2) -
+                            (@mark-length / 2) -
+                            @mark-margin;
+                @rotate: (360deg / 60) * 1;
+                transform: rotate(@rotate)
+                           translateY(-@translate);
+              }
+            }
+          </script>
+          <div class="row">
+            <div class="col-lg-goldsm">
+              <div id="single_mark_4_result" class="example-result" data-example="result" data-html="single_mark_1_html" data-css="single_mark_3_css" data-css-after="show_mark_and_watch_border_css"></div>
+            </div>
+            <div class="col-lg-goldlg">
+              <div id="single_mark_3_css_code" class="example-code" data-example="css" data-css="single_mark_3_css"></div>
+            </div>
+          </div>
+          <p><strong>Add all marks.</strong> In the html part we are looping with <a href="https://lodash.com/docs#forEach">_.forEach</a> to generate 60 empty <code>&lt;li&gt;</code> tags. In the css part we are looping with <a href="http://lesscss.org/features/#loops-feature">recursive mixins</a> to generate the transformations for each mark with appropriate rotation calculed according to the index of the mark.</p>
+          <script id="marks_html" type="text/example-html">
+            <% var minutes = 60; %>
+
+            <div id="example_watch" class="watch">
+              <ul class="marks">
+                <% _.forEach(_.range(minutes), function() { %>
+                  <li></li>
+                <% }); %>
+              </ul>
+            </div>
+          </script>
+          <script id="marks_css" type="text/example-css" data-import="single_mark_2_css">
+            @mark-margin: 1em;
+            @minutes: 60;
+
+            .position-marks(@minute: 1) when (@minute <= @minutes) {
+              @rotate: (360deg / @minutes) * @minute;
+              @translate: (@face-size / 2) -
+                          (@mark-length / 2) -
+                          @mark-margin;
+              &:nth-child(@{minute}) {
+                transform: rotate(@rotate)
+                           translateY(-@translate);
+              }
+              .position-marks((@minute + 1));
+            }
+
+            .watch > .marks > li {
+              .position-marks;
+            }
+          </script>
+          <div class="row">
+            <div class="col-lg-goldsm">
+              <div id="marks_result" class="example-result" data-example="result" data-html="marks_html" data-css="marks_css"></div>
+            </div>
+            <div class="col-lg-goldlg">
+              <div id="marks_html_code" class="example-code" data-example="html" data-html="marks_html"></div>
+              <div id="marks_css_code" class="example-code" data-example="css" data-css="marks_css"></div>
+            </div>
+          </div>
+          <p><strong>Hide the marks</strong> where the hours should be. Change the less loop to conditionally hide every 5 marks (60 minutes / 12 hours).</p>
+          <script id="marks_2_css" type="text/example-css" data-import="single_mark_2_css">
+            @mark-margin: 1em;
+            @minutes: 60;
+            @hours: 12;
+
+            .position-marks(@minute: 1) when (@minute <= @minutes) {
+              @rotate: (360deg / @minutes) * @minute;
+              @translate: (@face-size / 2) -
+                          (@mark-length / 2) -
+                          @mark-margin;
+
+              .find-if-is-minute-or-hour() {
+                @visibility: visible;
+              }
+              .find-if-is-minute-or-hour() when (mod(@minute, (@minutes / @hours)) = 0) {
+                @visibility: hidden;
+              }
+              .find-if-is-minute-or-hour;
+
+              &:nth-child(@{minute}) {
+                transform: rotate(@rotate)
+                           translateY(-@translate);
+                visibility: @visibility;
+              }
+              .position-marks((@minute + 1));
+            }
+
+            .watch > .marks > li {
+              .position-marks;
+            }
+          </script>
+          <div class="row">
+            <div class="col-lg-goldsm">
+              <div id="marks_2_result" class="example-result" data-example="result" data-html="marks_html" data-css="marks_2_css"></div>
+            </div>
+            <div class="col-lg-goldlg">
+              <div id="marks_css_code" class="example-code" data-example="css" data-css="marks_2_css"></div>
+            </div>
+          </div>
+        </div>
+        <div role="tabpanel" class="section" id="hands">
+          <h2 class="page-header">Hands</h2>
+          <script id="hand_transition_css" type="text/example-css">
+            @face-size: 20em;
+            @hand-length: 10em;
+            @hand-tail: 2em;
+            @hand-width: .2em;
+
+            .watch {
+              position: relative;
+              width: @face-size; height: @face-size;
+              border-radius: (@face-size / 2);
+            }
+
+            .watch > .hand {
+              height: @hand-length;
+              width: @hand-width;
+              background: #c00;
+              position: absolute;
+              animation: add-hand 6s ease infinite;
+            }
+
+            @center-of-rotation-x: (@hand-width / 2);
+            @center-of-rotation-y: (@hand-length - @hand-tail);
+            @rotate: (360deg / 60) * 1;
+
+            @keyframes add-hand {
+              0% {
+                top: 0;
+                left: 0;
+                margin: 0;
+              }
+              16.67% {
+                top: 50%; left: 50%;
+                margin: -@hand-length 0 0 -(@hand-width / 2);
+              }
+              33.33% {
+                top: 50%; left: 50%;
+                margin: -@hand-length 0 0 -(@hand-width / 2);
+              }
+              50% {
+                top: 50%; left: 50%;
+                margin: -(@hand-length - @hand-tail) 0 0 -(@hand-width / 2);
+              }
+              66.67% {
+                top: 50%; left: 50%;
+                margin: -(@hand-length - @hand-tail) 0 0 -(@hand-width / 2);
+                transform-origin: @center-of-rotation-x @center-of-rotation-y 0;
+                transform: rotate(0);
+              }
+              83.33% {
+                top: 50%; left: 50%;
+                margin: -(@hand-length - @hand-tail) 0 0 -(@hand-width / 2);
+                transform-origin: @center-of-rotation-x @center-of-rotation-y 0;
+                transform: rotate(@rotate);
+              }
+              100% {
+                top: 50%; left: 50%;
+                margin: -(@hand-length - @hand-tail) 0 0 -(@hand-width / 2);
+                transform-origin: @center-of-rotation-x @center-of-rotation-y 0;
+                transform: rotate(@rotate);
+              }
+            }
+          </script>
+          <div id="hand_transition_result" class="example-result" data-example="result" data-html="single_hand_1_html" data-css="hand_transition_css"></div>
+          <p><strong>Add a hand.</strong> Just create a <code>&lt;div&gt;</code> with the desired <code>background</code>, <code>height</code> (length) and <code>width</code>.</p>
+          <script id="single_hand_1_html" type="text/example-html">
+            <div id="example_watch" class="watch">
+              <div class="hand"></div>
+            </div>
+          </script>
+          <script id="single_hand_1_css" type="text/example-css">
+            @hand-length: 8em;
+            @hand-width: .2em;
+
+            .watch > .hand {
+              height: @hand-length;
+              width: @hand-width;
+              background: #c00;
+            }
+          </script>
+          <div class="row">
+            <div class="col-lg-goldsm">
+              <div id="single_hand_1_result" class="example-result-small" data-example="result" data-html="single_hand_1_html" data-css="single_hand_1_css"></div>
+            </div>
+            <div class="col-lg-goldlg">
+              <div id="single_hand_1_html_code" class="example-code" data-example="html" data-html="single_hand_1_html"></div>
+              <div id="single_hand_1_css_code" class="example-code" data-example="css" data-css="single_hand_1_css"></div>
+            </div>
+          </div>
+          <p><strong>Move the hand to the center.</strong> Similar instructions as for digits and marks, but the positioned ancestor now is the <code>.watch</code> container. Now we will still center it horizontally, but instead of centering it vertically, we will anchor the bottom of the hand to the center of the watch by pulling its whole height to the top with negative margin instead of just half. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
+          <script id="single_hand_2_css" type="text/example-css" data-import="single_hand_1_css">
+            @face-size: 20em;
+
+            .watch { position: relative; }
+
+            .watch > .hand {
+              position: absolute;
+              top: 50%; left: 50%;
+              margin: -@hand-length 0 0 -(@hand-width / 2);
+            }
+
+            /* This is not part of the final code
+             * These lines are needed only without the face */
+            .watch {
+              width: @face-size; height: @face-size;
+              border-radius: (@face-size / 2);
+            }
+          </script>
+          <script id="show_hand_and_watch_border_css" type="text/example-css">
+            .watch { border: 1px solid blue; }
+          </script>
+          <div class="row">
+            <div class="col-lg-goldsm">
+              <div id="single_hand_2_result" class="example-result" data-example="result" data-html="single_hand_1_html" data-css="single_hand_2_css" data-css-after="show_hand_and_watch_border_css" data-crosshairs="#888"></div>
+            </div>
+            <div class="col-lg-goldlg">
+              <div id="single_hand_2_css_code" class="example-code" data-example="css" data-css="single_hand_2_css"></div>
+            </div>
+          </div>
+          <p><strong>Add a tail to the hand.</strong> Change the <code>margin-top</code> so we do not pull its whole length to the top with negative margin. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
+          <script id="single_hand_3_css" type="text/example-css" data-import="single_hand_2_css">
+            @hand-length: 10em;
+            @hand-tail: 2em;
+
+            .watch > .hand {
+              margin: -(@hand-length - @hand-tail) 0 0 -(@hand-width / 2);
+            }
+          </script>
+          <div class="row">
+            <div class="col-lg-goldsm">
+              <div id="single_hand_3_result" class="example-result" data-example="result" data-html="single_hand_1_html" data-css="single_hand_3_css" data-css-after="show_hand_and_watch_border_css" data-crosshairs="#888"></div>
+            </div>
+            <div class="col-lg-goldlg">
+              <div id="single_hand_3_css_code" class="example-code" data-example="css" data-css="single_hand_3_css"></div>
+            </div>
+          </div>
+          <p><strong>Rotate the hand around the center of the watch.</strong> We negate the offsets that we calculated for the negative margins to find the center of the watch and therefore our center of rotation. We set it in <code>transform-origin</code>. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
+          <script id="single_hand_4_css" type="text/example-css" data-import="single_hand_3_css">
+            .watch > .hand {
+              @center-of-rotation-x: (@hand-width / 2);
+              @center-of-rotation-y: (@hand-length - @hand-tail);
+              @rotate: (360deg / 60) * 1;
+
+              transform-origin: @center-of-rotation-x @center-of-rotation-y 0;
+              transform: rotate(@rotate);
+            }
+          </script>
+          <div class="row">
+            <div class="col-lg-goldsm">
+              <div id="single_hand_4_result" class="example-result" data-example="result" data-html="single_hand_1_html" data-css="single_hand_4_css" data-css-after="show_hand_and_watch_border_css" data-crosshairs="#888"></div>
+            </div>
+            <div class="col-lg-goldlg">
+              <div id="single_hand_4_css_code" class="example-code" data-example="css" data-css="single_hand_4_css"></div>
+            </div>
+          </div>
+        </div>
+        <div role="tabpanel" class="section" id="putting-them-together">
+          <h2 class="page-header">Putting them together</h2>
+          <script id="together_transition_html" type="text/example-html">
+            <% var hours = 12, minutes = 60; %>
+
+            <div id="wrapper">
+              <div id="example_watch" class="watch">
+                <div class="face"></div>
+                <ul class="marks">
+                <% _.forEach(_.range(minutes), function() { %>
+                  <li></li>
+                <% }); %>
+                </ul>
+                <ul class="digits">
+                <% _.forEach(_.range(hours), function(hour) { %>
+                  <li><%- hour + 1 %></li>
+                <% }); %>
+                </ul>
+                <div class="hands">
+                  <div class="hours-hand"></div>
+                  <div class="minutes-hand"></div>
+                  <div class="seconds-hand"></div>
+                </div>
+              </div>
+            </div>
+          </script>
+          <script id="together_transition_css" type="text/example-css" data-import="together_5_css">
+            #wrapper {
+              font-size: 50%;
+              .marks > li, .seconds-hand { min-width: 1px; }
+
+              display: inline-block;
+              width: (@face-size * 4);
+              max-width: 100%;
+              height: @face-size;
+              margin-top: (@face-size / 2);
+              position: relative;
+            }
+
+            .watch {
+              display: block;
+              width: @face-size; height: @face-size;
+              position: absolute;
+              top: 0;
+              left: 0;
+              margin-left: 0;
+            }
+            .watch > .digits {
+              left: 100%;
+            }
+            .watch > .marks {
+              left: 200%;
+            }
+            .watch > .hands {
+              display: block;
+              width: @face-size; height: @face-size;
+              position: absolute;
+              top: 0;
+              left: 300%;
+
+              > .hours-hand:extend(.watch > .hours-hand) {}
+              > .minutes-hand:extend(.watch > .minutes-hand) {}
+              > .seconds-hand:extend(.watch > .seconds-hand) {}
+            }
+
+            .watch {
+              animation: move-to-the-center-of-container 4s ease infinite;
+            }
+
+            @keyframes move-to-the-center-of-container {
+              50% {
+                margin-left: -(@face-size / 2);
+                left: 50%;
+              }
+              100% {
+                margin-left: -(@face-size / 2);
+                left: 50%;
+              }
+            }
+
+            .watch > .digits,
+            .watch > .marks,
+            .watch > .hands {
+              animation: move-to-the-center-of-watch 4s ease infinite;
+            }
+
+            @keyframes move-to-the-center-of-watch {
+              50% {
+                left: 0;
+              }
+              100% {
+                left: 0;
+              }
+            }
+          </script>
+          <div id="together_transition_result" class="example-result-fluid" data-example="result" data-html="together_transition_html" data-css="together_transition_css"></div>
+          <p><strong>Add the face.</strong>The face is the only one in the flow. All other components are absolutely positioned, so set <code>position: relative;</code> in the watch to make it a positioned ancestor.</p>
+          <script id="together_1_html" type="text/example-html">
+            <div id="example_watch" class="watch">
+              <div class="face"></div>
+            </div>
+          </script>
+          <script id="together_1_css" type="text/example-css">
+            @face-size: 20em;
+            @face-border-width: .5em;
+
+            .make-circle(@diameter) {
+              width: @diameter; height: @diameter;
+              border-radius: (@diameter / 2);
+            }
+
+            .watch > .face {
               .make-circle(@face-size);
               background: white;
               border: @face-border-width solid black;
             }
+          </script>
+          <div class="row">
+            <div class="col-lg-goldsm">
+              <div id="together_1_result" class="example-result" data-example="result" data-html="together_1_html" data-css="together_1_css"></div>
+            </div>
+            <div class="col-lg-goldlg">
+              <div id="together_1_html_code" class="example-code" data-example="html" data-html="together_1_html"></div>
+              <div id="together_1_css_code" class="example-code" data-example="css" data-css="together_1_css"></div>
+            </div>
+          </div>
+          <p>The face is the only one in the flow. All other components are absolutely positioned, so set <code>position: relative;</code> in the watch to make it the closest positioned ancestor.</p>
+          <script id="together_positioned_css" type="text/example-css" data-import="together_1_css">
+            .watch {
+              position: relative;
+            }
+          </script>
+          <div id="together_positioned_css_code" class="example-code" data-example="css" data-css="together_positioned_css"></div>
+          <p>Let's define a few mixins to deal with centering.</p>
+          <script id="together_centering_css" type="text/example-css" data-import="together_positioned_css">
+            .clear-list-style() { list-style: none; margin: 0; padding: 0; }
 
-            > .digits {
-              .clear-list-style;
-              .make-circle(@face-size);
-              .move-box-to-fill-parent;
+            .center-text(@width, @height:@width) {
+              display: block;
+              width: @width; height: @height;
+              line-height: @height;
+              text-align: center;
+            }
 
-              > li {
-                font-weight: bold;
-                font-family: @digit-font-family;
-                .center-text(@digit-size);
-                .move-box-to-parent-center(@digit-size);
-                .position-digits;
+            .move-box-to-fill-parent() {
+              position: absolute;
+              top: 0; left: 0;
+            }
+
+            .move-box-to-parent-center(@width, @height:@width) {
+              position: absolute;
+              top: 50%; left: 50%;
+              margin: -(@height / 2) 0 0 -(@width / 2);
+            }
+          </script>
+          <div id="together_centering_css_code" class="example-code" data-example="css" data-css="together_centering_css"></div>
+          <p><strong>Add the digits.</strong></p>
+          <script id="together_2_html" type="text/example-html">
+            <% var hours = 12; %>
+
+            <div id="example_watch" class="watch">
+              <div class="face"></div>
+              <ul class="digits">
+              <% _.forEach(_.range(hours), function(hour) { %>
+                <li><%- hour + 1 %></li>
+              <% }); %>
+              </ul>
+            </div>
+          </script>
+          <script id="together_2_css" type="text/example-css" data-import="together_centering_css">
+            @digit-size: 1em;
+            @digit-margin: 1em;
+            @hours: 12;
+
+            .position-digits(@hour: @hours) when (@hour > 0) {
+              .position-digits((@hour - 1));
+
+              @rotate: (360deg / @hours) * @hour;
+              @translate: (@face-size / 2) -
+                          (@digit-size / 2) -
+                          @digit-margin;
+
+              &:nth-child(@{hour}) {
+                transform: rotate(@rotate)
+                           translateY(-@translate)
+                           rotate(-@rotate);
               }
             }
 
-            > .marks {
+            .watch > .digits {
               .clear-list-style;
               .make-circle(@face-size);
               .move-box-to-fill-parent;
+            }
 
-              > li {
-                background: @mark-colour;
-                display: block;
-                width: @mark-width; height: @mark-length;
-                .move-box-to-parent-center(@mark-width, @mark-length);
-                .position-marks;
-                .hide-marks;
+            .watch > .digits > li {
+              font-weight: bold;
+              font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+              .center-text(@digit-size);
+              .move-box-to-parent-center(@digit-size);
+              .position-digits;
+            }
+          </script>
+          <div class="row">
+            <div class="col-lg-goldsm">
+              <div id="together_2_result" class="example-result" data-example="result" data-html="together_2_html" data-css="together_2_css"></div>
+            </div>
+            <div class="col-lg-goldlg">
+              <div id="together_2_html_code" class="example-code" data-example="html" data-html="together_2_html"></div>
+              <div id="together_2_css_code" class="example-code" data-example="css" data-css="together_2_css"></div>
+            </div>
+          </div>
+          <p><strong>Add the marks.</strong></p>
+          <script id="together_3_html" type="text/example-html">
+            <% var hours = 12, minutes = 60; %>
+
+            <div id="example_watch" class="watch">
+              <div class="face"></div>
+              <ul class="marks">
+              <% _.forEach(_.range(minutes), function() { %>
+                <li></li>
+              <% }); %>
+              </ul>
+              <ul class="digits">
+              <% _.forEach(_.range(hours), function(hour) { %>
+                <li><%- hour + 1 %></li>
+              <% }); %>
+              </ul>
+            </div>
+          </script>
+          <script id="together_3_css" type="text/example-css" data-import="together_2_css">
+            @mark-length: .375em;
+            @mark-width: .125em;
+            @mark-margin: @digit-margin;
+            @minutes: 60;
+
+            .position-marks(@minute: @minutes) when (@minute > 0) {
+              .position-marks((@minute - 1));
+
+              @rotate: (360deg / @minutes) * @minute;
+              @translate: (@face-size / 2) -
+                          (@mark-length / 2) -
+                          @mark-margin;
+
+              &:nth-child(@{minute}) {
+                transform: rotate(@rotate)
+                           translateY(-@translate);
               }
-
             }
 
-            > .hours-hand {
-              .hand(@hours-hand-colour, @hours-hand-length, @hours-hand-tail, @hours-hand-width);
-              animation: hand-rotation (1s * @second-size * @seconds * @minutes * @hours) linear infinite;
+            .hide-marks(@minute: @minutes) when (@minute > 0) {
+              .hide-marks((@minute - 5));
+
+              &:nth-child(@{minute}) {
+                visibility: hidden;
+              }
             }
 
-            > .minutes-hand {
-              .hand(@minutes-hand-colour, @minutes-hand-length, @minutes-hand-tail, @minutes-hand-width);
-              animation: hand-rotation (1s * @second-size * @seconds * @minutes) linear infinite;
+            .watch > .marks {
+              .clear-list-style;
+              .make-circle(@face-size);
+              .move-box-to-fill-parent;
             }
 
-            > .seconds-hand {
-              .hand(@seconds-hand-colour, @seconds-hand-length, @seconds-hand-tail, @seconds-hand-width);
-              animation: hand-rotation (1s * @second-size * @seconds) linear infinite;
-              animation-timing-function: steps(@seconds, end);
+            .watch > .marks > li {
+              display: block;
+              width: @mark-width; height: @mark-length;
+              background: #929394;
+              .move-box-to-parent-center(@mark-width, @mark-length);
+              .position-marks;
+              .hide-marks;
+            }
+          </script>
+          <div class="row">
+            <div class="col-lg-goldsm">
+              <div id="together_3_result" class="example-result" data-example="result" data-html="together_3_html" data-css="together_3_css"></div>
+            </div>
+            <div class="col-lg-goldlg">
+              <div id="together_3_html_code" class="example-code" data-example="html" data-html="together_3_html"></div>
+              <div id="together_3_css_code" class="example-code" data-example="css" data-css="together_3_css"></div>
+            </div>
+          </div>
+          <p><strong>Add the hands.</strong></p>
+          <script id="together_4_html" type="text/example-html">
+            <% var hours = 12, minutes = 60; %>
+
+            <div id="example_watch" class="watch">
+              <div class="face"></div>
+              <ul class="marks">
+              <% _.forEach(_.range(minutes), function() { %>
+                <li></li>
+              <% }); %>
+              </ul>
+              <ul class="digits">
+              <% _.forEach(_.range(hours), function(hour) { %>
+                <li><%- hour + 1 %></li>
+              <% }); %>
+              </ul>
+              <div class="hours-hand"></div>
+              <div class="minutes-hand"></div>
+              <div class="seconds-hand"></div>
+            </div>
+          </script>
+          <script id="together_4_css" type="text/example-css" data-import="together_3_css">
+            .hand(@colour, @length, @tail, @width) {
+              background: @colour;
+              display: block;
+              height: @length; width: @width;
+              position: absolute;
+              top: 50%; left: 50%;
+              margin: -(@length - @tail) 0 0 -(@width / 2);
+              transform-origin: (@width / 2) (@length - @tail) 0;
             }
 
-          }
-
-          .animate-watch() {
-
-            > .hours-hand {
-              animation: hand-rotation (1s * @second-size * @seconds * @minutes * @hours) linear infinite;
+            .watch > .hours-hand {
+              .hand(#232425, 4.375em, .5em, .5em);
             }
 
-            > .minutes-hand {
-              animation: hand-rotation (1s * @second-size * @seconds * @minutes) linear infinite;
+            .watch > .minutes-hand {
+              .hand(#343536, 7.815em, .9375em, .5em);
             }
 
-            > .seconds-hand {
-              animation: hand-rotation (1s * @second-size * @seconds) linear infinite;
-              animation-timing-function: steps(@seconds, end);
+            .watch > .seconds-hand {
+              .hand(#c00, 8.75em, 1.25em, .125em);
+            }
+          </script>
+          <div class="row">
+            <div class="col-lg-goldsm">
+              <div id="together_4_result" class="example-result" data-example="result" data-html="together_4_html" data-css="together_4_css"></div>
+            </div>
+            <div class="col-lg-goldlg">
+              <div id="together_4_html_code" class="example-code" data-example="html" data-html="together_4_html"></div>
+              <div id="together_4_css_code" class="example-code" data-example="css" data-css="together_4_css"></div>
+            </div>
+          </div>
+          <p><strong>Set the time.</strong> The center of rotation was already set for each hand. We just have to rotate the hand a number of degrees proportional to the desired time. It is essential to remember to set the hour hand relative to 12 hours, not 24 and set minutes and hours hands with its fractions, since they do not move just once every minute or hour.</p>
+          <script id="together_5_css" type="text/example-css" data-import="together_4_css">
+            @hour: 4;
+            @minute: 20;
+            @second: 42;
+
+            .watch > .hours-hand {
+              transform: rotate((360deg / 12 * (@hour + @minute/60 + @second/3600)));
             }
 
-            @keyframes hand-rotation {
-              0%   { transform: rotate(0deg); }
-              100% { transform: rotate(360deg); }
+            .watch > .minutes-hand {
+              transform: rotate((360deg / 60 * (@minute + @second/60)));
             }
-          }
-        </script>
-        <style id="builder_css" type="text/css">
-        </style>
-        <div id="builder_html">
+
+            .watch > .seconds-hand {
+              transform: rotate((360deg / 60 * @second));
+            }
+          </script>
+          <div class="row">
+            <div class="col-lg-goldsm">
+              <div id="together_5_result" class="example-result" data-example="result" data-html="together_4_html" data-css="together_5_css"></div>
+            </div>
+            <div class="col-lg-goldlg">
+              <div id="together_5_css_code" class="example-code" data-example="css" data-css="together_5_css"></div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-    <h2 id="decimal-time" class="page-header">
-      <a href="#decimal-time" aria-hidden="true" class="anchor"><span class="glyphicon glyphicon-link"></span></a>
-      Decimal time
-    </h2>
-    <p>The standard time is a double duodecimal (2x12) time system based on the Babylonian time. The Babylonians used the duodecimal system (base 12), so they divided the day in 12 hours and they divided the night in 12 hours. The hour has 60 minutes and the minute 60 seconds, so the whole day has 86,400 seconds. The Babylonian time is the one standardized in the SI.</p>
-    <p>Nowadays most of the world use a decimal system that was extended to currency and units of measurement by the decimalization efforts of the French Revolution. However the efforts to make the French use decimal time were not very successfull at the time and it was finally abandoned when the famous reactionary tyrant Napoleon came into power. In the French Revolutionary system the day is divided in 10 hours (deciday), the hour is divided in 100 minutes (centihour) and the minute is divided in 100 seconds. The whole day has 100,000 seconds, but since the size of the day is the same, the decimal second is exactly 0.864 SI seconds.</p>
-    <p>The Chinese had a great number of time measurements that were adapted to match our Babylonian time by the Qing dinasty rulers. One of those traditional time systems was the Shoushi (Season Granting) calender of 1280. In the Shoushi the day is divided in 100 kes, the ke is divided in 100 fen and the fen is divided in 100 miao. The ke is the same as 10 decimal minutes or 14.4 SI minutes, the fen is the same as 10 decimal seconds or 8.64 SI seconds and the miao is the same as 0.1 decimal seconds, or 0.0864 SI seconds.</p>
-    <h3>Conversion tables</h3>
-    <p>From the Babylonian (SI) double duodecimal (2x12) to the French Revolutionary decimal (10) and Chinese Shoushi decimal (100):</p>
-    <div class="row">
-      <div class="col-sm-6">
-        <table id="from-double-duodecimal-1" class="table table-condensed table-bordered conversion-table">
-          <caption>00:00-05:45</caption>
-          <thead>
-            <tr>
-              <th>Babylonian</th>
-              <th>Revolutionary</th>
-              <th>Shoushi</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-      <div class="col-sm-6">
-        <table id="from-double-duodecimal-2" class="table table-condensed table-bordered conversion-table">
-          <caption>06:00-11:45</caption>
-          <thead>
-            <tr>
-              <th>Babylonian</th>
-              <th>Revolutionary</th>
-              <th>Shoushi</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-      <div class="col-sm-6">
-        <table id="from-double-duodecimal-3" class="table table-condensed table-bordered conversion-table">
-          <caption>12:00-17:45</caption>
-          <thead>
-            <tr>
-              <th>Babylonian</th>
-              <th>Revolutionary</th>
-              <th>Shoushi</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-      <div class="col-sm-6">
-        <table id="from-double-duodecimal-4" class="table table-condensed table-bordered conversion-table">
-          <caption>18:00-23:45</caption>
-          <thead>
-            <tr>
-              <th>Babylonian</th>
-              <th>Revolutionary</th>
-              <th>Shoushi</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-    </div>
-    <p>From the French Revolutionary decimal (10) and Chinese Shoushi decimal (100) to the Babylonian (SI) double duodecimal (2x12):</p>
-    <div class="row">
-      <div class="col-sm-6">
-        <table id="from-decimal-1" class="table table-condensed table-bordered conversion-table">
-          <caption>00:00-02:40</caption>
-          <thead>
-            <tr>
-              <th>Revolutionary</th>
-              <th>Shoushi</th>
-              <th>Babylonian</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-      <div class="col-sm-6">
-        <table id="from-decimal-2" class="table table-condensed table-bordered conversion-table">
-          <caption>02:50-04:90</caption>
-          <thead>
-            <tr>
-              <th>Revolutionary</th>
-              <th>Shoushi</th>
-              <th>Babylonian</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-      <div class="col-sm-6">
-        <table id="from-decimal-3" class="table table-condensed table-bordered conversion-table">
-          <caption>05:00-07:40</caption>
-          <thead>
-            <tr>
-              <th>Revolutionary</th>
-              <th>Shoushi</th>
-              <th>Babylonian</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-      <div class="col-sm-6">
-        <table id="from-decimal-4" class="table table-condensed table-bordered conversion-table">
-          <caption>07:50-09:90</caption>
-          <thead>
-            <tr>
-              <th>Revolutionary</th>
-              <th>Shoushi</th>
-              <th>Babylonian</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
+        <div role="tabpanel" class="section" id="animation">
+          <h2 class="page-header">Animation</h2>
+          <p><strong>Add rotation animation.</strong> Create a single <code>@keyframes</code> that rotates 360 degrees and set it to all hands with <code>animation-timing-function: linear;</code> and <code>animation-iteration-count: infinite;</code>. For each hand, set the <code>animation-duration</code> to the time in seconds that take the hand to complete a cycle. The second hand takes 60 seconds to complete a rotation, the minute hand takes 3600 seconds and the hour hand takes 43200 seconds (only half a day, since the clock has only 12 hours).</p>
+          <script id="animation_1_css" type="text/example-css" data-import="together_4_css">
+            @keyframes hand-rotation {
+              0% {
+                transform: rotate(0deg);
+              }
+              100% {
+                transform: rotate(360deg);
+              }
+            }
+
+            .watch > .hours-hand {
+              animation: hand-rotation (60s * 60 * 12) linear infinite;
+            }
+
+            .watch > .minutes-hand {
+              animation: hand-rotation (60s * 60) linear infinite;
+            }
+
+            .watch > .seconds-hand {
+              animation: hand-rotation 60s linear infinite;
+            }
+          </script>
+          <div class="row">
+            <div class="col-lg-goldsm">
+              <div id="animation_1_result" class="example-result" data-example="result" data-html="together_4_html" data-css="animation_1_css"></div>
+            </div>
+            <div class="col-lg-goldlg">
+              <div id="animation_1_css_code" class="example-code" data-example="css" data-css="animation_1_css"></div>
+            </div>
+          </div>
+          <p><strong>Move the seconds hand in ticks.</strong> Instead of the <code>linear</code>, use a <code>steps</code> timing function. <code>60</code> means it will do the rotation in 60 steps and <code>end</code> means it will animate at the end of every step.</p>
+          <script id="animation_2_css" type="text/example-css" data-import="animation_1_css">
+            .watch > .seconds-hand {
+              animation-timing-function: steps(60, end);
+            }
+          </script>
+          <div class="row">
+            <div class="col-lg-goldsm">
+              <div id="animation_2_result" class="example-result" data-example="result" data-html="together_4_html" data-css="animation_2_css"></div>
+            </div>
+            <div class="col-lg-goldlg">
+              <div id="animation_2_css_code" class="example-code" data-example="css" data-css="animation_2_css"></div>
+            </div>
+          </div>
+          <p><strong>Pause and resume the clock.</strong> We just have to toggle <code>animation-play-state</code> between <code>running</code> and <code>paused</code>. The default is running, but we will change it to paused and add a class for a running watch. It is a pure CSS endeavor, but it will not prevent your script from adjusting the clock if you forgot to stop it.</p>
+          <script id="pause_css" type="text/example-css" data-import="animation_2_css">
+            .watch.running {
+              .hours-hand { animation-play-state: running; }
+              .minutes-hand { animation-play-state: running; }
+              .seconds-hand { animation-play-state: running; }
+            }
+            .watch.paused {
+              .hours-hand { animation-play-state: paused; }
+              .minutes-hand { animation-play-state: paused; }
+              .seconds-hand { animation-play-state: paused; }
+            }
+            .watch:extend(.watch.paused all) {}
+          </script>
+          <script id="pause_on_hover_css" type="text/example-css">
+            .watch:before {
+              position: absolute;
+              top: 0; left: 0; z-index: 99999;
+              width: 100%;
+              background: white;
+              border: 2px solid black;
+            }
+
+            .watch:hover:before {
+              content: 'Running (take your mouse off to stop it)';
+              color: green;
+            }
+
+            .watch:before {
+              content: 'Paused (mouse over to start it)';
+              color: red;
+            }
+
+            .watch:hover:extend(.watch.running all) {}
+          </script>
+          <div class="row">
+            <div class="col-lg-goldsm">
+              <div id="pause_result" class="example-result" data-example="result" data-html="together_4_html" data-css="pause_css" data-css-after="pause_on_hover_css"></div>
+            </div>
+            <div class="col-lg-goldlg">
+              <div id="pause_code" class="example-code" data-example="css" data-css="pause_css"></div>
+            </div>
+          </div>
+        </div>
+        <div role="tabpanel" class="section" id="current-time">
+          <h2 class="page-header">Current time</h2>
+          <p><strong>Set the time</strong> in a clock that is using animation. Since the animation is modifying the <code>transform</code> property, trying to rotate it manually is not the best approach as it would require a change to the <code>@keyframes</code> and it would make it impossible for the hands to share a single animation. It is possible to start the animation in a specific position by setting a negative <code>animation-delay</code>.</p>
+          <p>The movement of each hand is like a movie that starts at 12 hours and end at 12 hours after taking a whole clockwise trip around the clock and setting the negative delay is just like seeking a specific time in that movie and pressing play.</p>
+          <script id="set_clock_css" type="text/example-css" data-import="animation_2_css">
+            @hour: 4;
+            @minute: 20;
+            @second: 0;
+
+            .watch > .hours-hand {
+              animation-delay: -((@hour * 3600s) + (@minute * 60s) + @second);
+            }
+
+            .watch > .minutes-hand {
+              animation-delay: -((@minute * 60s) + @second);
+            }
+
+            .watch > .seconds-hand {
+              animation-delay: -@second;
+            }
+          </script>
+          <div class="row">
+            <div class="col-lg-goldsm">
+              <div id="set_clock_result" class="example-result" data-example="result" data-html="together_4_html" data-css="set_clock_css"></div>
+            </div>
+            <div class="col-lg-goldlg">
+              <div id="set_clock_css_code" class="example-code" data-example="css" data-css="set_clock_css"></div>
+            </div>
+          </div>
+          <p><strong>Set the clock to current time.</strong> To do this we need JavaScript, since knowing current time goes beyond the scope of either HTML or CSS. We just find the right time, calculate the seconds and set it as the position where the animation should start. But once the animation has already started it does not work properly. To set the delay we have to find a way to <a href="https://css-tricks.com/restart-css-animation/">reload the animation</a> and the easiest way to do that is to replace the element with its clone.</p>
+          <script id="current_time_js" type="text/example-js">
+            /**
+             * Seek a specific position in the animation.
+             * @param {jQuery} $hand The hand element.
+             * @param {Number} position The position in seconds to seek. */
+            function seekCssAnimation($hand, position) {
+              var clone = $hand.clone(true).css('animation-delay', -position + 's');
+              $hand.replaceWith(clone);
+            }
+
+            /**
+             * Set the watch to the desired time.
+             * @param {jQuery} $watch The watch element.
+             * @param {Date} time The desired time. */
+            function setTime($watch, time) {
+              var hour   = time.getHours();
+              var minute = time.getMinutes();
+              var second = time.getSeconds();
+              var minutesInSeconds = minute * 60 + second;
+              var hoursInSeconds   = hour * 3600 + minutesInSeconds;
+              seekCssAnimation($watch.find('.seconds-hand'), second);
+              seekCssAnimation($watch.find('.minutes-hand'), minutesInSeconds);
+              seekCssAnimation($watch.find('.hours-hand'),   hoursInSeconds);
+            }
+          </script>
+          <script id="current_time_startup" type="text/example-js">
+            setTime($('#example_watch'), new Date());
+          </script>
+          <div class="row">
+            <div class="col-lg-goldsm">
+              <div id="current_time_result" class="example-result" data-example="result" data-html="together_4_html" data-css="animation_2_css" data-js="current_time_js" data-startup="current_time_startup"></div>
+            </div>
+            <div class="col-lg-goldlg">
+              <div id="current_time_code" class="example-code" data-example="js" data-js="current_time_js" data-startup="current_time_startup"></div>
+            </div>
+          </div>
+          <p>Since the animation is playing, we only have to set it once, but if the correctness of time is important in a long-running page, we may set a timer to adjust the clock in case it got out of sync with the much more precise computer clock.</p>
+          <script id="adjust_every_minute_js" type="text/example-js" data-import="current_time_js">
+            /**
+             * Set the clock to the current time and do it again every minute.
+             * @param {jQuery} $watch The watch element. */
+            function startAdjustingTheClock($watch) {
+              // Adjust now
+              setTime($watch, new Date());
+              // Set timer to adjust every 1 minute
+              var intervalId = setInterval(function() {
+                setTime($watch, new Date());
+              }, 60000);
+              // Store the interval id to be able to stop it
+              $watch.data('intervalId', intervalId);
+            }
+
+            /**
+             * Stop timer that adjust the clock every minute.
+             * @param {jQuery} $watch The watch element. */
+            function stopAdjustingTheClock($watch) {
+              var intervalId = $watch.data('intervalId');
+              $watch.data('intervalId', null);
+              clearInterval(intervalId);
+            }
+          </script>
+          <script id="adjust_every_minute_startup" type="text/example-js">
+            startAdjustingTheClock($('#example_watch'));
+            // This won't stop the clock, just adjusting the time every minute
+            // stopAdjustingTheClock($('#example_watch'));
+          </script>
+          <div id="adjust_every_minute_code" class="example-code" data-example="js" data-js="adjust_every_minute_js" data-startup="adjust_every_minute_startup"></div>
+        </div>
+        <div role="tabpanel" class="section" id="builder">
+          <h2 class="page-header">Builder</h2>
+          <form id="builder_form">
+            <h3 id="builder_units">Units</h3>
+            <div class="row">
+              <div class="col-xs-6 col-sm-4">
+                <label for="builder-@hours">@hours</label>
+                <input id="builder-@hours" type="text" value="12" data-var="@hours" class="form-control"/>
+              </div>
+              <div class="col-xs-6 col-sm-4">
+                <label for="builder-@minutes">@minutes</label>
+                <input id="builder-@minutes" type="text" value="60" data-var="@minutes" class="form-control"/>
+              </div>
+              <div class="col-xs-6 col-sm-4">
+                <label for="builder-@seconds">@seconds</label>
+                <input id="builder-@seconds" type="text" value="60" data-var="@seconds" class="form-control"/>
+              </div>
+              <div class="col-xs-6 col-sm-4">
+                <label for="builder-@second-size">@second-size</label>
+                <input id="builder-@second-size" type="text" value="1" data-var="@second-size" class="form-control"/>
+              </div>
+            </div>
+            <h3 id="builder_units">Face</h3>
+            <div class="row">
+              <div class="col-xs-6 col-sm-4">
+                <label for="builder-@face-size">@face-size</label>
+                <input id="builder-@face-size" type="text" value="20em" data-var="@face-size" class="form-control"/>
+              </div>
+              <div class="col-xs-6 col-sm-4">
+                <label for="builder-@face-border-width">@face-border-width</label>
+                <input id="builder-@face-border-width" type="text" value=".5em" data-var="@face-border-width" class="form-control"/>
+              </div>
+            </div>
+            <h3 id="builder_digits">Digits</h3>
+            <div class="row">
+              <div class="col-xs-6 col-sm-4">
+                <label for="builder-@digits">@digits</label>
+                <input id="builder-@digits" type="text" value="12" data-var="@digits" class="form-control"/>
+              </div>
+              <div class="col-xs-6 col-sm-4">
+                <label for="builder-@digit-size">@digit-size</label>
+                <input id="builder-@digit-size" type="text" value="1em" data-var="@digit-size" class="form-control"/>
+              </div>
+              <div class="col-xs-6 col-sm-4">
+                <label for="builder-@digit-font-family">@digit-font-family</label>
+                <input id="builder-@digit-font-family" type="text" value="'Raleway', 'Helvetica Neue', Helvetica, Arial, sans-serif" data-var="@digit-font-family" class="form-control"/>
+              </div>
+              <div class="col-xs-6 col-sm-4">
+                <label for="builder-@digit-margin">@digit-margin</label>
+                <input id="builder-@digit-margin" type="text" value="1em" data-var="@digit-margin" class="form-control"/>
+              </div>
+            </div>
+            <h3 id="builder_marks">Marks</h3>
+            <div class="row">
+              <div class="col-xs-6 col-sm-4">
+                <label for="builder-@marks">@marks</label>
+                <input id="builder-@marks" type="text" value="60" data-var="@marks" class="form-control"/>
+              </div>
+              <div class="col-xs-6 col-sm-4">
+                <label for="builder-@mark-length">@mark-length</label>
+                <input id="builder-@mark-length" type="text" value=".375em" data-var="@mark-length" class="form-control"/>
+              </div>
+              <div class="col-xs-6 col-sm-4">
+                <label for="builder-@mark-width">@mark-width</label>
+                <input id="builder-@mark-width" type="text" value=".125em" data-var="@mark-width" class="form-control"/>
+              </div>
+              <div class="col-xs-6 col-sm-4">
+                <label for="builder-@mark-colour">@mark-colour</label>
+                <input id="builder-@mark-colour" type="text" value="#929394" data-var="@mark-colour" class="form-control"/>
+              </div>
+              <div class="col-xs-6 col-sm-4">
+                <label for="builder-@mark-margin">@mark-margin</label>
+                <input id="builder-@mark-margin" type="text" value="1em" data-var="@mark-margin" class="form-control"/>
+              </div>
+            </div>
+            <h3 id="builder_hands">Hands</h3>
+            <div class="row">
+              <div class="col-xs-6 col-sm-4">
+                <label for="builder-@hours-hand-colour">@hours-hand-colour</label>
+                <input id="builder-@hours-hand-colour" type="text" value="#232425" data-var="@hours-hand-colour" class="form-control"/>
+              </div>
+              <div class="col-xs-6 col-sm-4">
+                <label for="builder-@hours-hand-length">@hours-hand-length</label>
+                <input id="builder-@hours-hand-length" type="text" value="4.375em" data-var="@hours-hand-length" class="form-control"/>
+              </div>
+              <div class="col-xs-6 col-sm-4">
+                <label for="builder-@hours-hand-tail">@hours-hand-tail</label>
+                <input id="builder-@hours-hand-tail" type="text" value=".5em" data-var="@hours-hand-tail" class="form-control"/>
+              </div>
+              <div class="col-xs-6 col-sm-4">
+                <label for="builder-@hours-hand-width">@hours-hand-width</label>
+                <input id="builder-@hours-hand-width" type="text" value=".5em" data-var="@hours-hand-width" class="form-control"/>
+              </div>
+              <div class="col-xs-6 col-sm-4">
+                <label for="builder-@minutes-hand-colour">@minutes-hand-colour</label>
+                <input id="builder-@minutes-hand-colour" type="text" value="#343536" data-var="@minutes-hand-colour" class="form-control"/>
+              </div>
+              <div class="col-xs-6 col-sm-4">
+                <label for="builder-@minutes-hand-length">@minutes-hand-length</label>
+                <input id="builder-@minutes-hand-length" type="text" value="7.815em" data-var="@minutes-hand-length" class="form-control"/>
+              </div>
+              <div class="col-xs-6 col-sm-4">
+                <label for="builder-@minutes-hand-tail">@minutes-hand-tail</label>
+                <input id="builder-@minutes-hand-tail" type="text" value=".9375em" data-var="@minutes-hand-tail" class="form-control"/>
+              </div>
+              <div class="col-xs-6 col-sm-4">
+                <label for="builder-@minutes-hand-width">@minutes-hand-width</label>
+                <input id="builder-@minutes-hand-width" type="text" value=".5em" data-var="@minutes-hand-width" class="form-control"/>
+              </div>
+              <div class="col-xs-6 col-sm-4">
+                <label for="builder-@seconds-hand-colour">@seconds-hand-colour</label>
+                <input id="builder-@seconds-hand-colour" type="text" value="#c00" data-var="@seconds-hand-colour" class="form-control"/>
+              </div>
+              <div class="col-xs-6 col-sm-4">
+                <label for="builder-@seconds-hand-length">@seconds-hand-length</label>
+                <input id="builder-@seconds-hand-length" type="text" value="8.75em" data-var="@seconds-hand-length" class="form-control"/>
+              </div>
+              <div class="col-xs-6 col-sm-4">
+                <label for="builder-@seconds-hand-tail">@seconds-hand-tail</label>
+                <input id="builder-@seconds-hand-tail" type="text" value="1.25em" data-var="@seconds-hand-tail" class="form-control"/>
+              </div>
+              <div class="col-xs-6 col-sm-4">
+                <label for="builder-@seconds-hand-width">@seconds-hand-width</label>
+                <input id="builder-@seconds-hand-width" type="text" value=".125em" data-var="@seconds-hand-width" class="form-control"/>
+              </div>
+            </div>
+          </form>
+          <script id="builder_lodash" type="text/example-html">
+            <div id="builder_watch_container" class="row">
+              <div class="col-sm-6">
+                <div class="builder_watch_caption">Current time</div>
+                <div id="builder_watch_current" class="builder_watch">
+                  <div class="face"></div>
+                  <ul class="marks">
+                  <% _.forEach(_.range(marks), function() { %>
+                    <li></li>
+                  <% }); %>
+                  </ul>
+                  <ul class="digits">
+                  <% _.forEach(_.range(digits), function(current) { %>
+                    <li><%- (current + 1) * (hours / digits) %></li>
+                  <% }); %>
+                  </ul>
+                  <div class="hours-hand"></div>
+                  <div class="minutes-hand"></div>
+                  <div class="seconds-hand"></div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="builder_watch_caption">Fast rotation</div>
+                <div id="builder_watch_fast" class="builder_watch">
+                  <div class="face"></div>
+                  <ul class="marks">
+                  <% _.forEach(_.range(marks), function() { %>
+                    <li></li>
+                  <% }); %>
+                  </ul>
+                  <ul class="digits">
+                  <% _.forEach(_.range(digits), function(current) { %>
+                    <li><%- (current + 1) * (hours / digits) %></li>
+                  <% }); %>
+                  </ul>
+                  <div class="hours-hand"></div>
+                  <div class="minutes-hand"></div>
+                  <div class="seconds-hand"></div>
+                </div>
+              </div>
+            </div>
+          </script>
+          <script id="builder_less" type="text/example-css">
+            #builder_watch_container {
+              text-align: center;
+            }
+
+            .builder_watch_caption {
+              width: 100%;
+              text-align: center;
+              line-height: 50px;
+              font-size: 28px;
+              margin-top: (22px + 30px);
+              margin-bottom: 11px;
+            }
+
+            .builder_watch_caption:first-child {
+              margin-top: 22px;
+            }
+
+            .builder_watch {
+              .watch;
+              .animate-watch;
+              display: inline-block;
+            }
+
+            #builder_watch_fast {
+              .hours-hand { animation-duration: 100s; }
+              .minutes-hand { animation-duration: (100s / @minutes); }
+              .seconds-hand { visibility: hidden; }
+            }
+
+            .make-circle(@diameter) {
+              width: @diameter; height: @diameter;
+              border-radius: (@diameter / 2);
+            }
+
+            .clear-list-style() { list-style: none; margin: 0; padding: 0; }
+
+            .center-text(@width, @height:@width) {
+              display: block;
+              width: @width; height: @height;
+              line-height: @height;
+              text-align: center;
+            }
+
+            .move-box-to-fill-parent() {
+              position: absolute;
+              top: 0; left: 0;
+            }
+
+            .move-box-to-parent-center(@width, @height:@width) {
+              position: absolute;
+              top: 50%; left: 50%;
+              margin: -(@height / 2) 0 0 -(@width / 2);
+            }
+
+            .position-digits(@current: @digits) when (@current > 0) {
+              .position-digits((@current - 1));
+
+              @rotate: (360deg / @digits) * @current;
+              @translate: (@face-size / 2) -
+                          (@digit-size / 2) -
+                          @digit-margin;
+
+              &:nth-child(@{current}) {
+                transform: rotate(@rotate)
+                           translateY(-@translate)
+                           rotate(-@rotate);
+              }
+            }
+
+            .position-marks(@current: @marks) when (@current > 0) {
+              .position-marks((@current - 1));
+
+              @rotate: (360deg / @marks) * @current;
+              @translate: (@face-size / 2) -
+                          (@mark-length / 2) -
+                          @mark-margin;
+
+              &:nth-child(@{current}) {
+                transform: rotate(@rotate)
+                           translateY(-@translate);
+              }
+            }
+
+            .hide-marks(@current: @marks) when (@current > 0) {
+              .hide-marks((@current - (@marks / @digits)));
+
+              &:nth-child(@{current}) {
+                visibility: hidden;
+              }
+            }
+
+            .hand(@colour, @length, @tail, @width) {
+              background: @colour;
+              display: block;
+              height: @length; width: @width;
+              position: absolute;
+              top: @face-size / 2; left: @face-size / 2;
+              margin: -(@length - @tail) 0 0 -(@width / 2);
+              transform-origin: (@width / 2) (@length - @tail) 0;
+            }
+
+            .watch() {
+              position: relative;
+
+              > .face {
+                .make-circle(@face-size);
+                background: white;
+                border: @face-border-width solid black;
+              }
+
+              > .digits {
+                .clear-list-style;
+                .make-circle(@face-size);
+                .move-box-to-fill-parent;
+
+                > li {
+                  font-weight: bold;
+                  font-family: @digit-font-family;
+                  .center-text(@digit-size);
+                  .move-box-to-parent-center(@digit-size);
+                  .position-digits;
+                }
+              }
+
+              > .marks {
+                .clear-list-style;
+                .make-circle(@face-size);
+                .move-box-to-fill-parent;
+
+                > li {
+                  background: @mark-colour;
+                  display: block;
+                  width: @mark-width; height: @mark-length;
+                  .move-box-to-parent-center(@mark-width, @mark-length);
+                  .position-marks;
+                  .hide-marks;
+                }
+
+              }
+
+              > .hours-hand {
+                .hand(@hours-hand-colour, @hours-hand-length, @hours-hand-tail, @hours-hand-width);
+                animation: hand-rotation (1s * @second-size * @seconds * @minutes * @hours) linear infinite;
+              }
+
+              > .minutes-hand {
+                .hand(@minutes-hand-colour, @minutes-hand-length, @minutes-hand-tail, @minutes-hand-width);
+                animation: hand-rotation (1s * @second-size * @seconds * @minutes) linear infinite;
+              }
+
+              > .seconds-hand {
+                .hand(@seconds-hand-colour, @seconds-hand-length, @seconds-hand-tail, @seconds-hand-width);
+                animation: hand-rotation (1s * @second-size * @seconds) linear infinite;
+                animation-timing-function: steps(@seconds, end);
+              }
+
+            }
+
+            .animate-watch() {
+
+              > .hours-hand {
+                animation: hand-rotation (1s * @second-size * @seconds * @minutes * @hours) linear infinite;
+              }
+
+              > .minutes-hand {
+                animation: hand-rotation (1s * @second-size * @seconds * @minutes) linear infinite;
+              }
+
+              > .seconds-hand {
+                animation: hand-rotation (1s * @second-size * @seconds) linear infinite;
+                animation-timing-function: steps(@seconds, end);
+              }
+
+              @keyframes hand-rotation {
+                0%   { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+              }
+            }
+          </script>
+          <style id="builder_css" type="text/css"></style>
+          <div id="builder_html"></div>
+        </div>
+        <div role="tabpanel" class="section" id="decimal-time">
+          <h2 class="page-header">Decimal time</h2>
+          <p>The standard time is a double duodecimal (2x12) time system based on the Babylonian time. The Babylonians used the duodecimal system (base 12), so they divided the day in 12 hours and they divided the night in 12 hours. The hour has 60 minutes and the minute 60 seconds, so the whole day has 86,400 seconds. The Babylonian time is the one standardized in the SI.</p>
+          <p>Nowadays most of the world use a decimal system that was extended to currency and units of measurement by the decimalization efforts of the French Revolution. However the efforts to make the French use decimal time were not very successfull at the time and it was finally abandoned when the famous reactionary tyrant Napoleon came into power. In the French Revolutionary system the day is divided in 10 hours (deciday), the hour is divided in 100 minutes (centihour) and the minute is divided in 100 seconds. The whole day has 100,000 seconds, but since the size of the day is the same, the decimal second is exactly 0.864 SI seconds.</p>
+          <p>The Chinese had a great number of time measurements that were adapted to match our Babylonian time by the Qing dinasty rulers. One of those traditional time systems was the Shoushi (Season Granting) calender of 1280. In the Shoushi the day is divided in 100 kes, the ke is divided in 100 fen and the fen is divided in 100 miao. The ke is the same as 10 decimal minutes or 14.4 SI minutes, the fen is the same as 10 decimal seconds or 8.64 SI seconds and the miao is the same as 0.1 decimal seconds, or 0.0864 SI seconds.</p>
+          <h3>Conversion tables</h3>
+          <p>From the Babylonian (SI) double duodecimal (2x12) to the French Revolutionary decimal (10) and Chinese Shoushi decimal (100):</p>
+          <div class="row">
+            <div class="col-sm-6">
+              <table id="from-double-duodecimal-1" class="table table-condensed table-bordered conversion-table">
+                <caption>00:00-05:45</caption>
+                <thead>
+                  <tr>
+                    <th>Babylonian</th>
+                    <th>Revolutionary</th>
+                    <th>Shoushi</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <div class="col-sm-6">
+              <table id="from-double-duodecimal-2" class="table table-condensed table-bordered conversion-table">
+                <caption>06:00-11:45</caption>
+                <thead>
+                  <tr>
+                    <th>Babylonian</th>
+                    <th>Revolutionary</th>
+                    <th>Shoushi</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <div class="col-sm-6">
+              <table id="from-double-duodecimal-3" class="table table-condensed table-bordered conversion-table">
+                <caption>12:00-17:45</caption>
+                <thead>
+                  <tr>
+                    <th>Babylonian</th>
+                    <th>Revolutionary</th>
+                    <th>Shoushi</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <div class="col-sm-6">
+              <table id="from-double-duodecimal-4" class="table table-condensed table-bordered conversion-table">
+                <caption>18:00-23:45</caption>
+                <thead>
+                  <tr>
+                    <th>Babylonian</th>
+                    <th>Revolutionary</th>
+                    <th>Shoushi</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+          <p>From the French Revolutionary decimal (10) and Chinese Shoushi decimal (100) to the Babylonian (SI) double duodecimal (2x12):</p>
+          <div class="row">
+            <div class="col-sm-6">
+              <table id="from-decimal-1" class="table table-condensed table-bordered conversion-table">
+                <caption>00:00-02:40</caption>
+                <thead>
+                  <tr>
+                    <th>Revolutionary</th>
+                    <th>Shoushi</th>
+                    <th>Babylonian</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <div class="col-sm-6">
+              <table id="from-decimal-2" class="table table-condensed table-bordered conversion-table">
+                <caption>02:50-04:90</caption>
+                <thead>
+                  <tr>
+                    <th>Revolutionary</th>
+                    <th>Shoushi</th>
+                    <th>Babylonian</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <div class="col-sm-6">
+              <table id="from-decimal-3" class="table table-condensed table-bordered conversion-table">
+                <caption>05:00-07:40</caption>
+                <thead>
+                  <tr>
+                    <th>Revolutionary</th>
+                    <th>Shoushi</th>
+                    <th>Babylonian</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <div class="col-sm-6">
+              <table id="from-decimal-4" class="table table-condensed table-bordered conversion-table">
+                <caption>07:50-09:90</caption>
+                <thead>
+                  <tr>
+                    <th>Revolutionary</th>
+                    <th>Shoushi</th>
+                    <th>Babylonian</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -1983,7 +2003,6 @@
   <script src="/clock/js/highlight.min.js"></script>
   <script type="text/javascript">
     jQuery(function($) {
-
       function trimBlankLines(script) {
         var lines = script.split('\n');
         // Remove trailing spaces
@@ -2158,6 +2177,89 @@
         return '<div class ="crosshairs-layer">' + vertical + horizontal + '</div>';
       }
 
+      function initializeCodeBlocksAndExamples($container) {
+        $('[data-example="result"]', $container).each(function() {
+          var $el = $(this), id = $el.attr('id');
+          readExampleCode($el).then(function(code) {
+            var $container = $('<div class="example-result-container">' + generateExampleResult(code, id) + '</div>');
+
+            var colour = $el.data('crosshairs');
+            if (colour != null) {
+              $container.append(generateCrosshairs(colour));
+            }
+
+            $el.append($container);
+
+            if (code.js != null) {
+              var startupFunctions = [];
+              sandboxJQuery = getSandboxedJQuery(id, startupFunctions);
+              new Function('$', code.js).call(null, sandboxJQuery);
+              _.last(startupFunctions)();
+            }
+
+            // $el.append(generateCodeBlock(code.lodash, 'html'));
+            // $el.append(generateCodeBlock(code.html, 'html'));
+            // $el.append(generateCodeBlock(code.less, 'less'));
+            // $el.append(generateCodeBlock(code.css, 'css'));
+            // $el.append(generateCodeBlock(code.js, 'js'));
+          });
+        });
+
+        $('[data-example="html"]', $container).each(function() {
+          var $el    = $(this);
+          var htmlId = $el.data('html');
+          var code   = $('#' + htmlId).html();
+          $el.append(generateCodeBlock(minimumIndentation(code), 'html'));
+        });
+
+        $('[data-example="css"]', $container).each(function() {
+          var $el   = $(this);
+          var cssId = $el.data('css');
+          var code  = $('#' + cssId).html();
+          $el.append(generateCodeBlock(minimumIndentation(code), 'less'));
+        });
+
+        $('[data-example="js"]', $container).each(function() {
+          var $el  = $(this);
+          var jsId = $el.data('js');
+          var startupId = $el.data('startup');
+          var code = readJavaScript(jsId, startupId, true);
+          $el.append(generateCodeBlock(minimumIndentation(code), 'js'));
+        });
+      }
+
+      $(document).one('show.section', '#intro', function() {
+        initializeCodeBlocksAndExamples($(this));
+      });
+
+      $(document).one('show.section', '#face', function() {
+        initializeCodeBlocksAndExamples($(this));
+      });
+
+      $(document).one('show.section', '#digits', function() {
+        initializeCodeBlocksAndExamples($(this));
+      });
+
+      $(document).one('show.section', '#marks', function() {
+        initializeCodeBlocksAndExamples($(this));
+      });
+
+      $(document).one('show.section', '#hands', function() {
+        initializeCodeBlocksAndExamples($(this));
+      });
+
+      $(document).one('show.section', '#putting-them-together', function() {
+        initializeCodeBlocksAndExamples($(this));
+      });
+
+      $(document).one('show.section', '#animation', function() {
+        initializeCodeBlocksAndExamples($(this));
+      });
+
+      $(document).one('show.section', '#current-time', function() {
+        initializeCodeBlocksAndExamples($(this));
+      });
+
       /**
        * Seek a specific position in the animation.
        * @param {jQuery} $hand The hand element.
@@ -2209,127 +2311,121 @@
         $('#builder_html').replaceWith($('<div id="builder_html"></div>').append($container));
       }
 
-      $('[data-example="result"]').each(function() {
-        var $el = $(this), id = $el.attr('id');
-        readExampleCode($el).then(function(code) {
-          var $container = $('<div class="example-result-container">' + generateExampleResult(code, id) + '</div>');
-
-          var colour = $el.data('crosshairs');
-          if (colour != null) {
-            $container.append(generateCrosshairs(colour));
-          }
-
-          $el.append($container);
-
-          if (code.js != null) {
-            var startupFunctions = [];
-            sandboxJQuery = getSandboxedJQuery(id, startupFunctions);
-            new Function('$', code.js).call(null, sandboxJQuery);
-            _.last(startupFunctions)();
-          }
-
-          // $el.append(generateCodeBlock(code.lodash, 'html'));
-          // $el.append(generateCodeBlock(code.html, 'html'));
-          // $el.append(generateCodeBlock(code.less, 'less'));
-          // $el.append(generateCodeBlock(code.css, 'css'));
-          // $el.append(generateCodeBlock(code.js, 'js'));
+      $(document).one('show.section', '#builder', function() {
+        $(document).on('change', '#builder_form [data-var]', function() {
+          recreateBuilderCss();
+          recreateBuilderHtml();
         });
-      });
 
-      $('[data-example="html"]').each(function() {
-        var $el    = $(this);
-        var htmlId = $el.data('html');
-        var code   = $('#' + htmlId).html();
-        $el.append(generateCodeBlock(minimumIndentation(code), 'html'));
-      });
-
-      $('[data-example="css"]').each(function() {
-        var $el   = $(this);
-        var cssId = $el.data('css');
-        var code  = $('#' + cssId).html();
-        $el.append(generateCodeBlock(minimumIndentation(code), 'less'));
-      });
-
-      $('[data-example="js"]').each(function() {
-        var $el  = $(this);
-        var jsId = $el.data('js');
-        var startupId = $el.data('startup');
-        var code = readJavaScript(jsId, startupId, true);
-        $el.append(generateCodeBlock(minimumIndentation(code), 'js'));
-      });
-
-      $(document).on('change', '#builder_form [data-var]', function() {
         recreateBuilderCss();
         recreateBuilderHtml();
       });
 
-      recreateBuilderCss();
-      recreateBuilderHtml();
+      $(document).one('show.section', '#decimal-time', function() {
+        // Need to apply between a division (or multiplicaation with decimal values) and a
+        // call to Math.floor. Ex.: try doing 0.15 * 24 in JavaScript
+        var DIVISION_PRECISION_6 = 0.0000001;
 
-      // Need to apply between a division (or multiplicaation with decimal values) and a
-      // call to Math.floor. Ex.: try doing 0.15 * 24 in JavaScript
-      var DIVISION_PRECISION_6 = 0.0000001;
+        _.each(_.range(4), function(quarterOfTheDay) {
+          var $tbody = $('#from-double-duodecimal-' + (quarterOfTheDay + 1)).find('tbody');
+          _.each(_.range(6), function(i) {
+            var hour = quarterOfTheDay * 6 + i;
+            _.each(_.range(4), function(j) {
+              var quarter = j;
+              var babylonian = _.padLeft(hour, 2, '0') + ':' + _.padLeft(quarter * 15, 2, '0');
 
-      _.each(_.range(4), function(quarterOfTheDay) {
-        var $tbody = $('#from-double-duodecimal-' + (quarterOfTheDay + 1)).find('tbody');
-        _.each(_.range(6), function(i) {
-          var hour = quarterOfTheDay * 6 + i;
-          _.each(_.range(4), function(j) {
-            var quarter = j;
-            var babylonian = _.padLeft(hour, 2, '0') + ':' + _.padLeft(quarter * 15, 2, '0');
+              var decimalDays = (hour / 24) + (quarter * .25 / 24) + DIVISION_PRECISION_6;
 
-            var decimalDays = (hour / 24) + (quarter * .25 / 24) + DIVISION_PRECISION_6;
+              var decidays = decimalDays * 10;
+              var decimalHour = Math.floor(decidays);
+              var centihours = (decidays - decimalHour) * 100;
+              var decimalMinute = Math.floor(centihours);
+              var centiminutes = (centihours - decimalMinute) * 100;
+              var decimalSecond = Math.round(centiminutes);
+              var revolutionary = _.padLeft(decimalHour, 2, '0') + ':' + _.padLeft(decimalMinute, 2, '0') + ':' + _.padLeft(decimalSecond, 2, '0');
 
-            var decidays = decimalDays * 10;
-            var decimalHour = Math.floor(decidays);
-            var centihours = (decidays - decimalHour) * 100;
-            var decimalMinute = Math.floor(centihours);
-            var centiminutes = (centihours - decimalMinute) * 100;
-            var decimalSecond = Math.round(centiminutes);
-            var revolutionary = _.padLeft(decimalHour, 2, '0') + ':' + _.padLeft(decimalMinute, 2, '0') + ':' + _.padLeft(decimalSecond, 2, '0');
+              var centidays = decimalDays * 100;
+              var ke = Math.floor(centidays);
+              var centikes = (centidays - ke) * 100;
+              var fen = Math.floor(centikes);
+              var centifens = (centikes - fen) * 100;
+              var miao = Math.round(centifens);
+              var shoushi = _.padLeft(ke, 2, '0') + ':' + _.padLeft(fen, 2, '0') + ':' + _.padLeft(miao, 2, '0');
 
-            var centidays = decimalDays * 100;
-            var ke = Math.floor(centidays);
-            var centikes = (centidays - ke) * 100;
-            var fen = Math.floor(centikes);
-            var centifens = (centikes - fen) * 100;
-            var miao = Math.round(centifens);
-            var shoushi = _.padLeft(ke, 2, '0') + ':' + _.padLeft(fen, 2, '0') + ':' + _.padLeft(miao, 2, '0');
+              $tbody.append('<tr>' +
+                '<td>' + babylonian + '</td>' +
+                '<td>' + revolutionary + '</td>' +
+                '<td>' + shoushi + '</td>' +
+                '</tr>');
+            });
+          });
+        });
+
+        _.each(_.range(4), function(quarterOfTheDay) {
+          var $tbody = $('#from-decimal-' + (quarterOfTheDay + 1)).find('tbody');
+          _.each(_.range(25), function(i) {
+            var ke = quarterOfTheDay * 25 + i;
+            var hour = Math.floor(ke / 10 + DIVISION_PRECISION_6);
+            var minute = Math.round(((ke / 10) - hour) * 100);
+
+            var revolutionary = _.padLeft(hour, 2, '0') + ':' + _.padLeft(minute, 2, '0');
+            var shoushi = _.padLeft(ke, 2, '0') + ':00';
+
+            var babylonianHours = (ke / 100) * 24 + DIVISION_PRECISION_6;
+            var babylonianHour = Math.floor(babylonianHours);
+            var babylonianMinutes = (babylonianHours - babylonianHour) * 60;
+            var babylonianMinute = Math.floor(babylonianMinutes);
+            var babylonianSeconds = (babylonianMinutes - babylonianMinute) * 60;
+            var babylonianSecond = Math.round(babylonianSeconds);
+            var babylonian = _.padLeft(babylonianHour, 2, '0') + ':' + _.padLeft(babylonianMinute, 2, '0') + ':' + _.padLeft(babylonianSecond, 2, '0');
 
             $tbody.append('<tr>' +
-              '<td>' + babylonian + '</td>' +
               '<td>' + revolutionary + '</td>' +
               '<td>' + shoushi + '</td>' +
+              '<td>' + babylonian + '</td>' +
               '</tr>');
           });
         });
       });
 
-      _.each(_.range(4), function(quarterOfTheDay) {
-        var $tbody = $('#from-decimal-' + (quarterOfTheDay + 1)).find('tbody');
-        _.each(_.range(25), function(i) {
-          var ke = quarterOfTheDay * 25 + i;
-          var hour = Math.floor(ke / 10 + DIVISION_PRECISION_6);
-          var minute = Math.round(((ke / 10) - hour) * 100);
+      function showSection(section) {
+        $('#toc > li').removeClass('active');
+        $('#show_' + section).addClass('active');
+        $('.section').removeClass('active');
+        return $('#' + section).addClass('active').trigger('show.section').find('h2').text();
+      }
 
-          var revolutionary = _.padLeft(hour, 2, '0') + ':' + _.padLeft(minute, 2, '0');
-          var shoushi = _.padLeft(ke, 2, '0') + ':00';
-
-          var babylonianHours = (ke / 100) * 24 + DIVISION_PRECISION_6;
-          var babylonianHour = Math.floor(babylonianHours);
-          var babylonianMinutes = (babylonianHours - babylonianHour) * 60;
-          var babylonianMinute = Math.floor(babylonianMinutes);
-          var babylonianSeconds = (babylonianMinutes - babylonianMinute) * 60;
-          var babylonianSecond = Math.round(babylonianSeconds);
-          var babylonian = _.padLeft(babylonianHour, 2, '0') + ':' + _.padLeft(babylonianMinute, 2, '0') + ':' + _.padLeft(babylonianSecond, 2, '0');
-
-          $tbody.append('<tr>' +
-            '<td>' + revolutionary + '</td>' +
-            '<td>' + shoushi + '</td>' +
-            '<td>' + babylonian + '</td>' +
-            '</tr>');
-        });
+      $(document).on('click', '#toc a', function() {
+        var hash = $(this).attr('href');
+        var section = hash.slice(1) || 'intro';
+        var state = { section: section };
+        var title = showSection(section);
+        if (section === 'intro') {
+          history.pushState(state, intro, $(this).prop('href'));
+        } else {
+          history.pushState(state, intro, hash);
+        }
       });
+
+      if (history.state == null) {
+        var hash   = window.location.hash ? window.location.hash.replace(/^#(intro)?/, '') : '';
+        var state = { section: hash || 'intro' };
+        var title = showSection(state.section);
+        if (hash.length > 0) {
+          history.replaceState(state, title, '#' + hash);
+        } else {
+          history.replaceState(state, title);
+        }
+      } else {
+        showSection(history.state.section);
+      }
+
+      window.onpopstate = function(e) {
+        if (e.state == null) {
+          return;
+        }
+        showSection(e.state.section);
+      };
     });
   </script>
 </body></html>
