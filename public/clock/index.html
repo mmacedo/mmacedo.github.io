@@ -157,6 +157,197 @@
           <h2 class="page-header">Intro</h2>
           <p>Attempt to reverse engineer and rewrite step by step this <a href="http://codepen.io/iliadraznin/pen/JcqbE">pure-CSS3 clock</a> in order to build me a <a href="https://en.wikipedia.org/wiki/Decimal_time">decimal time</a> clock.</p>
           <p>I want it parameterized to be easier to understand and write the final code, so I use <a href="https://lodash.com/docs#template">_.template</a> for the HTML and <a href="http://lesscss.org/">Less</a> for the CSS.</p>
+          <p>Here is the final result:</p>
+          <script id="decimal_lodash" type="text/example-html">
+            <div id="decimal_watch_container">
+              <div id="decimal_watch">
+                <div class="face"></div>
+                <ul class="marks">
+                <% _.forEach(_.range(marks), function() { %>
+                  <li></li>
+                <% }); %>
+                </ul>
+                <ul class="digits">
+                <% _.forEach(_.range(digits), function(current) { %>
+                  <li><%- (current + 1) * (hours / digits) %></li>
+                <% }); %>
+                </ul>
+                <div class="hours-hand"></div>
+                <div class="minutes-hand"></div>
+                <div class="seconds-hand"></div>
+              </div>
+            </div>
+          </script>
+          <script id="decimal_less" type="text/example-css">
+            #decimal_watch_container {
+              text-align: center;
+            }
+
+            #decimal_watch {
+              .watch;
+              .animate-watch;
+              display: inline-block;
+            }
+
+            .make-circle(@diameter) {
+              width: @diameter; height: @diameter;
+              border-radius: (@diameter / 2);
+            }
+
+            .clear-list-style() { list-style: none; margin: 0; padding: 0; }
+
+            .center-text(@width, @height:@width) {
+              display: block;
+              width: @width; height: @height;
+              line-height: @height;
+              text-align: center;
+            }
+
+            .move-box-to-fill-parent() {
+              position: absolute;
+              top: 0; left: 0;
+            }
+
+            .move-box-to-parent-center(@width, @height:@width) {
+              position: absolute;
+              top: 50%; left: 50%;
+              margin: -(@height / 2) 0 0 -(@width / 2);
+            }
+
+            .position-digits(@current: @digits) when (@current > 0) {
+              .position-digits((@current - 1));
+
+              @rotate: (360deg / @digits) * @current;
+              @translate: (@face-size / 2) -
+                          (@digit-size / 2) -
+                          @digit-margin;
+
+              &:nth-child(@{current}) {
+                transform: rotate(@rotate)
+                           translateY(-@translate)
+                           rotate(-@rotate);
+              }
+            }
+
+            .position-marks(@current: @marks) when (@current > 0) {
+              .position-marks((@current - 1));
+
+              @rotate: (360deg / @marks) * @current;
+              @translate: (@face-size / 2) -
+                          (@mark-length / 2) -
+                          @mark-margin;
+
+              &:nth-child(@{current}) {
+                transform: rotate(@rotate)
+                           translateY(-@translate);
+              }
+            }
+
+            .hide-marks(@current: @marks) when (@current > 0) {
+              .hide-marks((@current - (@marks / @digits)));
+
+              &:nth-child(@{current}) {
+                visibility: hidden;
+              }
+            }
+
+            .hand(@colour, @length, @tail, @width) {
+              background: @colour;
+              display: block;
+              height: @length; width: @width;
+              position: absolute;
+              top: @face-size / 2; left: @face-size / 2;
+              margin: -(@length - @tail) 0 0 -(@width / 2);
+              transform-origin: (@width / 2) (@length - @tail) 0;
+            }
+
+            .rotate-to-duodecimal-time(@hour:0, @minute:0, @second:0) {
+              @second-hand-cycle: (@second-size * @seconds);
+              @minute-hand-cycle: (@second-hand-cycle * @minutes);
+              @hour-hand-cycle: (@minute-hand-cycle * @hours);
+              @hour-seconds: (@second + @minute*60 + @hour*3600);
+              @hour-degrees: 360deg * (@hour-seconds / @hour-hand-cycle);
+              .hours-hand { transform: rotate((@hour-degrees)); }
+              @minute-seconds: (@second + @minute*60);
+              @minute-degrees: 360deg * (@minute-seconds / @minute-hand-cycle);
+              .minutes-hand { transform: rotate((@minute-degrees)); }
+              @second-degrees: 360deg * (@second / @second-hand-cycle);
+              .seconds-hand { transform: rotate((@second-degrees)); }
+            }
+
+            .watch() {
+              position: relative;
+
+              > .face {
+                .make-circle(@face-size);
+                background: white;
+                border: @face-border-width solid black;
+              }
+
+              > .digits {
+                .clear-list-style;
+                .make-circle(@face-size);
+                .move-box-to-fill-parent;
+
+                > li {
+                  font-weight: bold;
+                  font-family: @digit-font-family;
+                  .center-text(@digit-size);
+                  .move-box-to-parent-center(@digit-size);
+                  .position-digits;
+                }
+              }
+
+              > .marks {
+                .clear-list-style;
+                .make-circle(@face-size);
+                .move-box-to-fill-parent;
+
+                > li {
+                  background: @mark-colour;
+                  display: block;
+                  width: @mark-width; height: @mark-length;
+                  .move-box-to-parent-center(@mark-width, @mark-length);
+                  .position-marks;
+                  .hide-marks;
+                }
+              }
+
+              > .hours-hand {
+                .hand(@hours-hand-colour, @hours-hand-length, @hours-hand-tail, @hours-hand-width);
+              }
+
+              > .minutes-hand {
+                .hand(@minutes-hand-colour, @minutes-hand-length, @minutes-hand-tail, @minutes-hand-width);
+              }
+
+              > .seconds-hand {
+                .hand(@seconds-hand-colour, @seconds-hand-length, @seconds-hand-tail, @seconds-hand-width);
+              }
+            }
+
+            .animate-watch() {
+              > .hours-hand {
+                animation: hand-rotation (1s * @second-size * @seconds * @minutes * @hours) linear infinite;
+              }
+
+              > .minutes-hand {
+                animation: hand-rotation (1s * @second-size * @seconds * @minutes) linear infinite;
+              }
+
+              > .seconds-hand {
+                animation: hand-rotation (1s * @second-size * @seconds) linear infinite;
+                animation-timing-function: steps(@seconds, end);
+              }
+
+              @keyframes hand-rotation {
+                0%   { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+              }
+            }
+          </script>
+          <style id="decimal_css" type="text/css"></style>
+          <div id="decimal_html"></div>
         </div>
         <div role="tabpanel" class="section" id="face">
           <h2 id="face" class="page-header">Face</h2>
@@ -1928,7 +2119,6 @@
                   .position-marks;
                   .hide-marks;
                 }
-
               }
 
               > .hours-hand {
@@ -1942,11 +2132,9 @@
               > .seconds-hand {
                 .hand(@seconds-hand-colour, @seconds-hand-length, @seconds-hand-tail, @seconds-hand-width);
               }
-
             }
 
             .animate-watch() {
-
               > .hours-hand {
                 animation: hand-rotation (1s * @second-size * @seconds * @minutes * @hours) linear infinite;
               }
@@ -2098,6 +2286,80 @@
   <script src="/clock/js/highlight.min.js"></script>
   <script type="text/javascript">
     jQuery(function($) {
+      /**
+       * Seek a specific position in the animation.
+       * @param {jQuery} $hand The hand element.
+       * @param {Number} position The position in seconds to seek. */
+      function seekCssAnimation($hand, position) {
+        var clone = $hand.clone(true).css('animation-delay', -position + 's');
+        $hand.replaceWith(clone);
+      }
+
+      /**
+       * Set the watch to the desired time.
+       * @param {jQuery} $watch The watch element.
+       * @param {Date} time The desired time. */
+      function setTime($watch, time) {
+        var hour   = time.getHours();
+        var minute = time.getMinutes();
+        var second = time.getSeconds();
+        var minutesInSeconds = minute * 60 + second;
+        var hoursInSeconds   = hour * 3600 + minutesInSeconds;
+        seekCssAnimation($watch.find('.seconds-hand'), second);
+        seekCssAnimation($watch.find('.minutes-hand'), minutesInSeconds);
+        seekCssAnimation($watch.find('.hours-hand'),   hoursInSeconds);
+      }
+
+      $(document).one('show.section', '#intro', function() {
+        var data = {
+          hours: "10",
+          minutes: "100",
+          seconds: "100",
+          secondSize: "0.864",
+          faceSize: "20em",
+          faceBorderWidth: ".5em",
+          digits: "10",
+          digitSize: "1em",
+          digitFontFamily: "'Raleway', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+          digitMargin: "1em",
+          marks: "20",
+          markLength: ".375em",
+          markWidth: ".125em",
+          markColour: "#929394",
+          markMargin: "1em",
+          hoursHandColour: "#232425",
+          hoursHandLength: "4.375em",
+          hoursHandTail: ".5em",
+          hoursHandWidth: ".5em",
+          minutesHandColour: "#343536",
+          minutesHandLength: "7.815em",
+          minutesHandTail: ".9375em",
+          minutesHandWidth: ".5em",
+          secondsHandColour: "#c00",
+          secondsHandLength: "8.75em",
+          secondsHandTail: "1.25em",
+          secondsHandWidth: ".125em"
+        };
+        var lessVars = _.map(_.pairs(data), function(pair) {
+          return '@' + _.kebabCase(pair[0]) + ': ' + pair[1] + ';';
+        }).join('\n');
+        var script = $('#decimal_less').html();
+        less.render(lessVars + script).then(function(output) {
+          $('#decimal_css').html(output.css);
+        }).catch(function(err) {
+          throw err;
+        });
+        var html = _.template($('#decimal_lodash').html())(data);
+        var $container = $(html);
+        setTime($container.find('#decimal_watch'), new Date());
+        $('#decimal_html').replaceWith($('<div id="decimal_html"></div>').append($container));
+
+        $(document).on('show.section', '#intro', function() {
+          var $watch = $('#decimal_watch');
+          setTime($watch, new Date());
+        });
+      });
+
       function trimBlankLines(script) {
         var lines = script.split('\n');
         // Remove trailing spaces
@@ -2323,10 +2585,6 @@
         });
       }
 
-      $(document).one('show.section', '#intro', function() {
-        initializeCodeBlocksAndExamples($(this));
-      });
-
       $(document).one('show.section', '#face', function() {
         initializeCodeBlocksAndExamples($(this));
       });
@@ -2353,31 +2611,13 @@
 
       $(document).one('show.section', '#current-time', function() {
         initializeCodeBlocksAndExamples($(this));
+
+        $(document).on('show.section', '#current-time', function() {
+          var $ = getSandboxedJQuery('current_time_result', []);
+          var $watch = $('#current_time_result_example_watch');
+          setTime($watch, new Date());
+        });
       });
-
-      /**
-       * Seek a specific position in the animation.
-       * @param {jQuery} $hand The hand element.
-       * @param {Number} position The position in seconds to seek. */
-      function seekCssAnimation($hand, position) {
-        var clone = $hand.clone(true).css('animation-delay', -position + 's');
-        $hand.replaceWith(clone);
-      }
-
-      /**
-       * Set the watch to the desired time.
-       * @param {jQuery} $watch The watch element.
-       * @param {Date} time The desired time. */
-      function setTime($watch, time) {
-        var hour   = time.getHours();
-        var minute = time.getMinutes();
-        var second = time.getSeconds();
-        var minutesInSeconds = minute * 60 + second;
-        var hoursInSeconds   = hour * 3600 + minutesInSeconds;
-        seekCssAnimation($watch.find('.seconds-hand'), second);
-        seekCssAnimation($watch.find('.minutes-hand'), minutesInSeconds);
-        seekCssAnimation($watch.find('.hours-hand'),   hoursInSeconds);
-      }
 
       function rotateCustomHands($container) {
         var vars = $container.data();
@@ -2438,11 +2678,16 @@
           recreateBuilderHtml();
         });
 
+        $(document).on('change', '#builder_custom_hour, #builder_custom_minute, #builder_custom_second', function() {
+          rotateCustomHands($('#builder_watch_container'));
+        });
+
         recreateBuilderCss();
         recreateBuilderHtml();
 
-        $(document).on('change', '#builder_custom_hour, #builder_custom_minute, #builder_custom_second', function() {
-          rotateCustomHands($('#builder_watch_container'));
+        $(document).on('show.section', '#builder', function() {
+          var $watch = $('#builder_watch_current');
+          setTime($watch, new Date());
         });
       });
 
