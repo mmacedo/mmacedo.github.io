@@ -249,7 +249,7 @@
               .hide-marks((@current - (@marks / @digits)));
 
               &:nth-child(@{current}) {
-                visibility: hidden;
+                display: none;
               }
             }
 
@@ -524,7 +524,7 @@
           </script>
           <div id="digits_transition_result" class="example-result" data-example="result" data-html="digits_html" data-css="digits_transition_css"></div>
           <p><strong>Add a digit.</strong> Since we are using a <code>&lt;ul&gt;</code>, we have to clear the style by removing <code>list-style</code>, <code>margin</code> and <code>padding</code>. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
-          <script id="single_digit_1_html" type="text/example-html">
+          <script id="single_digit_html" type="text/example-html">
             <div id="example_watch" class="watch">
               <ul class="digits">
                 <li>1</li>
@@ -544,10 +544,10 @@
           </script>
           <div class="row">
             <div class="col-lg-goldsm">
-              <div id="single_digit_1_result" class="example-result-small" data-example="result" data-html="single_digit_1_html" data-css="single_digit_1_css" data-css-after="show_digit_border_css"></div>
+              <div id="single_digit_1_result" class="example-result-small" data-example="result" data-html="single_digit_html" data-css="single_digit_1_css" data-css-after="show_digit_border_css"></div>
             </div>
             <div class="col-lg-goldlg">
-              <div id="single_digit_1_html_code" class="example-code" data-example="html" data-html="single_digit_1_html"></div>
+              <div id="single_digit_html_code" class="example-code" data-example="html" data-html="single_digit_html"></div>
               <div id="single_digit_1_css_code" class="example-code" data-example="css" data-css="single_digit_1_css"></div>
             </div>
           </div>
@@ -565,7 +565,7 @@
           </script>
           <div class="row">
             <div class="col-lg-goldsm">
-              <div id="single_digit_2_result" class="example-result-small" data-example="result" data-html="single_digit_1_html" data-css="single_digit_2_css" data-css-after="show_digit_border_css"></div>
+              <div id="single_digit_2_result" class="example-result-small" data-example="result" data-html="single_digit_html" data-css="single_digit_2_css" data-css-after="show_digit_border_css"></div>
             </div>
             <div class="col-lg-goldlg">
               <div id="single_digit_2_css_code" class="example-code" data-example="css" data-css="single_digit_2_css"></div>
@@ -593,14 +593,60 @@
           </script>
           <div class="row">
             <div class="col-lg-goldsm">
-              <div id="single_digit_3_result" class="example-result" data-example="result" data-html="single_digit_1_html" data-css="single_digit_3_css" data-css-after="show_digit_and_watch_border_css" data-crosshairs="#888"></div>
+              <div id="single_digit_3_result" class="example-result" data-example="result" data-html="single_digit_html" data-css="single_digit_3_css" data-css-after="show_digit_and_watch_border_css" data-crosshairs="#888"></div>
             </div>
             <div class="col-lg-goldlg">
               <div id="single_digit_3_css_code" class="example-code" data-example="css" data-css="single_digit_3_css"></div>
             </div>
           </div>
-          <p><strong>Move the digit to the border.</strong> Use <code>transform-translate</code> and move back half the size of the clock minus the size of the digit and the desired margin from the border. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
-          <script id="single_digit_4_css" type="text/example-css" data-import="single_digit_3_css">
+          <p>With a 1-digit wide it worked fine, but the digits will probably be numbers greater than 9. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
+          <script id="wide_digit_html" type="text/example-html">
+            <div id="example_watch" class="watch">
+              <ul class="digits">
+                <li>12</li>
+              </ul>
+            </div>
+          </script>
+          <div class="row">
+            <div class="col-lg-goldsm">
+              <div id="wide_digit_1_result" class="example-result-small" data-example="result" data-html="wide_digit_html" data-css="single_digit_2_css" data-css-after="show_digit_border_css"></div>
+            </div>
+            <div class="col-lg-goldlg">
+              <div id="wide_digit_html_code" class="example-code" data-example="html" data-html="wide_digit_html"></div>
+            </div>
+          </div>
+          <p><strong>Make them wider.</strong> We will make it 5 times larger. This means that we made it 2 its original width larger to each side, but we do not want the digit to be pushed 2 times its original width to the right, so now we need to push 2 times its original back to the left. To do that, we use a negative <code>margin</code>. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
+          <script id="wide_digit_1_css" type="text/example-css" data-import="single_digit_2_css">
+            .watch > .digits > li {
+              width: @digit-size * 5;
+              margin-left: -(2 * @digit-size);
+            }
+          </script>
+          <div class="row">
+            <div class="col-lg-goldsm">
+              <div id="wide_digit_2_result" class="example-result-small" data-example="result" data-html="wide_digit_html" data-css="wide_digit_1_css" data-css-after="show_digit_border_css"></div>
+            </div>
+            <div class="col-lg-goldlg">
+              <div id="wide_digit_1_css_code" class="example-code" data-example="css" data-css="wide_digit_1_css"></div>
+            </div>
+          </div>
+          <p>But when we moved the digit to the center we changed the <code>margin-left</code>, so to make it work with that example we need to move our fix after that code and we need to combine the two margins. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
+          <script id="wide_digit_2_css" type="text/example-css" data-import="single_digit_3_css">
+            .watch > .digits > li {
+              width: @digit-size * 5;
+              margin-left: -(@digit-size * 2.5);
+            }
+          </script>
+          <div class="row">
+            <div class="col-lg-goldsm">
+              <div id="wide_digit_3_result" class="example-result" data-example="result" data-html="wide_digit_html" data-css="wide_digit_2_css" data-css-after="show_digit_and_watch_border_css" data-crosshairs="#888"></div>
+            </div>
+            <div class="col-lg-goldlg">
+              <div id="wide_digit_2_css_code" class="example-code" data-example="css" data-css="wide_digit_2_css"></div>
+            </div>
+          </div>
+          <p><strong>Move the digit to the border.</strong> Use <code>transform-translate</code> and move back half the size of the clock minus the size of the digit and the desired margin from the border. Since we set <code>font-size: @digit-size;</code> and <code>em</code> values are proportional to the font size, we have to scale everything down by <code>@digitSize</code> and since dividing two things of the same unit result in a unit-less number, we multiply the result by <code>1em</code>. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
+          <script id="single_digit_4_css" type="text/example-css" data-import="wide_digit_2_css">
             @digit-margin: 1em;
 
             .watch > .digits > li {
@@ -614,14 +660,14 @@
           </script>
           <div class="row">
             <div class="col-lg-goldsm">
-              <div id="single_digit_4_result" class="example-result" data-example="result" data-html="single_digit_1_html" data-css="single_digit_4_css" data-css-after="show_digit_and_watch_border_css"></div>
+              <div id="single_digit_4_result" class="example-result" data-example="result" data-html="single_digit_html" data-css="single_digit_4_css" data-css-after="show_digit_and_watch_border_css"></div>
             </div>
             <div class="col-lg-goldlg">
               <div id="single_digit_4_css_code" class="example-code" data-example="css" data-css="single_digit_4_css"></div>
             </div>
           </div>
           <p><strong>Move the digit to the right position.</strong> Use <code>transform-rotate</code> to rotate it around the center as defined by <code>transform-origin</code>. To calculate how many degrees we have to rotate to find the right position, we divide 360 degrees by 12 hours. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
-          <script id="single_digit_5_css" type="text/example-css" data-import="single_digit_3_css">
+          <script id="single_digit_5_css" type="text/example-css" data-import="wide_digit_2_css">
             @digit-margin: 1em;
 
             .watch > .digits > li {
@@ -638,14 +684,14 @@
           </script>
           <div class="row">
             <div class="col-lg-goldsm">
-              <div id="single_digit_5_result" class="example-result" data-example="result" data-html="single_digit_1_html" data-css="single_digit_5_css" data-css-after="show_digit_and_watch_border_css"></div>
+              <div id="single_digit_5_result" class="example-result" data-example="result" data-html="single_digit_html" data-css="single_digit_5_css" data-css-after="show_digit_and_watch_border_css"></div>
             </div>
             <div class="col-lg-goldlg">
               <div id="single_digit_5_css_code" class="example-code" data-example="css" data-css="single_digit_5_css"></div>
             </div>
           </div>
           <p><strong>Straighten the rotated digit.</strong> Now we would have to apply another rotation around itself in the reverse direction, but we can not set a different value for <code>transform-origin</code> for each transformation. We could use a wrapper element, we apply the first set of transformations to the outer element and the last rotation in the inner element. But instead, we will apply <a href="http://lea.verou.me/2012/02/moving-an-element-along-a-circle/">these transformations in a different order to avoid having to set the center or rotation</a>, thus being able to do it all in a sigle step. <span class="bg-warning">Extra borders added for testing purposes.</span></p>
-          <script id="single_digit_6_css" type="text/example-css" data-import="single_digit_3_css">
+          <script id="single_digit_6_css" type="text/example-css" data-import="wide_digit_2_css">
             @digit-margin: 1em;
 
             .watch > .digits > li {
@@ -662,7 +708,7 @@
           </script>
           <div class="row">
             <div class="col-lg-goldsm">
-              <div id="single_digit_6_result" class="example-result" data-example="result" data-html="single_digit_1_html" data-css="single_digit_6_css" data-css-after="show_digit_and_watch_border_css"></div>
+              <div id="single_digit_6_result" class="example-result" data-example="result" data-html="single_digit_html" data-css="single_digit_6_css" data-css-after="show_digit_and_watch_border_css"></div>
             </div>
             <div class="col-lg-goldlg">
               <div id="single_digit_6_css_code" class="example-code" data-example="css" data-css="single_digit_6_css"></div>
@@ -684,17 +730,19 @@
             @digit-margin: 1em;
             @hours: 12;
 
-            .position-digits(@hour: 1) when (@hour <= @hours) {
+            .position-digits(@hour: @hours) when (@hour > 0) {
+              .position-digits((@hour - 1));
+
               @rotate: (360deg / @hours) * @hour;
               @translate: (1em * (@face-size / @digit-size / 2) -
                                  (@digit-size / @digit-size / 2) -
                                  (@digit-margin / @digit-size));
+
               &:nth-child(@{hour}) {
                 transform: rotate(@rotate)
                            translateY(-@translate)
                            rotate(-@rotate);
               }
-              .position-digits((@hour + 1));
             }
 
             .watch > .digits > li {
@@ -838,7 +886,7 @@
             }
           </script>
           <div id="marks_transition_result" class="example-result" data-example="result" data-html="marks_html" data-css="marks_transition_css"></div>
-          <p><strong>Add a mark.</strong> Same instructions as for the digits.</p>
+          <p><strong>Add a mark.</strong> Same instructions as for the digits. We add a <code>min-width: 1px;</code> to the mark because something narrower than 1px is not displayed in the browser.</p>
           <script id="single_mark_1_html" type="text/example-html">
             <div id="example_watch" class="watch">
               <ul class="marks">
@@ -929,20 +977,22 @@
               </ul>
             </div>
           </script>
-          <script id="marks_css" type="text/example-css" data-import="single_mark_2_css">
+          <script id="marks_1_css" type="text/example-css" data-import="single_mark_2_css">
             @mark-margin: 1em;
             @minutes: 60;
 
-            .position-marks(@minute: 1) when (@minute <= @minutes) {
+            .position-marks(@minute: @minutes) when (@minute > 0) {
+              .position-marks((@minute - 1));
+
               @rotate: (360deg / @minutes) * @minute;
               @translate: (@face-size / 2) -
                           (@mark-length / 2) -
                           @mark-margin;
+
               &:nth-child(@{minute}) {
                 transform: rotate(@rotate)
                            translateY(-@translate);
               }
-              .position-marks((@minute + 1));
             }
 
             .watch > .marks > li {
@@ -951,43 +1001,27 @@
           </script>
           <div class="row">
             <div class="col-lg-goldsm">
-              <div id="marks_result" class="example-result" data-example="result" data-html="marks_html" data-css="marks_css"></div>
+              <div id="marks_result" class="example-result" data-example="result" data-html="marks_html" data-css="marks_1_css"></div>
             </div>
             <div class="col-lg-goldlg">
               <div id="marks_html_code" class="example-code" data-example="html" data-html="marks_html"></div>
-              <div id="marks_css_code" class="example-code" data-example="css" data-css="marks_css"></div>
+              <div id="marks_1_css_code" class="example-code" data-example="css" data-css="marks_1_css"></div>
             </div>
           </div>
-          <p><strong>Hide the marks</strong> where the hours should be. Change the less loop to conditionally hide every 5 marks (60 minutes / 12 hours).</p>
-          <script id="marks_2_css" type="text/example-css" data-import="single_mark_2_css">
-            @mark-margin: 1em;
-            @minutes: 60;
+          <p><strong>Hide the marks</strong> where the hours should be. Add a new less loop to hide every 5 marks (60 minutes / 12 hours).</p>
+          <script id="marks_2_css" type="text/example-css" data-import="marks_1_css">
             @hours: 12;
 
-            .position-marks(@minute: 1) when (@minute <= @minutes) {
-              @rotate: (360deg / @minutes) * @minute;
-              @translate: (@face-size / 2) -
-                          (@mark-length / 2) -
-                          @mark-margin;
-
-              .find-if-is-minute-or-hour() {
-                @visibility: visible;
-              }
-              .find-if-is-minute-or-hour() when (mod(@minute, (@minutes / @hours)) = 0) {
-                @visibility: hidden;
-              }
-              .find-if-is-minute-or-hour;
+            .hide-marks(@minute: @minutes) when (@minute > 0) {
+              .hide-marks((@minute - (@minutes / @hours)));
 
               &:nth-child(@{minute}) {
-                transform: rotate(@rotate)
-                           translateY(-@translate);
-                visibility: @visibility;
+                display: none;
               }
-              .position-marks((@minute + 1));
             }
 
             .watch > .marks > li {
-              .position-marks;
+              .hide-marks;
             }
           </script>
           <div class="row">
@@ -1014,8 +1048,8 @@
             }
 
             .watch > .hand {
-              height: @hand-length;
-              width: @hand-width;
+              height: @hand-length; width: @hand-width;
+              min-width: 1px;
               background: #c00;
               position: absolute;
               animation: add-hand 6s ease infinite;
@@ -1064,7 +1098,7 @@
             }
           </script>
           <div id="hand_transition_result" class="example-result" data-example="result" data-html="single_hand_1_html" data-css="hand_transition_css"></div>
-          <p><strong>Add a hand.</strong> Just create a <code>&lt;div&gt;</code> with the desired <code>background</code>, <code>height</code> (length) and <code>width</code>.</p>
+          <p><strong>Add a hand.</strong> Just create a <code>&lt;div&gt;</code> with the desired <code>background</code>, <code>height</code> (length) and <code>width</code>. We add a <code>min-width: 1px;</code> to the hand because something narrower than 1px is not displayed in the browser.</p>
           <script id="single_hand_1_html" type="text/example-html">
             <div id="example_watch" class="watch">
               <div class="hand"></div>
@@ -1075,8 +1109,8 @@
             @hand-width: .2em;
 
             .watch > .hand {
-              height: @hand-length;
-              width: @hand-width;
+              height: @hand-length; width: @hand-width;
+              min-width: 1px;
               background: #c00;
             }
           </script>
@@ -1142,7 +1176,6 @@
               @center-of-rotation-x: (@hand-width / 2);
               @center-of-rotation-y: (@hand-length - @hand-tail);
               @rotate: (360deg / 60) * 1;
-
               transform-origin: @center-of-rotation-x @center-of-rotation-y 0;
               transform: rotate(@rotate);
             }
@@ -1409,10 +1442,10 @@
             }
 
             .hide-marks(@minute: @minutes) when (@minute > 0) {
-              .hide-marks((@minute - 5));
+              .hide-marks((@minute - (@minutes / @hours)));
 
               &:nth-child(@{minute}) {
-                visibility: hidden;
+                display: none;
               }
             }
 
@@ -1983,7 +2016,7 @@
               .animate-watch;
               .hours-hand { animation-duration: 100s; }
               .minutes-hand { animation-duration: (100s / @minutes); }
-              .seconds-hand { visibility: hidden; }
+              .seconds-hand { display: none; }
             }
 
             #builder_watch_noon {
@@ -2054,7 +2087,7 @@
               .hide-marks((@current - (@marks / @digits)));
 
               &:nth-child(@{current}) {
-                visibility: hidden;
+                display: none;
               }
             }
 
@@ -2357,7 +2390,7 @@
               .hide-marks((@current - (@marks / @digits)));
 
               &:nth-child(@{current}) {
-                visibility: hidden;
+                display: none;
               }
             }
 
