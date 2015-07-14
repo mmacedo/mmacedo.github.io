@@ -100,6 +100,10 @@
       top: 50%; height: 2px; margin-top: -1px;
     }
 
+    #builder_units_total {
+      color: #4582EC;
+    }
+
     .conversion-table {
       width: 100%;
     }
@@ -1747,7 +1751,7 @@
         <div role="tabpanel" class="section" id="builder">
           <h2 class="page-header">Builder</h2>
           <form id="builder_form">
-            <h3 id="builder_units">Units</h3>
+            <h3 id="builder_units">Units <small id="builder_units_total"></small></h3>
             <div class="row">
               <div class="col-xs-6 col-sm-4">
                 <label for="builder-@hours">@hours</label>
@@ -2478,28 +2482,81 @@
   <script src="/clock/js/highlight.min.js"></script>
   <script type="text/javascript">
     jQuery(function($) {
-      /**
-       * Seek a specific position in the animation.
-       * @param {jQuery} $hand The hand element.
-       * @param {Number} position The position in seconds to seek. */
+      // Need to apply between a division (or multiplicaation with decimal values) and a
+      // call to Math.floor or Math.ceil. Ex.: try doing 0.15 * 24 in JavaScript
+      var PRECISION_FIX_6 = 0.0000001;
+
+      function timefromTotalSeconds(data, totalSeconds) {
+        var daySize = +data.hours * +data.minutes * +data.seconds * +data.secondSize;
+        var decimalDays = totalSeconds / daySize;
+        var hours = decimalDays * +data.hours;
+        var hour = Math.floor(hours + PRECISION_FIX_6);
+        var minutes = (hours - hour) * +data.minutes;
+        var minute = Math.floor(minutes + PRECISION_FIX_6);
+        var seconds = (minutes - minute) * +data.seconds;
+        var second = Math.round(seconds);
+        return { hour: hour, minute: minute, second: second };
+      }
+
+      function totalSecondsFromTime(data, time) {
+          return ((time.hour   * +data.minutes * +data.seconds) +
+                  (time.minute * +data.seconds) +
+                  time.second) * +data.secondSize;
+      }
+
+      var BABYLONIAN_DAY    = { hours: 24,  minutes: 60,  seconds: 60,  secondSize: 1 };
+      var REVOLUTIONARY_DAY = { hours: 10,  minutes: 100, seconds: 100, secondSize: 0.864 };
+      var SHOUSHI_DAY       = { hours: 100, minutes: 100, seconds: 100, secondSize: 0.0864 };
+
+      function fromRevolutionary(time) {
+        var totalSeconds = totalSecondsFromTime(REVOLUTIONARY_DAY, time);
+        return timefromTotalSeconds(BABYLONIAN_DAY, totalSeconds);
+      }
+
+      function fromShoushi(time) {
+        var totalSeconds = totalSecondsFromTime(SHOUSHI_DAY, time);
+        return timefromTotalSeconds(BABYLONIAN_DAY, totalSeconds);
+      }
+
+      function toRevolutionary(time) {
+        var totalSeconds = totalSecondsFromTime(BABYLONIAN_DAY, time);
+        return timefromTotalSeconds(REVOLUTIONARY_DAY, totalSeconds);
+      }
+
+      function toShoushi(time) {
+        var totalSeconds = totalSecondsFromTime(BABYLONIAN_DAY, time);
+        return timefromTotalSeconds(SHOUSHI_DAY, totalSeconds);
+      }
+
+      function now(dataOrNull) {
+        var d = new Date();
+        var time = {
+          hour: d.getHours(),
+          minute: d.getMinutes(),
+          second: d.getSeconds()
+        };
+        if (dataOrNull == null) {
+          return time;
+        }
+        return timefromTotalSeconds(dataOrNull, totalSecondsFromTime(BABYLONIAN_DAY, time));
+      }
+
       function seekCssAnimation($hand, position) {
         var clone = $hand.clone(true).css('animation-delay', -position + 's');
         $hand.replaceWith(clone);
       }
 
-      /**
-       * Set the watch to the desired time.
-       * @param {jQuery} $watch The watch element.
-       * @param {Date} time The desired time. */
-      function setTime($watch, time) {
-        var hour   = time.getHours();
-        var minute = time.getMinutes();
-        var second = time.getSeconds();
-        var minutesInSeconds = minute * 60 + second;
-        var hoursInSeconds   = hour * 3600 + minutesInSeconds;
-        seekCssAnimation($watch.find('.seconds-hand'), second);
-        seekCssAnimation($watch.find('.minutes-hand'), minutesInSeconds);
-        seekCssAnimation($watch.find('.hours-hand'),   hoursInSeconds);
+      function setTime($watch, dataOrNull, timeOrNull) {
+        var data = dataOrNull || $watch.data();
+        var time = timeOrNull || now(data);
+        var secondHandCycle    = +data.seconds * +data.secondSize;
+        var minuteHandCycle    = +data.minutes * secondHandCycle;
+        var secondHandPosition = time.second   * +data.secondSize;
+        var minuteHandPosition = time.minute   * secondHandCycle + secondHandPosition;
+        var hourHandPosition   = time.hour     * minuteHandCycle + minuteHandPosition;
+        seekCssAnimation($watch.find('.seconds-hand'), secondHandPosition);
+        seekCssAnimation($watch.find('.minutes-hand'), minuteHandPosition);
+        seekCssAnimation($watch.find('.hours-hand'), hourHandPosition);
       }
 
       function makeWatchCss(lessId, cssId, data) {
@@ -2551,12 +2608,11 @@
         };
         makeWatchCss('#decimal_less', '#decimal_css', data);
         var $container = makeWatchHtml('#decimal_lodash', data);
-        setTime($container.find('#decimal_watch'), new Date());
+        setTime($container.find('#decimal_watch').data(data));
         $('#decimal_html').replaceWith($('<div id="decimal_html"></div>').append($container));
 
         $(document).on('show.section', '#intro', function() {
-          var $watch = $('#decimal_watch');
-          setTime($watch, new Date());
+          setTime($('#decimal_watch'));
         });
       });
 
@@ -2814,18 +2870,17 @@
 
         $(document).on('show.section', '#current-time', function() {
           var $ = getSandboxedJQuery('current_time_result', []);
-          var $watch = $('#current_time_result_example_watch');
-          setTime($watch, new Date());
+          setTime($('#example_watch'), BABYLONIAN_DAY);
         });
       });
 
-      function rotateHands($watch, data, hour, minute, second) {
+      function rotateHands($watch, data, time) {
         var secondHandCycle    = +data.seconds * +data.secondSize;
         var minuteHandCycle    = +data.minutes * secondHandCycle;
-        var hourHandCycle      = +data.hours * minuteHandCycle;
-        var secondHandPosition = second * +data.secondSize;
-        var minuteHandPosition = minute * secondHandCycle + secondHandPosition;
-        var hourHandPosition   = hour * minuteHandCycle + minuteHandPosition;
+        var hourHandCycle      = +data.hours   * minuteHandCycle;
+        var secondHandPosition = time.second   * +data.secondSize;
+        var minuteHandPosition = time.minute   * secondHandCycle + secondHandPosition;
+        var hourHandPosition   = time.hour     * minuteHandCycle + minuteHandPosition;
         $watch.find('.seconds-hand')
           .css('transform', 'rotate(' + (360 * (secondHandPosition / secondHandCycle)) + 'deg)');
         $watch.find('.minutes-hand')
@@ -2839,7 +2894,7 @@
         var minute = +$('#builder_custom_minute', $container).val();
         var second = +$('#builder_custom_second', $container).val();
         var $watch = $('#builder_watch_custom', $container);
-        rotateHands($watch, $container.data(), hour, minute, second);
+        rotateHands($watch, $container.data(), { hour: hour, minute: minute, second: second });
       }
 
       function recreateBuilderCss() {
@@ -2866,7 +2921,7 @@
         var data = _.zipObject(vars);
         var html = _.template($('#builder_lodash').html())(data);
         var $container = $(html).data(data);
-        setTime($container.find('#builder_watch_current'), new Date());
+        setTime($container.find('#builder_watch_current'), data);
         if ($('#builder_watch_container').length === 1) {
           $('#builder_custom_hour', $container).val($('#builder_custom_hour').val());
           $('#builder_custom_minute', $container).val($('#builder_custom_minute').val());
@@ -2876,10 +2931,24 @@
         $('#builder_html').replaceWith($('<div id="builder_html"></div>').append($container));
       }
 
+      function recreateBuilderUnitsTotals() {
+        var hours      = +$('[id="builder-@hours"]').val();
+        var minutes    = +$('[id="builder-@minutes"]').val();
+        var seconds    = +$('[id="builder-@seconds"]').val();
+        var secondSize = +$('[id="builder-@second-size"]').val();
+        var total      = hours * minutes * seconds * secondSize;
+        var wholeDay   = 86400;
+        $('#builder_units_total').text('(Total: ' + Math.round(total) + 's or ' + Math.round(total / wholeDay * 100) + '% of a day)');
+      }
+
       $(document).one('show.section', '#builder', function() {
         $(document).on('change', '#builder_form [data-var]', function() {
           recreateBuilderCss();
           recreateBuilderHtml();
+        });
+
+        $(document).on('change', '#builder_units + * [data-var]', function() {
+          recreateBuilderUnitsTotals();
         });
 
         $(document).on('change', '#builder_custom_hour, #builder_custom_minute, #builder_custom_second', function() {
@@ -2888,10 +2957,10 @@
 
         recreateBuilderCss();
         recreateBuilderHtml();
+        recreateBuilderUnitsTotals();
 
         $(document).on('show.section', '#builder', function() {
-          var $watch = $('#builder_watch_current');
-          setTime($watch, new Date());
+          setTime($('#builder_watch_current'), $('#builder_watch_container').data());
         });
       });
 
@@ -2901,53 +2970,6 @@
         var minute = +match[2];
         var second = match[3] != null ? +(match[3].slice(1)) : 0;
         return { hour: hour, minute: minute, second: second };
-      }
-
-      // Need to apply between a division (or multiplicaation with decimal values) and a
-      // call to Math.floor or Math.ceil. Ex.: try doing 0.15 * 24 in JavaScript
-      var PRECISION_FIX_6 = 0.0000001;
-
-      function timeFromSeconds(totalSeconds) {
-        var decimalDays = totalSeconds / 86400;
-        var hours = decimalDays * 24;
-        var hour = Math.floor(hours + PRECISION_FIX_6);
-        var minutes = (hours - hour) * 60;
-        var minute = Math.floor(minutes + PRECISION_FIX_6);
-        var seconds = (minutes - minute) * 60;
-        var second = Math.round(seconds);
-        return { hour: hour, minute: minute, second: second };
-      }
-
-      function revolutionaryTimeFromSeconds(totalSeconds) {
-        var decimalDays = totalSeconds / 86400;
-        var decidays = decimalDays * 10;
-        var hour = Math.floor(decidays + PRECISION_FIX_6);
-        var centihours = (decidays - hour) * 100;
-        var minute = Math.floor(centihours + PRECISION_FIX_6);
-        var centiminutes = (centihours - minute) * 100;
-        var second = Math.round(centiminutes);
-        return { hour: hour, minute: minute, second: second };
-      }
-
-      function shoushiTimeFromSeconds(totalSeconds) {
-        var decimalDays = totalSeconds / 86400;
-        var centidays = decimalDays * 100;
-        var ke = Math.floor(centidays + PRECISION_FIX_6);
-        var centikes = (centidays - ke) * 100;
-        var fen = Math.floor(centikes + PRECISION_FIX_6);
-        var centifens = (centikes - fen) * 100;
-        var miao = Math.round(centifens);
-        return { hour: ke, minute: fen, second: miao };
-      }
-
-      function fromRevolutionary(time) {
-        var totalSeconds = ((time.hour * 100 * 100) + (time.minute * 100) + time.second) * 0.864;
-        return timeFromSeconds(totalSeconds);
-      }
-
-      function fromShoushi(time) {
-        var totalSeconds = ((time.hour * 100 * 100) + (time.minute * 100) + time.second) * 0.0864;
-        return timeFromSeconds(totalSeconds);
       }
 
       function padTime(hour, minute, second) {
@@ -2968,10 +2990,10 @@
 
               var totalSeconds = (hour * 60 + quarter * 15) * 60;
 
-              var decimal = revolutionaryTimeFromSeconds(totalSeconds);
+              var decimal = timefromTotalSeconds(REVOLUTIONARY_DAY, totalSeconds);
               var revolutionary = padTime(decimal.hour, decimal.minute, decimal.second);
 
-              var centesimal = shoushiTimeFromSeconds(totalSeconds);
+              var centesimal = timefromTotalSeconds(SHOUSHI_DAY, totalSeconds);
               var shoushi = padTime(centesimal.hour, centesimal.minute, centesimal.second);
 
               var dataPlacement = 'data-placement="' + (quarterOfTheDay % 2 === 0 ? 'right' : 'left') + '"';
@@ -2988,7 +3010,7 @@
           var $tbody = $('#from-decimal-' + (quarterOfTheDay + 1)).find('tbody');
           _.each(_.range(25), function(i) {
             var ke = quarterOfTheDay * 25 + i;
-            var hour = Math.floor(ke / 10 + DIVISION_PRECISION_6);
+            var hour = Math.floor(ke / 10 + PRECISION_FIX_6);
             var minute = Math.round(((ke / 10) - hour) * 100);
 
             var revolutionary = padTime(hour, minute);
@@ -3073,7 +3095,7 @@
           content: function() {
             var time = readTime($(this).text());
             var $watch = $('#revolutionary_watch').clone(true);
-            rotateHands($watch, revolutionaryData, time.hour, time.minute, time.second);
+            rotateHands($watch, revolutionaryData, time);
             return $watch;
           }
         }));
@@ -3081,7 +3103,7 @@
           content: function() {
             var time = readTime($(this).text());
             var $watch = $('#shoushi_watch').clone(true);
-            rotateHands($watch, shoushiData, time.hour, time.minute, time.second);
+            rotateHands($watch, shoushiData, time);
             return $watch;
           }
         }));
@@ -3089,7 +3111,7 @@
           content: function() {
             var time = readTime($(this).text());
             var $watch = $('#babylonian_watch').clone(true);
-            rotateHands($watch, babylonianData, time.hour, time.minute, time.second);
+            rotateHands($watch, babylonianData, time);
             return $watch;
           }
         }));
@@ -3102,7 +3124,10 @@
         return $('#' + section).addClass('active').trigger('show.section').find('h2').text();
       }
 
-      $(document).on('click', '#toc a', function() {
+      $(document).on('click', '#toc a', function(e) {
+        if (e.ctrlKey === true || e.shiftKey === true) {
+          return;
+        }
         var hash = $(this).attr('href');
         var section = hash.slice(1) || 'intro';
         var state = { section: section };
