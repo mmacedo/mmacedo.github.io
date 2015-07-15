@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -104,8 +104,9 @@
       color: #4582EC;
     }
 
-    .conversion-table {
-      width: 100%;
+    .callout {
+      text-align: center;
+      padding: 15px;
     }
 
     .conversion-table > thead > tr > th,
@@ -2202,6 +2203,8 @@
           <p>The Chinese had a great number of time measurements that were adapted to match our Babylonian time by the Qing dinasty rulers. One of those traditional time systems was the Shoushi (Season Granting) calender of 1280. In the Shoushi the day is divided in 100 kes, the ke is divided in 100 fen and the fen is divided in 100 miao. The ke is the same as 10 decimal minutes or 14.4 SI minutes, the fen is the same as 10 decimal seconds or 8.64 SI seconds and the miao is the same as 0.1 decimal seconds, or 0.0864 SI seconds.</p>
           <h3>Conversion tables</h3>
           <p>From the Babylonian (SI) double duodecimal (2x12) to the French Revolutionary decimal (10) and Chinese Shoushi decimal (100):</p>
+          <p class="callout bg-info visible-xs-block">Click the time to see the clock.</p>
+          <p class="callout bg-info hidden-xs">Pass the mouse over the time to see the clock.</p>
           <div class="row">
             <div class="col-sm-6">
               <table id="from-double-duodecimal-1" class="table table-condensed table-bordered conversion-table every-4">
@@ -2257,6 +2260,8 @@
             </div>
           </div>
           <p>From the French Revolutionary decimal (10) and Chinese Shoushi decimal (100) to the Babylonian (SI) double duodecimal (2x12):</p>
+          <p class="callout bg-info visible-xs-block">Click the time to see the clock.</p>
+          <p class="callout bg-info hidden-xs">Pass the mouse over the time to see the clock.</p>
           <div class="row">
             <div class="col-sm-6">
               <table id="from-decimal-1" class="table table-condensed table-bordered conversion-table every-5">
@@ -2979,6 +2984,49 @@
           hourAndMinute;
       }
 
+      function reconfigurePopovers(screenXs) {
+        var options = {
+          animation: false,
+          container: 'body',
+          html: true
+        };
+        if (screenXs === true) {
+          _.extend(options, {
+            trigger: 'click',
+            placement: 'top'
+          });
+        } else {
+          _.extend(options, {
+            trigger: 'hover'
+          });
+        }
+        $('.clock-tooltip').popover('destroy');
+        $('.revolutionary-tooltip').popover(_.extend({}, options, {
+          content: function() {
+            var time = readTime($(this).text());
+            var $watch = $('#revolutionary_watch').clone(true);
+            rotateHands($watch, REVOLUTIONARY_DAY, time);
+            return $watch;
+          }
+        }));
+        $('.shoushi-tooltip').popover(_.extend({}, options, {
+          content: function() {
+            var time = readTime($(this).text());
+            var $watch = $('#shoushi_watch').clone(true);
+            rotateHands($watch, SHOUSHI_DAY, time);
+            return $watch;
+          }
+        }));
+        $('.babylonian-tooltip').popover(_.extend({}, options, {
+          content: function() {
+            var time = readTime($(this).text());
+            var $watch = $('#babylonian_watch').clone(true);
+            rotateHands($watch, BABYLONIAN_DAY, time);
+            return $watch;
+          }
+        }));
+      }
+
       $(document).one('show.section', '#decimal-time', function() {
         _.each(_.range(4), function(quarterOfTheDay) {
           var $tbody = $('#from-double-duodecimal-' + (quarterOfTheDay + 1)).find('tbody');
@@ -2998,9 +3046,9 @@
 
               var dataPlacement = 'data-placement="' + (quarterOfTheDay % 2 === 0 ? 'right' : 'left') + '"';
               $tbody.append('<tr>' +
-                '<td class="babylonian-tooltip" data-title="' + babylonian + '" ' + dataPlacement + '>' + babylonian + '</td>' +
-                '<td class="revolutionary-tooltip" data-title="' + revolutionary + '" ' + dataPlacement + '>' + revolutionary + '</td>' +
-                '<td class="shoushi-tooltip" data-title="' + shoushi + '" ' + dataPlacement + '>' + shoushi + '</td>' +
+                '<td class="clock-tooltip babylonian-tooltip" data-title="' + babylonian + '" ' + dataPlacement + '>' + babylonian + '</td>' +
+                '<td class="clock-tooltip revolutionary-tooltip" data-title="' + revolutionary + '" ' + dataPlacement + '>' + revolutionary + '</td>' +
+                '<td class="clock-tooltip shoushi-tooltip" data-title="' + shoushi + '" ' + dataPlacement + '>' + shoushi + '</td>' +
                 '</tr>');
             });
           });
@@ -3021,9 +3069,9 @@
 
             var dataPlacement = 'data-placement="' + (quarterOfTheDay % 2 === 0 ? 'right' : 'left') + '"';
             $tbody.append('<tr>' +
-              '<td class="revolutionary-tooltip" data-title="' + babylonian + '" ' + dataPlacement + '>' + revolutionary + '</td>' +
-              '<td class="shoushi-tooltip" data-title="' + shoushi + '" ' + dataPlacement + '>' + shoushi + '</td>' +
-              '<td class="babylonian-tooltip" data-title="' + babylonian + '" ' + dataPlacement + '>' + babylonian + '</td>' +
+              '<td class="clock-tooltip revolutionary-tooltip" data-title="' + revolutionary + '" ' + dataPlacement + '>' + revolutionary + '</td>' +
+              '<td class="clock-tooltip shoushi-tooltip" data-title="' + shoushi + '" ' + dataPlacement + '>' + shoushi + '</td>' +
+              '<td class="clock-tooltip babylonian-tooltip" data-title="' + babylonian + '" ' + dataPlacement + '>' + babylonian + '</td>' +
               '</tr>');
           });
         });
@@ -3085,36 +3133,14 @@
         makeWatchCss('#static_watch_less', '#babylonian_css', babylonianData);
         $('#babylonian_html').append(makeWatchHtml('#static_watch_lodash', babylonianData));
 
-        var options = {
-          animation: false,
-          container: 'body',
-          html: true,
-          trigger: 'hover'
-        };
-        $('.revolutionary-tooltip').popover(_.extend({}, options, {
-          content: function() {
-            var time = readTime($(this).text());
-            var $watch = $('#revolutionary_watch').clone(true);
-            rotateHands($watch, revolutionaryData, time);
-            return $watch;
+        var isScreenXs = $(window).width() < 768;
+        reconfigurePopovers(isScreenXs);
+        // Change wherever it went below or it went above @screen-xs-min
+        $(window).on('resize', function() {
+          if (isScreenXs != $(window).width() < 768) {
+            reconfigurePopovers(isScreenXs = !isScreenXs);
           }
-        }));
-        $('.shoushi-tooltip').popover(_.extend({}, options, {
-          content: function() {
-            var time = readTime($(this).text());
-            var $watch = $('#shoushi_watch').clone(true);
-            rotateHands($watch, shoushiData, time);
-            return $watch;
-          }
-        }));
-        $('.babylonian-tooltip').popover(_.extend({}, options, {
-          content: function() {
-            var time = readTime($(this).text());
-            var $watch = $('#babylonian_watch').clone(true);
-            rotateHands($watch, babylonianData, time);
-            return $watch;
-          }
-        }));
+        });
       });
 
       function showSection(section) {
