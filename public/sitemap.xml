@@ -8,4 +8,8 @@
         <loc>http://michelpm.com/blog/sitemap.xml</loc>
         <lastmod>2013-05-05T14:25:00-03:00</lastmod>
     </sitemap>
+    <sitemap>
+        <loc>http://michelpm.com/iplbr/sitemap.xml</loc>
+        <lastmod>2015-08-03T16:10:00-03:00</lastmod>
+    </sitemap>
 </sitemapindex>
