@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Css | Michel P. Macedo]]></title>
-  <link href="http://michelpm.com/categories/css/atom.xml" rel="self"/>
-  <link href="http://michelpm.com/"/>
-  <updated>2015-07-16T13:49:11-03:00</updated>
-  <id>http://michelpm.com/</id>
+  <link href="http://michelpm.com/blog/categories/css/atom.xml" rel="self"/>
+  <link href="http://michelpm.com/blog/"/>
+  <updated>2015-08-03T16:35:49-03:00</updated>
+  <id>http://michelpm.com/blog/</id>
   <author>
     <name><![CDATA[Michel Pavan Macedo]]></name>
     <email><![CDATA[michelpm@gmail.com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[I18n of CSS Generated Content]]></title>
-    <link href="http://michelpm.com/2013/05/15/i18n-of-css-generated-content/"/>
+    <link href="http://michelpm.com/blog/2013/05/15/i18n-of-css-generated-content/"/>
     <updated>2013-05-15T00:00:00-03:00</updated>
-    <id>http://michelpm.com/2013/05/15/i18n-of-css-generated-content</id>
+    <id>http://michelpm.com/blog/2013/05/15/i18n-of-css-generated-content</id>
     <content type="html"><![CDATA[<p>In the <a href="http://twitter.github.io/bootstrap/">documentation of Twitter Boostrap 2</a>, there is a pretty example box, with a caption on the top-left corner. If you inspect the HTML code, you won&rsquo;t find the caption, it is generated with CSS. It might seem absurd, a violation of the traditional separation of style and content, but there is a way around it.</p>
 
 <h2>Content inside CSS</h2>

@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: C-sharp | Michel P. Macedo]]></title>
-  <link href="http://michelpm.com/categories/c-sharp/atom.xml" rel="self"/>
-  <link href="http://michelpm.com/"/>
-  <updated>2015-07-16T13:49:11-03:00</updated>
-  <id>http://michelpm.com/</id>
+  <link href="http://michelpm.com/blog/categories/c-sharp/atom.xml" rel="self"/>
+  <link href="http://michelpm.com/blog/"/>
+  <updated>2015-08-03T16:35:49-03:00</updated>
+  <id>http://michelpm.com/blog/</id>
   <author>
     <name><![CDATA[Michel Pavan Macedo]]></name>
     <email><![CDATA[michelpm@gmail.com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Formatting Strings in .NET]]></title>
-    <link href="http://michelpm.com/2012/01/23/formatting-strings-in-dotnet/"/>
+    <link href="http://michelpm.com/blog/2012/01/23/formatting-strings-in-dotnet/"/>
     <updated>2012-01-23T00:00:00-02:00</updated>
-    <id>http://michelpm.com/2012/01/23/formatting-strings-in-dotnet</id>
+    <id>http://michelpm.com/blog/2012/01/23/formatting-strings-in-dotnet</id>
     <content type="html"><![CDATA[<p>You may want to format some scalar value as a string, since default ToString functionality is possibly not what you want the user to see. You may want to do some occasional tool or toy console app. Not only these but perhaps any other reason may inspire you to code some string art. With C# there is no string interpolation, but there is a string formatting framework with a reasonable power. Let&rsquo;s see about that.</p>
 
 <h2>String.Format</h2>
@@ -142,9 +142,9 @@ foreach (var cell in data)
   
   <entry>
     <title type="html"><![CDATA[Initializing Things in C#]]></title>
-    <link href="http://michelpm.com/2011/10/07/initializing-things-in-csharp/"/>
+    <link href="http://michelpm.com/blog/2011/10/07/initializing-things-in-csharp/"/>
     <updated>2011-10-07T00:00:00-03:00</updated>
-    <id>http://michelpm.com/2011/10/07/initializing-things-in-csharp</id>
+    <id>http://michelpm.com/blog/2011/10/07/initializing-things-in-csharp</id>
     <content type="html"><![CDATA[<p>The C# team have introduced some nifty syntax sugars since C# 1.0. Among these new features are some to declare anonymous methods and delegates and initializers for objects and collections. They are are there for a while now and still are relatively unknown or misunderstood by the majority of C# programmers.</p>
 
 <p>I will try and clarify them a bit.</p>

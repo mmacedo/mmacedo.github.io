@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Productivity | Michel P. Macedo]]></title>
-  <link href="http://michelpm.com/categories/productivity/atom.xml" rel="self"/>
-  <link href="http://michelpm.com/"/>
-  <updated>2015-07-16T13:49:11-03:00</updated>
-  <id>http://michelpm.com/</id>
+  <link href="http://michelpm.com/blog/categories/productivity/atom.xml" rel="self"/>
+  <link href="http://michelpm.com/blog/"/>
+  <updated>2015-08-03T16:35:49-03:00</updated>
+  <id>http://michelpm.com/blog/</id>
   <author>
     <name><![CDATA[Michel Pavan Macedo]]></name>
     <email><![CDATA[michelpm@gmail.com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Lines of Code and Kilos of Cake]]></title>
-    <link href="http://michelpm.com/2014/12/18/lines-of-code-and-kilos-of-cake/"/>
+    <link href="http://michelpm.com/blog/2014/12/18/lines-of-code-and-kilos-of-cake/"/>
     <updated>2014-12-18T00:00:00-02:00</updated>
-    <id>http://michelpm.com/2014/12/18/lines-of-code-and-kilos-of-cake</id>
+    <id>http://michelpm.com/blog/2014/12/18/lines-of-code-and-kilos-of-cake</id>
     <content type="html"><![CDATA[<p>I love statistics, so I keep track of lots of stuff and make statistics about it later. I knew approximately how many hours I had spent in a pet project, so I decided to calculate how many lines, words and characters I had written per hour. Linux has tools that get that data for me.</p>
 
 <pre><code>&gt; cat public/index.html public/js/indice.js carga/eleitos/presidentes.txt carga/importa_eleitos.rb carga/gera_json.rb carga/analisa_partidos.rb publish_to_github.sh carga/resultados_no_tse.md dev.md config.ru Gemfile | wc

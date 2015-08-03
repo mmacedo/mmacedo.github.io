@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Nodejs | Michel P. Macedo]]></title>
-  <link href="http://michelpm.com/categories/nodejs/atom.xml" rel="self"/>
-  <link href="http://michelpm.com/"/>
-  <updated>2015-07-16T13:49:11-03:00</updated>
-  <id>http://michelpm.com/</id>
+  <link href="http://michelpm.com/blog/categories/nodejs/atom.xml" rel="self"/>
+  <link href="http://michelpm.com/blog/"/>
+  <updated>2015-08-03T16:35:49-03:00</updated>
+  <id>http://michelpm.com/blog/</id>
   <author>
     <name><![CDATA[Michel Pavan Macedo]]></name>
     <email><![CDATA[michelpm@gmail.com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Iterating Collections in JavaScript]]></title>
-    <link href="http://michelpm.com/2012/09/10/iterating-collections-in-javascript/"/>
+    <link href="http://michelpm.com/blog/2012/09/10/iterating-collections-in-javascript/"/>
     <updated>2012-09-10T00:00:00-03:00</updated>
-    <id>http://michelpm.com/2012/09/10/iterating-collections-in-javascript</id>
+    <id>http://michelpm.com/blog/2012/09/10/iterating-collections-in-javascript</id>
     <content type="html"><![CDATA[<p>When I iterate in any language, I like to have a list of somethings to iterate because I can use more idiomatic code and have more explicit initial state, state changes and exit conditions. Most languages have a slightly different for/foreach that iterates over things that are considered enumerable by the language. In JavaScript we have two types of enumerable objects: array-like objects, also known as collections or simply arrays; and objects, also known as object hashes or associative arrays, even though they are just any JavaScript object that is used for that purpose.</p>
 
 <h2>Control Structures</h2>

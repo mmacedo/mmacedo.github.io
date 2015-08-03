@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Vim | Michel P. Macedo]]></title>
-  <link href="http://michelpm.com/categories/vim/atom.xml" rel="self"/>
-  <link href="http://michelpm.com/"/>
-  <updated>2015-07-16T13:49:11-03:00</updated>
-  <id>http://michelpm.com/</id>
+  <link href="http://michelpm.com/blog/categories/vim/atom.xml" rel="self"/>
+  <link href="http://michelpm.com/blog/"/>
+  <updated>2015-08-03T16:35:49-03:00</updated>
+  <id>http://michelpm.com/blog/</id>
   <author>
     <name><![CDATA[Michel Pavan Macedo]]></name>
     <email><![CDATA[michelpm@gmail.com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Why I Hate Not to Know Vim]]></title>
-    <link href="http://michelpm.com/2011/08/26/why-i-hate-not-to-know-vim/"/>
+    <link href="http://michelpm.com/blog/2011/08/26/why-i-hate-not-to-know-vim/"/>
     <updated>2011-08-26T00:00:00-03:00</updated>
-    <id>http://michelpm.com/2011/08/26/why-i-hate-not-to-know-vim</id>
+    <id>http://michelpm.com/blog/2011/08/26/why-i-hate-not-to-know-vim</id>
     <content type="html"><![CDATA[<p>Several times I stumbled with big SQL queries, but this one I was asked to fix was huge. I wouldn&rsquo;t question if it should be that big because refactoring that just wasn&rsquo;t worth it. Like other stupidly big queries it had really big sub-queries deeply nested in both projection (SELECT) and selection (FROM) sections. Needless to say it had a complex and badly designed spaghetti of joins. There were several N to N relationships that would be nothing but usual if not for the fact they were hiding several other circular references with some awful large perimeters. I found later there were also some inconsistent joins that should be done to correct relations that pointed to the wrong table.</p>
 
 <p>So far so good, the query was evil and according to my assignment, it would produce somewhat rare unexpected results. My luck is that my test environment couldn&rsquo;t be better, I could test directly in the database where the bug was found.</p>

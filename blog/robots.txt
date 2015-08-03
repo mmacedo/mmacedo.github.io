@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://michelpm.com/sitemap.xml 
+Sitemap: http://michelpm.com/blog/sitemap.xml 

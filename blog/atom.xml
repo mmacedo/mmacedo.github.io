@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Michel P. Macedo]]></title>
-  <link href="http://michelpm.com/atom.xml" rel="self"/>
-  <link href="http://michelpm.com/"/>
-  <updated>2015-07-16T13:49:11-03:00</updated>
-  <id>http://michelpm.com/</id>
+  <link href="http://michelpm.com/blog/atom.xml" rel="self"/>
+  <link href="http://michelpm.com/blog/"/>
+  <updated>2015-08-03T16:35:49-03:00</updated>
+  <id>http://michelpm.com/blog/</id>
   <author>
     <name><![CDATA[Michel Pavan Macedo]]></name>
     <email><![CDATA[michelpm@gmail.com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Lines of Code and Kilos of Cake]]></title>
-    <link href="http://michelpm.com/2014/12/18/lines-of-code-and-kilos-of-cake/"/>
+    <link href="http://michelpm.com/blog/2014/12/18/lines-of-code-and-kilos-of-cake/"/>
     <updated>2014-12-18T00:00:00-02:00</updated>
-    <id>http://michelpm.com/2014/12/18/lines-of-code-and-kilos-of-cake</id>
+    <id>http://michelpm.com/blog/2014/12/18/lines-of-code-and-kilos-of-cake</id>
     <content type="html"><![CDATA[<p>I love statistics, so I keep track of lots of stuff and make statistics about it later. I knew approximately how many hours I had spent in a pet project, so I decided to calculate how many lines, words and characters I had written per hour. Linux has tools that get that data for me.</p>
 
 <pre><code>&gt; cat public/index.html public/js/indice.js carga/eleitos/presidentes.txt carga/importa_eleitos.rb carga/gera_json.rb carga/analisa_partidos.rb publish_to_github.sh carga/resultados_no_tse.md dev.md config.ru Gemfile | wc
@@ -54,9 +54,9 @@
   
   <entry>
     <title type="html"><![CDATA[Switching From Zsh to Fish]]></title>
-    <link href="http://michelpm.com/2013/07/26/switching-from-zsh-to-fish/"/>
+    <link href="http://michelpm.com/blog/2013/07/26/switching-from-zsh-to-fish/"/>
     <updated>2013-07-26T00:00:00-03:00</updated>
-    <id>http://michelpm.com/2013/07/26/switching-from-zsh-to-fish</id>
+    <id>http://michelpm.com/blog/2013/07/26/switching-from-zsh-to-fish</id>
     <content type="html"><![CDATA[<p>Not long ago I heard of <a href="http://fishshell.com">fish (friendly interactive shell)</a> and I decided it was worth a test drive. I have a decent configuration for zsh, with most credits to <a href="https://github.com/robbyrussell/oh-my-zsh">Oh My Zsh!</a>, but I was determined to get rid of most my dotfiles, as it is one of my greatest excuses to procrastinate, however tidy. Fish comes with lots of things out of the box, so I decided to replace zsh even if it meant to lose a thing or two.</p>
 
 <h2>Trying out fish</h2>
@@ -317,9 +317,9 @@ end
   
   <entry>
     <title type="html"><![CDATA[I18n of CSS Generated Content]]></title>
-    <link href="http://michelpm.com/2013/05/15/i18n-of-css-generated-content/"/>
+    <link href="http://michelpm.com/blog/2013/05/15/i18n-of-css-generated-content/"/>
     <updated>2013-05-15T00:00:00-03:00</updated>
-    <id>http://michelpm.com/2013/05/15/i18n-of-css-generated-content</id>
+    <id>http://michelpm.com/blog/2013/05/15/i18n-of-css-generated-content</id>
     <content type="html"><![CDATA[<p>In the <a href="http://twitter.github.io/bootstrap/">documentation of Twitter Boostrap 2</a>, there is a pretty example box, with a caption on the top-left corner. If you inspect the HTML code, you won&rsquo;t find the caption, it is generated with CSS. It might seem absurd, a violation of the traditional separation of style and content, but there is a way around it.</p>
 
 <h2>Content inside CSS</h2>
@@ -490,9 +490,9 @@ end
   
   <entry>
     <title type="html"><![CDATA[Twitter Bootstrap and JRuby on Rails]]></title>
-    <link href="http://michelpm.com/2012/10/23/twitter-bootstrap-and-jruby-on-rails/"/>
+    <link href="http://michelpm.com/blog/2012/10/23/twitter-bootstrap-and-jruby-on-rails/"/>
     <updated>2012-10-23T00:00:00-02:00</updated>
-    <id>http://michelpm.com/2012/10/23/twitter-bootstrap-and-jruby-on-rails</id>
+    <id>http://michelpm.com/blog/2012/10/23/twitter-bootstrap-and-jruby-on-rails</id>
     <content type="html"><![CDATA[<p><a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a> is published in <a href="http://lesscss.org/">LESS</a> and that is how I like to use it. The <a href="https://github.com/seyhunak/twitter-bootstrap-rails">twitter-bootstrap-rails</a> gem is the most popular and most complete for that purpose. It has several handy generators and helpers. But I can&rsquo;t for my life install it on <a href="http://jruby.org/">JRuby</a>. Since I don&rsquo;t like forking, I found a somewhat simple workaround.</p>
 
 <h2>Bootstrap files</h2>
@@ -505,14 +505,14 @@ end
 
 <p>It must be installed manually, it is pretty straightforward to do so. I use them like below.</p>
 
-<figure class='code'><figcaption><span>app/assets/stylesheets/application.css.less</span></figcaption><div clang='' id="figure_671718381"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>app/assets/stylesheets/application.css.less</span></figcaption><div clang='' id="figure_291172173"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='scss'><span class='line'><span class="c1">//= require_tree .</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_671718381_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_291172173_alt" style="display:none;"></div></figure>
 
 
 
 
-<figure class='code'><figcaption><span>app/assets/stylesheets/bootstrap_and_overrides.css.less</span></figcaption><div clang='' id="figure_67832110"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>app/assets/stylesheets/bootstrap_and_overrides.css.less</span></figcaption><div clang='' id="figure_79487094"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -528,12 +528,12 @@ end
 </span><span class='line'><span class="o">@</span><span class="nt">iconWhiteSpritePath</span><span class="nd">:</span> <span class="nt">asset-path</span><span class="o">(</span><span class="s2">&quot;twitter/bootstrap/glyphicons-halflings-white.png&quot;</span><span class="o">);</span>
 </span><span class='line'>
 </span><span class='line'><span class="nt">body</span> <span class="p">{</span> <span class="na">padding-top</span><span class="o">:</span> <span class="mi">60</span><span class="kt">px</span><span class="p">;</span> <span class="p">}</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_67832110_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_79487094_alt" style="display:none;"></div></figure>
 
 
 
 
-<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_599966510');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_599966510');">.js</a></span><span>app/assets/javascripts/application.js.coffee</span></figcaption><div clang='CoffeeScript' id="figure_599966510"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_78202777');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_78202777');">.js</a></span><span>app/assets/javascripts/application.js.coffee</span></figcaption><div clang='CoffeeScript' id="figure_78202777"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -541,14 +541,14 @@ end
 </span><span class='line'><span class="c1">#= require jquery</span>
 </span><span class='line'><span class="c1">#= require jquery_ujs</span>
 </span><span class='line'><span class="c1">#= require_tree .</span>
-</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_599966510_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_78202777_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Generated by CoffeeScript 1.9.3</span>
 </span></code></pre></td></tr></table></div></div></figure>
 
 
 <h2>Generate layout</h2>
 
-<figure class='code'><figcaption><span></span></figcaption><div clang='' id="figure_353222755"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div clang='' id="figure_57512851"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -570,7 +570,7 @@ end
 </span><span class='line'> <span class="o">(</span><span class="nb">echo</span> <span class="nv">$LayoutErubis</span> <span class="p">|</span> erubis -x<span class="o">)</span>
 </span><span class='line'> <span class="nb">echo</span> <span class="s2">&quot;puts _buf.to_s&quot;</span>
 </span><span class='line'><span class="o">)</span> <span class="p">|</span> ruby &gt; app/views/layouts/application.html.haml
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_353222755_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_57512851_alt" style="display:none;"></div></figure>
 
 
 <p>Replace &lsquo;MyApp&rsquo; with the name of your app, it is the text the will be used in the logo and title areas. If you want to generate a fluid layout replaced &lsquo;fixed&rsquo; with &lsquo;fluid&rsquo; and &lsquo;container&rsquo; with &lsquo;container-fluid&rsquo;. For more details, look at <a href="https://github.com/seyhunak/twitter-bootstrap-rails/blob/master/lib/generators/bootstrap/layout/layout_generator.rb">the code of the generator itself</a>.</p>
@@ -579,7 +579,7 @@ end
 
 <p>It won&rsquo;t work. But that is good, because it means presentation logic needed to use several Twitter Bootstrap components is available as helpers. Except we don&rsquo;t have those helpers. So let&rsquo;s go back to their repository and get them as well.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div clang='' id="figure_256740633"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div clang='' id="figure_629846842"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -601,7 +601,7 @@ end
 </span><span class='line'>
 </span><span class='line'><span class="c"># Commit (don&#39;t use -m your lazy bastard)</span>
 </span><span class='line'>git commit
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_256740633_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_629846842_alt" style="display:none;"></div></figure>
 
 
 <h2>Word of caution</h2>
@@ -612,9 +612,9 @@ end
   
   <entry>
     <title type="html"><![CDATA[Functional JavaScript]]></title>
-    <link href="http://michelpm.com/2012/09/11/functional-javascript/"/>
+    <link href="http://michelpm.com/blog/2012/09/11/functional-javascript/"/>
     <updated>2012-09-11T00:00:00-03:00</updated>
-    <id>http://michelpm.com/2012/09/11/functional-javascript</id>
+    <id>http://michelpm.com/blog/2012/09/11/functional-javascript</id>
     <content type="html"><![CDATA[<p>In <a href="http://en.wikipedia.org/wiki/Functional_programming">functional languages</a>, code consists mainly of processing lists in a recursive manner. A limited list of patterns in processing lists emerge so often that all functional languages provide at least some <a href="http://en.wikipedia.org/wiki/Higher-order_function">high-order functions</a>, that are very well written and optimized. The most common and useful high-order functions, the primitives, are (may vary) <a href="http://en.wikipedia.org/wiki/Foreach">each</a> (only for imperative programming), <a href="http://en.wikipedia.org/wiki/Filter_(higher-order_function)">filter</a>, <a href="http://en.wikipedia.org/wiki/Map_(higher-order_function)">map</a> and <a href="http://en.wikipedia.org/wiki/Fold_(higher-order_function)">reduce</a>.</p>
 
 <h2>Functional implementations</h2>
@@ -651,7 +651,7 @@ end
 
 <p>The idea of each is to iterate over a list and execute something without producing a new list. It is a imperative construct and it is very often available in imperative languages as <a href="http://michelpm.com/blog/2012/09/10/iterating-collections-in-javascript/">for/foreach constructs</a>. The native function is <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/forEach">forEach</a>.</p>
 
-<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_735994896');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_735994896');">.js</a></span><span>each</span></figcaption><div clang='CoffeeScript' id="figure_735994896"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_887271668');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_887271668');">.js</a></span><span>each</span></figcaption><div clang='CoffeeScript' id="figure_887271668"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -675,7 +675,7 @@ end
 </span><span class='line'>
 </span><span class='line'><span class="cm">### Comprehension ###</span>
 </span><span class='line'><span class="nx">foo</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">index</span> <span class="k">for</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">index</span> <span class="k">in</span> <span class="nx">arr</span>
-</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_735994896_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_887271668_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -738,7 +738,7 @@ end
 
 <p>Also known as select, the filter primitive returns a list with the items that pass a test function. The native function is <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/filter">filter</a>. It is the <a href="http://en.wikipedia.org/wiki/Selection_(relational_algebra)">selection</a> operator (<a href="http://en.wikipedia.org/wiki/Where_(SQL)">WHERE</a> in SQL).</p>
 
-<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_245249484');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_245249484');">.js</a></span><span>filter</span></figcaption><div clang='CoffeeScript' id="figure_245249484"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_277861190');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_277861190');">.js</a></span><span>filter</span></figcaption><div clang='CoffeeScript' id="figure_277861190"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -766,7 +766,7 @@ end
 </span><span class='line'><span class="cm">### Comprehension ###</span>
 </span><span class='line'><span class="nx">alert</span> <span class="p">(</span><span class="nx">value</span> <span class="k">for</span> <span class="nx">value</span> <span class="k">in</span> <span class="nx">arr</span> <span class="k">when</span> <span class="nx">isOdd</span><span class="p">(</span><span class="nx">value</span><span class="p">))</span>
 </span><span class='line'><span class="nx">alert</span> <span class="p">(</span><span class="nx">value</span> <span class="k">for</span> <span class="nx">value</span> <span class="k">in</span> <span class="nx">arr</span> <span class="k">when</span> <span class="nx">value</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">is</span> <span class="mi">1</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_245249484_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_277861190_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -871,7 +871,7 @@ end
 
 <p>Also known as collect, the map primitive returns a list with the items returned from the map function. The native function is <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/map">map</a>. It is the <a href="http://en.wikipedia.org/wiki/Projection_(relational_algebra)">projection</a> operator (<a href="http://en.wikipedia.org/wiki/Select_(SQL)">SELECT</a> in SQL).</p>
 
-<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_870380152');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_870380152');">.js</a></span><span>map</span></figcaption><div clang='CoffeeScript' id="figure_870380152"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_935927296');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_935927296');">.js</a></span><span>map</span></figcaption><div clang='CoffeeScript' id="figure_935927296"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -897,7 +897,7 @@ end
 </span><span class='line'><span class="cm">### Comprehension ###</span>
 </span><span class='line'><span class="nx">alert</span> <span class="p">(</span><span class="nx">format</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="k">for</span> <span class="nx">value</span> <span class="k">in</span> <span class="nx">arr</span><span class="p">)</span>
 </span><span class='line'><span class="nx">alert</span> <span class="p">(</span><span class="nx">value</span><span class="p">.</span><span class="nx">toFixed</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="nx">value</span> <span class="k">in</span> <span class="nx">arr</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_870380152_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_935927296_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -990,11 +990,11 @@ end
 
 <p>Also known as fold or inject, the reduce primitive returns a single value accumulated by calling an <a href="http://en.wikipedia.org/wiki/Aggregate_function">aggregate function</a> on each item, always passing as the first parameter the value accumulated as returned from the last iteration call. This is the most often non-understood from the primitives, but it is not complicated at all. The native method is <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/reduce">reduce</a>.</p>
 
-<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_473247419');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_473247419');">.js</a></span><span>Aggregate functions: sum, mult</span></figcaption><div clang='CoffeeScript' id="figure_473247419"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_696558478');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_696558478');">.js</a></span><span>Aggregate functions: sum, mult</span></figcaption><div clang='CoffeeScript' id="figure_696558478"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nv">sum = </span><span class="nf">(sum, value) -&gt;</span> <span class="nx">sum</span> <span class="o">+</span> <span class="nx">value</span>
 </span><span class='line'><span class="nv">mult = </span><span class="nf">(product, value) -&gt;</span> <span class="nx">product</span> <span class="o">*</span> <span class="nx">value</span>
-</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_473247419_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_696558478_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1019,9 +1019,9 @@ end
 
 <p>Our first aggregate functions are pretty straightforward.</p>
 
-<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_1295721');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_1295721');">.js</a></span><span>Aggregate function: max</span></figcaption><div clang='CoffeeScript' id="figure_1295721"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_974615932');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_974615932');">.js</a></span><span>Aggregate function: max</span></figcaption><div clang='CoffeeScript' id="figure_974615932"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nv">max = </span><span class="nf">(max, value) -&gt;</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="nx">max</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_1295721_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_974615932_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1038,7 +1038,7 @@ end
 
 <p>Since the aggregate function accepts four parameters (previousValue, currentValue, index and parameter), you can not pass <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Math/max">Math.max</a> directly to reduce, because it tries to get the maximum value for all parameters passed.</p>
 
-<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_446071833');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_446071833');">.js</a></span><span>Aggregate function: join</span></figcaption><div clang='CoffeeScript' id="figure_446071833"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_534497078');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_534497078');">.js</a></span><span>Aggregate function: join</span></figcaption><div clang='CoffeeScript' id="figure_534497078"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1048,7 +1048,7 @@ end
 </span><span class='line'>    <span class="nx">value</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span>
 </span><span class='line'>  <span class="k">else</span>
 </span><span class='line'>    <span class="s">&quot;</span><span class="si">#{</span><span class="nx">str</span><span class="si">}</span><span class="s">, </span><span class="si">#{</span><span class="nx">value</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span><span class="si">}</span><span class="s">&quot;</span>
-</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_446071833_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_534497078_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1073,7 +1073,7 @@ end
 
 <p>This is also straightforward, to show what you can do. Note that the accumulated value is from a different type than the values being iterated.</p>
 
-<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_14822639');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_14822639');">.js</a></span><span>Aggregate function: avg</span></figcaption><div clang='CoffeeScript' id="figure_14822639"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_998819509');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_998819509');">.js</a></span><span>Aggregate function: avg</span></figcaption><div clang='CoffeeScript' id="figure_998819509"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1083,7 +1083,7 @@ end
 </span><span class='line'>    <span class="p">(</span><span class="nx">sum</span> <span class="o">+</span> <span class="nx">value</span><span class="p">)</span> <span class="o">/</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span>
 </span><span class='line'>  <span class="k">else</span>
 </span><span class='line'>    <span class="nx">sum</span> <span class="o">+</span> <span class="nx">value</span>
-</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_14822639_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_998819509_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1108,7 +1108,7 @@ end
 
 <p>Several implementations of reduce would accept a second function that returns the result based on the value returned from the last iteration, while simpler implementations just return the value from the last iteration. The reason from that second function is to implement aggregate functions like avg. Our implementation assumes that the list is being iterated from left to right (can not be called with reduceRight) and from the beginning to the end in the same interation (can not be merged with other iterations, therefore can not be <a href="http://en.wikipedia.org/wiki/Automatic_parallelization">parallelized</a>). <a href="https://gist.github.com/3696508">This</a> is a good solution in a bad technology.</p>
 
-<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_484587473');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_484587473');">.js</a></span><span>reduce</span></figcaption><div clang='CoffeeScript' id="figure_484587473"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_584075430');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_584075430');">.js</a></span><span>reduce</span></figcaption><div clang='CoffeeScript' id="figure_584075430"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1122,7 +1122,7 @@ end
 </span><span class='line'>
 </span><span class='line'><span class="cm">### Underscore.js / Lo-Dash ###</span>
 </span><span class='line'><span class="nx">alert</span> <span class="s">&quot;The sum is </span><span class="si">#{</span><span class="nx">_</span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span><span class="nx">arr</span><span class="p">,</span> <span class="nx">sum</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="si">}</span><span class="s">, and the product is </span><span class="si">#{</span><span class="nx">_</span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span><span class="nx">arr</span><span class="p">,</span> <span class="nx">mult</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="si">}</span><span class="s">.&quot;</span>
-</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_484587473_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_584075430_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1155,11 +1155,11 @@ end
 
 <p>Something worth noting: there is no reduce syntax for CoffeeScript. You can always use the other solutions (the code above already is in CoffeeScript) or even a loop, since it is always pleasant to write good JavaScript in CoffeeScript.</p>
 
-<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_835085868');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_835085868');">.js</a></span><span>reduce by hand</span></figcaption><div clang='CoffeeScript' id="figure_835085868"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_737515619');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_737515619');">.js</a></span><span>reduce by hand</span></figcaption><div clang='CoffeeScript' id="figure_737515619"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nv">sum = </span><span class="mi">0</span>
 </span><span class='line'><span class="nx">sum</span> <span class="o">+=</span> <span class="nx">value</span> <span class="k">for</span> <span class="nx">value</span> <span class="k">in</span> <span class="nx">arr</span>
-</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_835085868_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_737515619_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1184,11 +1184,11 @@ end
 
 <p>Usually where is reduce, there is also a reduceRight. It iterates from the last to the first item. It seldom makes a differece, but it may, and if it does, it may be an issue instead of benefit. As a rule of thumb, use reduce unless you know why you are not. The native method is <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/ReduceRight">reduceRight</a>.</p>
 
-<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_244373550');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_244373550');">.js</a></span><span>reduceRight by hand</span></figcaption><div clang='CoffeeScript' id="figure_244373550"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_882612726');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_882612726');">.js</a></span><span>reduceRight by hand</span></figcaption><div clang='CoffeeScript' id="figure_882612726"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nv">sum = </span><span class="mi">0</span>
 </span><span class='line'><span class="nx">sum</span> <span class="o">+=</span> <span class="nx">value</span> <span class="k">for</span> <span class="nx">value</span> <span class="k">in</span> <span class="nx">arr</span> <span class="k">by</span> <span class="o">-</span><span class="mi">1</span>
-</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_244373550_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_882612726_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1213,9 +1213,9 @@ end
   
   <entry>
     <title type="html"><![CDATA[Iterating Collections in JavaScript]]></title>
-    <link href="http://michelpm.com/2012/09/10/iterating-collections-in-javascript/"/>
+    <link href="http://michelpm.com/blog/2012/09/10/iterating-collections-in-javascript/"/>
     <updated>2012-09-10T00:00:00-03:00</updated>
-    <id>http://michelpm.com/2012/09/10/iterating-collections-in-javascript</id>
+    <id>http://michelpm.com/blog/2012/09/10/iterating-collections-in-javascript</id>
     <content type="html"><![CDATA[<p>When I iterate in any language, I like to have a list of somethings to iterate because I can use more idiomatic code and have more explicit initial state, state changes and exit conditions. Most languages have a slightly different for/foreach that iterates over things that are considered enumerable by the language. In JavaScript we have two types of enumerable objects: array-like objects, also known as collections or simply arrays; and objects, also known as object hashes or associative arrays, even though they are just any JavaScript object that is used for that purpose.</p>
 
 <h2>Control Structures</h2>
@@ -1224,7 +1224,7 @@ end
 
 <p>In Javascript (ES6) there is a <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Statements/for...of">for..of</a> structure to iterate over arrays, but it is not safe to use it in browsers just yet.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div clang='' id="figure_374651539"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div clang='' id="figure_774379623"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1242,12 +1242,12 @@ end
 </span><span class='line'><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="nx">of</span> <span class="nx">arr</span><span class="p">)</span> <span class="p">{</span>
 </span><span class='line'>  <span class="nx">foo</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
 </span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_374651539_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_774379623_alt" style="display:none;"></div></figure>
 
 
 <p>In CoffeeScript you can use the for..in for that. It will generate a regular <code>for</code>, so unlike it is JavaScript counterpart, it is safe.</p>
 
-<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_125232611');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_125232611');">.js</a></span><span>for..in</span></figcaption><div clang='CoffeeScript' id="figure_125232611"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_680784084');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_680784084');">.js</a></span><span>for..in</span></figcaption><div clang='CoffeeScript' id="figure_680784084"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1265,7 +1265,7 @@ end
 </span><span class='line'><span class="cm">### for..in ###</span>
 </span><span class='line'><span class="k">for</span> <span class="nx">i</span> <span class="k">in</span> <span class="nx">arr</span>
 </span><span class='line'>  <span class="nx">foo</span> <span class="nx">i</span>
-</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_125232611_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_680784084_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1310,7 +1310,7 @@ end
 
 <p>In JavaScript there is a well supported structure to iterate on the properties of a object. It is called <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Statements/for...in">for..in</a>.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div clang='' id="figure_989736992"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div clang='' id="figure_664266962"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1318,18 +1318,18 @@ end
 </span><span class='line'><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">obj</span><span class="p">)</span> <span class="p">{</span>
 </span><span class='line'>  <span class="nx">foo</span><span class="p">(</span><span class="nx">obj</span><span class="p">[</span><span class="nx">key</span><span class="p">]);</span>
 </span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_989736992_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_664266962_alt" style="display:none;"></div></figure>
 
 
 <p>In CoffeeScript you use the for..of for that. Yes, that is right, CoffeeScript uses &ldquo;for..in&rdquo; for arrays and &ldquo;for..of&rdquo; for objects, exactly the opposite of JavaScript. If you think about it, the CoffeeScript way sounds better.</p>
 
-<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_29094740');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_29094740');">.js</a></span><span>for..of</span></figcaption><div clang='CoffeeScript' id="figure_29094740"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_210809101');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_210809101');">.js</a></span><span>for..of</span></figcaption><div clang='CoffeeScript' id="figure_210809101"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nv">obj = a: </span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="nv">b: </span><span class="s">&#39;b&#39;</span>
 </span><span class='line'><span class="k">for</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">val</span> <span class="k">of</span> <span class="nx">obj</span>
 </span><span class='line'>  <span class="nx">foo</span> <span class="nx">val</span>
-</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_29094740_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_210809101_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1358,7 +1358,7 @@ end
 
 <p>The problem is that it returns also inherited properties, to solve that you can either use <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/hasOwnProperty">hasOwnProperty</a> if in a browser or <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/getOwnPropertyNames">getOwnPropertyNames</a>/<a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/keys">Object.keys</a> (both ES5).</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div clang='' id="figure_485498624"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div clang='' id="figure_817193353"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1382,18 +1382,18 @@ end
 </span><span class='line'><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">keys</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
 </span><span class='line'>  <span class="nx">foo</span><span class="p">(</span><span class="nx">obj</span><span class="p">[</span><span class="nx">keys</span><span class="p">[</span><span class="nx">i</span><span class="p">]]);</span>
 </span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_485498624_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_817193353_alt" style="display:none;"></div></figure>
 
 
 <p>But CoffeeScript has its own syntax that calls this function (the <code>own</code> keyword).</p>
 
-<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_667115682');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_667115682');">.js</a></span><span>for..own..of</span></figcaption><div clang='CoffeeScript' id="figure_667115682"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_306314087');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_306314087');">.js</a></span><span>for..own..of</span></figcaption><div clang='CoffeeScript' id="figure_306314087"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nv">obj = a: </span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="nv">b: </span><span class="s">&#39;b&#39;</span>
 </span><span class='line'><span class="k">for</span> <span class="k">own</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">val</span> <span class="k">of</span> <span class="nx">obj</span>
 </span><span class='line'>  <span class="nx">foo</span> <span class="nx">val</span>
-</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_667115682_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_306314087_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1430,11 +1430,11 @@ end
 
 <p>ES5 added the <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/forEach">forEach</a> function for arrays only.</p>
 
-<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_909177936');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_909177936');">.js</a></span><span>forEach</span></figcaption><div clang='CoffeeScript' id="figure_909177936"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_703749587');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_703749587');">.js</a></span><span>forEach</span></figcaption><div clang='CoffeeScript' id="figure_703749587"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="p">[</span><span class="mi">1</span><span class="p">..</span><span class="mi">3</span><span class="p">].</span><span class="nx">forEach</span> <span class="nf">(value, index, array) -&gt;</span>
 </span><span class='line'>  <span class="nx">foo</span> <span class="nx">value</span>
-</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_909177936_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_703749587_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1447,7 +1447,7 @@ end
 
 <h3>Libraries</h3>
 
-<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_325948714');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_325948714');">.js</a></span><span>Several libraries</span></figcaption><div clang='CoffeeScript' id="figure_325948714"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_666016624');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_666016624');">.js</a></span><span>Several libraries</span></figcaption><div clang='CoffeeScript' id="figure_666016624"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1491,7 +1491,7 @@ end
 </span><span class='line'>  <span class="nx">foo</span> <span class="nx">value</span>
 </span><span class='line'><span class="nx">_</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nx">each</span> <span class="nf">(value, key, obj) -&gt;</span>
 </span><span class='line'>  <span class="nx">foo</span> <span class="nx">value</span>
-</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_325948714_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_666016624_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1590,7 +1590,7 @@ end
 
 <p>Some people may care that function calls add a lot of overhead, others may argue that functions are always worse than a more idiomatic approach, if available. The more idiomatic approach that CoffeeScript offers is comprehensions, that is basically the traditional control structures in a postfixed notation.</p>
 
-<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_542397297');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_542397297');">.js</a></span><span>Comprehensions</span></figcaption><div clang='CoffeeScript' id="figure_542397297"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_802031480');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_802031480');">.js</a></span><span>Comprehensions</span></figcaption><div clang='CoffeeScript' id="figure_802031480"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1616,7 +1616,7 @@ end
 </span><span class='line'><span class="c1"># Bonus tracks: while/until</span>
 </span><span class='line'><span class="nx">doSomething</span><span class="p">()</span> <span class="k">while</span> <span class="nx">somethingIsTrue</span><span class="p">()</span>
 </span><span class='line'><span class="nx">doSomething</span><span class="p">()</span> <span class="k">until</span> <span class="nx">somethingIsTrue</span><span class="p">()</span>
-</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_542397297_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_802031480_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1689,20 +1689,20 @@ end
   
   <entry>
     <title type="html"><![CDATA[Javascript Not Minus One Operator]]></title>
-    <link href="http://michelpm.com/2012/09/03/javascript-not-minus-one-operator/"/>
+    <link href="http://michelpm.com/blog/2012/09/03/javascript-not-minus-one-operator/"/>
     <updated>2012-09-03T00:00:00-03:00</updated>
-    <id>http://michelpm.com/2012/09/03/javascript-not-minus-one-operator</id>
+    <id>http://michelpm.com/blog/2012/09/03/javascript-not-minus-one-operator</id>
     <content type="html"><![CDATA[<p>In most languages if you want to check if something is in a array or string, you use functions named indexOf or any variant thereof. The signature and contract don&rsquo;t usually deviate much, specially in languages with zero-based indexes.</p>
 
 <p>In Javascript, both <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/indexOf" title="Array indexOf method">Array&rsquo;s</a> and <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/String/indexOf" title="String indexOf method">String&rsquo;s</a> indexOf return minus one (-1) for not found. Minus one isn&rsquo;t particularly semantic, and checking for it tends to produce the most verbose and technical bits of otherwise <a href="http://www.shelfari.com/books/4017020/Clean-Code" title="Clean Code (2008) by Robert C. Martin">cleanly written code</a>.</p>
 
-<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_942380789');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_942380789');">.js</a></span><span>Comparison operators</span></figcaption><div clang='CoffeeScript' id="figure_942380789"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_463674663');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_463674663');">.js</a></span><span>Comparison operators</span></figcaption><div clang='CoffeeScript' id="figure_463674663"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nv">hello = </span><span class="s">&#39;Hello World!&#39;</span>
 </span><span class='line'><span class="k">if</span> <span class="nx">hello</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s">&#39;World&#39;</span><span class="p">)</span> <span class="o">isnt</span> <span class="o">-</span><span class="mi">1</span> <span class="o">and</span> <span class="nx">hello</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s">&#39;Hello&#39;</span><span class="p">)</span> <span class="o">is</span> <span class="o">-</span><span class="mi">1</span>
 </span><span class='line'>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;Has World, but not Hello&#39;</span>
-</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_942380789_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_463674663_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1725,13 +1725,13 @@ end
 
 <p>Tip seen in <a href="http://arcturo.github.com/library/coffeescript/">The Little Book on CoffeeScript</a>, because CofeeScript has a <a href="http://arcturo.github.com/library/coffeescript/04_idioms.html">special idiom</a> for arrays, but not for strings.</p>
 
-<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_402197335');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_402197335');">.js</a></span><span>Complement Operator (or Not Minus One Operator)</span></figcaption><div clang='CoffeeScript' id="figure_402197335"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span class="switchLang"><a class="switchLang selected" onclick="switchLang(event,this,'figure_31895764');">.coffee</a><a class="switchLang" onclick="switchLang(event,this,'figure_31895764');">.js</a></span><span>Complement Operator (or Not Minus One Operator)</span></figcaption><div clang='CoffeeScript' id="figure_31895764"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nv">hello = </span><span class="s">&#39;Hello World!&#39;</span>
 </span><span class='line'><span class="k">if</span> <span class="o">~</span><span class="nx">hello</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s">&#39;World&#39;</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!~</span><span class="nx">hello</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s">&#39;Hello&#39;</span><span class="p">)</span>
 </span><span class='line'>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;Has World, but not Hello&#39;</span>
-</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_402197335_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</span></code></pre></td></tr></table></div></div><div clang='JavaScript' id="figure_31895764_alt" style="display:none;"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1756,9 +1756,9 @@ end
   
   <entry>
     <title type="html"><![CDATA[Formatting Strings in .NET]]></title>
-    <link href="http://michelpm.com/2012/01/23/formatting-strings-in-dotnet/"/>
+    <link href="http://michelpm.com/blog/2012/01/23/formatting-strings-in-dotnet/"/>
     <updated>2012-01-23T00:00:00-02:00</updated>
-    <id>http://michelpm.com/2012/01/23/formatting-strings-in-dotnet</id>
+    <id>http://michelpm.com/blog/2012/01/23/formatting-strings-in-dotnet</id>
     <content type="html"><![CDATA[<p>You may want to format some scalar value as a string, since default ToString functionality is possibly not what you want the user to see. You may want to do some occasional tool or toy console app. Not only these but perhaps any other reason may inspire you to code some string art. With C# there is no string interpolation, but there is a string formatting framework with a reasonable power. Let&rsquo;s see about that.</p>
 
 <h2>String.Format</h2>
@@ -1794,18 +1794,18 @@ end
 
 <p>The basic format is with brackets and a zero-based parameter index like the following C# code:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div clang='' id="figure_474695989"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div clang='' id="figure_420980556"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="kt">var</span> <span class="n">name</span> <span class="p">=</span> <span class="s">&quot;World&quot;</span><span class="p">;</span>
 </span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&quot;Hello, {0}!&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">);</span>
 </span><span class='line'><span class="c1">// Hello, World!</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_474695989_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_420980556_alt" style="display:none;"></div></figure>
 
 
 <p>To show why indexed is better than ordered:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div clang='' id="figure_285412816"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div clang='' id="figure_716278734"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1813,12 +1813,12 @@ end
 </span><span class='line'><span class="kt">var</span> <span class="n">greeting</span> <span class="p">=</span> <span class="s">&quot;Hello,&quot;</span><span class="p">;</span>
 </span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&quot;&lt;span title=&#39;{0}&#39;&gt;{1} {0}!&lt;/span&gt; &quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">greeting</span><span class="p">);</span>
 </span><span class='line'><span class="c1">// &lt;span title=&#39;World&#39;&gt;Hello, World!&lt;/span&gt;</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_285412816_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_716278734_alt" style="display:none;"></div></figure>
 
 
 <p>What if I need curly brackets in my string?</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div clang='' id="figure_93672889"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div clang='' id="figure_316732061"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1844,14 +1844,14 @@ end
 </span><span class='line'><span class="c1">// function hello(name) {</span>
 </span><span class='line'><span class="c1">//   (...)</span>
 </span><span class='line'><span class="c1">// }</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_93672889_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_316732061_alt" style="display:none;"></div></figure>
 
 
 <h2>What do I need IFormattable for?</h2>
 
 <p>As stated before, IFormattable is both locale-aware and format-aware, but the basic formatting we&rsquo;ve seen so far is not. Let&rsquo;s see a example on how to use format parameter.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div clang='' id="figure_326027742"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div clang='' id="figure_746768601"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1885,7 +1885,7 @@ end
 </span><span class='line'><span class="c1">// Fancy stuff: -1 is &lt; zero</span>
 </span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Fancy stuff: {0:0.# is &gt; zero; -0.# is &lt; zero;0.# is zero}&quot;</span><span class="p">,</span> <span class="m">0d</span><span class="p">);</span>
 </span><span class='line'><span class="c1">// Fancy stuff: 0 is zero</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_326027742_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_746768601_alt" style="display:none;"></div></figure>
 
 
 <p>You can find everything about <a href="http://msdn.microsoft.com/en-us/library/dwhawy9k.aspx">number formatting</a> on MSDN.</p>
@@ -1896,7 +1896,7 @@ end
 
 <p>I haven&rsquo;t told you the coolest thing about formatting strings yet. As everything else, it comes for free in your custom API if you don&rsquo;t do anything fancy with the string before handing to String.Format. Let&rsquo;s suppose you are in fixed-width font environment like a dummy console app you created to test something or gather some data that isn&rsquo;t worth making a library for. You are probably spending a lot of effort to get it visually pleasant, but you don&rsquo;t need that. You could do just this:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div clang='' id="figure_85483359"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div clang='' id="figure_359417517"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1932,7 +1932,7 @@ end
 </span><span class='line'><span class="c1">//devenv                 364.6 MB</span>
 </span><span class='line'><span class="c1">//opera                  229.4 MB</span>
 </span><span class='line'><span class="c1">//svchost                103.3 MB</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_85483359_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_359417517_alt" style="display:none;"></div></figure>
 
 
 <h2>Further reading</h2>
@@ -1943,9 +1943,9 @@ end
   
   <entry>
     <title type="html"><![CDATA[F# Coding Dojo]]></title>
-    <link href="http://michelpm.com/2011/12/21/fsharp-coding-dojo/"/>
+    <link href="http://michelpm.com/blog/2011/12/21/fsharp-coding-dojo/"/>
     <updated>2011-12-21T00:00:00-02:00</updated>
-    <id>http://michelpm.com/2011/12/21/fsharp-coding-dojo</id>
+    <id>http://michelpm.com/blog/2011/12/21/fsharp-coding-dojo</id>
     <content type="html"><![CDATA[<p>I am an active member of a <a href="http://bludotnet.com.br">.NET user group</a> in <a href="http://en.wikipedia.org/wiki/Blumenau">the city I live</a>. We have monthly meetings that usually combine a lecture followed by an one hour <a href="http://code.joejag.com/2009/the-coding-dojo/">coding dojo</a>. August this year we had our monthly meeting and I spoke for an hour or so about F# and then challenged the other participants to translate to F# a small problem already codified with C#.</p>
 
 <h2>Presentation</h2>
@@ -1995,9 +1995,9 @@ The fourth asset the team had was myself. Devoid of eidetic memories, it would b
   
   <entry>
     <title type="html"><![CDATA[I Spun Off Linux From My Dev Machine]]></title>
-    <link href="http://michelpm.com/2011/11/14/i-spun-off-linux-from-my-dev-machine/"/>
+    <link href="http://michelpm.com/blog/2011/11/14/i-spun-off-linux-from-my-dev-machine/"/>
     <updated>2011-11-14T00:00:00-02:00</updated>
-    <id>http://michelpm.com/2011/11/14/i-spun-off-linux-from-my-dev-machine</id>
+    <id>http://michelpm.com/blog/2011/11/14/i-spun-off-linux-from-my-dev-machine</id>
     <content type="html"><![CDATA[<p>Some weeks ago I started to learn <a href="http://rubyonrails.org/">Rails</a> and I decided to make my dev machine the right way. By that I mean I had to make myself proficient with <a href="http://git-scm.com/">Git</a>, <a href="http://www.vim.org/">Vim</a>, Shell, <a href="http://en.wikipedia.org/wiki/Test-driven_development">TDD</a> and every other skill I thought a smart programmer would master. At first I didn&rsquo;t want to get rid of my state of art Windows 7 installation with awesome Microsoft Word 2010, Microsoft Visual Studio 2010 full of useful plugins and all that browsers installed to test web pages. I think I had everything a .NET developer would hope for, even had msysgit to play once in a while and pretend my OS was POSIX compliant.</p>
 
 <p>I started to install everything inside and outside <a href="http://code.google.com/p/msysgit/">msysgit</a> and <a href="http://www.cygwin.com/">Cygwin</a>, attempted to setup a gvim with everything a Rails developer need for an text editor. But it was just too hard, I tried for a long time, but couldn&rsquo;t stand anymore. It wasn&rsquo;t worth trying to convince Windows to be something it is not: a Linux. Don&rsquo;t get me wrong, I loved my Windows 7, I wouldn&rsquo;t want anything else to code .NET apps, but it wasn&rsquo;t the first time it disappointed me for things that are not rich GUI&rsquo;s like Visual Studio and I always tend to think that most of the good things aren&rsquo;t. <del>Just try <a href="http://nodejs.org">Node</a> on Windows and see what I am talking about.</del> (Looks like now it works just fine in Windows)</p>
@@ -2010,9 +2010,9 @@ The fourth asset the team had was myself. Devoid of eidetic memories, it would b
   
   <entry>
     <title type="html"><![CDATA[Initializing Things in C#]]></title>
-    <link href="http://michelpm.com/2011/10/07/initializing-things-in-csharp/"/>
+    <link href="http://michelpm.com/blog/2011/10/07/initializing-things-in-csharp/"/>
     <updated>2011-10-07T00:00:00-03:00</updated>
-    <id>http://michelpm.com/2011/10/07/initializing-things-in-csharp</id>
+    <id>http://michelpm.com/blog/2011/10/07/initializing-things-in-csharp</id>
     <content type="html"><![CDATA[<p>The C# team have introduced some nifty syntax sugars since C# 1.0. Among these new features are some to declare anonymous methods and delegates and initializers for objects and collections. They are are there for a while now and still are relatively unknown or misunderstood by the majority of C# programmers.</p>
 
 <p>I will try and clarify them a bit.</p>
@@ -2027,7 +2027,7 @@ The fourth asset the team had was myself. Devoid of eidetic memories, it would b
 
 <p>For the examples below we will use a dummy calculator that will be posted only once, since it won’t change in my experiments:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div clang='' id="figure_660286010"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div clang='' id="figure_810500289"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -2045,12 +2045,12 @@ The fourth asset the team had was myself. Devoid of eidetic memories, it would b
 </span><span class='line'>        <span class="k">return</span> <span class="nf">op</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
 </span><span class='line'>    <span class="p">}</span>
 </span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_660286010_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_810500289_alt" style="display:none;"></div></figure>
 
 
 <p>Now let’s do something with delegates and events. To demonstrate delegates we are using the delegate BinaryOperation we just defined that accepts two doubles and returns a double. To demonstrate events we are using AppDomain’s UnhandledException event.</p>
 
-<figure class='code'><figcaption><span>C# 1</span></figcaption><div clang='' id="figure_246479309"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 1</span></figcaption><div clang='' id="figure_106353701"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -2090,12 +2090,12 @@ The fourth asset the team had was myself. Devoid of eidetic memories, it would b
 </span><span class='line'><span class="p">{</span>
 </span><span class='line'>    <span class="k">return</span> <span class="n">x</span> <span class="p">+</span> <span class="n">y</span><span class="p">;</span>
 </span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_246479309_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_106353701_alt" style="display:none;"></div></figure>
 
 
 
 
-<figure class='code'><figcaption><span>C# 2 (using method group conversion)</span></figcaption><div clang='' id="figure_610018916"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 2 (using method group conversion)</span></figcaption><div clang='' id="figure_364320346"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -2131,12 +2131,12 @@ The fourth asset the team had was myself. Devoid of eidetic memories, it would b
 </span><span class='line'><span class="p">{</span>
 </span><span class='line'>    <span class="k">return</span> <span class="n">x</span> <span class="p">+</span> <span class="n">y</span><span class="p">;</span>
 </span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_610018916_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_364320346_alt" style="display:none;"></div></figure>
 
 
 
 
-<figure class='code'><figcaption><span>C# 2 (using anonymous methods)</span></figcaption><div clang='' id="figure_782765"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 2 (using anonymous methods)</span></figcaption><div clang='' id="figure_491352965"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -2168,14 +2168,14 @@ The fourth asset the team had was myself. Devoid of eidetic memories, it would b
 </span><span class='line'>    <span class="p">});</span>
 </span><span class='line'>    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
 </span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_782765_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_491352965_alt" style="display:none;"></div></figure>
 
 
 <p>They felt they were done selling VS2005 and then they launched VS2008 (C# 3.0). C# 3.0 was the sweetest of all versions, a lot of boilerplate code was removed with more than a handful of useful syntax sugars. The coolest of them is lambda, but the unusual mathematical name and awful big amount of noise in the internet about expression trees made a lot of people think lambda wasn’t just a syntax sugar, but a fancy super-complex super-dynamic .NET feature.</p>
 
 <p>First, let’s clarify what lambda is really about: a more succint syntax to declare functions inline. This is very close to the original definition in mathematics and it is the definition of how it makes your daily C# routine much more sweet.</p>
 
-<figure class='code'><figcaption><span>C# 3 (using lambda)</span></figcaption><div clang='' id="figure_315052668"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 3 (using lambda)</span></figcaption><div clang='' id="figure_57877730"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -2207,12 +2207,12 @@ The fourth asset the team had was myself. Devoid of eidetic memories, it would b
 </span><span class='line'>    <span class="p">});</span>
 </span><span class='line'>    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
 </span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_315052668_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_57877730_alt" style="display:none;"></div></figure>
 
 
 
 
-<figure class='code'><figcaption><span>C# 3 (using lambda and type inference)</span></figcaption><div clang='' id="figure_711154777"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 3 (using lambda and type inference)</span></figcaption><div clang='' id="figure_171855566"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -2240,12 +2240,12 @@ The fourth asset the team had was myself. Devoid of eidetic memories, it would b
 </span><span class='line'>    <span class="p">});</span>
 </span><span class='line'>    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
 </span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_711154777_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_171855566_alt" style="display:none;"></div></figure>
 
 
 
 
-<figure class='code'><figcaption><span>C# 3 (using lambda inlined and type inference)</span></figcaption><div clang='' id="figure_400335654"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 3 (using lambda inlined and type inference)</span></figcaption><div clang='' id="figure_678324082"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -2261,7 +2261,7 @@ The fourth asset the team had was myself. Devoid of eidetic memories, it would b
 </span><span class='line'>    <span class="kt">var</span> <span class="n">result</span> <span class="p">=</span> <span class="n">Calculator</span><span class="p">.</span><span class="n">Calculate</span><span class="p">(</span><span class="m">5.0d</span><span class="p">,</span> <span class="m">4.0d</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="n">x</span> <span class="p">+</span> <span class="n">y</span><span class="p">);</span>
 </span><span class='line'>    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
 </span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_400335654_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_678324082_alt" style="display:none;"></div></figure>
 
 
 <p>Every one of the examples compile and are IL-equivalent. Code very similar that do the same thing will be generated for each one by the C# compiler. If you are not using the last one, I ask you: why not?</p>
@@ -2274,7 +2274,7 @@ The fourth asset the team had was myself. Devoid of eidetic memories, it would b
 
 <p>For the examples below we will have declared two classes (please excuse the meaningless names):</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div clang='' id="figure_694062178"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div clang='' id="figure_15721529"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -2296,12 +2296,12 @@ The fourth asset the team had was myself. Devoid of eidetic memories, it would b
 </span><span class='line'>    <span class="k">public</span> <span class="kt">int</span> <span class="n">P1</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
 </span><span class='line'>    <span class="k">public</span> <span class="n">C1</span> <span class="n">P2</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
 </span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_694062178_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_15721529_alt" style="display:none;"></div></figure>
 
 
 <p>We want initialize a instance of C2 class, so we write the following code:</p>
 
-<figure class='code'><figcaption><span>C# 1</span></figcaption><div clang='' id="figure_774519909"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 1</span></figcaption><div clang='' id="figure_131672276"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -2317,47 +2317,47 @@ The fourth asset the team had was myself. Devoid of eidetic memories, it would b
 </span><span class='line'><span class="n">b</span><span class="p">.</span><span class="n">P2</span> <span class="p">=</span> <span class="n">a</span><span class="p">;</span>
 </span><span class='line'>
 </span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;&amp;#x7b;&amp;#x7b; P1:{0}, P2:&amp;#x7b;&amp;#x7b; P1:{1} }} }}&quot;</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">P1</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">P2</span><span class="p">.</span><span class="n">P1</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_774519909_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_131672276_alt" style="display:none;"></div></figure>
 
 
 
 
-<figure class='code'><figcaption><span>C# 3 (using object initializer)</span></figcaption><div clang='' id="figure_567251622"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 3 (using object initializer)</span></figcaption><div clang='' id="figure_382486633"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="kt">var</span> <span class="n">a</span> <span class="p">=</span> <span class="k">new</span> <span class="n">C1</span><span class="p">()</span> <span class="p">{</span> <span class="n">P1</span> <span class="p">=</span> <span class="m">5</span> <span class="p">};</span>
 </span><span class='line'><span class="kt">var</span> <span class="n">b</span> <span class="p">=</span> <span class="k">new</span> <span class="n">C2</span><span class="p">()</span> <span class="p">{</span> <span class="n">P1</span> <span class="p">=</span> <span class="m">4</span><span class="p">,</span> <span class="n">P2</span> <span class="p">=</span> <span class="n">a</span> <span class="p">};</span>
 </span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;&amp;#x7b;&amp;#x7b; P1:{0}, P2:&amp;#x7b;&amp;#x7b; P1:{1} }} }}&quot;</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">P1</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">P2</span><span class="p">.</span><span class="n">P1</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_567251622_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_382486633_alt" style="display:none;"></div></figure>
 
 
 
 
-<figure class='code'><figcaption><span>C# 3 (using object initializer)</span></figcaption><div clang='' id="figure_748970833"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 3 (using object initializer)</span></figcaption><div clang='' id="figure_270345982"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="kt">var</span> <span class="n">a</span> <span class="p">=</span> <span class="k">new</span> <span class="n">C1</span> <span class="p">{</span> <span class="n">P1</span> <span class="p">=</span> <span class="m">5</span> <span class="p">};</span>
 </span><span class='line'><span class="kt">var</span> <span class="n">b</span> <span class="p">=</span> <span class="k">new</span> <span class="n">C2</span> <span class="p">{</span> <span class="n">P1</span> <span class="p">=</span> <span class="m">4</span><span class="p">,</span> <span class="n">P2</span> <span class="p">=</span> <span class="n">a</span> <span class="p">};</span>
 </span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;&amp;#x7b;&amp;#x7b; P1:{0}, P2:&amp;#x7b;&amp;#x7b; P1:{1} }} }}&quot;</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">P1</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">P2</span><span class="p">.</span><span class="n">P1</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_748970833_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_270345982_alt" style="display:none;"></div></figure>
 
 
 
 
-<figure class='code'><figcaption><span>C# 3 (using object initializer)</span></figcaption><div clang='' id="figure_688971904"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 3 (using object initializer)</span></figcaption><div clang='' id="figure_150380359"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="kt">var</span> <span class="n">b</span> <span class="p">=</span> <span class="k">new</span> <span class="n">C2</span> <span class="p">{</span> <span class="n">P1</span> <span class="p">=</span> <span class="m">4</span><span class="p">,</span> <span class="n">P2</span> <span class="p">=</span> <span class="k">new</span> <span class="n">C1</span> <span class="p">{</span> <span class="n">P1</span> <span class="p">=</span> <span class="m">5</span> <span class="p">}</span> <span class="p">};</span>
 </span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;&amp;#x7b;&amp;#x7b; P1:{0}, P2:&amp;#x7b;&amp;#x7b; P1:{1} }} }}&quot;</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">P1</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">P2</span><span class="p">.</span><span class="n">P1</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_688971904_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_150380359_alt" style="display:none;"></div></figure>
 
 
 
 
-<figure class='code'><figcaption><span>C# 3 (using object initializer)</span></figcaption><div clang='' id="figure_803785506"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 3 (using object initializer)</span></figcaption><div clang='' id="figure_588190550"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="kt">var</span> <span class="n">b</span> <span class="p">=</span> <span class="k">new</span> <span class="n">C2</span> <span class="p">{</span> <span class="n">P1</span> <span class="p">=</span> <span class="m">4</span><span class="p">,</span> <span class="n">P2</span> <span class="p">=</span> <span class="p">{</span> <span class="n">P1</span> <span class="p">=</span> <span class="m">5</span> <span class="p">}</span> <span class="p">};</span>
 </span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;&amp;#x7b;&amp;#x7b; P1:{0}, P2:&amp;#x7b;&amp;#x7b; P1:{1} }} }}&quot;</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">P1</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">P2</span><span class="p">.</span><span class="n">P1</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_803785506_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_588190550_alt" style="display:none;"></div></figure>
 
 
 <p>It is amazing how much boilerplate code we got rid of. Up to this point every version I presented do exactly the same thing. So again, if you are not using the last one: why not?</p>
@@ -2366,29 +2366,29 @@ The fourth asset the team had was myself. Devoid of eidetic memories, it would b
 
 <p>First thing you remove the code where you declared C1 and C2 classes. Now your initialization code doesn’t work because you specified a name for the class. The version for C# 1 cannot be converted to anonymous types because you need to specify a property upon initialization. Let’s start fixing our code to compile with anonymous types.</p>
 
-<figure class='code'><figcaption><span>C# 3 (using anonymous types)</span></figcaption><div clang='' id="figure_249714077"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 3 (using anonymous types)</span></figcaption><div clang='' id="figure_822599535"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="kt">var</span> <span class="n">a</span> <span class="p">=</span> <span class="k">new</span> <span class="p">{</span> <span class="n">P1</span> <span class="p">=</span> <span class="m">5</span> <span class="p">};</span>
 </span><span class='line'><span class="kt">var</span> <span class="n">b</span> <span class="p">=</span> <span class="k">new</span> <span class="p">{</span> <span class="n">P1</span> <span class="p">=</span> <span class="m">4</span><span class="p">,</span> <span class="n">P2</span> <span class="p">=</span> <span class="n">a</span> <span class="p">};</span>
 </span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;&amp;#x7b;&amp;#x7b; P1:{0}, P2:&amp;#x7b;&amp;#x7b; P1:{1} }} }}&quot;</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">P1</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">P2</span><span class="p">.</span><span class="n">P1</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_249714077_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_822599535_alt" style="display:none;"></div></figure>
 
 
 
 
-<figure class='code'><figcaption><span>C# 3 (using anonymous types)</span></figcaption><div clang='' id="figure_292395179"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 3 (using anonymous types)</span></figcaption><div clang='' id="figure_732584985"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="kt">var</span> <span class="n">b</span> <span class="p">=</span> <span class="k">new</span> <span class="p">{</span> <span class="n">P1</span> <span class="p">=</span> <span class="m">4</span><span class="p">,</span> <span class="n">P2</span> <span class="p">=</span> <span class="k">new</span> <span class="p">{</span> <span class="n">P1</span> <span class="p">=</span> <span class="m">5</span> <span class="p">}</span> <span class="p">};</span>
 </span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;&amp;#x7b;&amp;#x7b; P1:{0}, P2:&amp;#x7b;&amp;#x7b; P1:{1} }} }}&quot;</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">P1</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">P2</span><span class="p">.</span><span class="n">P1</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_292395179_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_732584985_alt" style="display:none;"></div></figure>
 
 
 <p>The code above does not instantiate any specific class, but the one it will generate and that you won’t have access. The only thing you can do with those objects is use its properties and discard it after the method ends. It is sometimes more practical not to declare types for something that you will use just once in a method, for example in a LINQ query. Any other use of the anonymous objects is not advisable, please consider it wisely and do not overuse it.</p>
 
 <p>Now for the sake of knowledge let’s try a slightly different different:</p>
 
-<figure class='code'><figcaption><span>C# 3 (using anonymous types and property name inference)</span></figcaption><div clang='' id="figure_133308557"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 3 (using anonymous types and property name inference)</span></figcaption><div clang='' id="figure_977142649"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -2396,7 +2396,7 @@ The fourth asset the team had was myself. Devoid of eidetic memories, it would b
 </span><span class='line'><span class="kt">var</span> <span class="n">a</span> <span class="p">=</span> <span class="k">new</span> <span class="p">{</span> <span class="n">P1</span> <span class="p">=</span> <span class="n">n</span> <span class="p">};</span>
 </span><span class='line'><span class="kt">var</span> <span class="n">b</span> <span class="p">=</span> <span class="k">new</span> <span class="p">{</span> <span class="n">P1</span> <span class="p">=</span> <span class="m">4</span><span class="p">,</span> <span class="n">a</span> <span class="p">};</span>
 </span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;&amp;#x7b;&amp;#x7b; P1:{0}, a:&amp;#x7b;&amp;#x7b; P1:{1} }} }}&quot;</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">P1</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">a</span><span class="p">.</span><span class="n">P1</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_133308557_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_977142649_alt" style="display:none;"></div></figure>
 
 
 <p>In the above code I did not specify the name of the property to assign the variable therefore the variable name was assigned as the name of the property. This may reduces a bunch of code when using anonymous types as well as the readability. This alternative syntax does not work for object initializers.</p>
@@ -2405,7 +2405,7 @@ The fourth asset the team had was myself. Devoid of eidetic memories, it would b
 
 <p>It is not unusual to declare collections adding itens one by one. If you are doing it then you probably could replace that with a more object oriented approach. You could do that with if’s and enum’s, but you probably won’t do for every one of them. In C# 1 e 2 they probably didn’t realize the pain it would be to initialize collections item by item. Older C# versions already had initializers for arrays only. Let’s see how you would split a string by low case vowels removing empty entries:</p>
 
-<figure class='code'><figcaption><span>C# 1</span></figcaption><div clang='' id="figure_238667397"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 1</span></figcaption><div clang='' id="figure_878329077"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -2423,12 +2423,12 @@ The fourth asset the team had was myself. Devoid of eidetic memories, it would b
 </span><span class='line'><span class="n">separators</span><span class="p">[</span><span class="m">4</span><span class="p">]</span> <span class="p">=</span> <span class="sc">&#39;u&#39;</span><span class="p">;</span>
 </span><span class='line'><span class="kt">var</span> <span class="n">newString</span> <span class="p">=</span> <span class="n">s</span><span class="p">.</span><span class="n">Split</span><span class="p">(</span><span class="n">separators</span><span class="p">,</span> <span class="n">StringSplitOptions</span><span class="p">.</span><span class="n">RemoveEmptyEntries</span><span class="p">);</span>
 </span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="kt">string</span><span class="p">.</span><span class="n">Join</span><span class="p">(</span><span class="s">&quot;, &quot;</span><span class="p">,</span> <span class="n">newString</span><span class="p">));</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_238667397_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_878329077_alt" style="display:none;"></div></figure>
 
 
 
 
-<figure class='code'><figcaption><span>C# 1 (using array initializer)</span></figcaption><div clang='' id="figure_191463427"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 1 (using array initializer)</span></figcaption><div clang='' id="figure_848976407"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -2436,12 +2436,12 @@ The fourth asset the team had was myself. Devoid of eidetic memories, it would b
 </span><span class='line'><span class="kt">char</span><span class="p">[]</span> <span class="n">separators</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">char</span><span class="p">[</span><span class="m">5</span><span class="p">]</span> <span class="p">{</span> <span class="sc">&#39;a&#39;</span><span class="p">,</span> <span class="sc">&#39;e&#39;</span><span class="p">,</span> <span class="sc">&#39;i&#39;</span><span class="p">,</span> <span class="sc">&#39;o&#39;</span><span class="p">,</span> <span class="sc">&#39;u&#39;</span> <span class="p">};</span>
 </span><span class='line'><span class="kt">var</span> <span class="n">newString</span> <span class="p">=</span> <span class="n">s</span><span class="p">.</span><span class="n">Split</span><span class="p">(</span><span class="n">separators</span><span class="p">,</span> <span class="n">StringSplitOptions</span><span class="p">.</span><span class="n">RemoveEmptyEntries</span><span class="p">);</span>
 </span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="kt">string</span><span class="p">.</span><span class="n">Join</span><span class="p">(</span><span class="s">&quot;, &quot;</span><span class="p">,</span> <span class="n">newString</span><span class="p">));</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_191463427_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_848976407_alt" style="display:none;"></div></figure>
 
 
 
 
-<figure class='code'><figcaption><span>C# 1 (using array initializer)</span></figcaption><div clang='' id="figure_856852331"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 1 (using array initializer)</span></figcaption><div clang='' id="figure_669177490"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -2449,12 +2449,12 @@ The fourth asset the team had was myself. Devoid of eidetic memories, it would b
 </span><span class='line'><span class="kt">char</span><span class="p">[]</span> <span class="n">separators</span> <span class="p">=</span> <span class="p">{</span> <span class="sc">&#39;a&#39;</span><span class="p">,</span> <span class="sc">&#39;e&#39;</span><span class="p">,</span> <span class="sc">&#39;i&#39;</span><span class="p">,</span> <span class="sc">&#39;o&#39;</span><span class="p">,</span> <span class="sc">&#39;u&#39;</span> <span class="p">};</span>
 </span><span class='line'><span class="kt">var</span> <span class="n">newString</span> <span class="p">=</span> <span class="n">s</span><span class="p">.</span><span class="n">Split</span><span class="p">(</span><span class="n">separators</span><span class="p">,</span> <span class="n">StringSplitOptions</span><span class="p">.</span><span class="n">RemoveEmptyEntries</span><span class="p">);</span>
 </span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="kt">string</span><span class="p">.</span><span class="n">Join</span><span class="p">(</span><span class="s">&quot;, &quot;</span><span class="p">,</span> <span class="n">newString</span><span class="p">));</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_856852331_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_669177490_alt" style="display:none;"></div></figure>
 
 
 
 
-<figure class='code'><figcaption><span>C# 1 (using array initializer)</span></figcaption><div clang='' id="figure_931125651"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 1 (using array initializer)</span></figcaption><div clang='' id="figure_793329382"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -2462,12 +2462,12 @@ The fourth asset the team had was myself. Devoid of eidetic memories, it would b
 </span><span class='line'><span class="kt">var</span> <span class="n">newString</span> <span class="p">=</span> <span class="n">s</span><span class="p">.</span><span class="n">Split</span><span class="p">(</span><span class="k">new</span> <span class="kt">char</span><span class="p">[]</span> <span class="p">{</span> <span class="sc">&#39;a&#39;</span><span class="p">,</span> <span class="sc">&#39;e&#39;</span><span class="p">,</span> <span class="sc">&#39;i&#39;</span><span class="p">,</span> <span class="sc">&#39;o&#39;</span><span class="p">,</span> <span class="sc">&#39;u&#39;</span> <span class="p">},</span>
 </span><span class='line'>                        <span class="n">StringSplitOptions</span><span class="p">.</span><span class="n">RemoveEmptyEntries</span><span class="p">);</span>
 </span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="kt">string</span><span class="p">.</span><span class="n">Join</span><span class="p">(</span><span class="s">&quot;, &quot;</span><span class="p">,</span> <span class="n">newString</span><span class="p">));</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_931125651_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_793329382_alt" style="display:none;"></div></figure>
 
 
 
 
-<figure class='code'><figcaption><span>C# 3 (using array initializer and type inference)</span></figcaption><div clang='' id="figure_168762774"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 3 (using array initializer and type inference)</span></figcaption><div clang='' id="figure_744376748"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -2475,12 +2475,12 @@ The fourth asset the team had was myself. Devoid of eidetic memories, it would b
 </span><span class='line'><span class="kt">var</span> <span class="n">newString</span> <span class="p">=</span> <span class="n">s</span><span class="p">.</span><span class="n">Split</span><span class="p">(</span><span class="k">new</span><span class="p">[]</span> <span class="p">{</span> <span class="sc">&#39;a&#39;</span><span class="p">,</span> <span class="sc">&#39;e&#39;</span><span class="p">,</span> <span class="sc">&#39;i&#39;</span><span class="p">,</span> <span class="sc">&#39;o&#39;</span><span class="p">,</span> <span class="sc">&#39;u&#39;</span> <span class="p">},</span>
 </span><span class='line'>                        <span class="n">StringSplitOptions</span><span class="p">.</span><span class="n">RemoveEmptyEntries</span><span class="p">);</span>
 </span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="kt">string</span><span class="p">.</span><span class="n">Join</span><span class="p">(</span><span class="s">&quot;, &quot;</span><span class="p">,</span> <span class="n">newString</span><span class="p">));</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_168762774_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_744376748_alt" style="display:none;"></div></figure>
 
 
 <p>This example is somewhat limited because it explore just what you can do to initialize arrays, but since then you can use the same syntax to initialize any other collecion type. A type is initializable through this syntax if it has an Add method. A generic list has an Add method with one parameter, while a generic dictionary has and Add method with two parameters. Let’s see how to initialize both.</p>
 
-<figure class='code'><figcaption><span>C# 1</span></figcaption><div clang='' id="figure_363368942"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 1</span></figcaption><div clang='' id="figure_971696132"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -2492,25 +2492,25 @@ The fourth asset the team had was myself. Devoid of eidetic memories, it would b
 </span><span class='line'><span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">b</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;();</span>
 </span><span class='line'><span class="n">b</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="m">1</span><span class="p">);</span>
 </span><span class='line'><span class="n">b</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="m">2</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_363368942_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_971696132_alt" style="display:none;"></div></figure>
 
 
 
 
-<figure class='code'><figcaption><span>C# 3 (using collection initializer)</span></figcaption><div clang='' id="figure_322318969"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 3 (using collection initializer)</span></figcaption><div clang='' id="figure_75543377"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">&gt;</span> <span class="n">a</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">&gt;()</span> <span class="p">{</span> <span class="p">{</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span> <span class="p">},</span> <span class="p">{</span> <span class="m">2</span><span class="p">,</span> <span class="m">4</span> <span class="p">}</span> <span class="p">};</span>
 </span><span class='line'><span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">b</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;()</span> <span class="p">{</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span> <span class="p">};</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_322318969_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_75543377_alt" style="display:none;"></div></figure>
 
 
 
 
-<figure class='code'><figcaption><span>C# 3 (using collection initializer)</span></figcaption><div clang='' id="figure_961914470"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>C# 3 (using collection initializer)</span></figcaption><div clang='' id="figure_523968275"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">&gt;</span> <span class="n">a</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">&gt;</span> <span class="p">{</span> <span class="p">{</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span> <span class="p">},</span> <span class="p">{</span> <span class="m">2</span><span class="p">,</span> <span class="m">4</span> <span class="p">}</span> <span class="p">};</span>
 </span><span class='line'><span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">b</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="p">{</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span> <span class="p">};</span>
-</span></code></pre></td></tr></table></div></div><div clang='' id="figure_961914470_alt" style="display:none;"></div></figure>
+</span></code></pre></td></tr></table></div></div><div clang='' id="figure_523968275_alt" style="display:none;"></div></figure>
 
 
 <h3>Conclusion</h3>
@@ -2521,9 +2521,9 @@ The fourth asset the team had was myself. Devoid of eidetic memories, it would b
   
   <entry>
     <title type="html"><![CDATA[Why I Hate Not to Know Vim]]></title>
-    <link href="http://michelpm.com/2011/08/26/why-i-hate-not-to-know-vim/"/>
+    <link href="http://michelpm.com/blog/2011/08/26/why-i-hate-not-to-know-vim/"/>
     <updated>2011-08-26T00:00:00-03:00</updated>
-    <id>http://michelpm.com/2011/08/26/why-i-hate-not-to-know-vim</id>
+    <id>http://michelpm.com/blog/2011/08/26/why-i-hate-not-to-know-vim</id>
     <content type="html"><![CDATA[<p>Several times I stumbled with big SQL queries, but this one I was asked to fix was huge. I wouldn&rsquo;t question if it should be that big because refactoring that just wasn&rsquo;t worth it. Like other stupidly big queries it had really big sub-queries deeply nested in both projection (SELECT) and selection (FROM) sections. Needless to say it had a complex and badly designed spaghetti of joins. There were several N to N relationships that would be nothing but usual if not for the fact they were hiding several other circular references with some awful large perimeters. I found later there were also some inconsistent joins that should be done to correct relations that pointed to the wrong table.</p>
 
 <p>So far so good, the query was evil and according to my assignment, it would produce somewhat rare unexpected results. My luck is that my test environment couldn&rsquo;t be better, I could test directly in the database where the bug was found.</p>
