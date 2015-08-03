@@ -3159,14 +3159,14 @@
         var state = { section: section };
         var title = showSection(section);
         if (section === 'intro') {
-          history.pushState(state, intro, $(this).prop('href'));
+          history.pushState(state, title, $(this).prop('href'));
         } else {
-          history.pushState(state, intro, hash);
+          history.pushState(state, title, hash);
         }
       });
 
       if (history.state == null) {
-        var hash   = window.location.hash ? window.location.hash.replace(/^#(intro)?/, '') : '';
+        var hash = window.location.hash ? window.location.hash.replace(/^#(intro)?/, '') : '';
         var state = { section: hash || 'intro' };
         var title = showSection(state.section);
         if (hash.length > 0) {
